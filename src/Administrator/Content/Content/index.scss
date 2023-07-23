@@ -1,0 +1,32 @@
+.btn-cstm{
+    border: 1px solid #16639e !important;
+    color: white !important;
+    opacity: 0.8 !important;
+}
+table{
+    a{
+        text-align: center;
+    }
+    .MuiSelect-select{
+        background: white;
+    }
+    a:hover{
+        cursor: pointer;
+     }
+    thead{
+        background: #f0f0f0;
+        a{
+            color: inherit !important;
+        } 
+    }
+}
+
+.noData{
+    width: 100%;
+    height: 5rem;
+    text-align: center;
+    margin: 2rem -1rem;
+    font-size: 28px;
+// .w-85{
+//     width: 85% !important;
+}

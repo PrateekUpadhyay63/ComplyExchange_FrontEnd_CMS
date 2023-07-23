@@ -1,4 +1,4 @@
-import React, { Fragment, Component, useState } from "react";
+import React, { Fragment, Component, useState,useEffect } from "react";
 
 import Slider from "react-slick";
 // import {Button} from "@mui/material";
@@ -40,6 +40,8 @@ const Login = () => {
     autoplay: true,
     adaptiveHeight: true,
   };
+
+  useEffect(()=>{localStorage.clear();},[])
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };

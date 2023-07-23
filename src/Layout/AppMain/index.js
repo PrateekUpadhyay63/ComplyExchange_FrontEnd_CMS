@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Suspense, lazy, Fragment } from "react";
 import Loader from "react-loaders";
-import PrivateRoute from "./privateRoute";
+// import PrivateRoute from "./privateRoute";
 import { ToastContainer } from "react-toastify";
 import { Help } from "@mui/icons-material";
 

@@ -149,6 +149,51 @@ export const getAllDocumentaions = (page,size,search) => {
   };
 };
 
+export const getSecurityKeys = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_SECURITY_KEY,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_SECURITY_KEY,
+          payload: {
+            securityKeyData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const upsertSecurityKeys = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPSERT_SECURITY_KEY,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPSERT_SECURITY_KEY,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const getAllLOB = () => {
   return (dispatch) => {
     Utils.api.getApiCall(

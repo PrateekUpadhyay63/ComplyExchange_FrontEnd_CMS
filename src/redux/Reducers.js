@@ -81,6 +81,7 @@ const {
   POST_CONTENT_TRANSLATION,
   GET_SOURCED_INCOME_ONBOARDED,
   GET_SELF_CERTIFICATION,
+  GET_SECURITY_KEY,
 
 } = Utils.ActionName;
 
@@ -89,6 +90,15 @@ let initialState = [];
 export const getLangListReducer = (state = initialState, action) => {
   switch (action.type) {
     case LANG_BY_SEARCH:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getSecurityKeysReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SECURITY_KEY:
       return { ...state, ...action.payload };
     default:
       return state;

@@ -8,6 +8,7 @@ const api_error_code = {
   validationError: 400,
   emailNotVerified: 403,
 };
+
 const environment = "dev";
 const $axios = axios.create({
   baseURL: 'http://122.176.101.76:8088/api',
@@ -15,6 +16,8 @@ const $axios = axios.create({
   headers: {
     "Content-Type": "*/*",
     "Access-Control-Allow-Origin": "*",
+    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+    'Content-Type': 'application/json',
   },
 });
 const $axios1 = axios.create({

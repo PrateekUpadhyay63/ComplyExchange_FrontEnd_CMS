@@ -171,6 +171,10 @@ const endPoint = {
   GET_QUESTION_LANGUAGE:"Setting/GetAllHintLanguage",
   UPSERT_QUESTION_TRANSLATION:"Setting/UpsertQuestionTranslation",
   GET_HINT_TRANSLATION:"Setting/GetQuestionHintTranslation",
+
+  //Security keys
+  GET_SECURITY_KEY:"SecurityKey/GetSecurity",
+  UPSERT_SECURITY_KEY:"SecurityKey/UpsertSecurity",
 };
 
 export default endPoint;

@@ -7,6 +7,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import reducers from "../reducers";
 import {
   getAllPagesReducer,
+  getSecurityKeysReducer,
   getAgentTranslationReducer,
   CountriesReducer,
   LanguagesReducer,
@@ -87,6 +88,7 @@ export default function configureStore() {
       ...reducers,
 
       getAllPagesReducer,
+      getSecurityKeysReducer,
       getAgentTranslationReducer,
       LanguagesReducer,
       CountriesReducer,

@@ -97,7 +97,7 @@ const loginApiCall = (endPoint, params, successCallback, errorCallback) => {
     })
 }
 const deleteApiCall = (endPoint, params, successCallback, errorCallback) => {
- Utils.constants.axios.delete(endPoint,params,{headers:{ 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`}})
+ Utils.constants.axios.delete(endPoint,params)
     .then(response => {
       successCallback(response)
     })
@@ -138,7 +138,7 @@ const deleteApiCall = (endPoint, params, successCallback, errorCallback) => {
       }
     })
 }
-let headers = {
+var headers = {
   'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
   'Content-Type': 'application/json',
 }

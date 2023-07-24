@@ -51,7 +51,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(
       loginAction(data, () => {
-        history.push("pages");
+        history.push("/content");
         window.location.reload();
       })
     );

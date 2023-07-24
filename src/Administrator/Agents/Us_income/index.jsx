@@ -279,6 +279,7 @@ function USIncome({ match }) {
                   size="small"
                   className="btn-cstm  mt-2 mb-3"
                   style={{ float: "right" }}
+                  onClick={()=>{history.push("/agent")}}
                 >
                   Back
                 </Button>

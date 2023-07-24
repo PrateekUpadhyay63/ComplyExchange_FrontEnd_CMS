@@ -1185,6 +1185,7 @@ export default function Language_details() {
                         size="small"
                         variant="outlined"
                         sx={{ mr: 1 }}
+                        onClick={()=>{history.push("/agent")}}
                       >
                         cancel
                       </Button>

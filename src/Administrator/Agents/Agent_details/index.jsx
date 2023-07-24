@@ -816,7 +816,7 @@ function UserManagement ({ match }) {
             </div>
             <form  onSubmit={e => handleSubmit(e)} className=' mx-3 my-2'>
               <div className='row flex-column  card p-4'>
-                <div className=' col-12 expend-card'>
+                <div className=' col-10 expend-card'>
                   <CardHeader
                     className=''
                     title='Agent Detail & Domain Identification'
@@ -1048,7 +1048,7 @@ function UserManagement ({ match }) {
                     </div>
                   </Collapse>
                 </div>
-                <div className=' col-12 mt-1 expend-card '>
+                <div className=' col-10 mt-1 expend-card '>
                   <CardHeader
                     className=''
                     title='Look & Feel'
@@ -1299,7 +1299,7 @@ function UserManagement ({ match }) {
                     </div> */}
                   </Collapse>
                 </div>
-                <div className='col-12 mt-1 expend-card'>
+                <div className='col-10 mt-1 expend-card'>
                   <CardHeader
                     className=''
                     title="User ID's & Passwords"
@@ -1736,7 +1736,7 @@ function UserManagement ({ match }) {
                     </div>
                   </div>
             
-                <div className=' col-12 expend-card'>
+                <div className=' col-10 expend-card'>
                   <CardHeader
                     className=''
                     title='Process Options'
@@ -3622,7 +3622,7 @@ function UserManagement ({ match }) {
                     </div>
                   </div>
                 </div>
-                <div className='col-8 my-2 expend-card'>
+                <div className='col-10 my-2 expend-card'>
                   <CardHeader
                     className=''
                     title='

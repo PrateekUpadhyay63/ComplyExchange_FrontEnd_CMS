@@ -529,6 +529,7 @@ function FormType({ match }) {
                 size="small"
                 className="btn-cstm mx-2 mt-1"
                 style={{ float: "right" }}
+                onClick={()=>{history.push("/agent")}}
               >
                 Back
               </Button>

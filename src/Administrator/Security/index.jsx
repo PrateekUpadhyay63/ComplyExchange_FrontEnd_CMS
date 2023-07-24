@@ -94,10 +94,10 @@ export default function ContentManagement() {
   //     dispatch(getAllFormInstructions(page, size));
   //   }, [page]);
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     // upsertSecurityKeys(data)
-  }
+  };
 
   return (
     <Fragment>
@@ -173,34 +173,38 @@ export default function ContentManagement() {
                         </TableRow>
                       </thead>
                       <tbody>
-                        {tableData?.securityKeyData?.map((i, ind) => (
-                          <TableRow key={ind}>
-                            <TableCell className="text" scope="row">
-                              {i.id}
-                            </TableCell>
-                            <TableCell>
-                              <TextField
-                                className="w-100 textFieldClass "
-                                value={i.key}
-                                name="name"
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <div className="text">
-                                {/* For time add  HH:mm:ss */}
-                                {moment(i?.modifiedOnmoment).format(
-                                  "YYYY-MM-DD"
-                                )
-                                  ? moment(i?.modifiedOnmoment).format(
+                        {tableData?.securityKeyData?.map((i, ind) => {
+                          if (i.keyId == 1) {
+                            return (
+                              <TableRow key={ind}>
+                                <TableCell className="text" scope="row">
+                                  {i.id}
+                                </TableCell>
+                                <TableCell>
+                                  <TextField
+                                    className="w-100 textFieldClass"
+                                    value={i.key}
+                                    name="name"
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <div className="text">
+                                    {/* For time add  HH:mm:ss */}
+                                    {moment(i?.modifiedOnmoment).format(
                                       "YYYY-MM-DD"
                                     )
-                                  : moment(i?.createdOn).format(
-                                      "YYYY-MM-DD"
-                                    )}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                                      ? moment(i?.modifiedOnmoment).format(
+                                          "YYYY-MM-DD"
+                                        )
+                                      : moment(i?.createdOn).format(
+                                          "YYYY-MM-DD"
+                                        )}
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          }
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -228,34 +232,38 @@ export default function ContentManagement() {
                         </TableRow>
                       </thead>
                       <tbody>
-                      {tableData?.securityKeyData?.map((i, ind) => (
-                          <TableRow key={ind}>
-                            <TableCell className="text" scope="row">
-                              {i.id}
-                            </TableCell>
-                            <TableCell>
-                              <TextField
-                                className="w-100 textFieldClass "
-                                value={i.key}
-                                name="name"
-                              />
-                            </TableCell>
-                            <TableCell>
-                              <div className="text">
-                                {/* For time add  HH:mm:ss */}
-                                {moment(i?.modifiedOnmoment).format(
-                                  "YYYY-MM-DD"
-                                )
-                                  ? moment(i?.modifiedOnmoment).format(
+                      {tableData?.securityKeyData?.map((i, ind) => {
+                          if (i.keyId == 2) {
+                            return (
+                              <TableRow key={ind}>
+                                <TableCell className="text" scope="row">
+                                  {i.id}
+                                </TableCell>
+                                <TableCell>
+                                  <TextField
+                                    className="w-100 textFieldClass"
+                                    value={i.key}
+                                    name="name"
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <div className="text">
+                                    {/* For time add  HH:mm:ss */}
+                                    {moment(i?.modifiedOnmoment).format(
                                       "YYYY-MM-DD"
                                     )
-                                  : moment(i?.createdOn).format(
-                                      "YYYY-MM-DD"
-                                    )}
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        ))}
+                                      ? moment(i?.modifiedOnmoment).format(
+                                          "YYYY-MM-DD"
+                                        )
+                                      : moment(i?.createdOn).format(
+                                          "YYYY-MM-DD"
+                                        )}
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          }
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -268,7 +276,7 @@ export default function ContentManagement() {
                 style={{ float: "right", marginLeft: "5px" }}
                 size="small"
                 onClick={(e) => {
-                 handleSubmit(e)
+                  handleSubmit(e);
                 }}
               >
                 Save

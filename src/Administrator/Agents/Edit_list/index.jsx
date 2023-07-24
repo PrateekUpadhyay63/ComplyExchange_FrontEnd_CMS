@@ -1282,7 +1282,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon    onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1330,7 +1333,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1378,7 +1384,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1426,7 +1435,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1474,7 +1486,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1522,7 +1537,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1570,7 +1588,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1618,7 +1639,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"
@@ -1666,7 +1690,10 @@ const handleClose = () => setOpen1(false);
                       </   TableCell>
                       < TableCell>
                         <div className="d-flex">
-                        <EditIcon  style={{
+                        <EditIcon  onClick={() => {
+                                      setOpen2(true);
+                                      
+                                    }} style={{
                                         color: "green",
                                         fontSize: "20px",
                                         cursor:"pointer"

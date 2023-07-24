@@ -178,7 +178,7 @@ console.log(CapacitiesData,"CapacitiesData")
                           
                  
          
-                                <thead>
+                                <TableHead>
                                     <TableRow  className='table_head'>
                                         <TableCell className='table_head'  >Name</TableCell>
                                         <TableCell className='table_head' >Is proxy mandatory</TableCell>
@@ -193,7 +193,7 @@ console.log(CapacitiesData,"CapacitiesData")
                                         <TableCell  className='table_head'>Actions</TableCell>
 
                                     </TableRow>
-                                </thead>
+                                </TableHead>
                                 <TableBody>
                                 {CapacitiesData?.capacitiesData?.records?.map((i, ind) => {
                                     return(

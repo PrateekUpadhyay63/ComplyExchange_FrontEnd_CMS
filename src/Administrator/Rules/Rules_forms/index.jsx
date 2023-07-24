@@ -157,11 +157,11 @@ export default function PhraseTable() {
                       >
                         <TableHead>
                           <TableRow>
-                            <TableCell scope="col" className="table_head">
+                            <TableCell  className="table_head">
                               Code
                             </TableCell>
                             <TableCell
-                              scope="col"
+                              
                               align="center"
                               className="table_head"
                             >
@@ -169,7 +169,7 @@ export default function PhraseTable() {
                             </TableCell>
 
                             <TableCell
-                              scope="col"
+                              
                               align="center"
                               className="table_head"
                             >
@@ -177,21 +177,21 @@ export default function PhraseTable() {
                             </TableCell>
 
                             <TableCell
-                              scope="col"
+                              
                               align="center"
                               className="table_head"
                             >
                               Disable Continue
                             </TableCell>
                             <TableCell
-                              scope="col"
+                              
                               align="center"
                               className="table_head"
                             >
                               Translations
                             </TableCell>
                             <TableCell
-                              scope="col"
+                              
                               align="right"
                               className="table_head"
                             >
@@ -212,8 +212,7 @@ export default function PhraseTable() {
                               <TableCell
                                style={{width:'150px'}}
                                 className="table_content"
-                                component="th"
-                                scope="row"
+                                
                               >
                                 {row.code}
                               </TableCell>
@@ -221,20 +220,20 @@ export default function PhraseTable() {
                               <TableCell
                               style={{width:'150px'}}
                                 className="table_content"
-                                scope="row"
+                                
                                 align="center"
                               >
                                 {row.ruleClass}
                               </TableCell>
                               <TableCell
                                 className="table_content"
-                                scope="row"
+                                
                                 align="center"
                               >
                                 {row.warning}
                               </TableCell>
 
-                              <TableCell scope="row" align="center">
+                              <TableCell  align="center">
                                 <Checkbox
                                   type="Checkbox"
                                   checked={row.disableRule}

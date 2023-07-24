@@ -252,7 +252,7 @@ export default function Countries_details() {
               <Button
                 type="reset"
                 size="small"
-               
+                onClick={()=>{history.push("/administrators")}}
                 variant="outlined"
                 sx={{ mr:1}}
                

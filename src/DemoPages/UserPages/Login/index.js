@@ -58,8 +58,8 @@ const Login = () => {
   };
   return (
     <Fragment>
-      <div className="h-100">
-        <Row className="h-100 g-0">
+      <div className="h-99">
+        <Row className="h-100 g-0 row">
           <Col lg="4" className="d-none d-lg-block">
             <div className="slider-light">
               <Slider {...settings}>
@@ -126,12 +126,12 @@ const Login = () => {
                   Please sign in to your account
                 </span>
               </h4>
-              <h6 className="mt-3">
+              {/* <h6 className="mt-3">
                 No account?{" "}
                 <Link to="/register" className="text-primary">
                   Sign up now
                 </Link>
-              </h6>
+              </h6> */}
 
               <div>
                 <Form>
@@ -154,7 +154,7 @@ const Login = () => {
                          
                       </FormGroup>
                     </Col>
-                    <Col md={6}>
+                    <Col md={6} className="column">
                       <FormGroup>
                         <Label className="textClassLabel" for="examplePassword">
                           Password
@@ -188,15 +188,15 @@ const Login = () => {
 
                   <div className="d-flex align-items-center">
                     <div className="ms-auto">
-                      <Link
+                      {/* <Link
                         to="/forget"
                         className="btn-lg btn btn-link"
-                        onClick={() => {
-                          history.push("/forget");
-                        }}
+                        // onClick={() => {
+                        //   history.push("/forget");
+                        // }}
                       >
                         Forget Password
-                      </Link>{" "}
+                      </Link>{" "} */}
                       <Button
                         color="primary"
                         size="small"

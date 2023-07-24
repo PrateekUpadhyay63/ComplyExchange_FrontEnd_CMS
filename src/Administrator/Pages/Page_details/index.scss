@@ -6,14 +6,12 @@
   .MuiCollapse-vertical{
       padding: 0 0 10px 0 !important;
   }
-  input , .MuiSelect-select{
-      height: 1rem !important;
-  }
+
   input,
   .MuiSelect-select {
     height: 0.25em !important;
   }
- 
+
   
  
 
@@ -106,12 +104,13 @@ height: 0.15em !important;
   font-weight: 400 !important;
 }
 .textFieldClass input{
-  height:0.275em !important;
+  height:2.275em !important;
   font-size: 12px !important;
  
 }
 .textFieldClass div{
   width: 45% !important;
+  height:2.275em !important;
 }
 .rdw-editor-wrapper{
   width: 90% !important;

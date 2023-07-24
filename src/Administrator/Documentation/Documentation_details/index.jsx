@@ -54,7 +54,9 @@ export default function Language_details() {
   useEffect(()=>{
     dispatch(GetDocumentationTypes());
     if(params.id){
-      dispatch(getDocById(params.id,(data)=>{ setData(data)}));
+      dispatch(getDocById(params.id,(data)=>{ setData({ ...data, name: data.name });
+      setData({ ...data, documentationTypeId: data?.id });
+    }));
     }
   },[])
 

@@ -47,3 +47,12 @@
     border-radius: 0.25rem;
     height: 2.25em !important
   }
+    input,
+  .MuiSelect-select {
+    height: none !important;
+  }
+  
+  .end-0 {
+    right: 131px !important;
+    top: 477px !important;
+}

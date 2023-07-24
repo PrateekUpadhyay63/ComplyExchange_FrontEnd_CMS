@@ -143,6 +143,9 @@ export default function Edit() {
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}
+                      onClick={()=>{
+                        history.push("/glossaries")
+                      }}
                     >
                       cancel
                     </Button>

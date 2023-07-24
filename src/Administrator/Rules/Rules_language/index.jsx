@@ -310,6 +310,9 @@ const handleSubmit = async (e) => {
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}
+                      onClick={()=>{
+                        history.push("/rules")
+                       }}
                     >
                       cancel
                     </Button>

@@ -161,6 +161,9 @@ export default function Language_details() {
                       Save
                     </Button>
                     <Button
+                     onClick={()=>{
+                      history.push("/documentation")
+                     }}
                      variant='outlined'
                       size='small'
                       className='mx-2'

@@ -412,7 +412,9 @@ export default function Countries_details() {
                
                 variant="outlined"
                 sx={{ mr: 1}}
-                onClick={()=>{history.push("/capacities")}}
+                onClick={()=>{
+                  history.push("/countries")
+                 }}
               >
                 cancel
               </Button>

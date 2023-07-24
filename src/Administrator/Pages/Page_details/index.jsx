@@ -607,6 +607,7 @@ export default function Pages_details() {
                       Cancel
                     </Button> */}
                             <Button
+                             onClick={() => history.push("/pages")}
                             className="Cancel"
                         type='reset'
                         size='small'

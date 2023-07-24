@@ -90,7 +90,7 @@ const Settings = lazy(() => import("../../Administrator/Settings"));
 const Glosaries = lazy(()=> import("../../Administrator/Glossaries/glossaries"))
 const CDFs = lazy(()=> import("../../Administrator/CDFs/CDFs_forms"))
 const Tokens = lazy(()=> import("../../Administrator/TokenSent/Token_form"))
-const Token_edit = lazy(()=> import("../../Administrator/TokenSent/Token_edit"))
+// const Token_edit = lazy(()=> import("../../Administrator/TokenSent/Token_edit"))
 const Glossaries_form = lazy(()=> import ("../../Administrator/Glossaries/glossaries_form"))
 const Countries_form = lazy(()=> import ("../../Administrator/Countries/index"))
 const Countries_edit = lazy(()=> import ("../../Administrator/Countries/Countries_details/index"))
@@ -591,7 +591,7 @@ const AppMain = () => {
         <Route path="/tokens" component={isAuth() ?Tokens: login}/>
       </Suspense>
 
-      <Suspense
+      {/* <Suspense
         fallback={
           <div className="loader-container">
             <div className="loader-container-inner">
@@ -601,13 +601,13 @@ const AppMain = () => {
               <h6 className="mt-3">
                 Please wait while we load all Tokens
                 {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
-              </h6>
-            </div>
-          </div>
-        }
-      >
-        <Route path="/Token_edit" component={isAuth() ?Token_edit: login}/>
-      </Suspense>
+              {/* </h6> */}
+            {/* </div> */}
+          {/* </div> */}
+        {/* } */}
+      {/* > */}
+        {/* <Route path="/Token_edit" component={isAuth() ?Token_edit: login}/> */}
+      {/* </Suspense> */} 
           <Suspense
         fallback={
           <div className="loader-container">

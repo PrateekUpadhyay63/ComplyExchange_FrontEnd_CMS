@@ -436,7 +436,10 @@ export default function Language_details () {
                         size='small'
                         variant='outlined'
                         sx={{ mr: 1 }}
-                        onClick={e => handleCancel(e)}
+                        onClick={()=>{
+                          history.push("/easy")
+                         }}
+                        
                       >
                         Cancel
                       </Button>

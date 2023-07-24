@@ -981,6 +981,9 @@ export default function Language_details () {
 
                   <div className='actionBtn'>
                     <Button
+                     onClick={()=>{
+                      history.push("/form_type")
+                    }}
                       type='reset'
                       size='small'
                       variant='outlined'

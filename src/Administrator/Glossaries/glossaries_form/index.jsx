@@ -261,7 +261,9 @@ export default function PhraseTable() {
                   <Button  size="small"className="btn-cstm  mt-2 mb-3 " style={{ float: "right" }} >
                     Export
                   </Button>
-                  <Button  size="small"className="btn-cstm  mt-2 mb-3 mx-1" style={{ float: "right" }} >
+                  <Button  size="small"className="btn-cstm  mt-2 mb-3 mx-1" style={{ float: "right" }} onClick={()=>{
+                history.push("/glossaries")
+              }}>
                     Back
                   </Button>
                 {/* </Button> */}

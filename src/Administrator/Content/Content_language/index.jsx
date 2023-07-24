@@ -296,6 +296,7 @@ useEffect(()=>{
                       <Button
                         type="reset"
                         size="small"
+                        onClick={()=>{ history.push("/content")}}
                         variant="outlined"
                         sx={{ mr: 1 }}
                       >

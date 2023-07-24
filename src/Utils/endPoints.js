@@ -102,6 +102,9 @@ const endPoint = {
   US_FORM_LANGUAGES:"FormTypes/GetAllUSLanguage",
   GET_SELF_CERTIFICATION:"AgentSelfCertification/GetAgentSelfCertificationHidden",
   POST_SELF_CERTIFICATION:"AgentSelfCertification/UpsertAgentSelfCertificationHidden",
+  POST_US_TRANSLATION:"FormTypes/InsertFormTypeUSCTranslation",
+  GET_US_TRANSLATION:"FormTypes/GetFormTypeUSCTranslation",
+
 
   //LOB
 

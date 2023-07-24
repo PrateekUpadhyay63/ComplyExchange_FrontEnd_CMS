@@ -56,10 +56,10 @@ export default function Language_details () {
   const [editorState6, setEditorState6] = useState(EditorState.createEmpty())
   const [editorState7, setEditorState7] = useState(EditorState.createEmpty())
   const [editorState8, setEditorState8] = useState(EditorState.createEmpty())
-  let TypeId = 2
+ 
   const [data, setData] = useState(
-    TypeId === 2
-      ? {
+   
+       {
           introductionText: '',
           formSCId: 0,
           languageId: 0,
@@ -69,12 +69,7 @@ export default function Language_details () {
           eSignatureConfirmationText: '',
           bulkTranslation: false
         }
-      : {
-          Language: '',
-          Translation: '',
-          bulkTranslation: false,
-          languageId: params?.langId
-        }
+   
   )
 
   useEffect(() => {

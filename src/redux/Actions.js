@@ -1328,6 +1328,33 @@ export const getFormTypesSelfTranslation = (formTypeId, languageId, callback) =>
   }
 }
 
+
+export const getFormTypesUSTranslation = (formTypeId, languageId, callback) => {
+  return dispatch => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_US_TRANSLATION,
+      `?formTypeId=${formTypeId}&languageId=${languageId}`,
+      resData => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_US_TRANSLATION,
+            payload: {
+              formTypeUSTranslationData: resData.data
+            }
+          })
+        }
+      },
+      error => {
+        let { data } = error
+        Utils.showAlert(2, data.message)
+      }
+    )
+  }
+}
+
 export const insertSettingsTranslation = value => {
   return dispatch => {
     const dataToSend = { message: value }
@@ -1363,6 +1390,30 @@ export const insertFormTypesSelfTranslation = value => {
         let { data } = responseData
         dispatch({
           type: Utils.ActionName.CREATE_FORM_TYPES_SELF_TRANSLATION,
+          payload: { data: data.data }
+        })
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data)
+        }
+      },
+      error => {
+        let { data } = error
+        Utils.showAlert(2, data.message)
+      }
+    )
+  }
+}
+
+export const insertFormTypesUSTranslation = value => {
+  return dispatch => {
+    const dataToSend = { message: value }
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_US_TRANSLATION,
+      value,
+      responseData => {
+        let { data } = responseData
+        dispatch({
+          type: Utils.ActionName.POST_US_TRANSLATION,
           payload: { data: data.data }
         })
         if (responseData) {

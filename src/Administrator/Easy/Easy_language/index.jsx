@@ -451,6 +451,10 @@ export default function Language_details() {
                   <div className="actionBtn">
                     <Button
                       type="reset"
+                      onClick={()=>{
+                        history.push("/easy")
+                       }}
+                      
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}

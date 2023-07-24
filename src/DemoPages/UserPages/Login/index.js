@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import bg1 from "../../../assets/utils/images/originals/city.jpg";
 import bg2 from "../../../assets/utils/images/originals/citydark.jpg";
 import bg3 from "../../../assets/utils/images/originals/citynights.jpg";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import {
   Col,
@@ -23,6 +24,7 @@ import { loginAction } from "../../../redux/Actions";
 
 const Login = () => {
   const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
@@ -149,6 +151,7 @@ const Login = () => {
                           placeholder="Email here..."
                           onChange={handleChange}
                         />
+                         
                       </FormGroup>
                     </Col>
                     <Col md={6}>
@@ -159,13 +162,26 @@ const Login = () => {
                         <Input
                           required
                           autoComplete="off"
-                          type="password"
+                          type={showPassword ? "text" : "password"} 
                           name="password"
                           id="examplePassword"
                           placeholder="Password here..."
                           value={data.password}
                           onChange={handleChange}
                         />
+                         <div className="position-absolute d-flex end-0 mr-5 h-10" style={{ cursor: "pointer" }}>
+          {showPassword ? (
+            <AiOutlineEye
+              onClick={() => setShowPassword(false)}
+              aria-hidden="true"
+            />
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={() => setShowPassword(true)}
+              aria-hidden="true"
+            />
+          )}
+        </div>
                       </FormGroup>
                     </Col>
                   </Row>

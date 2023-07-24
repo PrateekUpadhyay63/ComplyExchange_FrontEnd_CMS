@@ -362,6 +362,9 @@ export default function Language_details() {
 
                   <div className="actionBtn">
                     <Button
+                     onClick={()=>{
+                      history.push("/rules")
+                     }}
                       type="reset"
                       size="medium"
                       variant="outlined"

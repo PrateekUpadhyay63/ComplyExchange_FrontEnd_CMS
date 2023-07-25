@@ -18,6 +18,6 @@ jobs:
                     ls 
                     cd /home/ubuntu/ComplyExchange_FrontEnd_CMS
                     ls -a 
-                    git pull origin development
+                    git pull origin main
                     docker-compose down 
                     docker-compose up --build -d

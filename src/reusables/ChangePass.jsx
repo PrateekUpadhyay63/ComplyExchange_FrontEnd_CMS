@@ -144,7 +144,7 @@ const DialogEdit = props => {
                   />
                 </div>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-3 table_text">
                   <div
                    
@@ -166,7 +166,7 @@ const DialogEdit = props => {
                    
                   />
                 </div>
-              </div>
+              </div> */}
            
            
 

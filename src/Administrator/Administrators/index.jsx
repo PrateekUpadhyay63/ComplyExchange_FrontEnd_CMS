@@ -16,6 +16,7 @@ import AppHeader from "../../Layout/AppHeader/";
 import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import ChangePass from "../../reusables/ChangePass"
 // import DialogTransition from "../../../reusables/deleteDialog";
 // import { getAllFormInstructions, deleteFormInstruction} from "../../../redux/Actions";
 
@@ -204,9 +205,10 @@ const row=[]
                             </TableCell>
 
                             <TableCell className="table_content" align="center">
-                             <Link onClick={()=>{
-                              history.push("/change_pass")
-                             }}>
+                             <Link onClick={() => {
+                  setOpen(true);
+                 
+                }} >
                              Change password</Link>  
                                 </TableCell>
                           
@@ -265,14 +267,14 @@ const row=[]
         </div>
       </div>
 
-      {/* <FormInstruction
+      <ChangePass
         open={open}
         idData={idData}
         setOpen={setOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
-       <DialogTransition
+       {/* <DialogTransition
         open={open1}
         deleteItems={deleteItems}
         setOpen={setOpen1}
@@ -280,7 +282,7 @@ const row=[]
         handleClose={handleClose1}
         deleteApi={deleteFormInstruction}
         getAllApi={getAllFormInstructions}
-      /> */}
+      />  */}
     </Fragment>
 
 

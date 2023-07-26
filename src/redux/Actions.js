@@ -125,6 +125,32 @@ export const getLanguageList = (page,size,search) => {
   };
 };
 
+
+export const getAllUsers = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.ALL_USER,
+      params,
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.ALL_USER,
+          payload: {
+            allUsersData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const getAllFormTypes = (page,size,search) => {
   let params= `?pageNumber=${page}&pageSize=${size}`
   if(search){

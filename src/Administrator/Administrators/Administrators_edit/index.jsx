@@ -19,20 +19,8 @@ import {
 } from "@mui/material";
 
 import ThemeOptions from "../../../Layout/ThemeOptions/";
-import AppHeader from "../../../Layout/AppHeader/";
 import { Fragment } from "react";
 import AppSidebar from "../../../Layout/AppSidebar/";
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw,
-  ContentState,
-  convertFromHTML,
-} from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 import "./index.scss";
 import {
   createCapacities,

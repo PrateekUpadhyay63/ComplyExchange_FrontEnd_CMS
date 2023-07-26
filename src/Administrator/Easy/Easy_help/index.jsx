@@ -174,8 +174,8 @@ export default function PhraseTable() {
                         sx={{ minWidth: 650 }}
                         className="table table-hover table-striped"
                       >
-                        <TableHead>
-                          <TableRow>
+                        <TableHead className="tableRow">
+                          <TableRow className="tableRow">
                             <TableCell className="table_head tableRow">Key</TableCell>
                             <TableCell align="center" className="table_head min-width tableRow">
                               Content preview

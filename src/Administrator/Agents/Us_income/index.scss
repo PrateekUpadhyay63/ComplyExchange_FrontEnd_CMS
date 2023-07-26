@@ -25,8 +25,8 @@ table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
+       .MuiSelect-select{
+        background: none;
     }
     a:hover{
         cursor: pointer;
@@ -69,7 +69,7 @@ table{
 .tableField{
     padding: 0.001rem 0.002rem !important;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
-    justify-content: center;
+   
     
 
 }

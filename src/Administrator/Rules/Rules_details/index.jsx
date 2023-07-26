@@ -368,7 +368,7 @@ export default function Language_details() {
                       type="reset"
                       size="medium"
                       variant="outlined"
-                      sx={{ mr: 2 ,my:2}}
+                      sx={{ mr: 1 ,my:2}}
                     >
                       Cancel
                     </Button>

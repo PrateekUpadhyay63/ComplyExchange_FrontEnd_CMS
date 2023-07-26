@@ -253,6 +253,7 @@ content block
                   </div>
                     <div className="actionBtn">
                       <Button
+                       onClick={()=>{history.push("/agent")}}
                         type="reset"
                         size="small"
                         variant="outlined"

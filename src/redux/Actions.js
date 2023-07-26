@@ -48,6 +48,32 @@ export const signupAction = (value) => {
   };
 };
 
+export const getUserById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_USER_BY_ID,
+      `/${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_USER_BY_ID,
+            payload: {
+              getUserByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 
 export const loginAction = (value,callback) => {
   return (dispatch) => {
@@ -1126,7 +1152,51 @@ export const deleteDocumentation = (id) => {
 };
 
 
+export const updateUser = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPDATE_USER,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPDATE_USER,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
 
+export const changePassword = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.CHANGE_PASSWORD,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.CHANGE_PASSWORD,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
 
 export const createPAGES = (value) => {
   return (dispatch) => {

@@ -47,17 +47,18 @@ const DialogEdit = props => {
   const formData = useSelector((state) => state.ParentDropDownReducer);
 
   const [data, setData] = useState({
-   description:"",
-   url:""
+    id: 0,
+    oldPassword: "",
+    password: ""
   });
 
-  useEffect(() => {
-    if(idData){
-      dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
-    }else{
-      setData({})
-    }
-}, [idData]); 
+//   useEffect(() => {
+//     if(idData){
+//       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
+//     }else{
+//       setData({})
+//     }
+// }, [idData]); 
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -66,21 +67,16 @@ const DialogEdit = props => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    let createData={
-      description:data.description,
-      url:data.url
-    }
+    
     let updateData={
-      description: data.description,
-      id: idData ,
-      url: data.url,
+      id: idData,
+      oldPassword: data.oldPassword,
+      password: data.password
     }
  
     if (idData) {
       dispatch(updateFormInstruction(updateData));
-    } else {
-      dispatch(createFormInstruction(createData));
-    }
+    } 
     handleClose()
   };
   return (
@@ -115,8 +111,8 @@ const DialogEdit = props => {
                   <TextField
                    className='table_text'
                     size="small"
-                    name="description"
-                    value={data.description}
+                    name="oldPassword"
+                    value={data.oldPassword}
                     onChange={handleChange}
                     required
                   />
@@ -137,8 +133,8 @@ const DialogEdit = props => {
                   <TextField
                    className='table_text'
                     size="small"
-                    name="description"
-                    value={data.description}
+                    name="password"
+                    value={data.password}
                     onChange={handleChange}
                     required
                   />
@@ -187,7 +183,7 @@ const DialogEdit = props => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               
+               onClick={handleSubmit}
                 variant="contained"
               >
                 Save

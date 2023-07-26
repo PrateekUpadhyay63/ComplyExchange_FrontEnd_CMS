@@ -18,9 +18,9 @@ import {
   Input,
 } from "@mui/material";
 
-import ThemeOptions from "../../../Layout/ThemeOptions/";
+import ThemeOptions from "../../../Layout/ThemeOptions";
 import { Fragment } from "react";
-import AppSidebar from "../../../Layout/AppSidebar/";
+import AppSidebar from "../../../Layout/AppSidebar";
 import "./index.scss";
 import {
   createCapacities,
@@ -35,28 +35,38 @@ export default function Countries_details() {
   let params = useParams();
   let history = useHistory();
   const formData = useSelector((state) => state.getUserByIdReducer);
-  const [data, setData] = useState({
-    countryCode: "",
-    email: "",
-    enableMFA: false,
-    enableMFA_SMS: false,
-    id: params?.id,
-    mobileNumber: "",
-    password: null,
-    roleId: 1,
-    roleName: null,
-  });
+  const [data, setData] = useState(
+    params.id
+      ? {
+          id: 0,
+          email: "",
+          roleId: 1,
+          countryCode: "",
+          enableMFA: false,
+          enableMFA_SMS: false,
+          mobileNumber: "",
+        }
+      : {
+          email: "",
+          countryCode: "",
+          roleId: 1,
+          enableMFA: false,
+          enableMFA_SMS: false,
+          mobileNumber: "",
+        }
+  );
   useEffect(() => {
     setData(formData?.getUserByIdData);
   }, [formData]);
 
   useEffect(() => {
-    if (params?.id) {
-      dispatch(getUserById(params?.id), (item) => {
-        setData(item);
-      });
-    }
-  }, [params]);
+    if(params?.id)
+    {
+    dispatch(getUserById(params.id), (data) => {
+      setData(data);
+    });
+  }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,9 +86,9 @@ export default function Countries_details() {
     history.push("/administrators");
   };
 
-  const handleToogle = (e) => {
-    setData({ ...data, [e.target.name]: e.target.checked });
-  };
+    const handleToogle = (e) => {
+      setData({ ...data, [e.target.name]: e.target.checked });
+    };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -146,7 +156,7 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA"
-                          onClick={(e) => handleToogle(e)}
+                            onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox "
                           checked={data?.enableMFA}
                         />
@@ -161,7 +171,7 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA_SMS"
-                          onClick={(e) => handleToogle(e)}
+                            onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           checked={data?.enableMFA_SMS}
                         />
@@ -176,7 +186,7 @@ export default function Countries_details() {
                           align="center"
                           defaultValue={0}
                           type="Mobile"
-                          name="countryCode"
+                          name = "countryCode"
                           // value={}
                           className="selectBox text table_content"
                         >
@@ -184,6 +194,7 @@ export default function Countries_details() {
                           <MenuItem value={1}>+91</MenuItem>
                           <MenuItem value={2}>+1</MenuItem>
                         </Select>
+                    
                       </div>
                     </div>
                     <div className="row">

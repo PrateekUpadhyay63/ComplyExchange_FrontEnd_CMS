@@ -6,6 +6,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import reducers from "../reducers";
 import {
+  getAllCountriesDataReducer,
   getAllPagesReducer,
   getSecurityKeysReducer,
   getAgentTranslationReducer,
@@ -162,6 +163,7 @@ export default function configureStore() {
       ExportRuleReducer,
       getSelfCertificationReducer,
       getSourcedIncomeOnboardedReducer,
+      getAllCountriesDataReducer
     }),
     composeWithDevTools(applyMiddleware(thunk))
   );

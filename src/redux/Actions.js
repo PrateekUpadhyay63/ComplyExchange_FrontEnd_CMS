@@ -356,6 +356,30 @@ export const upsertUSIncomeSourceOnboard = (value) => {
   };
 };
 
+// export const upsertCountries = (value) => {
+//   return (dispatch) => {
+//     const dataToSend = { message: value };
+//     Utils.api.postApiCall(
+//       Utils.endPoints.POST_UPSERT_COUNTRIES,
+//       value,
+//       (responseData) => {
+//         let { data } = responseData;
+//         dispatch({
+//           type: Utils.ActionName.POST_UPSERT_COUNTRIES,
+//           payload: { data: data.data },
+//         });
+//          if (responseData) {
+//           Utils.showAlert(1, responseData?.data);
+//         }
+//       },
+//       (error) => {
+//         let { data } = error;
+//         Utils.showAlert(2, data.message);
+//       }
+//     );
+//   };
+// };
+
 
 export const getAllUSFormTypes = () => {
   
@@ -408,6 +432,37 @@ export const getAllPages = (page,size,search) => {
     );
   };
 };
+
+export const getAllCountriesData = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_COUNTRIES,
+      params,
+      (resData) => {
+        // const { data } = resData;
+        // if (resData.status === 200) {
+        dispatch({
+          type: Utils.ActionName.GET_ALL_COUNTRIES,
+          payload: {
+            countryData: resData.data,
+          },
+        });
+        // } else {
+        //   Utils.showAlert(2, data.message);
+        // }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const GetAllCapacities = (page,size,search) => {
   let params= `?pageNumber=${page}&pageSize=${size}`
   if(search){
@@ -3621,6 +3676,29 @@ export const upsertQuestionTranslations = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.UPSERT_QUESTION_TRANSLATION,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
+export const upsertCountries = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRIES,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRIES,
           payload: { data: data.data },
         });
          if (responseData) {

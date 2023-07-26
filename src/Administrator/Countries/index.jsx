@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-// import { getAllFormInstructions, deleteFormInstruction} from "../../../redux/Actions";
+import { getAllCountriesData, } from "../../redux/Actions";
 
 import DialogModal from "../../reusables/Countries";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -53,7 +53,7 @@ function createData(agent, content, action) {
 
 export default function ContentManagement() {
   const history = useHistory();
-const row=[]
+// const row=[]
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1= () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
@@ -68,26 +68,27 @@ const row=[]
   const [search, setSearch] = useState("");
 
   const dispatch = useDispatch();
+  const tableData = useSelector((state) => state.getAllCountriesDataReducer);
 //   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, []);
+  useEffect(() => {
+    dispatch(getAllCountriesData(page, size));
+  }, []);
 
-//   const setSubmit = (e) => {
-//     e.preventDefault();
-//     setPage(1);
-//     setSize(10);
-//     dispatch(getAllFormInstructions(page, size, search));
-//   };
+  const setSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllCountriesData(page, size, search));
+  };
 //   const deleteItems = async () => {
 //     dispatch(deleteFormInstruction(idData));
 //     dispatch(getAllFormInstructions(page, size));
 //   };
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, [page]);
+  useEffect(() => {
+    dispatch(getAllCountriesData(page, size));
+  }, [page]);
 
   return (
     <Fragment>
@@ -111,12 +112,19 @@ const row=[]
               </Breadcrumbs>
             </div>
             <div className="row headingLabel complyColor">List of Countries (Treaty Country, Applicable Articles, Withholding Rates & Income Code selection)</div>
-            <div className=" row m-1  border p-3 box_style">
-            <div className="col-8 d-flex ">
-                  
+            <div className=" row m-1 card p-3 box_style">
+              <form
+                className="row"
+                onSubmit={(e) => {
+                  setSubmit(e);
+                }}
+              >
+                <div className="col-8 d-flex ">
                   <TextField
-                    style={{ backgroundColor: "#fff", }}
+                    style={{ backgroundColor: "#fff", borderRadius: "10px" }}
                     name="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
@@ -131,18 +139,17 @@ const row=[]
                     }}
                   />
                 </div>
-              <div className="col-4">
-                <Button
-                 size="small"
-                //   onClick={(e) => {
-                //     setSubmit(e);
-                //   }}
-                  className="btn-cstm"
-                  style={{ float: "right" }}
-                >
-                  Search
-                </Button>
-              </div>
+                <div className="col-4 ">
+                  <Button
+                    size="small"
+                    type="submit"
+                    className="btn-cstm"
+                    style={{ float: "right", display: "none" }}
+                  >
+                    Search
+                  </Button>
+                </div>
+              </form>
             </div>
             <div
               className=" row m-1  card p-3"
@@ -169,11 +176,11 @@ const row=[]
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
+                     
                       <TableBody>
                         {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
                           <TableRow
-                            key={row.id}
+                            // key={row.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
@@ -206,6 +213,7 @@ const row=[]
                           </TableRow>
                         {/* ))} */}
                       </TableBody>
+                     
                     </table>
                   </div>
                 {/* <h1 >Forms Instructions</h1> */}
@@ -265,17 +273,18 @@ const row=[]
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
+                      {tableData?.contentData && tableData?.contentData.length ? (
                       <TableBody>
-                        {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
+                        {console.log("dataa", tableData)}
+                    {tableData?.countryData?.records?.map((row, ind) => (
                           <TableRow
-                            key={row.id}
+                            key={row.name}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
                           >
-                            <TableCell className="table_content" component="th" scope="row">
-                            Afghanistan
+                            <TableCell className="table_content">
+                           {row.name}
                             </TableCell>
 
                             <TableCell className="table_content" align="center">	Model 1</TableCell>
@@ -293,19 +302,12 @@ const row=[]
                                    history.push("/countries_edit")
                                   }} />
                              
-                              
-                                  {/* <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
-                                  onClick={()=>{
-                                    setOpen1(true);
-                                    setIdData(row.id)
-                                  }}   /> */}
-                               
-                            
                               </div>
                             </TableCell>
                           </TableRow>
-                        {/* ))} */}
+                        ))}
                       </TableBody>
+                         ) : <div className="notDataDiv">No Data Available</div>} 
                     </table>
                   </div>
               
@@ -320,7 +322,7 @@ const row=[]
 
                 onClick={() => {
                   setOpen(true);
-                  setIdData(row.id);
+                  // setIdData(row.id);
                 }} 
               >
                import 
@@ -330,16 +332,19 @@ const row=[]
               </Button>
             </div>
           </div>
-          {/* {tableData?.formInstructionData?.totalPages > 1 ? ( */}
-            {/* <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack> */}
-          {/* ) : (
-            ""
-          )} */}
+          {tableData?.countryData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={tableData?.pageData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
         </div>
       </div>
     <DialogModal

@@ -2784,7 +2784,7 @@ const handleClose = () => setOpen1(false);
               </div>
             </div>
             <div className="row mx-1">
-              <div className="col-12 my-1 mx-auto p-0 mt-2">
+              <div className="col-12 mb-1 mx-auto p-0 ">
                 <Button size="small"className="btn-cstm" style={{ float: "right" }} onClick={handleSubmit}>
                   Save and Return
                 </Button>

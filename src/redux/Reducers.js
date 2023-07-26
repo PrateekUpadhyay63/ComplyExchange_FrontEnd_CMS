@@ -1,6 +1,7 @@
 import Utils from "../Utils";
 
 const {
+  GET_ALL_COUNTRIES,
   GET_ALL_PAGES,
   COUNTRIES,
   LANGUAGES,
@@ -453,6 +454,16 @@ export const getAllPagesReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const getAllCountriesDataReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_COUNTRIES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 
 export const getdocTypeReducer = (state = initialState, action) => {
   switch (action.type) {

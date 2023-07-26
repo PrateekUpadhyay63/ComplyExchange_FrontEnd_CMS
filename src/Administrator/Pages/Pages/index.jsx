@@ -236,23 +236,7 @@ const Pages = ({ match }) => {
                                 Select Languages
                               </span>
 
-                              {/* <Select
-
-                                className="selectBox text"
-                                fullWidth
-                                name="parent"
-                                
-                              >{(dispatch(getpageLanguageById(row?.id, (item) => {return(item)})))?.map((i,ind)=>{
-                                return(<MenuItem key={ind} className="pageId" value={i.languageId}>{i.name}sx</MenuItem>)
-                              })}
-                              </Select> */}
-                              {/* {languageData?.allLanguageData?.map((i,ind)=>{
-                                  return(<button onClick={()=>{
-                                    history.push(`/page_language/${row.id}/${i.id}`)
-                                  }} key={i.id} style={{border:"none",backgroundColor:"inherit"}} className="addSubpage">
-                                    {i.name}{" "}
-                                  </button>)
-                                })} */}
+                        
                             </TableCell>
 
                             <TableCell

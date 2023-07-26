@@ -197,6 +197,7 @@ export default function PhraseTable() {
                         <TableBody  className="tableRow">
                           {tableData?.easyData?.records?.map((row) => (
                             <TableRow
+                            className="tableRow"
                               key={row.id}
                               sx={{
                                 "&:last-child td, &:last-child th": {
@@ -205,7 +206,7 @@ export default function PhraseTable() {
                               }}
                             >
                               <TableCell
-                                component="th"
+                               
                                 className="add_Rules tableRow"
                                 scope="row"
                                 onClick={() => {

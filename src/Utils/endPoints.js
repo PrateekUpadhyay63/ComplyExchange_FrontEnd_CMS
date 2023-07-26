@@ -24,6 +24,11 @@ const endPoint = {
   GET_SUBPAGE_NO: "Page/GetCountBySubPageId",
   ADD_SUB_PAGE: "Page/InsertSubPages",
   GET_PAGE_LANGUAGES:"/Page/GetAllLanguage",
+
+ //Countries
+ GET_ALL_COUNTRIES:"/Countries/GetAllCountries",
+ POST_UPSERT_COUNTRIES:"/Countries/UpsertCountryArticle",
+
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",
   GET_CONTENT_BY_ID: "ContentManagement/GetContentById",
@@ -183,6 +188,8 @@ const endPoint = {
   GET_USER_BY_ID:"Account/GetUser",
   CHANGE_PASSWORD:"Account/ChangePassword",
   UPDATE_USER:"Account/UpdateUser",
+
+ 
   
 };
 

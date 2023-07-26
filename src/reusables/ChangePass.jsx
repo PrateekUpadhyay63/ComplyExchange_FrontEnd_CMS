@@ -99,7 +99,7 @@ const DialogEdit = props => {
           handleSubmit(e);
         }}>
 
-{ <div className="row headingtext ">{idData ?" Edit Form Instruction" : "Add Form Instruction"}</div>}
+{ <div className="row headingtext ">Change Password</div>}
               <div className="row">
                 <div className="col-3 table_text" >
                   <div

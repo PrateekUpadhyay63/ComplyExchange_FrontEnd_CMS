@@ -338,23 +338,24 @@ export default function Pages_details() {
       pageContent: data.pageContent,
       summary: data.summary,
     };
-    let updateData = {
-      name: data.name,
-      // translations: "",
-      id: params.id,
-      // parentId: data.parentId,
-      displayOnTopMenu: data.displayOnTopMenu,
-      displayOnFooter: data.displayOnFooter,
-      redirectPageLabelToURL: data.redirectPageLabelToURL,
-      menuBackgroundColor: data.menuBackgroundColor,
-      unselectedTextColor: data.unselectedTextColor,
-      selectedTextColor: data.selectedTextColor,
-      displayOnLeftMenu: data.displayOnLeftMenu,
-      pageContent: data.pageContent,
-      summary: data.summary,
-    };
+   
 
     if (params?.id) {
+      let updateData = {
+        name: data.name,
+        // translations: "",
+        id: params.id,
+        // parentId: data.parentId,
+        displayOnTopMenu: data.displayOnTopMenu,
+        displayOnFooter: data.displayOnFooter,
+        redirectPageLabelToURL: data.redirectPageLabelToURL,
+        menuBackgroundColor: data.menuBackgroundColor,
+        unselectedTextColor: data.unselectedTextColor,
+        selectedTextColor: data.selectedTextColor,
+        displayOnLeftMenu: data.displayOnLeftMenu,
+        pageContent: data.pageContent,
+        summary: data.summary,
+      };
       dispatch(updatePAGES(updateData));
     } else {
       dispatch(createPAGES(createData));

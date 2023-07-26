@@ -34,7 +34,7 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { createCapacities, getCapacitiesById ,updateCapacities} from "../../../redux/Actions";
+import { createCapacities, upsertCountries ,updateCapacities} from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
@@ -78,10 +78,10 @@ export default function Countries_details() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(params.id){
-      dispatch(updateCapacities(data));
+      // dispatch(updateCapacities(data));
     }
     else{
-      dispatch(createCapacities(data));
+      // dispatch(createCapacities(data));
     }
     history.push("/capacities");
   };

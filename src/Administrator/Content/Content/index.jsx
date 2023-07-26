@@ -154,9 +154,9 @@ export default function ContentManagement() {
                     <TableContainer sx={{}}>
                       <Table sx={{ minWidth: 650 }} class="table table-hover table-striped">
                         <TableHead>
-                          <TableRow className="tableRow">
+                          <TableRow className="tableRow1">
                             <TableCell
-                              className='table_head tableRow'
+                              className='table_head tableRow1'
                             >
                               Name
                             </TableCell>
@@ -164,14 +164,14 @@ export default function ContentManagement() {
 
                             <TableCell 
                               align="left"
-                              className='table_head tableRow'
+                              className='table_head tableRow1'
                             >
                               Translations
                             </TableCell>
 
                             <TableCell
                               align="right"
-                              className='table_head tableRow'
+                              className='table_head tableRow1'
                             >
                               Action
                             </TableCell>
@@ -183,7 +183,7 @@ export default function ContentManagement() {
                           {
                           tableData?.contentData.map((row) => (
                             <TableRow
-                            className="tableRow"
+                            className="tableRow1"
                               key={row.name}
                               sx={{
                                 "&:last-child td, &:last-child th": {
@@ -191,7 +191,7 @@ export default function ContentManagement() {
                                 },
                               }}
                             >
-                              <TableCell className="table_content tableRow"
+                              <TableCell className="table_content tableRow1"
                                 
                               
                                
@@ -202,7 +202,7 @@ export default function ContentManagement() {
                              
                               <TableCell
                               align="left"
-                              className="table_content tableRow"
+                              className="table_content tableRow1"
                               // onClick={() => getLangById(row.id)}
                             >
                               <span
@@ -220,7 +220,7 @@ export default function ContentManagement() {
                                 Select Languages
                               </span>
                             </TableCell>
-                              <TableCell className="table_content tableRow" align="right">
+                              <TableCell className="table_content tableRow1" align="right">
                                 {row.action}
                                 <div className="actionRow">
                                  

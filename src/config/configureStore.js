@@ -80,6 +80,7 @@ import {
   getSourcedIncomeOnboardedReducer,
   ExportRuleReducer,
   getSelfCertificationReducer,
+  getAllUsersReducer,
 
 } from "../redux/Reducers";
 
@@ -161,6 +162,7 @@ export default function configureStore() {
       ExportEasyReducer,
       ExportRuleReducer,
       getSelfCertificationReducer,
+      getAllUsersReducer,
       getSourcedIncomeOnboardedReducer,
     }),
     composeWithDevTools(applyMiddleware(thunk))

@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-// import { getAllFormInstructions, deleteFormInstruction} from "../../../redux/Actions";
+// import { getAllUsers, deleteFormInstruction} from "../../../redux/Actions";
 
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -43,9 +43,9 @@ import {
   Tooltip,
   Link,
 } from "@mui/material";
-// import FormInstruction from "../../../reusables/FormInstruction"
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { getAllUsers } from "../../redux/Actions";
 function createData(agent, content, action) {
   return { agent, content, action };
 }
@@ -68,39 +68,27 @@ const row=[]
   const [search, setSearch] = useState("");
   
   const dispatch = useDispatch();
-  var tableData=localStorage.getItem("userDetails")
-
-  // ={
-  //   countryCode: null,
-  //   email: "",
-  //   enableMFA: false,
-  //   enableMFA_SMS: false,
-  //   id: 0,
-  //   mobileNumber: "",
-  //   roleId: 1,
-  //   roleName: "Admin",
-  // }
-//   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
+  const tableData = useSelector((state) => state.getAllUsersReducer);
 
   useEffect(() => {
-    tableData=localStorage.getItem("userDetails")
-    // dispatch(getAllFormInstructions(page, size));
+    // tableData=localStorage.getItem("userDetails")
+    dispatch(getAllUsers(page, size));
   }, []);
 
-//   const setSubmit = (e) => {
-//     e.preventDefault();
-//     setPage(1);
-//     setSize(10);
-//     dispatch(getAllFormInstructions(page, size, search));
-//   };
-//   const deleteItems = async () => {
-//     dispatch(deleteFormInstruction(idData));
-//     dispatch(getAllFormInstructions(page, size));
-//   };
+  const setSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllUsers(page, size, search));
+  };
+  const deleteItems = async () => {
+    // dispatch(deleteFormInstruction(idData));
+    dispatch(getAllUsers(page, size));
+  };
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, [page]);
+  useEffect(() => {
+    dispatch(getAllUsers(page, size));
+  }, [page]);
 
   return (
     <Fragment>
@@ -205,7 +193,7 @@ const row=[]
                       </TableHead>
                       {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
                       <TableBody>
-                        {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
+                        {tableData?.allUsersData?.records?.map((row) => (
                           <TableRow
                             key={row.id}
                             sx={{
@@ -213,7 +201,7 @@ const row=[]
                             }}
                           >
                             <TableCell className="table_content" component="th" scope="row">
-                            {tableData.email}
+                            {row.email}
                             </TableCell>
 
                             <TableCell className="table_content" align="center">
@@ -229,8 +217,8 @@ const row=[]
                               
                               className="p-0 checkBox"
                               checked={
-                                // tableData.isPartnership
-                                  tableData.enableMFA
+                                // row.isPartnership
+                                  row.enableMFA
                                   // : data.isPartnership
                               }
                             
@@ -243,8 +231,8 @@ const row=[]
                               
                               className="p-0 checkBox"
                               checked={
-                                // tableData.isPartnership
-                                  tableData.enableMFA_SMS
+                                // row.isPartnership
+                                  row.enableMFA_SMS
                                   // : data.isPartnership
                               }
                             
@@ -257,7 +245,7 @@ const row=[]
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
                                   //  history.push("/administrators_edit/1")
-                                   history.push(`administrators_edit/${tableData?.id}`)
+                                   history.push(`administrators_edit/${row?.id}`)
 
                                   }} />
                              
@@ -269,7 +257,7 @@ const row=[]
                               </div>
                             </TableCell>
                           </TableRow>
-                        {/* ))} */}
+                         ))} 
                       </TableBody>
                     </table>
                   </div>
@@ -318,7 +306,7 @@ const row=[]
         handleClickOpen={handleClickOpen1}
         handleClose={handleClose1}
         deleteApi={deleteFormInstruction}
-        getAllApi={getAllFormInstructions}
+        getAllApi={getAllUsers}
       /> */}
     </Fragment>
 

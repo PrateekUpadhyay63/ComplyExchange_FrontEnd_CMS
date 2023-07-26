@@ -3,7 +3,7 @@ const ActionName = {
   LOGIN: "LOGIN",
   SIGNUP: "SIGNUP",
   USER:"USER",
-
+  ALL_USER:"ALL_USER",
   LOADING: "loading",
   US_TIN_TYPE:"US_TIN_TYPE",
   COUNTRIES:"COUNTRIES",

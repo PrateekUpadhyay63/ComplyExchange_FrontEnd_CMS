@@ -283,7 +283,7 @@ const row=[]
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
                 onClick={() => {
-                  history.push("/administrators_edit")
+                  history.push("/administrators_add")
                  }}
               >
                Add Administrator

@@ -37,6 +37,7 @@ import "./index.scss";
 import {
   createCapacities,
   getUserById,
+  signupAction,
   updateCapacities,
   updateUser,
 } from "../../../redux/Actions";
@@ -51,6 +52,7 @@ export default function Countries_details() {
       ? {
           id: 0,
           email: "",
+          roleId: 1,
           countryCode: "",
           enableMFA: false,
           enableMFA_SMS: false,
@@ -59,6 +61,7 @@ export default function Countries_details() {
       : {
           email: "",
           countryCode: "",
+          roleId: 1,
           enableMFA: false,
           enableMFA_SMS: false,
           mobileNumber: "",
@@ -69,9 +72,12 @@ export default function Countries_details() {
   }, [formData]);
 
   useEffect(() => {
+    if(params?.id)
+    {
     dispatch(getUserById(params.id), (data) => {
       setData(data);
     });
+  }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -87,7 +93,7 @@ export default function Countries_details() {
       };
       dispatch(updateUser(updateData));
     } else {
-      dispatch(updateUser(data));
+      dispatch(signupAction(data));
     }
     history.push("/administrators");
   };

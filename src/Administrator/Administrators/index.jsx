@@ -76,6 +76,7 @@ const row=[]
   }, []);
 
   const setSubmit = (e) => {
+    console.log(search,"search")
     e.preventDefault();
     setPage(1);
     setSize(10);
@@ -114,6 +115,8 @@ const row=[]
             </div>
             <div className="row headingLabel complyColor">List of Administrators</div>
             <div className=" row m-1  border p-3 box_style">
+              <form onSubmit={(e) => {
+                    setSubmit(e);}}>
             <div className="col-8 d-flex ">
                   
                   <TextField
@@ -122,6 +125,8 @@ const row=[]
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     variant="outlined"
                     size="small"
                     InputProps={{
@@ -139,12 +144,14 @@ const row=[]
                 //   onClick={(e) => {
                 //     setSubmit(e);
                 //   }}
+                type="submit"
                   className="btn-cstm"
-                  style={{ float: "right" }}
+                  style={{ float: "right", display: "none" }}
                 >
                   Search
                 </Button>
               </div>
+              </form>
             </div>
             <div
               className=" row m-1  card p-3"

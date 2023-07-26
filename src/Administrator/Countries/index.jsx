@@ -273,7 +273,7 @@ export default function ContentManagement() {
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      {tableData?.contentData && tableData?.contentData.length ? (
+                      {tableData?.countryData && tableData?.countryData.records?.length ? (
                       <TableBody>
                         {console.log("dataa", tableData)}
                     {tableData?.countryData?.records?.map((row, ind) => (
@@ -287,19 +287,19 @@ export default function ContentManagement() {
                            {row.name}
                             </TableCell>
 
-                            <TableCell className="table_content" align="center">	Model 1</TableCell>
+                            <TableCell className="table_content" align="center">{row.iga}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
+                            <TableCell className="table_content" align="center">{row.treatyEffectiveYear}</TableCell>
+                            <TableCell className="table_content" align="center">{row.crs}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
-                            <TableCell className="table_content" align="center">1</TableCell>
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
+                            <TableCell className="table_content" align="center">{row.lob}</TableCell>
 
                             <TableCell className="table_content" align="center">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push("/countries_edit")
+                                   history.push(`/countries_edit/${row.id}`)
                                   }} />
                              
                               </div>

@@ -218,8 +218,12 @@ export default function Countries_details() {
 
                   <div className="actionBtn">
                     <Button
+
                       type="reset"
                       size="small"
+                      onClick={() => {
+                        history.push("/administrators");
+                      }}
                       variant="outlined"
                       sx={{ mr: 1 }}
                     >

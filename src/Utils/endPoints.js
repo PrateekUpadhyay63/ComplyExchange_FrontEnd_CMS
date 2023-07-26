@@ -28,7 +28,9 @@ const endPoint = {
 
  //Countries
  GET_ALL_COUNTRIES:"/Countries/GetAllCountries",
- POST_UPSERT_COUNTRIES:"/Countries/UpsertCountryArticle",
+ POST_UPSERT_COUNTRIES:"/Countries/UpsertCountries",
+ GET_COUNTRY_BY_ID:"/Countries/GetCountriesById",
+ POST_UPSERT_COUNTRY_ARTICLE:"/Countries/UpsertCountryArticle",
 
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",

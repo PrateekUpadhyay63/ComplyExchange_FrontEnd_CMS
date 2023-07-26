@@ -1736,7 +1736,7 @@ function UserManagement ({ match }) {
                     </div>
                   </div>
             
-                <div className=' col-10 expend-card'>
+                <div className=' col-10 expend-card mt-2'>
                   <CardHeader
                     className=''
                     title='Process Options'

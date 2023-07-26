@@ -173,7 +173,7 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/article" component={isAuth() ?Add_Article: login}/>
+        <Route path="/article/:id" component={isAuth() ?Add_Article: login}/>
       </Suspense>
 <Suspense
         fallback={
@@ -404,7 +404,25 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/countries_edit" component={isAuth() ?Countries_edit: login}/>
+        <Route path="/countries_edit/:id" component={isAuth() ?Countries_edit: login}/>
+      </Suspense>
+
+      <Suspense
+        fallback={
+          <div className="loader-container">
+            <div className="loader-container-inner">
+              <div className="text-center">
+                <Loader type="line-scale" />
+              </div>
+              <h6 className="mt-3">
+                Please wait while we load all Countries
+                {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
+              </h6>
+            </div>
+          </div>
+        }
+      >
+        <Route path="/countries_add" component={isAuth() ?Countries_edit: login}/>
       </Suspense>
 <Suspense
         fallback={

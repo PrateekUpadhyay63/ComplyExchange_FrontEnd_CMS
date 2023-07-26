@@ -34,62 +34,88 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { createCapacities, upsertCountries ,updateCapacities} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle} from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
+   const countryData = useSelector((state) => state.getCountryByIdReducer);
   let params = useParams();
   let history= useHistory();
-  const formData = useSelector((state) => state.getCapacitiesById);
-  // createCapacities
-  // getCapacitiesByfId
+ 
   const [data, setData] = useState(params.id ? {
-    id: 0,
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
+   
+  countryId: 0,
+  name: "string",
+  treatyEffectiveYear: 0,
+  bankStandardName: "string",
+  bankStandardNameFormat: 0,
+  requestIBAN: true,
+  requestSwiftCode: true,
+  iga: "string",
+  crs: "string",
+  lob: true,
+  lobDocumentLocation: "string",
+  lobDocumentURL: "string",
+ 
+
   }:{
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
+ 
+  name: "string",
+  treatyEffectiveYear: 0,
+  bankStandardName: "string",
+  bankStandardNameFormat: 0,
+  requestIBAN: true,
+  requestSwiftCode: true,
+  iga: "string",
+  crs: "string",
+  lob: true,
+  lobDocumentLocation: "string",
+  lobDocumentURL: "string",
   });
-//    useEffect(()=>{
-//     setData(formData?.capacityDataById)
-//    },[formData])
+
+   useEffect(()=>{
+    setData(countryData?.getCountryById)
+   },[countryData])
 
   useEffect(() => {
-    // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+    if(params?.id)
+    {
+    dispatch(getCountryById(params.id), (data) => {
+      setData(data);
+    });
+  }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(params.id){
-      // dispatch(updateCapacities(data));
+
+      let updateData = { 
+        countryId: params?.id,
+        name: data?.name,
+        treatyEffectiveYear: data?.treatyEffectiveYear,
+        bankStandardName: data?.bankStandardName,
+        bankStandardNameFormat: data?.bankStandardNameFormat,
+        requestIBAN: data?.requestIBAN,
+        requestSwiftCode: data?.requestSwiftCode,
+        iga: data?.iga,
+        crs: data?.crs,
+        lob: data?.lob,
+        lobDocumentLocation: data?.lobDocumentLocation,
+        lobDocumentURL: data?.lobDocumentURL
+      }
+      dispatch(CountryUpsert(updateData));
+      console.log("payload",updateData)
     }
-    else{
-      // dispatch(createCapacities(data));
-    }
-    history.push("/capacities");
+   
+    
+    history.push("/countries");
   };
 
  
-//   const handleToogle = (e) => {
-//     setData({ ...data, [e.target.name]: e.target.checked });
-//   };
+  const handleToogle = (e) => {
+    setData({ ...data, [e.target.name]: e.target.checked });
+  };
   
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -118,8 +144,9 @@ export default function Countries_details() {
             Countries
                 </Link>
                 <Link
-                   underline="hover"
+                  
                    color="#171616"
+                   disabled
                    
                  
                   
@@ -151,7 +178,7 @@ export default function Countries_details() {
                   className="table_content"
                     size="small"
                     name="name"
-                   
+                     value={data?.name}
                     onChange={handleChange}
                     required
                   />
@@ -173,8 +200,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                   
+                    name="treatyEffectiveYear"
+                     value={data?.treatyEffectiveYear}
                     onChange={handleChange}
                     required
                   />
@@ -196,8 +223,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                   
+                    name="bankStandardName"
+                      value={data?.bankStandardName}
                     onChange={handleChange}
                     required
                   />
@@ -217,15 +244,12 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
 
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' >
+                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name = "bankStandardNameFormat" >
                         <MenuItem value={1}> ---Select----</MenuItem>
                         <MenuItem>Sort Code</MenuItem>
                         <MenuItem>ABA/Routing Numbers</MenuItem>
                     </Select>
-                 {/* <Checkbox name="isImportant"
-                        //   onClick={(e) => handleToogle(e)}
-                          className="p-0 checkBox"
-                          checked={data?.isImportant}/> */}
+               
                 </div>
               </div>
               <div className="row">
@@ -240,10 +264,10 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox name="isUSIndividual"
-                        //   onClick={(e) => handleToogle(e)}
+                <Checkbox name="requestIBAN"
+                         onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
-                          checked={data?.isUSIndividual}/>
+                          checked={data?.requestIBAN}/>
                 </div>
               </div>
               <div className="row">
@@ -259,10 +283,10 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox name="isNonUSIndividual"
-                        //   onClick={(e) => handleToogle(e)}
+                <Checkbox name="requestSwiftCode"
+                        onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
-                          checked={data?.isNonUSIndividual}/>
+                          checked={data?.requestSwiftCode}/>
                 </div>
               </div>
               <div className="row">
@@ -278,7 +302,7 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Select align="center" defaultValue={1} className='selectBox text table_content' >
+                <Select align="center" defaultValue={1} className='selectBox text table_content' name = "iga" >
                         <MenuItem value={1}> ---Select----</MenuItem>
                         <MenuItem>Model 1</MenuItem>
                         <MenuItem>Model 2</MenuItem>
@@ -298,7 +322,7 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Select align="center" defaultValue={1}className='selectBox text table_content ' >
+                <Select align="center" defaultValue={1}className='selectBox text table_content 'name="crs" >
                         <MenuItem value={1} > ---Select----</MenuItem>
                         <MenuItem>2000</MenuItem>
                         <MenuItem>2002</MenuItem>
@@ -316,10 +340,10 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox name="isIntermediary"
-                        //   onClick={(e) => handleToogle(e)}
+                <Checkbox name="lob"
+                         onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
-                          checked={data?.isIntermediary}/>
+                          checked={data?.lob}/>
                 </div>
               </div>
               <div className="row">
@@ -338,8 +362,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                   
+                  name="lobDocumentLocation"
+                    value={data?.lobDocumentLocation}
                     onChange={handleChange}
                     required
                   />
@@ -361,8 +385,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                   
+                    name="lobDocumentURL"
+                    value={data?.lobDocumentURL}
                     onChange={handleChange}
                     required
                   />
@@ -380,7 +404,7 @@ export default function Countries_details() {
                 size="small"
                 type="submit"
               onClick={()=>{
-                history.push("/article")
+                history.push(`/article/${params.id}`)
               }}
                 sx={{ mx: 2 }}
                 variant="contained"
@@ -422,7 +446,7 @@ export default function Countries_details() {
               <Button
                 size="small"
                 type="submit"
-               
+                onClick={handleSubmit}
                 sx={{ mr: 2 }}
                 variant="contained"
               >

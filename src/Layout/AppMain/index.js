@@ -349,7 +349,25 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/administrators_edit" component={isAuth() ?Administrator_edit: login}/>
+        <Route path="/administrators_add" component={isAuth() ?Administrator_edit: login}/>
+      </Suspense>
+
+      <Suspense
+        fallback={
+          <div className="loader-container">
+            <div className="loader-container-inner">
+              <div className="text-center">
+                <Loader type="line-scale" />
+              </div>
+              <h6 className="mt-3">
+                Please wait while we load all Administrators
+                {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
+              </h6>
+            </div>
+          </div>
+        }
+      >
+        <Route path="/administrators_edit/:id" component={isAuth() ?Administrator_edit: login}/>
       </Suspense>
 
       <Suspense

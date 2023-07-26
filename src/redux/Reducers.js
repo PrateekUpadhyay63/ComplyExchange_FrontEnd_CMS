@@ -82,12 +82,13 @@ const {
   GET_SOURCED_INCOME_ONBOARDED,
   GET_SELF_CERTIFICATION,
   GET_SECURITY_KEY,
+  GET_USER_BY_ID,
 
 } = Utils.ActionName;
 
 let initialState = [];
 
-export const getLangListReducer = (state = initialState, action) => {
+export const getUserByIdReducer = (state = initialState, action) => {
   switch (action.type) {
     case LANG_BY_SEARCH:
       return { ...state, ...action.payload };
@@ -95,6 +96,17 @@ export const getLangListReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const getLangListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_USER_BY_ID:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
 
 export const getSecurityKeysReducer = (state = initialState, action) => {
   switch (action.type) {

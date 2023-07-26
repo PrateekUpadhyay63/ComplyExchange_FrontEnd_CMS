@@ -174,11 +174,11 @@ export default function ContentManagement() {
                       </thead>
                       <tbody>
                         {tableData?.securityKeyData?.map((i, ind) => {
-                          if (i.keyId == 1) {
+                          if (i.keyType === "Incoming Request Key") {
                             return (
                               <TableRow key={ind}>
                                 <TableCell className="text" scope="row">
-                                  {i.id}
+                                  {ind+1}
                                 </TableCell>
                                 <TableCell>
                                   <TextField
@@ -233,11 +233,11 @@ export default function ContentManagement() {
                       </thead>
                       <tbody>
                       {tableData?.securityKeyData?.map((i, ind) => {
-                          if (i.keyId == 2) {
+                          if (i.keyType === "Outgoing Request Key") {
                             return (
                               <TableRow key={ind}>
                                 <TableCell className="text" scope="row">
-                                  {i.id}
+                                  {ind+1}
                                 </TableCell>
                                 <TableCell>
                                   <TextField

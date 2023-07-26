@@ -67,13 +67,26 @@ const row=[]
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
-
+  
   const dispatch = useDispatch();
+  var tableData=localStorage.getItem("userDetails")
+
+  // ={
+  //   countryCode: null,
+  //   email: "",
+  //   enableMFA: false,
+  //   enableMFA_SMS: false,
+  //   id: 0,
+  //   mobileNumber: "",
+  //   roleId: 1,
+  //   roleName: "Admin",
+  // }
 //   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, []);
+  useEffect(() => {
+    tableData=localStorage.getItem("userDetails")
+    // dispatch(getAllFormInstructions(page, size));
+  }, []);
 
 //   const setSubmit = (e) => {
 //     e.preventDefault();
@@ -201,7 +214,7 @@ const row=[]
                             }}
                           >
                             <TableCell className="table_content" component="th" scope="row">
-                            antony@complyexchange.com
+                            {tableData.email}
                             </TableCell>
 
                             <TableCell className="table_content" align="center">
@@ -212,16 +225,42 @@ const row=[]
                              Change password</Link>  
                                 </TableCell>
                           
-                            <TableCell className="table_content" align="center"></TableCell>
+                            <TableCell className="table_content" align="center">
+                            <Checkbox
+                              name="isPartnership"
+                              
+                              className="p-0 checkBox"
+                              checked={
+                                // tableData.isPartnership
+                                  tableData.enableMFA
+                                  // : data.isPartnership
+                              }
+                            
+                            />
+                            </TableCell>
                         
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
+                            <TableCell className="table_content" align="center">
+                            <Checkbox
+                              name="isPartnership"
+                              
+                              className="p-0 checkBox"
+                              checked={
+                                // tableData.isPartnership
+                                  tableData.enableMFA_SMS
+                                  // : data.isPartnership
+                              }
+                            
+                            />
+                            </TableCell>
 
                             <TableCell className="table_content" align="center">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push("/administrators_edit")
+                                  //  history.push("/administrators_edit/1")
+                                   history.push(`administrators_edit/${tableData?.id}`)
+
                                   }} />
                              
                               
@@ -246,7 +285,7 @@ const row=[]
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
                 onClick={() => {
-                  history.push("/administrators_edit")
+                  history.push("/administrators_add")
                  }}
               >
                Add Administrator

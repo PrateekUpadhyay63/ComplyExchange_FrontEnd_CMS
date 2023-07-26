@@ -54,9 +54,7 @@ export default function Language_details() {
   useEffect(()=>{
     dispatch(GetDocumentationTypes());
     if(params.id){
-      dispatch(getDocById(params.id,(data)=>{ setData({ ...data, name: data.name });
-      setData({ ...data, documentationTypeId: data?.id });
-    }));
+      dispatch(getDocById(params.id,(data)=>{ setData(data)}));
     }
   },[])
 
@@ -161,9 +159,6 @@ export default function Language_details() {
                       Save
                     </Button>
                     <Button
-                     onClick={()=>{
-                      history.push("/documentation")
-                     }}
                      variant='outlined'
                       size='small'
                       className='mx-2'

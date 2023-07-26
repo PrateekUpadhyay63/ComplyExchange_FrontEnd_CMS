@@ -178,6 +178,12 @@ const endPoint = {
   //Security keys
   GET_SECURITY_KEY:"SecurityKey/GetSecurity",
   UPSERT_SECURITY_KEY:"SecurityKey/UpsertSecurity",
+
+  //Administrator
+  GET_USER_BY_ID:"Account/GetUser",
+  CHANGE_PASSWORD:"Account/ChangePassword",
+  UPDATE_USER:"Account/UpdateUser",
+  
 };
 
 export default endPoint;

@@ -109,6 +109,15 @@ export const getUserByIdReducer = (state = initialState, action) => {
   }
 };
 
+export const getCountryByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LANG_BY_SEARCH:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 export const getLangListReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_BY_ID:

@@ -74,6 +74,31 @@ export const getUserById = (value,callback) => {
     );
   };
 };
+export const getCountryById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_BY_ID,
+      `?id=${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_COUNTRY_BY_ID,
+            payload: {
+              getCountryByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
 
 
 export const loginAction = (value,callback) => {
@@ -1305,6 +1330,56 @@ export const createPAGES = (value) => {
     );
   };
 };
+export const CountryUpsert = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRIES,
+      value,"multi",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRIES,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          console.log("response" ,responseData)
+          Utils.showAlert(1, responseData?.data?.message);
+          
+        }
+        
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
+
+export const CountriesUpsertArticle = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRY_ARTICLE,
+      value,"multi",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRY_ARTICLE,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
 
 export const createDocType = (value) => {
   return (dispatch) => {

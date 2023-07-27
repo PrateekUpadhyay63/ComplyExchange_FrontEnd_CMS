@@ -34,62 +34,58 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { createCapacities, getCapacitiesById ,updateCapacities} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle} from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
-  const formData = useSelector((state) => state.getCapacitiesById);
-  // createCapacities
-  // getCapacitiesByfId
+  // const formData = useSelector((state) => state.getCapacitiesById);
+ 
   const [data, setData] = useState(params.id ? {
-    id: 0,
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
+    countryId: 0,
+    number: "string",
+    description: "string",
+    treatyRates: "string",
+    maxNoOfParagraph: 0,
+    includeSubParagraph: true,
+    showInDropDown: true
   }:{
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
+    countryId: 0,
+    number: "string",
+    description: "string",
+    treatyRates: "string",
+    maxNoOfParagraph: 0,
+    includeSubParagraph: true,
+    showInDropDown: true,
   });
-//    useEffect(()=>{
-//     setData(formData?.capacityDataById)
-//    },[formData])
 
-  useEffect(() => {
-    // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
-  }, []);
+
+  // useEffect(() => {
+  //   // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(params.id){
-      dispatch(updateCapacities(data));
+    let updateData = {
+    countryId: data?.countryId,
+    number: data?.number,
+    description: data?.description,
+    treatyRates: data?.treatyRates,
+    maxNoOfParagraph: data?.maxNoOfParagraph,
+    includeSubParagraph: data?.includeSubParagraph,
+    showInDropDown: data?.showInDropDown,
+      }
+    dispatch(CountriesUpsertArticle(updateData));
     }
-    else{
-      dispatch(createCapacities(data));
-    }
-    history.push("/capacities");
-  };
+    history.push("/countries");
+  }
 
  
-//   const handleToogle = (e) => {
-//     setData({ ...data, [e.target.name]: e.target.checked });
-//   };
+  const handleToogle = (e) => {
+    setData({ ...data, [e.target.name]: e.target.checked });
+  };
   
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -169,7 +165,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="number"
+                    value={data?.number}
                    
                     onChange={handleChange}
                     required
@@ -192,7 +189,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="description"
+                    value={data?.description}
                    
                     onChange={handleChange}
                     required
@@ -215,7 +213,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="treatyRates"
+                    value={data?.treatyRates}
                    
                     onChange={handleChange}
                     required
@@ -235,7 +234,7 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
 
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' >
+                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name="maxNoOfParagraph" >
                         <MenuItem value={1}> ---Select----</MenuItem>
                         <MenuItem>1</MenuItem>
                         <MenuItem>2</MenuItem>
@@ -264,6 +263,8 @@ export default function Countries_details() {
                 <div className="col-10">
                 <Checkbox 
                           className="p-0 checkBox"
+                          name="includeSubParagraph"
+                          checked={data?.includeSubParagraph}
                          />
                 </div>
               </div>
@@ -281,7 +282,8 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
                 <Checkbox 
-                        defaultChecked
+                        name="showInDropDown"
+                        checked={data?.showInDropDown}
                           className="p-0 checkBox"
                           />
                 </div>
@@ -364,7 +366,7 @@ export default function Countries_details() {
               <Button
                 size="small"
                 type="submit"
-               
+                onClick={handleSubmit}
                 sx={{ mr: 2 }}
                 variant="contained"
               >

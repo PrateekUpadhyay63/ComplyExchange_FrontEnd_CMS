@@ -276,7 +276,7 @@ display: none !important;
   font-weight: 550 !important;
   margin: 0.5rem;
   justify-content: end;
-  color:"#3498db" !important;
+  // color:"#3498db" !important;
   display: flex;
 
   cursor: pointer !important;
@@ -284,6 +284,7 @@ display: none !important;
 
 .bread_crumbs a:hover{
   cursor: pointer !important;
+  color: inherit !important;
   text-decoration: underline !important;
   :hover:after {
     color: inherit !important;

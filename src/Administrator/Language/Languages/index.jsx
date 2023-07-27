@@ -125,14 +125,14 @@ import Language from "../../../reusables/language";
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                   
                   
                 >
 Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1  card p-3 box_style">
@@ -204,6 +204,7 @@ Languages
                             </TableCell>
                           </TableRow>
                         </TableHead>
+                        {tableData?.langData && tableData?.langData.records?.length ? (
                         <TableBody>
                           {tableData?.langData?.records?.map((row) => (
                             <TableRow
@@ -275,6 +276,7 @@ Languages
                             </TableRow>
                           ))}
                         </TableBody>
+                        ) : <div className="notDataDiv">No Data Available</div>} 
                       </Table>
                     </TableContainer>
                   </Paper>

@@ -284,11 +284,20 @@ display: none !important;
 
 .bread_crumbs a:hover{
   cursor: pointer !important;
-  color: inherit !important;
+ 
   text-decoration: underline !important;
   :hover:after {
     color: inherit !important;
   }
 
-
+  .notDataDiv{
+    text-align: "-webkit-match-parent";
+    width: 100%;
+    font-size: larger;
+    padding: 8%;
+}
+}
+.bread_crumbs p{
+  margin: 0px !important;
+  cursor: default !important;
 }

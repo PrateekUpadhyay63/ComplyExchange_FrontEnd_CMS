@@ -249,15 +249,15 @@ export default function Subpage_details() {
                 >
                   Pages
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                 
                  
                   
                 >
                   Sub Page Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
       <form onSubmit={(e) => handleSubmit(e)}>

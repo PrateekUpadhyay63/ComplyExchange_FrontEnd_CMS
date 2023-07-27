@@ -26,6 +26,7 @@ const {
   GET_LANGUAGE_BY_ID,
   GET_ALL_LOB,
   GET_LOB,
+  GET_INCOME_CODE,
   UPDATE_LOB,
   GET_ALL_FORM_INSTRUCTIONS,
   GET_FORM_INSTRUCTION_BY_ID,
@@ -85,6 +86,8 @@ const {
   GET_SECURITY_KEY,
   GET_USER_BY_ID,
   ALL_USER,
+  GET_YEARS,
+  GET_MAXNUMBER
 } = Utils.ActionName;
 
 let initialState = [];
@@ -138,6 +141,25 @@ export const getSecurityKeysReducer = (state = initialState, action) => {
   }
 };
 
+
+
+export const getYearsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_YEARS:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getNumbersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_MAXNUMBER:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getSelfCertificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SELF_CERTIFICATION:
@@ -488,6 +510,14 @@ export const getAllCountriesDataReducer = (state = initialState, action) => {
 export const getdocTypeReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DOCUMENTATION_TYPES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getIncomeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_INCOME_CODE:
       return { ...state, ...action.payload };
     default:
       return state;

@@ -135,15 +135,15 @@ export default function Language_details() {
                 >
            LOB
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                  
                   
                 >
            LOB Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
                

@@ -63,7 +63,10 @@ export default function ContentManagement() {
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
   const [idData, setIdData] = useState(0);
+  const [search, setSearch] = useState("");
   const [dropDownData, setDropDownData] = useState([]);
   const [open2, setOpen2] = useState(false);
   const handleClickOpen2 = () => setOpen2(true);
@@ -82,11 +85,16 @@ export default function ContentManagement() {
     toolTip: "",
     typeId: null,
   })
-
+  const setSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllContentType(page, size, search));
+  };
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+ 
   const tableData = useSelector((state) => state.getAllContentTypeByIdReducer);
 
   useEffect(() => {
@@ -110,42 +118,54 @@ export default function ContentManagement() {
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                   
                   
                 >
       Content Block
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
-            <div className=" row m-1  border p-3 box_style">
-              <div className="col-8 d-flex">
-               
-                <TextField
-                  style={{ backgroundColor: "#fff" }}
-                  className="mx-md-3 mx-auto w-50 rounded-Input"
-                  placeholder="Search"
-                  type="search"
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-
-
-              <div className="col-4">
-                <Button  size="small"className="btn-cstm" style={{ float: "right", display:"none" }}>
-                  Search
-                </Button>
-              </div>
+            <div className=" row m-1 card p-3 box_style">
+              <form
+                className="row"
+                onSubmit={(e) => {
+                  setSubmit(e);
+                }}
+              >
+                <div className="col-8 d-flex ">
+                  <TextField
+                    style={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    name="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="mx-md-3 mx-auto w-50 rounded-Input"
+                    placeholder="Search"
+                    type="search"
+                    variant="outlined"
+                    size="small"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className="col-4 ">
+                  <Button
+                    size="small"
+                    type="submit"
+                    className="btn-cstm"
+                    style={{ float: "right", display: "none" }}
+                  >
+                    Search
+                  </Button>
+                </div>
+              </form>
             </div>
             <div className=" row m-1  card p-3" style={{ overflowX: "auto" }}>
               <div className="col-12 d-flex">
@@ -254,12 +274,19 @@ export default function ContentManagement() {
                   Export 
                 </Button>
               </div>
-            {/* <Stack style={{marginLeft:'20px'}}spacing={2}>
+              {tableData?.contentData?.totalPages > 1 ? (
+            <Stack style={{marginLeft:'20px'}}spacing={2}>
             <Pagination
-                  count={tableData?.pageData?.totalPages}
+             variant="outlined"
+             shape="rounded"
+             color="primary"
+                  count={tableData?.contentData?.totalPages}
                   onChange={(e, value) => setPage(value)}
                 />
-            </Stack> */}
+            </Stack>
+             ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

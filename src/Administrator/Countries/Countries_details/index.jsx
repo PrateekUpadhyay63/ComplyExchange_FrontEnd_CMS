@@ -34,48 +34,42 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { getCountryById, CountryUpsert, CountriesUpsertArticle} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears} from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
    const countryData = useSelector((state) => state.getCountryByIdReducer);
+   const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();
   let history= useHistory();
  
-  const [data, setData] = useState(params.id ? {
+  const [data, setData] = useState( {
    
-  countryId: 0,
-  name: "string",
-  treatyEffectiveYear: 0,
-  bankStandardName: "string",
-  bankStandardNameFormat: 0,
-  requestIBAN: true,
-  requestSwiftCode: true,
-  iga: "string",
-  crs: "string",
-  lob: true,
-  lobDocumentLocation: "string",
-  lobDocumentURL: "string",
+  countryId: "",
+  name: "",
+  treatyEffectiveYear: "",
+  bankStandardName: "",
+  bankStandardNameFormat: "",
+  requestIBAN: false,
+  requestSwiftCode: false,
+  iga: "",
+  crs: "",
+  lob: false,
+  lobDocumentLocation: "",
+  lobDocumentURL: "",
  
 
-  }:{
- 
-  name: "string",
-  treatyEffectiveYear: 0,
-  bankStandardName: "string",
-  bankStandardNameFormat: 0,
-  requestIBAN: true,
-  requestSwiftCode: true,
-  iga: "string",
-  crs: "string",
-  lob: true,
-  lobDocumentLocation: "string",
-  lobDocumentURL: "string",
   });
+
+  
 
    useEffect(()=>{
     setData(countryData?.getCountryById)
    },[countryData])
+
+   useEffect(() => {
+    dispatch(getYears());
+  }, []);
 
   useEffect(() => {
     if(params?.id)
@@ -129,7 +123,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{height:'1000px'}}>
+          <div className="app-main__outer" style={{height:'700px'}}>
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
@@ -143,16 +137,16 @@ export default function Countries_details() {
                 >
             Countries
                 </Link>
-                <Link
+                <p
                   
-                   color="#171616"
+                   color="#000000"
                    disabled
                    
                  
                   
                 >
             Countries Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
           <div className="row m-1 border p-3 box_style">
@@ -244,10 +238,10 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
 
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name = "bankStandardNameFormat" >
+                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name = "bankStandardNameFormat" onChange={handleChange} >
                         <MenuItem value={1}> ---Select----</MenuItem>
-                        <MenuItem>Sort Code</MenuItem>
-                        <MenuItem>ABA/Routing Numbers</MenuItem>
+                        <MenuItem value={2}>Sort Code</MenuItem>
+                        <MenuItem value={3}>ABA/Routing Numbers</MenuItem>
                     </Select>
                
                 </div>
@@ -302,10 +296,10 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Select align="center" defaultValue={1} className='selectBox text table_content' name = "iga" >
+                <Select align="center" defaultValue={1} className='selectBox text table_content' name = "iga" onChange={handleChange} >
                         <MenuItem value={1}> ---Select----</MenuItem>
-                        <MenuItem>Model 1</MenuItem>
-                        <MenuItem>Model 2</MenuItem>
+                        <MenuItem value={2}>Model 1</MenuItem>
+                        <MenuItem value={3}>Model 2</MenuItem>
                     </Select>
                 </div>
               </div>
@@ -322,10 +316,13 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Select align="center" defaultValue={1}className='selectBox text table_content 'name="crs" >
+                <Select align="center" defaultValue={1}className='selectBox text table_content 'name="crs" onChange={handleChange} >
                         <MenuItem value={1} > ---Select----</MenuItem>
-                        <MenuItem>2000</MenuItem>
-                        <MenuItem>2002</MenuItem>
+                        {formData?.map((i,ind)=>{
+                           return(<MenuItem key={ind} value={i}>{i}</MenuItem>)
+                       
+                       
+                      })}
                     </Select>
                 </div>
               </div>

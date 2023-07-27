@@ -572,15 +572,15 @@ export default function Language_details () {
                 >
                   Forms
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                  
                   
                 >
                  Self Form Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=' row mx-2'>

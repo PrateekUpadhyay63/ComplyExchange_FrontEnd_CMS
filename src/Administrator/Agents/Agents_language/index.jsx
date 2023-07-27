@@ -753,15 +753,15 @@ export default function Language_details() {
                 >
                   Agents
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                   
                   
                 >
                   Agent Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style">

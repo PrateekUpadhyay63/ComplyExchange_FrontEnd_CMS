@@ -279,14 +279,14 @@ export default function Language_details() {
                 >
      Easy Help
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                   
                 >
        Easy Help Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style" style={{height:"908px"}}>

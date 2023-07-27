@@ -182,15 +182,15 @@ export default function Language_details() {
                 >
                   Rules 
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   
                 >
                   Rules Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style"  style={{height:"908px"}}>

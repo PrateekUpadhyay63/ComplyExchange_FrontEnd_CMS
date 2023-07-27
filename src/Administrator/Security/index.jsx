@@ -110,9 +110,9 @@ export default function ContentManagement() {
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" color="#171616" aria-current="page">
+                <p color="#000000" aria-current="page">
                   Security
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             {/* <div className=" row m-1  border p-3 box_style">

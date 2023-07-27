@@ -247,6 +247,69 @@ export const getSecurityKeys = () => {
   };
 };
 
+export const getYears = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_YEARS,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_YEARS,
+          payload: {
+            yearData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const GetIncomeTypes = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_INCOME_CODE,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_INCOME_CODE,
+          payload: {
+            incTypeData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getMaxNumber = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_MAXNUMBER,
+      "",
+      (resData) => {
+        
+        dispatch({
+          type: Utils.ActionName.GET_MAXNUMBER,
+          payload: {
+            numberData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const upsertSecurityKeys = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
@@ -1339,14 +1402,21 @@ export const CountryUpsert = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log("response" ,responseData)
-          Utils.showAlert(1, responseData?.data?.message);
+          console.log("response" ,responseData.data)
+          if(responseData.data.status==200){
+            Utils.showAlert(1, responseData?.statusText);
+          }
+         else{
+          Utils.showAlert(2, responseData?.statusText);
+         }
           
         }
         
       },
       (error) => {
+        console.log("error",error)
         Utils.showAlert(2, error.statusText);
+
       }
     );
   };

@@ -118,7 +118,7 @@ export default function Countries_details() {
                 </Link>
                 <Link
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                   
                
                   

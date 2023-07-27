@@ -115,7 +115,7 @@ export default function Language_details() {
              
                 <Link
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   

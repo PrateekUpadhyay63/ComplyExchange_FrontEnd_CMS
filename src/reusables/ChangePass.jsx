@@ -28,7 +28,7 @@ import "./reusables.scss";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 
-import {createFormInstruction,
+import {changePassword, createFormInstruction,
     getFormInstructionById,
     updateFormInstruction, } from "../redux/Actions";
 
@@ -36,32 +36,34 @@ import {createFormInstruction,
 
 
 const DialogEdit = props => {
-  const { open, setOpen, idData, response, getList } = props
- 
-  const handleClose = () => setOpen(false)
+  const { open, setOpen, idData,setIdData, response, getList } = props
+  
+  const handleClose = () =>{ setOpen(false); setIdData({}) ;setData({id: 0,
+    oldPassword: "",
+    password: ""})}
  
   const dispatch = useDispatch();
   let params = useParams();
   const history = useHistory();
 
   const formData = useSelector((state) => state.ParentDropDownReducer);
-
+  
   const [data, setData] = useState({
     id: 0,
     oldPassword: "",
     password: ""
   });
-
-//   useEffect(() => {
-//     if(idData){
-//       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
-//     }else{
-//       setData({})
-//     }
-// }, [idData]); 
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  
+  //   useEffect(() => {
+    //     if(idData){
+      //       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
+      //     }else{
+        //       setData({})
+        //     }
+        // }, [idData]); 
+        
+        const handleChange = (e) => {
+          setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -69,16 +71,17 @@ const DialogEdit = props => {
     e.preventDefault();
     
     let updateData={
-      id: idData,
+      id: idData?.id,
       oldPassword: data.oldPassword,
       password: data.password
     }
  
     if (idData) {
-      dispatch(updateFormInstruction(updateData));
+      dispatch(changePassword(updateData));
     } 
     handleClose()
   };
+  console.log(idData,"paprams")
   return (
     <Fragment>
      

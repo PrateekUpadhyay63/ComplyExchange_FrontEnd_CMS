@@ -46,9 +46,9 @@ export default function Countries_details() {
     roleId: 1,
     roleName: null,
   });
-  useEffect(() => {
-    setData(formData?.getUserByIdData);
-  }, [formData]);
+  // useEffect(() => {
+  //   setData(formData?.getUserByIdData);
+  // }, [formData]);
 
   useEffect(() => {
     if (params?.id) {
@@ -56,7 +56,7 @@ export default function Countries_details() {
         setData(item);
       });
     }
-  }, [params]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +69,9 @@ export default function Countries_details() {
         enableMFA_SMS: data?.enableMFA_SMS,
         mobileNumber: data?.mobileNumber,
       };
-      dispatch(updateUser(updateData));
+      dispatch(updateUser(updateData)
+      // , ()=>{history.push("/administrators")}
+      );
     } else {
       dispatch(signupAction(data));
     }

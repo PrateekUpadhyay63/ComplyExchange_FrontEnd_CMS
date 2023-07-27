@@ -56,6 +56,7 @@ export const getUserById = (value,callback) => {
       (resData) => {
         if (resData.status === 200) {
           if(callback){
+            console.log(resData,"resDatas")
             callback(resData.data)
           }
           dispatch({
@@ -1269,7 +1270,10 @@ export const changePassword = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data?.message);
+          if(responseData?.data?.message !== ""){
+            // callback();
+          }
         }
       },
       (error) => {

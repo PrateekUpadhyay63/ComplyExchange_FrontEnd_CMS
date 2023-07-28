@@ -38,12 +38,13 @@ import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears} from ".
 
 export default function Countries_details() {
   const dispatch = useDispatch();
-   const countryData = useSelector((state) => state.getCountryByIdReducer);
+   const countryData = useSelector((state) => state.getCountryByIdReducer?.getCountryByIdData);
    const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();
   let history= useHistory();
  
   const [data, setData] = useState( {
+ 
    
   countryId: "",
   name: "",
@@ -60,11 +61,11 @@ export default function Countries_details() {
  
 
   });
-
+  {console.log("daatee",data)}
   
 
    useEffect(()=>{
-    setData(countryData?.getCountryById)
+    // setData(countryData?.getCountryById)
    },[countryData])
 
    useEffect(() => {
@@ -72,10 +73,11 @@ export default function Countries_details() {
   }, []);
 
   useEffect(() => {
+    debugger
     if(params?.id)
     {
-    dispatch(getCountryById(params.id), (data) => {
-      setData(data);
+    dispatch(getCountryById(params.id), (item) => {
+      setData(item);
     });
   }
   }, []);
@@ -166,16 +168,18 @@ export default function Countries_details() {
                   <div
                    
                     className="table_content"
-                  ></div>
+                  >
+                    {countryData?.name}
+                  </div>
 
-                  <TextField
+                  {/* <TextField
                   className="table_content"
                     size="small"
                     name="name"
                      value={data?.name}
                     onChange={handleChange}
                     required
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="row">
@@ -240,8 +244,8 @@ export default function Countries_details() {
 
                     <Select align="center"  defaultValue={1} className='selectBox text table_content' name = "bankStandardNameFormat" onChange={handleChange} >
                         <MenuItem value={1}> ---Select----</MenuItem>
-                        <MenuItem value={2}>Sort Code</MenuItem>
-                        <MenuItem value={3}>ABA/Routing Numbers</MenuItem>
+                        <MenuItem value={"Sort Code"}>Sort Code</MenuItem>
+                        <MenuItem value={"ABA/Routing Numbers"}>ABA/Routing Numbers</MenuItem>
                     </Select>
                
                 </div>
@@ -316,8 +320,8 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Select align="center" defaultValue={1}className='selectBox text table_content 'name="crs" onChange={handleChange} >
-                        <MenuItem value={1} > ---Select----</MenuItem>
+                <Select align="center" defaultValue={1} className='selectBox text table_content' name="crs" onChange={handleChange} >
+                        <MenuItem value={1}> ---Select----</MenuItem>
                         {formData?.map((i,ind)=>{
                            return(<MenuItem key={ind} value={i}>{i}</MenuItem>)
                        

@@ -44,25 +44,27 @@ export default function Countries_details() {
   console.log("form",formData);
   const namedata =useSelector((state)=>state.getIncomeReducer);
  
-  const [data, setData] = useState(params.id ? {
+  const [data, setData] = useState({
     countryId: 0,
+    name:"",
     number: "",
     description: "",
     treatyRates: "",
     maxNoOfParagraph: 0,
     includeSubParagraph: false,
     showInDropDown: false
-  }:{
-    countryId: 0,
-    number: "",
-    description: "",
-    treatyRates: "",
-    maxNoOfParagraph: 0,
-    includeSubParagraph: false,
-    showInDropDown: false,
-  });
+  }
+  // }:{
+  //   countryId: 0,
+  //   number: "",
+  //   description: "",
+  //   treatyRates: "",
+  //   maxNoOfParagraph: 0,
+  //   includeSubParagraph: false,
+  //   showInDropDown: false,
+  // });
 
-
+  )
 const [data1 , setData1] = useState({
   name: "",
   Id: 0,
@@ -165,7 +167,7 @@ const [data1 , setData1] = useState({
                    
                     className="table_content"
                   >
-                    Afganistan
+                  {data?.name}
                   </div>
 
                   
@@ -257,11 +259,11 @@ const [data1 , setData1] = useState({
                 <div className="col-10">
 
                    
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name="maxNoOfParagraph"  onChange={handleChange} >
-                    <MenuItem value={1}> ---Select----</MenuItem>
+                    <Select align="center" defaultValue={0} className='selectBox text table_content' name="maxNoOfParagraph"  onChange={handleChange} >
+                    <MenuItem value={0}> ---Select----</MenuItem>
                     {formData?.map((i,ind)=>{
-                      {console.log("res",i)}
-                       return(  <MenuItem key={ind} value={i}>{i}</MenuItem>)
+                     
+                       return(<MenuItem key={ind} value={i}>{i}</MenuItem>)
                       
                       })}
                     </Select>

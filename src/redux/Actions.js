@@ -81,6 +81,7 @@ export const getCountryById = (value,callback) => {
       (resData) => {
         if (resData.status === 200) {
           if(callback){
+            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({

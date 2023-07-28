@@ -45,6 +45,7 @@ const {
   GET_CHAPTER4_HIDDEN_ENTITY,
   GET_CHAPTER4_IMPORTANT_ENTITY,
   GET_ALL_EASY,
+  GET_COUNTRY_BY_ID,
   GET_EASY_BY_ID,
   GET_PAGE_TRANSLATION,
   GET_EASY_TRANSLATION,
@@ -114,7 +115,7 @@ export const getUserByIdReducer = (state = initialState, action) => {
 
 export const getCountryByIdReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LANG_BY_SEARCH:
+    case GET_COUNTRY_BY_ID:
       return { ...state, ...action.payload };
     default:
       return state;

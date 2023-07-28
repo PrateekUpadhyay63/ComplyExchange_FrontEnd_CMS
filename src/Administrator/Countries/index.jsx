@@ -303,7 +303,7 @@ export default function ContentManagement() {
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push(`/countries_edit/${row.id}`)
+                                   history.push(`/countries_edit/${row.countryId}`)
                                   }} />
                              
                               </div>

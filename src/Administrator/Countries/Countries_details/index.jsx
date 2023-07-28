@@ -43,9 +43,7 @@ export default function Countries_details() {
   let params = useParams();
   let history= useHistory();
  
-  const [data, setData] = useState( {
- 
-   
+  const [data, setData] = useState({   
   countryId: "",
   name: "",
   treatyEffectiveYear: "",
@@ -58,14 +56,9 @@ export default function Countries_details() {
   lob: false,
   lobDocumentLocation: "",
   lobDocumentURL: "",
- 
-
   });
-  {console.log("daatee",data)}
-  
-
    useEffect(()=>{
-    // setData(countryData?.getCountryById)
+    setData(countryData)
    },[countryData])
 
    useEffect(() => {
@@ -73,7 +66,6 @@ export default function Countries_details() {
   }, []);
 
   useEffect(() => {
-    debugger
     if(params?.id)
     {
     dispatch(getCountryById(params.id), (item) => {

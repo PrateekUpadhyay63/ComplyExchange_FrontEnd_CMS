@@ -215,6 +215,8 @@ const row=[]
                             <TableCell className="table_content" align="center">
                              <Link onClick={() => {
                   setOpen(true);
+                  setIdData(row)
+                  
                  
                 }} >
                              Change password</Link>  
@@ -304,6 +306,7 @@ const row=[]
       <ChangePass
         open={open}
         idData={idData}
+        setIdData={setIdData}
         setOpen={setOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}

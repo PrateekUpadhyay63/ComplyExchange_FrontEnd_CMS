@@ -75,14 +75,14 @@ export default function ContentManagement() {
             </div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    aria-current="page"
                   
                 >
           CDFs
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1  border p-3 box_style">
@@ -124,25 +124,25 @@ export default function ContentManagement() {
                         </TableCell>
                       
                        
-                        <TableCell  className='table_head'>
+                        <TableCell align='center' className='table_head'>
                          Name
                         </TableCell>
                       
-                        <TableCell  className='table_head'>
+                        <TableCell  align='center' className='table_head'>
                          Email
                         </TableCell>
                     
-                        <TableCell  className='table_head'>
+                        <TableCell  align='center' className='table_head'>
                          Date
                         </TableCell>
-                        <TableCell  className='table_head'>
+                        <TableCell  align='center' className='table_head'>
                         Is sent
                         </TableCell>
-                        <TableCell  className='table_head'>
+                        <TableCell  align='center' className='table_head'>
                         Is sent by feed
                         </TableCell>
                        
-                        <TableCell className='table_head' align="right">
+                        <TableCell className='table_head'  align='center'>
                         Actions
                         </TableCell>
                        
@@ -157,41 +157,41 @@ export default function ContentManagement() {
                             sx={{ '&:last-child td, &:last-child th':
                                 { border: 0 } }}
                         >
-                            <TableCell className="table_content"component="th" scope="row" >
+                            <TableCell   className="table_content" >
                                 {row.agent}
                             </TableCell>
 
                          
-                            <TableCell className="table_content">
+                            <TableCell  align='center' className="table_content">
                                 {row.name}
                             </TableCell>
                            
-                            <TableCell className="table_content">
+                            <TableCell  align='center' className="table_content">
                                 {row.mail}
                             </TableCell>
                            
-                            <TableCell className="table_content" >
+                            <TableCell  align='center' className="table_content" >
                                 {row.date}
                             </TableCell>
                           
-                            <TableCell className="table_content">
+                            <TableCell  align='center'className="table_content">
                                <CheckBox
                                     className="checkBox"/>
                             </TableCell>
-                            <TableCell className="table_content">
+                            <TableCell  align='center' className="table_content">
                             <CheckBox  style={{marginLeft:"25px"}}
                                     className="checkBox"/>
                             </TableCell >
                            
                            
-                            <TableCell >
+                            <TableCell  align='center' >
 
-                            <div className="table_content addSubpage actionRow " style={{display:"flex",justifyContent:"flex-end",fontSize:"10px" }}>
+                            <div className="table_content addSubpage actionRow " style={{display:"flex",justifyContent:"center",fontSize:"12px" }}>
                                    
                                    {row.admin}
                                 
                               
-                                   <DeleteIcon style={{ color: "red", fontSize:"20px", marginLeft:'15px'}}/>
+                                   <DeleteIcon style={{ color: "red", fontSize:"20px", marginLeft:'25px'}}/>
                               
                                </div>
 

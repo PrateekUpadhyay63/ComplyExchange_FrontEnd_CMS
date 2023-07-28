@@ -34,37 +34,61 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { getCountryById, CountryUpsert, CountriesUpsertArticle} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle,getMaxNumber,GetIncomeTypes } from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
-  // const formData = useSelector((state) => state.getCapacitiesById);
+  const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
+  console.log("form",formData);
+  const namedata =useSelector((state)=>state.getIncomeReducer);
  
-  const [data, setData] = useState(params.id ? {
+  const [data, setData] = useState({
     countryId: 0,
-    number: "string",
-    description: "string",
-    treatyRates: "string",
+    name:"",
+    number: "",
+    description: "",
+    treatyRates: "",
     maxNoOfParagraph: 0,
-    includeSubParagraph: true,
-    showInDropDown: true
-  }:{
-    countryId: 0,
-    number: "string",
-    description: "string",
-    treatyRates: "string",
-    maxNoOfParagraph: 0,
-    includeSubParagraph: true,
-    showInDropDown: true,
-  });
+    includeSubParagraph: false,
+    showInDropDown: false
+  }
+  // }:{
+  //   countryId: 0,
+  //   number: "",
+  //   description: "",
+  //   treatyRates: "",
+  //   maxNoOfParagraph: 0,
+  //   includeSubParagraph: false,
+  //   showInDropDown: false,
+  // });
+
+  )
+const [data1 , setData1] = useState({
+  name: "",
+  Id: 0,
+});
+  const [selectAll, setSelectAll] = useState(false);
+
+  const handleSelectAll = () => {
+    setSelectAll(true);
+  };
+
+  const handleUnselectAll = () => {
+    setSelectAll(false);
+  };
+  useEffect(() => {
+    dispatch(getMaxNumber());
+  }, []);
 
 
-  // useEffect(() => {
-  //   // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
-  // }, []);
-
+  useEffect(()=>{
+    dispatch(GetIncomeTypes());
+    // if(params.id){
+    //   dispatch(GetIncomeTypes(params.id,(data1)=>{ setData1(data1)}));
+    // }
+  },[])
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(params.id){
@@ -99,7 +123,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{height:'1000px'}}>
+          <div className="app-main__outer" >
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
@@ -113,15 +137,15 @@ export default function Countries_details() {
                 >
             Countries
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   
                 >
             Countries Add Article
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
           <div className="row m-1 border p-3 box_style">
@@ -143,7 +167,7 @@ export default function Countries_details() {
                    
                     className="table_content"
                   >
-                    Afganistan
+                  {data?.name}
                   </div>
 
                   
@@ -234,14 +258,14 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
 
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' name="maxNoOfParagraph" >
-                        <MenuItem value={1}> ---Select----</MenuItem>
-                        <MenuItem>1</MenuItem>
-                        <MenuItem>2</MenuItem>
-                        <MenuItem>3</MenuItem>
-                        <MenuItem>4</MenuItem>
-                        <MenuItem>5</MenuItem>
-                        <MenuItem>6</MenuItem>
+                   
+                    <Select align="center" defaultValue={0} className='selectBox text table_content' name="maxNoOfParagraph"  onChange={handleChange} >
+                    <MenuItem value={0}> ---Select----</MenuItem>
+                    {formData?.map((i,ind)=>{
+                     
+                       return(<MenuItem key={ind} value={i}>{i}</MenuItem>)
+                      
+                      })}
                     </Select>
                  {/* <Checkbox name="isImportant"
                         //   onClick={(e) => handleToogle(e)}
@@ -301,50 +325,26 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="mt-2 d-flex">
-                    <Button style={{fontSize:"10px"}}  size="small"  variant="contained">Select All</Button>
-                    <Button style={{fontSize:"10px"}} className="mx-2" size="small"  variant="contained">Unselect All</Button>
+                    <Button style={{fontSize:"10px"}}  size="small" onClick={handleSelectAll} variant="contained">Select All</Button>
+                    <Button style={{fontSize:"10px"}} className="mx-2"onClick={handleUnselectAll} size="small"  variant="contained">Unselect All</Button>
               
                 </div>
               </div>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">02-Interest paid on real property mortgages</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">03-Interest paid to controlling foreign corporations</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">04-Interest paid by foreign corporations</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
+              <div className="row">
+              {namedata?.incTypeData?.map((i,ind)=>{ 
+               
+
+             return ( 
+              <div key={ind} className="col-12">
+                 <span>
+              <Checkbox checked={selectAll}/>
+              <sapn className="table_content mt-1 p-0" >{i.name}</sapn>
+            </span>
+              </div>
+            )
+              })}
+              </div>
+             
               </div>
              
          

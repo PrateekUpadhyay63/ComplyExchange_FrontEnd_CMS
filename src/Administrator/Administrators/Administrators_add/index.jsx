@@ -116,9 +116,9 @@ export default function Countries_details() {
                     >
                       Administrators
                     </Link>
-                    <Link underline="hover" color="#171616">
+                    <p underline="hover" color="#000000">
                       Administrator Details
-                    </Link>
+                    </p>
                   </Breadcrumbs>
                 </div>
                 <form>

@@ -82,6 +82,7 @@ export const getCountryById = (value,callback) => {
       (resData) => {
         if (resData.status === 200) {
           if(callback){
+            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({
@@ -237,6 +238,69 @@ export const getSecurityKeys = () => {
           type: Utils.ActionName.GET_SECURITY_KEY,
           payload: {
             securityKeyData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getYears = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_YEARS,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_YEARS,
+          payload: {
+            yearData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const GetIncomeTypes = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_INCOME_CODE,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_INCOME_CODE,
+          payload: {
+            incTypeData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getMaxNumber = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_MAXNUMBER,
+      "",
+      (resData) => {
+        
+        dispatch({
+          type: Utils.ActionName.GET_MAXNUMBER,
+          payload: {
+            numberData: resData.data,
           },
         });
       },
@@ -1343,14 +1407,21 @@ export const CountryUpsert = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log("response" ,responseData)
-          Utils.showAlert(1, responseData?.data?.message);
+          console.log("response" ,responseData.data)
+          if(responseData.data.status==200){
+            Utils.showAlert(1, responseData?.statusText);
+          }
+         else{
+          Utils.showAlert(2, responseData?.statusText);
+         }
           
         }
         
       },
       (error) => {
+        console.log("error",error)
         Utils.showAlert(2, error.statusText);
+
       }
     );
   };

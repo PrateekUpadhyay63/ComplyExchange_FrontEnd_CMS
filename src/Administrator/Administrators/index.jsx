@@ -104,14 +104,14 @@ const row=[]
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                  
                   
                 >
   Administrators
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className="row headingLabel complyColor">List of Administrators</div>

@@ -31,6 +31,8 @@ const endPoint = {
  POST_UPSERT_COUNTRIES:"/Countries/UpsertCountries",
  GET_COUNTRY_BY_ID:"/Countries/GetCountriesById",
  POST_UPSERT_COUNTRY_ARTICLE:"/Countries/UpsertCountryArticle",
+ GET_YEARS:"/Countries/GetYears",
+ GET_MAXNUMBER:"/Countries/MaxNumber",
 
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",
@@ -41,6 +43,7 @@ const endPoint = {
   GET_CONTENT_LANGUAGE:"ContentManagement/GetAllLanguage",
   GET_CONTENT_TRANSLATION:"ContentManagement/GetContentTranslation",
   POST_CONTENT_TRANSLATION:"ContentManagement/InsertContentTranslation",
+  GET_INCOME_CODE:"/Countries/GetAllIncomeCodes",
 
   // Agents API's
   GET_ALL_AGENTS: "Agent/GetAllAgents",

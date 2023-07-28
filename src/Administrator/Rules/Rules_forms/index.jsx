@@ -100,14 +100,14 @@ export default function PhraseTable() {
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    aria-current="page"
                   
                 >
                   Rules 
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1 border p-3 box_style">
@@ -156,14 +156,14 @@ export default function PhraseTable() {
                         class="table table-hover table-striped"
                       >
                         <TableHead>
-                          <TableRow>
-                            <TableCell  className="table_head">
+                          <TableRow className="tableWidth">
+                            <TableCell  className="table_head tableWidth">
                               Code
                             </TableCell>
                             <TableCell
                               
                               align="center"
-                              className="table_head"
+                              className="table_head tableWidth"
                             >
                               Class
                             </TableCell>
@@ -171,7 +171,7 @@ export default function PhraseTable() {
                             <TableCell
                               
                               align="center"
-                              className="table_head"
+                              className="table_head tableWidth"
                             >
                               Warning
                             </TableCell>
@@ -179,21 +179,21 @@ export default function PhraseTable() {
                             <TableCell
                               
                               align="center"
-                              className="table_head"
+                              className="table_head tableWidth"
                             >
                               Disable Continue
                             </TableCell>
                             <TableCell
                               
                               align="center"
-                              className="table_head"
+                              className="table_head tableWidth"
                             >
                               Translations
                             </TableCell>
                             <TableCell
                               
                               align="right"
-                              className="table_head"
+                              className="table_head tableWidth"
                             >
                               Actions
                             </TableCell>
@@ -202,6 +202,7 @@ export default function PhraseTable() {
                         <TableBody>
                           {tableData?.rulesData?.records.map((row) => (
                             <TableRow
+                            className="tableWidth"
                               key={row.id}
                               sx={{
                                 "&:last-child td, &:last-child th": {
@@ -211,7 +212,7 @@ export default function PhraseTable() {
                             >
                               <TableCell
                                style={{width:'150px'}}
-                                className="table_content"
+                                className="table_content tableWidth"
                                 
                               >
                                 {row.code}
@@ -219,14 +220,14 @@ export default function PhraseTable() {
 
                               <TableCell
                               style={{width:'150px'}}
-                                className="table_content"
+                                className="table_content tableWidth"
                                 
                                 align="center"
                               >
                                 {row.ruleClass}
                               </TableCell>
                               <TableCell
-                                className="table_content"
+                                className="table_content tableWidth"
                                 
                                 align="center"
                               >
@@ -237,12 +238,12 @@ export default function PhraseTable() {
                                 <Checkbox
                                   type="Checkbox"
                                   checked={row.disableRule}
-                                  className="checkBox"
+                                  className="checkBox tableWidth"
                                 />
                               </TableCell>
                               <TableCell
                                style={{width:'130px'}}
-                                className="table_content"
+                                className="table_content tableWidth"
                                 align="center"
                               >
                                 <span
@@ -261,7 +262,7 @@ export default function PhraseTable() {
                                 </span>
                               </TableCell>
 
-                              <TableCell colSpan={2} align="right" className="actionRow">
+                              <TableCell colSpan={2} align="right" className="actionRow tableWidth">
                                 <EditIcon
                                   onClick={() => {
                                     history.push(`/rules_details/${row.id}`);

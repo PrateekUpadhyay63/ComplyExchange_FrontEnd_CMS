@@ -269,14 +269,14 @@ export default function Language_details() {
                 >
                   Pages
                 </Link>
-                <Link
+                <p
                   underline="hover"
-                  color="#171616"
+                  color="#000000"
 
                  
                 >
                    Page Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row  card mx-2 my-2" style={{height:'900px'}}>

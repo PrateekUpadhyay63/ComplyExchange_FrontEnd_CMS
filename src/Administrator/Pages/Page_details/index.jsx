@@ -376,9 +376,9 @@ export default function Pages_details() {
                 <Link underline="hover" color="#0e548c"  onClick={() => history.push("/pages")}>
                   Pages
                 </Link>
-                <Link underline="hover" color="#171616">
+                <p  color="#000000">
                   Page Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <form className="pb-3" onSubmit={(e) => handleSubmit(e)}>

@@ -38,8 +38,8 @@ import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears,getAllCo
 
 export default function Countries_details() {
   const dispatch = useDispatch();
-  const getAllCountry=useSelector((state)=> state?.CountriesReducer?.allCountriesData
-  )
+  const getAllCountry=useSelector((state)=> state?.CountriesReducer?.allCountriesData)
+  
    const countryData = useSelector((state) => state?.getCountryByIdReducer?.getCountryByIdData);
    const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();

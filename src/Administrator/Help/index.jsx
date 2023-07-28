@@ -91,7 +91,7 @@ export default function Language_details() {
     dispatch(GetAllHelpVideos(params.id),(data)=>{ setData(data) });
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, id) => {
     e.preventDefault();
   
     let updateData = {
@@ -131,7 +131,7 @@ export default function Language_details() {
 
     }
    
-    dispatch(postHelpVideo(updateData));
+    dispatch(postHelpVideo(id, updateData));
    
    
     history.push("/help");
@@ -213,7 +213,7 @@ export default function Language_details() {
                     size="small"
                     name="name"
                     
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e, row.id)}
                     required
                   />
                   <span className="table_content mx-4">{row.language}</span>

@@ -3298,7 +3298,29 @@ export const createCapacities = (value) => {
     );
   };
 };
-
+export const postHelpVideo = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      `${Utils.endPoints.POST_HELP_VIDEOS}`,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_HELP_VIDEOS,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
 
 
 export const updateFormInstruction = (value) => {

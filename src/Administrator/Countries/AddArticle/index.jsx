@@ -40,7 +40,6 @@ export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
-  const countryData = useSelector((state) => state.getCountryByIdReducer?.getCountryByIdData);
   const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
   console.log("form",formData);
   const namedata =useSelector((state)=>state.getIncomeReducer);
@@ -66,12 +65,6 @@ export default function Countries_details() {
   // });
 
   )
-
-  useEffect(()=>{
-    setData(countryData)
-   },[countryData])
-
-
 const [data1 , setData1] = useState({
   name: "",
   Id: 0,
@@ -100,7 +93,7 @@ const [data1 , setData1] = useState({
     e.preventDefault();
     if(params.id){
     let updateData = {
-    countryId: params?.id,
+    countryId: data?.countryId,
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,
@@ -174,7 +167,7 @@ const [data1 , setData1] = useState({
                    
                     className="table_content"
                   >
-                 {countryData?.name}
+                  {data?.name}
                   </div>
 
                   
@@ -292,8 +285,7 @@ const [data1 , setData1] = useState({
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox 
-                 onClick={(e) => handleToogle(e)}
+                <Checkbox onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           name="includeSubParagraph"
                           checked={data?.includeSubParagraph}
@@ -313,8 +305,7 @@ const [data1 , setData1] = useState({
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox 
-                 onClick={(e) => handleToogle(e)}
+                <Checkbox onClick={(e) => handleToogle(e)}
                         name="showInDropDown"
                         checked={data?.showInDropDown}
                           className="p-0 checkBox"
@@ -346,7 +337,7 @@ const [data1 , setData1] = useState({
              return ( 
               <div key={ind} className="col-12">
                  <span>
-              <Checkbox checked={selectAll}/>
+              <Checkbox onClick={(e) => handleToogle(e)} checked={selectAll}/>
               <sapn className="table_content mt-1 p-0" >{i.name}</sapn>
             </span>
               </div>

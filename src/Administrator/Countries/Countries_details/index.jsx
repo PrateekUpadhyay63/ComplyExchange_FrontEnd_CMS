@@ -169,7 +169,7 @@ export default function Countries_details() {
                     Name:
                   </div>
                 </div>
-                <div className="col-10">
+                <div className="col-10 table_content">
                   <div
                    
                     className="table_content"

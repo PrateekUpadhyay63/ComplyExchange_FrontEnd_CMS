@@ -36,7 +36,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
 import { CheckBox } from "@mui/icons-material";
-import {GetAllHelpVideos } from "../../redux/Actions";
+import {GetAllHelpVideos,postHelpVideo } from "../../redux/Actions";
 
 export default function Language_details() {
   const dispatch = useDispatch();
@@ -45,40 +45,47 @@ export default function Language_details() {
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
 
-  const [data, setData] = useState(params.id ? {
-    id: 0,
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
-  }:{
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
-  });
+  const [data, setData] = useState( {
+  enableVideoTab: false,
+  loginPageId: 0,
+  loginPage: "",
+  formSelectionPageId: 0,
+  formSelectionPage: "",
+  onboardingPageId: 0,
+  onboardingPage: "",
+  w8BENEId: 0,
+  w8BENE: "",
+  w8BEN: "",
+  w8BENId: 0,
+  w8BCIId: 0,
+  w8BCI: "",
+  w8EXPId: 0,
+  w8EXP: "",
+  w8IMYId: 0,
+  w8IMY: "",
+  w9Id: 0,
+  w9: "",
+  help8233Id: 0,
+  help8233: "",
+  selfCertId: 0,
+  selfCert: "",
+  scrollbars: false,
+  resizable: false,
+  status: false,
+  location: false,
+  toolbar: false,
+  menubar: false,
+  width: "",
+  height: "",
+  left: "",
+  top: "",
+  }
+  
+   
+  );
 
 
-  // useEffect(() => {
-  //   if(params?.id)
-  //   {
-  //   dispatch(GetAllHelpVideos(params.id), (item) => {
-  //     setData(item);
-  //   });
-  // }
-  // }, []);
+
 
   useEffect(() => {
     dispatch(GetAllHelpVideos(params.id),(data)=>{ setData(data) });
@@ -86,12 +93,47 @@ export default function Language_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(params.id){
-      // dispatch(updateCapacities(data));
+  
+    let updateData = {
+      enableVideoTab: data?.enableVideoTab,
+      loginPageId: data?.loginPageId,
+      loginPage: data?.loginPage,
+      formSelectionPageId: data?.formSelectionPageId,
+      formSelectionPage: data?.formSelectionPage,
+      onboardingPageId: data?.onboardingPageId,
+      onboardingPage: data?.onboardingPage,
+      w8BENEId: data?.w8BENEId,
+      w8BENE: data?.w8BENE,
+      w8BEN: data?.w8BEN,
+      w8BENId: data?.w8BENId,
+      w8BCIId: data?.w8BCIId,
+      w8BCI: data?.w8BCI,
+      w8EXPId: data?.w8EXPId,
+      w8EXP: data?.w8EXP,
+      w8IMYId: data?.w8IMYId,
+      w8IMY: data?.w8IMY,
+      w9Id: data?.w9Id,
+      w9: data?.w9,
+      help8233Id: data?.help8233Id,
+      help8233: data?.help8233,
+      selfCertId: data?.selfCertId,
+      selfCert: data?.selfCert,
+      scrollbars: data?.scrollbars,
+      resizable: data?.resizable,
+      status: data?.status,
+      location: data?.location,
+      toolbar: data?.toolbar,
+      menubar: data?.menubar,
+      width: data?.width,
+      height: data?.height,
+      left: data?.left,
+      top: data?.top,
+
     }
-    else{
-      // dispatch(createCapacities(data));
-    }
+   
+    dispatch(postHelpVideo(updateData));
+   
+   
     history.push("/help");
   };
 
@@ -131,20 +173,20 @@ export default function Language_details() {
           <form onSubmit={handleSubmit}>
             <div  >
             {/* { <div className="row headingLabel complyColor">Help Video</div>} */}
-            <div className="row">
+            <div className="row d-flex">
                 <div className="col-2">
                   <div
-                    variant="body2"
+                   
                     
-                    className="table_content mt-1"
+                    className="table_content mt-3"
                   >
                  
 
                   Enable Video Tab:
                   </div>
                 </div>
-                <div className="col-10">
-                <CheckBox className="checkBox"/>
+                <div className="col-10 mt-1">
+                <Checkbox  className="checkBox" name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
                 </div>
               </div>
               {formData?.map((row, ind) =>{
@@ -154,15 +196,15 @@ export default function Language_details() {
           <div className="row">
                 <div className="col-2" >
                   <div
-                    variant="body2"
+                  
                     className="table_content"
                   >
-                    {row.pageName}
+                    {row.pageName}:
                   </div>
                 </div>
                 <div className="col-10">
                   <div
-                    variant="body2"
+                   
                     className="table_content"
                   ></div>
 
@@ -170,7 +212,7 @@ export default function Language_details() {
                   className="table_content"
                     size="small"
                     name="name"
-                    // value={}
+                    
                     onChange={handleChange}
                     required
                   />
@@ -182,7 +224,7 @@ export default function Language_details() {
               {/* <div className="row">
                 <div className="col-2">
                   <div
-                    variant="body2"
+                   
                     
                     className="table_content"
                   >
@@ -416,7 +458,7 @@ export default function Language_details() {
               <div className="row">
                 <div className="col-2">
                   <div
-                    variant="body2"
+                  
                     
                     className="table_content"
                   >
@@ -429,27 +471,27 @@ export default function Language_details() {
               <div className="table_content">
               Window features:
               </div>
-              <span> <CheckBox className="checkBox"/>
+              <span> <Checkbox className="checkBox" name="scrollbars" checked={data?.scrollbars} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Scrollbars - allows to disable the scrollbars for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <CheckBox className="checkBox"/>
+                <span> <Checkbox className="checkBox" name="resizable" checked={data?.resizable} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Resizable - allows to disable the resize for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <CheckBox className="checkBox"/>
+                <span> <Checkbox className="checkBox" name="status" checked={data?.status} onClick={(e) => handleToogle(e)} />
               <span  className="table_content">Status - shows or hides the status bar. Again, most browsers force it to show.</span>
                 </span>
                 <br/>
-                <span> <CheckBox className="checkBox"/>
+                <span> <Checkbox className="checkBox" name="location" checked={data?.location} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Location - shows or hides the URL field in the new window. FF and IE don’t allow to hide it by default.</span>
                 </span>
                 <br/>
-                <span> <CheckBox className="checkBox"/>
+                <span> <Checkbox className="checkBox" name="toolbar" checked={data?.toolbar} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Toolbar - shows or hides the browser navigation bar (back, forward, reload etc) on the new window.</span>
                 </span>
                 <br/>
-                <span> <CheckBox className="checkBox"/>
+                <span> <Checkbox className="checkBox" name="menubar" checked={data?.menubar} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Menubar - shows or hides the browser menu on the new window</span>
                 </span>
                 <div className="table_content mt-2">
@@ -471,8 +513,9 @@ export default function Language_details() {
                 <TextField
                   className="table_content"
                     size="small"
+                    name="width"
                     type="number"
-                    
+                    value={data?.width}
                     onChange={handleChange}
                     required
                   />
@@ -495,7 +538,8 @@ export default function Language_details() {
                   className="table_content"
                     size="small"
                     type="number"
-                    
+                    name="height"
+                    value={data?.height}
                     onChange={handleChange}
                     required
                   />
@@ -518,7 +562,8 @@ export default function Language_details() {
                   className="table_content"
                     size="small"
                     type="number"
-                    
+                    name="left"
+                    value={data?.left}
                     onChange={handleChange}
                     required
                   />
@@ -541,7 +586,8 @@ export default function Language_details() {
                   className="table_content"
                     size="small"
                     type="number"
-                    
+                    name="top"
+                    value={data?.top}
                     onChange={handleChange}
                     required
                   />
@@ -562,6 +608,7 @@ export default function Language_details() {
               <Button
                 size="small"
                 type="submit"
+                onClick={handleSubmit}
                 className="btn-cstm"
                 sx={{my:1,mx:1 }}
                 variant="contained"

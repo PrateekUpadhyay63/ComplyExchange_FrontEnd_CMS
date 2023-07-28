@@ -36,6 +36,7 @@ const endPoint = {
 
  //Help
  GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",
+ POST_HELP_VIDEOS:"/HelpVideo/InsertHelpVideo",
 
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",

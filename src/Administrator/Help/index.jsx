@@ -44,8 +44,7 @@ export default function Language_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
-  // createCapacities
-  // getCapacitiesByfId
+
   const [data, setData] = useState(params.id ? {
     id: 0,
     name: "",
@@ -72,12 +71,17 @@ export default function Language_details() {
   });
 
 
-   useEffect(()=>{
-    setData(formData?.GetAllHelpVideos)
-   },[formData])
+  // useEffect(() => {
+  //   if(params?.id)
+  //   {
+  //   dispatch(GetAllHelpVideos(params.id), (item) => {
+  //     setData(item);
+  //   });
+  // }
+  // }, []);
 
   useEffect(() => {
-    // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+    dispatch(GetAllHelpVideos(params.id),(data)=>{ setData(data) });
   }, []);
 
   const handleSubmit = async (e) => {
@@ -143,13 +147,17 @@ export default function Language_details() {
                 <CheckBox className="checkBox"/>
                 </div>
               </div>
-              <div className="row">
+              {formData?.map((row, ind) =>{
+                console.log("roww1",row);
+          return  (    
+          
+          <div className="row">
                 <div className="col-2" >
                   <div
                     variant="body2"
                     className="table_content"
                   >
-                    Login Page
+                    {row.pageName}
                   </div>
                 </div>
                 <div className="col-10">
@@ -166,10 +174,12 @@ export default function Language_details() {
                     onChange={handleChange}
                     required
                   />
-                  <span className="table_content mx-4">Default English:5, US English:5, 日本人:1 Total:11</span>
+                  <span className="table_content mx-4">{row.language}</span>
                 </div>
               </div>
-              <div className="row">
+  )})}
+
+              {/* <div className="row">
                 <div className="col-2">
                   <div
                     variant="body2"
@@ -402,7 +412,7 @@ export default function Language_details() {
                   />
                     <span className="table_content mx-4">日本人:1 Total:1</span>
                 </div>
-              </div>
+              </div> */}
               <div className="row">
                 <div className="col-2">
                   <div

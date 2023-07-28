@@ -34,10 +34,12 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears,getAllCountries} from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
+  const getAllCountry=useSelector((state)=> state?.CountriesReducer?.allCountriesData
+  )
    const countryData = useSelector((state) => state?.getCountryByIdReducer?.getCountryByIdData);
    const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();
@@ -62,6 +64,7 @@ export default function Countries_details() {
    },[countryData])
 
    useEffect(() => {
+    dispatch(getAllCountries());
     dispatch(getYears());
   }, []);
 
@@ -79,8 +82,8 @@ export default function Countries_details() {
     if(params.id){
 
       let updateData = { 
-        countryId: params?.id,
-        name: data?.name,
+        countryId: parseInt(params?.id),
+        name: getLangById(params?.id),
         treatyEffectiveYear: data?.treatyEffectiveYear,
         bankStandardName: data?.bankStandardName,
         bankStandardNameFormat: data?.bankStandardNameFormat,
@@ -93,10 +96,7 @@ export default function Countries_details() {
         lobDocumentURL: data?.lobDocumentURL
       }
       dispatch(CountryUpsert(updateData));
-      console.log("payload",updateData)
     }
-   
-    
     history.push("/countries");
   };
 
@@ -108,6 +108,19 @@ export default function Countries_details() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+
+  const getLangById=(id)=>{
+    
+    const result = getAllCountry?.filter((item) => {
+      if (item.id == params.id) {
+        return item;
+      }
+    });
+    if(result?.length){
+      return result[0]?.name
+    }
+  }
 
   return (
     <Card>
@@ -164,14 +177,15 @@ export default function Countries_details() {
                     
                   </div>
 
-                  <TextField
+                  {/* <TextField
                   className="table_content"
                     size="small"
                     name="name"
                      value={data?.name}
                     onChange={handleChange}
                     required
-                  />
+                  /> */}
+                  {getLangById(params.id)}
                 </div>
               </div>
               <div className="row">

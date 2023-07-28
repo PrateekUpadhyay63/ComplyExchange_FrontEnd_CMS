@@ -80,6 +80,7 @@ export const getCountryById = (value,callback) => {
       Utils.endPoints.GET_COUNTRY_BY_ID,
       `?id=${value}`,
       (resData) => {
+        console.log("ress",resData)
         if (resData.status === 200) {
           if(callback){
             console.log(resData,"resData from action")
@@ -579,6 +580,8 @@ export const getAllCountriesData = (page,size,search) => {
   };
 };
 
+
+
 export const GetAllCapacities = (page,size,search) => {
   let params= `?pageNumber=${page}&pageSize=${size}`
   if(search){
@@ -702,6 +705,33 @@ export const getAllContentType = (value) => {
             type: Utils.ActionName.GET_ALL_CONTENT,
             payload: {
               contentData: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const GetAllHelpVideos = (value) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_HELP_VIDEOS,
+      ``,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          dispatch({
+            type: Utils.ActionName.GET_ALL_HELP_VIDEOS,
+            payload: {
+              helpData: resData.data,
             },
           });
         } else {

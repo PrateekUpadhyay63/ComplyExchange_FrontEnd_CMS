@@ -36,13 +36,14 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
 import { CheckBox } from "@mui/icons-material";
-// import { createCapacities, getCapacitiesById ,updateCapacities} from "../../../redux/Actions";
+import {GetAllHelpVideos } from "../../redux/Actions";
 
 export default function Language_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
-  const formData = useSelector((state) => state.getCapacitiesById);
+  const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
+  console.log("form",formData)
   // createCapacities
   // getCapacitiesByfId
   const [data, setData] = useState(params.id ? {
@@ -69,8 +70,10 @@ export default function Language_details() {
     isIntermediary: false,
     isNonUSGovernment: false,
   });
+
+
    useEffect(()=>{
-    setData(formData?.capacityDataById)
+    setData(formData?.GetAllHelpVideos)
    },[formData])
 
   useEffect(() => {
@@ -85,7 +88,7 @@ export default function Language_details() {
     else{
       // dispatch(createCapacities(data));
     }
-    history.push("/capacities");
+    history.push("/help");
   };
 
  
@@ -159,7 +162,7 @@ export default function Language_details() {
                   className="table_content"
                     size="small"
                     name="name"
-                    
+                    // value={}
                     onChange={handleChange}
                     required
                   />

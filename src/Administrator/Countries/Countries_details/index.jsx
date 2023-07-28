@@ -38,11 +38,11 @@ import { getCountryById, CountryUpsert, CountriesUpsertArticle,getYears} from ".
 
 export default function Countries_details() {
   const dispatch = useDispatch();
-   const countryData = useSelector((state) => state.getCountryByIdReducer?.getCountryByIdData);
+   const countryData = useSelector((state) => state?.getCountryByIdReducer?.getCountryByIdData);
    const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();
   let history= useHistory();
- 
+   console.log("log", countryData)
   const [data, setData] = useState({   
   countryId: "",
   name: "",
@@ -161,17 +161,17 @@ export default function Countries_details() {
                    
                     className="table_content"
                   >
-                    {countryData?.name}
+                    
                   </div>
 
-                  {/* <TextField
+                  <TextField
                   className="table_content"
                     size="small"
                     name="name"
                      value={data?.name}
                     onChange={handleChange}
                     required
-                  /> */}
+                  />
                 </div>
               </div>
               <div className="row">

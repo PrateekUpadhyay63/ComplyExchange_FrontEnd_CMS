@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-import { getAllCountriesData, } from "../../redux/Actions";
+import { getAllCountriesData, getAllCountries} from "../../redux/Actions";
 
 import DialogModal from "../../reusables/Countries";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -277,7 +277,10 @@ export default function ContentManagement() {
                       {tableData?.countryData && tableData?.countryData.records?.length ? (
                       <TableBody>
                         {console.log("dataa", tableData)}
-                    {tableData?.countryData?.records?.map((row, ind) => (
+                    {tableData?.countryData?.records?.map((row, ind) =>
+                    { console.log("roww1",row);
+                   return  (
+                     
                           <TableRow
                             key={row.name}
                             sx={{
@@ -306,7 +309,7 @@ export default function ContentManagement() {
                               </div>
                             </TableCell>
                           </TableRow>
-                        ))}
+                        )})}
                       </TableBody>
                          ) : <div className="notDataDiv">No Data Available</div>} 
                     </table>

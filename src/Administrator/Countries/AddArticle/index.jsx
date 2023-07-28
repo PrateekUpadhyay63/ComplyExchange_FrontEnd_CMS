@@ -40,6 +40,7 @@ export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
+  const countryData = useSelector((state) => state.getCountryByIdReducer?.getCountryByIdData);
   const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
   console.log("form",formData);
   const namedata =useSelector((state)=>state.getIncomeReducer);
@@ -65,6 +66,12 @@ export default function Countries_details() {
   // });
 
   )
+
+  useEffect(()=>{
+    setData(countryData)
+   },[countryData])
+
+
 const [data1 , setData1] = useState({
   name: "",
   Id: 0,
@@ -93,7 +100,7 @@ const [data1 , setData1] = useState({
     e.preventDefault();
     if(params.id){
     let updateData = {
-    countryId: data?.countryId,
+    countryId: params?.id,
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,
@@ -167,7 +174,7 @@ const [data1 , setData1] = useState({
                    
                     className="table_content"
                   >
-                  {data?.name}
+                 {countryData?.name}
                   </div>
 
                   
@@ -286,6 +293,7 @@ const [data1 , setData1] = useState({
                 </div>
                 <div className="col-10">
                 <Checkbox 
+                 onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           name="includeSubParagraph"
                           checked={data?.includeSubParagraph}
@@ -306,6 +314,7 @@ const [data1 , setData1] = useState({
                 </div>
                 <div className="col-10">
                 <Checkbox 
+                 onClick={(e) => handleToogle(e)}
                         name="showInDropDown"
                         checked={data?.showInDropDown}
                           className="p-0 checkBox"

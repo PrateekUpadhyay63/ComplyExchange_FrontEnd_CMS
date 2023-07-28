@@ -6,6 +6,7 @@ const {
   COUNTRIES,
   LANGUAGES,
   CREATE_PAGE,
+  GET_ALL_HELP_VIDEOS,
   ADD_SUB_PAGE,
   PARENT_DROPDOWN,
   GET_ALL_CONTENT,
@@ -653,6 +654,8 @@ export const getAllContentTypeByIdReducer = (state = initialState, action) => {
   }
 };
 
+
+
 export const getTranslatedPageReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PAGE_TRANSLATION:
@@ -782,6 +785,15 @@ export const pageDataByIdReducer = (state = initialState, action) => {
 export const getAllContentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_CONTENT:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAllHelpVideoReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_HELP_VIDEOS:
       return { ...state, ...action.payload };
     default:
       return state;

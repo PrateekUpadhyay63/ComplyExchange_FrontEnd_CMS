@@ -34,6 +34,9 @@ const endPoint = {
  GET_YEARS:"/Countries/GetYears",
  GET_MAXNUMBER:"/Countries/MaxNumber",
 
+ //Help
+ GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",
+
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",
   GET_CONTENT_BY_ID: "ContentManagement/GetContentById",

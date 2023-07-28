@@ -336,7 +336,7 @@ export default function Countries_details() {
                 size="small"
                 type="submit"
                 sx={{ mr: 1 ,my:1}}
-               
+                className="btn-cstm"
                 variant="contained"
               >
                 Save

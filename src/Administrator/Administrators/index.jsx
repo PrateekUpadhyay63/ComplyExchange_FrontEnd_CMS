@@ -274,7 +274,7 @@ const row=[]
               </Paper>
          
             </div>
-            <div className="col-12">
+            <div className="actionBtn">
               <Button
                 className="btn-cstm  mt-2 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}

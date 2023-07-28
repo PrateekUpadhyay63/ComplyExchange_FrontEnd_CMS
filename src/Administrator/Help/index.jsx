@@ -549,7 +549,7 @@ export default function Language_details() {
               <Button
                 size="small"
                 type="submit"
-               
+                className="btn-cstm"
                 sx={{my:1,mx:1 }}
                 variant="contained"
               >

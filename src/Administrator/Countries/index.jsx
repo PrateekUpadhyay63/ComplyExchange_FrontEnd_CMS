@@ -169,7 +169,8 @@ export default function ContentManagement() {
                        
                     
                           <TableCell
-                         style={{justifyContent:'flex-end'}}
+                          align="right"
+                         style={{justifyContent:'flex-end',marginLeft:'20px'}}
                            className='table_head'
                           >
                             Actions
@@ -191,7 +192,7 @@ export default function ContentManagement() {
 
                           
 
-                            <TableCell className="table_content" align="end">
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
@@ -266,7 +267,7 @@ export default function ContentManagement() {
                           </TableCell>
                     
                           <TableCell
-                            align="center"
+                            align="right"
                            className='table_head'
                           >
                             Actions
@@ -294,7 +295,7 @@ export default function ContentManagement() {
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
                             <TableCell className="table_content" align="center">{row.lob}</TableCell>
 
-                            <TableCell className="table_content" align="center">
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}

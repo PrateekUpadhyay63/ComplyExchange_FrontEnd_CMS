@@ -83,9 +83,7 @@ export default function ContentManagement() {
               </Breadcrumbs>
             </div>
             <div className="row headingLabel complyColor">Glossaries</div>
-                        <div className=" row m-1 border p-3 box_style">
-
-                        </div>
+             
                         <div className=" row m-1 border p-3 box_style">
                             <div className="col-8 d-flex">
                                
@@ -114,7 +112,7 @@ export default function ContentManagement() {
                                 </Button>
                             </div>
                         </div>
-                        <div  className=" row m-1 card p-3" style={{ overflowX: "auto" }}>
+                        <div  className=" row m-1 card p-2" style={{ overflowX: "auto" }}>
                            
                               
                                     <Paper >

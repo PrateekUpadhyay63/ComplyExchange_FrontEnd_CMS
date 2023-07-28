@@ -306,10 +306,12 @@ export default function Language_details() {
                         <div
                           variant="body2"
                           className="table_content"
-                        ></div>
+                        >
+                          {getLangById(data?.languageId)}
+                        </div>
 
                        
-                        <div className="table_content">{getLangById(data?.languageId)}</div>
+                       
                       </div>
                     </div>
                     <div className="row">

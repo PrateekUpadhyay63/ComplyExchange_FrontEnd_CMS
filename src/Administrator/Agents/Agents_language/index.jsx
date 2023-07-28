@@ -772,14 +772,14 @@ export default function Language_details() {
                     </div>
                   }
                   <div>
-                    <div className="row d-flex">
+                    <div className="d-flex">
                       <div className="col-2 table_content">
                        
                           Language:
                       
                      
                       </div>
-                      <div className="col-10 table_content">
+                      <div className="col-10 table_content mt-2">
                         {getLangById(params?.langId)}
                       </div>
                     </div>

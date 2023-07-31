@@ -63,7 +63,7 @@ export default function Countries_details() {
     name: "",
     treatyEffectiveYear: 0,
     bankStandardName: "",
-    bankStandardNameFormat: "",
+    bankStandardNameFormat: 0,
     requestIBAN: false,
     requestSwiftCode: false,
     iga: "",
@@ -227,14 +227,14 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Select
                           align="center"
-                          defaultValue={1}
+                          defaultValue={0}
                           className="selectBox text table_content"
                           name="bankStandardNameFormat"
                           onChange={handleChange}
                         >
-                          <MenuItem value={1}> ---Select----</MenuItem>
-                          <MenuItem value={"SortCode"}>Sort Code</MenuItem>
-                          <MenuItem value={"ABA"}>
+                          <MenuItem value={0}> ---Select----</MenuItem>
+                          <MenuItem value={1}>Sort Code</MenuItem>
+                          <MenuItem value={2}>
                             ABA/Routing Numbers
                           </MenuItem>
                         </Select>

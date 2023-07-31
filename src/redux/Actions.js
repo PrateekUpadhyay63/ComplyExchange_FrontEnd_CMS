@@ -1464,14 +1464,7 @@ export const CountryUpsert = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log("response" ,responseData.data)
-          if(responseData.data.status==200){
-            Utils.showAlert(1, responseData?.statusText);
-          }
-         else{
-          Utils.showAlert(2, responseData?.statusText);
-         }
-          
+          // Utils.showAlert(1, responseData?.statusText ? responseData?.statusText : responseData?.message);
         }
         
       },

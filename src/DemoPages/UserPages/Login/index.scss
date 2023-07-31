@@ -20,10 +20,14 @@
     margin-top: 0.5rem !important;
     font-size: 15px !important;
     font-weight: 530;
-   
+    
     color: #070707 !important;
     margin-bottom: 0.5rem !important; 
     font-family: "Roboto","Helvetica","Arial",sans-serif;
+
+  }
+  .textClassLabel input{
+    height: 2.25em !important;
 
   }
   .btn-primary {
@@ -48,9 +52,9 @@
     border-radius: 0.25rem;
     height: 2.25em !important
   }
-  input,
-  .MuiSelect-select {
-    height: none !important;
+
+  .text input{
+    height: 2.25em !important
   }
   
   .end-0 {

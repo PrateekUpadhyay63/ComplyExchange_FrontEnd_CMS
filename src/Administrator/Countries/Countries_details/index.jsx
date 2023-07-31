@@ -95,7 +95,7 @@ export default function Countries_details() {
     if (params.id) {
       let updateData = {
         countryId: parseInt(params?.id),
-        name: getLangById(params?.id),
+        name: data?.name,
         treatyEffectiveYear: Number(data?.treatyEffectiveYear),
         bankStandardName: data?.bankStandardName,
         bankStandardNameFormat: data?.bankStandardNameFormat,

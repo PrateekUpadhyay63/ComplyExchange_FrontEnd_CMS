@@ -7,7 +7,7 @@ const endPoint = {
   // resendOtp: "/resend-otp",
   // verifyOTP: "/verify-otp",
   // resetPassword: "/reset-password",
-  COUNTRIES: "Country/GetAllCountries",
+  COUNTRIES: "Countries/GetAllCountries",
   //Languages
   LANGUAGES: "Language/GetAllLanguage",
   CREATE_LANGUAGE: "Language/InsertLanguage",
@@ -28,11 +28,12 @@ const endPoint = {
 
  //Countries
  GET_ALL_COUNTRIES:"/Countries/GetAllCountries",
- POST_UPSERT_COUNTRIES:"/Countries/UpsertCountries",
+ POST_UPSERT_COUNTRIES:"/Countries/UpdateCountries",
  GET_COUNTRY_BY_ID:"/Countries/GetCountriesById",
  POST_UPSERT_COUNTRY_ARTICLE:"/Countries/UpsertCountryArticle",
  GET_YEARS:"/Countries/GetYears",
  GET_MAXNUMBER:"/Countries/MaxNumber",
+ GET_IGA:"/Countries/GetIGA",
 
  //Help
  GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",

@@ -87,6 +87,7 @@ import {
   ExportRuleReducer,
   getSelfCertificationReducer,
   getAllUsersReducer,
+  getIgaDropDownReducer,
 
 } from "../redux/Reducers";
 
@@ -174,6 +175,7 @@ export default function configureStore() {
       ExportRuleReducer,
       getSelfCertificationReducer,
       getAllUsersReducer,
+      getIgaDropDownReducer,
       getSourcedIncomeOnboardedReducer,
       getAllCountriesDataReducer
     }),

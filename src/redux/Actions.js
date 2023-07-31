@@ -520,6 +520,33 @@ export const getAllUSFormTypes = () => {
   };
 };
 
+
+
+export const getIgaDropDown= () => {
+
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_IGA,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_IGA,
+          payload: {
+            igaDropDownData: resData.data,
+          },
+        });
+        // } else {
+        //   Utils.showAlert(2, data.message);
+        // }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const getAllPages = (page,size,search) => {
   let params= `?pageNumber=${page}&pageSize=${size}`
   if(search){
@@ -2018,7 +2045,7 @@ export const updateUSFormTypes = (value) => {
 export const getAllCountries = () => {
   return (dispatch) => {
     Utils.api.getApiCall(
-      Utils.endPoints.COUNTRIES,
+      Utils.endPoints.COUNTRIES,`?pageNumber=${1}&pageSize=${300}`,
       "",
       (resData) => {
         const { data } = resData;

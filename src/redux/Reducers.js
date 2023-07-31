@@ -89,7 +89,8 @@ const {
   GET_USER_BY_ID,
   ALL_USER,
   GET_YEARS,
-  GET_MAXNUMBER
+  GET_MAXNUMBER,
+  GET_IGA,
 } = Utils.ActionName;
 
 let initialState = [];
@@ -853,6 +854,15 @@ export const CountriesReducer = (state = initialState, action) => {
       return state;
   }
 };
+export const getIgaDropDownReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_IGA:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 
 export const LanguagesReducer = (state = initialState, action) => {
   switch (action.type) {

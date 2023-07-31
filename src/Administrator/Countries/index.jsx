@@ -303,9 +303,8 @@ export default function ContentManagement() {
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push(`/countries_edit/${row.countryId}`)
+                                   history.push(`/countries_edit/${row.id}`)
                                   }} />
-                             
                               </div>
                             </TableCell>
                           </TableRow>
@@ -342,7 +341,7 @@ export default function ContentManagement() {
                     variant="outlined"
                     shape="rounded"
                     color="primary"
-                    count={tableData?.pageData?.totalPages}
+                    count={tableData?.countryData?.totalPages}
                     onChange={(e, value) => setPage(value)}
                   />
                 </Stack>

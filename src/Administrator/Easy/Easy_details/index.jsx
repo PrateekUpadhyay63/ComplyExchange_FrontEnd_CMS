@@ -202,7 +202,29 @@ export default function Language_details () {
 
   useEffect(() => {
     if (params?.id) {
-      dispatch(getEasyById(params.id))
+      dispatch(getEasyById(params.id,(data)=>{
+        setData(data);
+        setEditorState1(() => {
+          const blocksFromHTML = convertFromHTML(data?.text);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState2(() => {
+          const blocksFromHTML = convertFromHTML(data?.moreText);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+      }))
+    }else {
+      setEditorState1(() => EditorState.createEmpty());
+      setEditorState2(() => EditorState.createEmpty());
     }
   }, [])
   useEffect(() => {

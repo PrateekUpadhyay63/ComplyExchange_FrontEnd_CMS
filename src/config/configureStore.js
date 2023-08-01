@@ -88,6 +88,7 @@ import {
   getSelfCertificationReducer,
   getAllUsersReducer,
   getIgaDropDownReducer,
+  getEformSelectionWarningReducer,
 
 } from "../redux/Reducers";
 
@@ -176,6 +177,7 @@ export default function configureStore() {
       getSelfCertificationReducer,
       getAllUsersReducer,
       getIgaDropDownReducer,
+      getEformSelectionWarningReducer,
       getSourcedIncomeOnboardedReducer,
       getAllCountriesDataReducer
     }),

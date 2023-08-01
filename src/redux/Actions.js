@@ -102,6 +102,34 @@ export const getCountryById = (value,callback) => {
   };
 };
 
+export const getAgentEformSelection = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_E_FORM_SELECTION_WARNING,
+      `?id=${value}`,
+      (resData) => {
+        console.log("ress",resData)
+        if (resData.status === 200) {
+          if(callback){
+            console.log(resData,"resData from action")
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_E_FORM_SELECTION_WARNING,
+            payload: {
+              getAgentEformSelectionData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 
 export const loginAction = (value,callback) => {
   return (dispatch) => {

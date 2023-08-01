@@ -91,6 +91,7 @@ const {
   GET_YEARS,
   GET_MAXNUMBER,
   GET_IGA,
+  GET_E_FORM_SELECTION_WARNING,
 } = Utils.ActionName;
 
 let initialState = [];
@@ -849,6 +850,15 @@ export const updateContentReducer = (state = initialState, action) => {
 export const CountriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case COUNTRIES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getEformSelectionWarningReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_E_FORM_SELECTION_WARNING:
       return { ...state, ...action.payload };
     default:
       return state;

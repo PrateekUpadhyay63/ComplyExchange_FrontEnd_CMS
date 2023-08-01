@@ -93,7 +93,8 @@ const endPoint = {
     GET_PAYMENT_TYPE:"AgentEditList/GetAgentPaymentType",
     GET_FATCA_GIIN_DISABLED:"AgentEditList/GetAgentFATCAEntityGIINChallengeDisabled",
     GET_AGENT_SPT_HIDDEN:"AgentEditList/GetAgentSPTQuestionHidden",
-
+    GET_E_FORM_SELECTION_WARNING:"AgentEditList/GetAgentEFormSelectionWarning",
+    POST_E_FORM_SELECTION_WARNING:"AgentEditList/UpsertAgentEFormSelectionWarning",
 
     //US sourced Income
     GET_SOURCED_INCOME_DATA:"AgentUSSourceIncome/GetUSSourcedIncomeTypeSelection",

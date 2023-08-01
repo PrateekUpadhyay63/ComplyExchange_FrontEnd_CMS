@@ -317,7 +317,7 @@ export default function ContentManagement() {
               </Paper>
          
             </div>
-            <div className="col-12">
+            {/* <div className="col-12">
               <Button
                 className="btn-cstm  mt-2 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
@@ -333,7 +333,7 @@ export default function ContentManagement() {
               <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }}>
                 Export
               </Button>
-            </div>
+            </div> */}
           </div>
           {tableData?.countryData?.totalPages > 1 ? (
                 <Stack className="px-3 col-12" spacing={2}>

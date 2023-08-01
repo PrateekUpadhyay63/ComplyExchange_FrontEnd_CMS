@@ -3722,6 +3722,28 @@ export const getEasyById = (value,callback) => {
   };
 };
 
+export const postEformSelectionWanring = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_E_FORM_SELECTION_WARNING,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_E_FORM_SELECTION_WARNING,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
 export const createEasy = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };

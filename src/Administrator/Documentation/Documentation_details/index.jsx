@@ -163,7 +163,7 @@ export default function Language_details() {
                       size='small'
                       className='mx-2'
                       style={{ float: 'right' }}
-                  
+                      onClick={() => history.push("/documentation")}
                     >
                       Cancel
                     </Button>

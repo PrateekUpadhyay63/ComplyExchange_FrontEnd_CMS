@@ -48,13 +48,14 @@ export default function Language_details() {
   const nameData =useSelector((state)=>state.getdocTypeReducer);
   const [data, setData] = useState({
     name: "",
-    documentationTypeId: 0,
+    documentationId: 0,
   });
 
   useEffect(()=>{
     dispatch(GetDocumentationTypes());
     if(params.id){
-      dispatch(getDocById(params.id,(data)=>{ setData(data)}));
+      dispatch(getDocById(params.id,(data)=>{ setData({ ...data, name: data.name });
+      setData({ ...data, documentationId: data.documentTypeId })}));
     }
   },[])
 
@@ -127,7 +128,7 @@ export default function Language_details() {
                   sx={{ minWidth: 120 }}
                   size="small"
                 >
-                  <Select required  className="selectBox table_content" name="documentationTypeId" value={data.documentationTypeId} onChange={handleChange} defaultValue={data?.documentationTypeId ? data?.documentationTypeId : 0}>
+                  <Select required  className="selectBox table_content" name="documentationId" value={data.documentationId} onChange={handleChange}>
                     <MenuItem value={0}>---Select---</MenuItem>
                     {nameData?.docTypeData?.map((i,ind)=>{                    
                     return(<MenuItem key={i.id} value={i.id}>{i.name}</MenuItem>)
@@ -163,7 +164,7 @@ export default function Language_details() {
                       size='small'
                       className='mx-2'
                       style={{ float: 'right' }}
-                  
+                  onClick={()=>history.push("/documentation")}
                     >
                       Cancel
                     </Button>

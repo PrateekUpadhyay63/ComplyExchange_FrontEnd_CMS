@@ -34,6 +34,8 @@ const endPoint = {
  GET_YEARS:"/Countries/GetYears",
  GET_MAXNUMBER:"/Countries/MaxNumber",
  GET_IGA:"/Countries/GetIGA",
+ IMPORT_COUNTRIES:"Countries/Import",
+ EXPORT_COUNTRIES:"Countries/Export",
 
  //Help
  GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",

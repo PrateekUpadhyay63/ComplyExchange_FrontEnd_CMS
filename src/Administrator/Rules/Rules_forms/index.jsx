@@ -270,7 +270,7 @@ export default function PhraseTable() {
                                   style={{ color: "green", fontSize: "20px" }}
                                 />
 
-                                <DeleteIcon
+                                {/* <DeleteIcon
                                   style={{
                                     color: "red",
                                     fontSize: "20px",
@@ -280,7 +280,7 @@ export default function PhraseTable() {
                                     setOpen(true);
                                     setIdData(row.id);
                                   }}
-                                />
+                                /> */}
                               </TableCell>
                             </TableRow>
                           ))}

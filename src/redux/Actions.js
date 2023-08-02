@@ -251,7 +251,7 @@ export const getAllDocumentaions = (page,size,search) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message); 
       }
     );
   };
@@ -702,16 +702,12 @@ export const getSubPageById = (value) => {
       `?Id=${value}`,
       (resData) => {
         const { data } = resData;
-        if (resData.status === 200) {
           dispatch({
             type: Utils.ActionName.GET_SUBPAGE_NO,
             payload: {
               pageSubDataById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
       },
       (error) => {
         let { data } = error;
@@ -1396,12 +1392,10 @@ export const deleteDocumentation = (id) => {
           type: Utils.ActionName.DELETE_DOCUMENTAION,
           payload: { data: data.data },
         });
-         if (responseData) {
-                    Utils.showAlert(1, "Deleted Successfully");
-        }
+        Utils.showAlert(1, "Deleted Successfully");
       },
       (error) => {
-        Utils.showAlert(2, error.error);
+        // Utils.showAlert(2, error.error);
       }
     );
   };
@@ -2013,6 +2007,31 @@ export const importEasy = (value) => {
   };
 };
 
+export const importCountries = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.IMPORT_COUNTRIES,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.IMPORT_COUNTRIES,
+          payload: { data: data.data },
+        });
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data);
+      },
+      "multi"
+    );
+  };
+};
+
 export const upsertSettings = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
@@ -2127,6 +2146,31 @@ export const exportRule = () => {
             type: Utils.ActionName.EXPORT_RULES,
             payload: {
              ruleExportedData: resData.data,
+            },
+          });
+        } else {
+          // Utils.showAlert(2, data.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.error);
+      }
+    );
+  };
+};
+
+export const exportCountries = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.EXPORT_COUNTRIES,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          dispatch({
+            type: Utils.ActionName.EXPORT_COUNTRIES,
+            payload: {
+             countriesExportedData: resData.data,
             },
           });
         } else {
@@ -3045,7 +3089,7 @@ export const updateContent = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Content Updated Successfully");
         }
       },
       (error) => {

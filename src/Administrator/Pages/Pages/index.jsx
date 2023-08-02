@@ -41,10 +41,8 @@ import {
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import DialogTransition from "../../../reusables/deleteDialog";
-
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 
 import {

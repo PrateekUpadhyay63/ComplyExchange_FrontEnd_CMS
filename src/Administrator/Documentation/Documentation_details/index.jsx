@@ -142,7 +142,7 @@ export default function Language_details() {
                   value={data.name}
                   onChange={handleChange}
                 />
-                {error.name ? (<p>Please Enter Name</p>):""}
+                {error.name ? (<p className="errorClass">Please Enter Name</p>):""}
               </div>
               <div className="col-12">
                 <div className="w-100 head">Document Type:</div>
@@ -168,7 +168,7 @@ export default function Language_details() {
                       );
                     })}
                   </Select>
-                  {error.documentationId ? (<p>Please Enter Name</p>):""}
+                  {error.documentationId ? (<p className="errorClass">Please Enter Name</p>):""}
                 </FormControl>
               </div>
               <div className="col-12">

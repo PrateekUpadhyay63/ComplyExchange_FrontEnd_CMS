@@ -127,7 +127,7 @@ export const getCountryByIdReducer = (state = initialState, action) => {
 
 export const getLangListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_BY_ID:
+    case LANGUAGES:
       return { ...state, ...action.payload };
     default:
       return state;

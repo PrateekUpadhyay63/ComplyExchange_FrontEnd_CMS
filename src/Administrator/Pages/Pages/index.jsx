@@ -87,6 +87,14 @@ const Pages = ({ match }) => {
     dispatch(getAllPages(page, size));
   }, []);
 
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllPages(page, size, search));
+    }
+  },[search])
+
   const setSubmit = (e) => {
     e.preventDefault();
     setPage(1);

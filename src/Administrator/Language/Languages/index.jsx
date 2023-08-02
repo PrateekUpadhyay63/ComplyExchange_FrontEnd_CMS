@@ -204,9 +204,10 @@ Languages
                             </TableCell>
                           </TableRow>
                         </TableHead>
-                        {tableData?.langData && tableData?.langData.records?.length ? (
+                        {console.log(tableData,"edsgfasfd")}
+                        {tableData?.allLanguageData && tableData?.allLanguageData?.length ? (
                         <TableBody>
-                          {tableData?.langData?.records?.map((row) => (
+                          {tableData?.allLanguageData?.map((row) => (
                             <TableRow
                               key={row.name}
                               sx={{
@@ -226,23 +227,8 @@ Languages
                               <TableCell className="table_content">
                                 {row.isoCode}
                               </TableCell>
-                              <TableCell className="table_content">
-                                {languageData?.allLanguageData?.map(
-                                  (i, ind) => {
-                                    return (
-                                      <button
-                                        key={i.id}
-                                        style={{
-                                          backgroundColor:"inherit",
-                                          border: "none",
-                                        }}
-                                        className="addSubpage"
-                                      >
-                                        {i.name}{" "}
-                                      </button>
-                                    );
-                                  }
-                                )}
+                              <TableCell className="table_content" align="center">
+                               <Link>Bulk Translate</Link>
                               </TableCell>
                               <TableCell className="table_content">
                                 {row.status}

@@ -84,6 +84,13 @@ const DocumentaionList = () => {
       return result[0]?.name;
     }
   };
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllDocumentaions(page, size, search));
+    }
+  },[search])
 
   const idName = (id) => {};
   useEffect(() => {

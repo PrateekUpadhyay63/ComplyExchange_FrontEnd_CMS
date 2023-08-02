@@ -166,6 +166,7 @@ export const getLanguageList = (page,size,search) => {
       Utils.endPoints.LANG_BY_SEARCH,
       params,
       (resData) => {
+        console.log(resData,"hskadbsakjh")
         dispatch({
           type: Utils.ActionName.LANG_BY_SEARCH,
           payload: {
@@ -1384,18 +1385,26 @@ export const deleteDocumentation = (id) => {
   return (dispatch) => {
     // const dataToSend = { message: value };
     Utils.api.deleteApiCall(
-      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,
-        
+      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,       
       (responseData) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_DOCUMENTAION,
           payload: { data: data.data },
         });
-        Utils.showAlert(1, "Deleted Successfully");
+        console.log(responseData,"responseData")
+        if (responseData) {
+
+          Utils.showAlert(1, "Deleted Successfully");
+          getAllDocumentaions("",1,10);
+        }
       },
       (error) => {
-        // Utils.showAlert(2, error.error);
+        if(error.status===200){
+          Utils.showAlert(1, "Deleted Successfully");
+          getAllDocumentaions("",1,10);
+        }else
+        Utils.showAlert(2, error.data);
       }
     );
   };
@@ -1973,7 +1982,7 @@ export const importRule = (value) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data);
+        Utils.showAlert(2, data?.error);
       },
       "multi"
     );
@@ -3081,7 +3090,7 @@ export const updateContent = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_CONTENT,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3097,6 +3106,7 @@ export const updateContent = (value) => {
         Utils.showAlert(2, data.message);
       }
     );
+    
   };
 };
 
@@ -3395,7 +3405,7 @@ export const postHelpVideo = (value) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
       `${Utils.endPoints.POST_HELP_VIDEOS}`,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3518,7 +3528,7 @@ export const updateRule = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_RULES,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -4036,7 +4046,7 @@ export const upsertCountries = (value) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.POST_UPSERT_COUNTRIES,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({

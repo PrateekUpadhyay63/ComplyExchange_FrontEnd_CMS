@@ -140,7 +140,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{ height: "700px" }}>
+          <div className="app-main__outer" style={{ height: "900px" }}>
             <div className="app-main__inner">
               <div role="presentation" className="bread_crumbs">
                 <Breadcrumbs aria-label="breadcrumb">
@@ -171,7 +171,7 @@ export default function Countries_details() {
                         <div className="table_content">Name:</div>
                       </div>
                       <div className="col-10">
-                        <div className="table_content"></div>
+                        <div className="table_content"> {data?.name}</div>
 
                         {/* <TextField
                   className="table_content"
@@ -181,7 +181,7 @@ export default function Countries_details() {
                     onChange={handleChange}
                     required
                   /> */}
-                        {data?.name}
+                       
                       </div>
                     </div>
                     <div className="row">

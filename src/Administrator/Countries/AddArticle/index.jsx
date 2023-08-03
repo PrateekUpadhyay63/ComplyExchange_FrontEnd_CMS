@@ -94,6 +94,7 @@ const [data1 , setData1] = useState({
     if(params.id){
     let updateData = {
     countryId: data?.countryId,
+    name: data?.name,
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,

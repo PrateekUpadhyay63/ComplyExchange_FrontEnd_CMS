@@ -105,7 +105,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{height:'692px'}}>
+          <div className="app-main__outer" style={{height:'915px'}}>
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">

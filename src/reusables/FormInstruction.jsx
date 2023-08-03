@@ -106,7 +106,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    Description:
+                    Description:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
@@ -128,7 +128,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    URL:
+                    URL:<span style={{color:"red"}}>*</span>
 
                   </div>
                 </div>

@@ -134,7 +134,7 @@ export default function Language_details() {
                 </div>
               }
               <div className="col-12 my-3 head">
-                <div className="w-100 head">Document Name:</div>
+                <div className="w-100 head">Document Name:<span style={{color:"red"}}>*</span></div>  
                 <TextField
                   className="textFieldClass w-50 bg-white"
                   required
@@ -142,6 +142,7 @@ export default function Language_details() {
                   value={data.name}
                   onChange={handleChange}
                 />
+              
                 {error.name ? (<p className="errorClass">Please Enter Name</p>):""}
               </div>
               <div className="col-12">

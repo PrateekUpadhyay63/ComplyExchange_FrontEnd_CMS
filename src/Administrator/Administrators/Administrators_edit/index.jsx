@@ -124,7 +124,7 @@ export default function Countries_details() {
                     }
                     <div className="row">
                       <div className="col-2">
-                        <div className="table_content">Email:</div>
+                        <div className="table_content">Email:<span style={{color:"red"}}>*</span></div>
                       </div>
                       <div className="col-10">
                         <div className="table_content"></div>

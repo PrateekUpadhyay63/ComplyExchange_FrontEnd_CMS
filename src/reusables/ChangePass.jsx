@@ -105,7 +105,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    Old Password:
+                    Old Password:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
@@ -127,7 +127,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                New Password:
+                New Password:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">

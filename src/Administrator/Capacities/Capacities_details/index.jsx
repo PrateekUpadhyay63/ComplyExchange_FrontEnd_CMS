@@ -140,7 +140,7 @@ export default function Language_details() {
                     variant="body2"
                     className="table_content"
                   >
-                    Name:
+                    Name:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-10">

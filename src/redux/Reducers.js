@@ -107,7 +107,7 @@ export const getAllUsersReducer = (state = initialState, action) => {
   }
 };
 
-export const getUserByIdReducer = (state = initialState, action) => {
+export const getLangReducer = (state = initialState, action) => {
   switch (action.type) {
     case LANG_BY_SEARCH:
       return { ...state, ...action.payload };

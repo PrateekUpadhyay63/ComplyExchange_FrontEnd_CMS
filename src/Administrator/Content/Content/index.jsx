@@ -102,18 +102,13 @@ export default function ContentManagement() {
     dispatch(getAllLanguages())
   }, []);
 
-
-
-  
-
-  console.log(tableData,"tableData")
   return (
     <Fragment>
       <ThemeOptions />
       {/* <AppHeader /> */}
       <div className="app-main">
         <AppSidebar />
-        <div className="app-main__outer">
+        <div className="app-main__outer" >
           <div className="app-main__inner">
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">

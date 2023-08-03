@@ -338,6 +338,9 @@ console.log(CapacitiesData,"CapacitiesData")
         handleClose={handleClose}
         deleteApi={deleteCapacities}
         getAllApi={GetAllCapacities}
+        closeCallback={()=>{
+          dispatch(GetAllCapacities(1, 10));
+              }}
       />
     </Fragment>
 );

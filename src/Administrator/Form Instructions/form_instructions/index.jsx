@@ -76,6 +76,7 @@ const row=[]
 
   const setSubmit = (e) => {
     e.preventDefault();
+    
     setPage(1);
     setSize(10);
     dispatch(getAllFormInstructions(page, size, search));
@@ -88,6 +89,14 @@ const row=[]
   useEffect(() => {
     dispatch(getAllFormInstructions(page, size));
   }, [page]);
+
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllFormInstructions(page, size, search));
+    }
+  },[search])
 
   return (
     <Fragment>
@@ -111,15 +120,18 @@ const row=[]
               </Breadcrumbs>
             </div>
             <div className=" row m-1  border p-3 box_style">
-           
-            <div className="col-8 d-flex ">
-                  
+           <form onSubmit={(e) => {
+                    setSubmit(e);
+                  }}>
+            <div className="col-8 d-flex ">                  
                   <TextField
                     style={{ backgroundColor: "#fff", }}
                     name="search"
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     variant="outlined"
                     size="small"
                     InputProps={{
@@ -134,15 +146,14 @@ const row=[]
               <div className="col-4">
                 <Button
                  size="small"
-                  onClick={(e) => {
-                    setSubmit(e);
-                  }}
+                  
                   className="btn-cstm"
                   style={{ float: "right", display: "none" }}
                 >
                   Search
                 </Button>
               </div>
+              </form>
             </div>
             <div
               className=" row m-1  card p-3"
@@ -267,6 +278,9 @@ const row=[]
         setOpen={setOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
+        closeCallback={()=>{
+    dispatch(getAllFormInstructions(1, 10));
+        }}
       />
        <DialogTransition
         open={open1}
@@ -276,6 +290,9 @@ const row=[]
         handleClose={handleClose1}
         deleteApi={deleteFormInstruction}
         getAllApi={getAllFormInstructions}
+        closeCallback={()=>{
+          dispatch(getAllFormInstructions(1, 10));
+              }}
       />
     </Fragment>
 

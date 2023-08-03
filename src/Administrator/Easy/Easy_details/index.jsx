@@ -333,6 +333,7 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='easykey'
                           value={data?.easykey}
@@ -358,6 +359,7 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='tooltip'
                           value={data?.tooltip}

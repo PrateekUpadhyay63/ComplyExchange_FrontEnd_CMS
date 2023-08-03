@@ -71,11 +71,10 @@ export default function Language_details() {
   };
 
   useEffect(() => {
+    if (params?.id) {
+      getContentTranslation(params?.id, params.langId, (data) => setData(data));
+    }
     dispatch(getAllLanguages());
-    console.log(
-      idPageData?.contentTranslationData?.content,
-      "idPageData?.contentTranslationData?.content"
-    );
     // Component mounted, initialize the editor states
     setEditorState1(
       idPageData?.contentTranslationData?.content
@@ -87,8 +86,6 @@ export default function Language_details() {
               blocksFromHTML.contentBlocks,
               blocksFromHTML.entityMap
             );
-            console.log(blocksFromHTML, "blocksFromHTML");
-
             return EditorState.createWithContent(contentState);
           }
         : () => EditorState.createEmpty()
@@ -103,14 +100,16 @@ export default function Language_details() {
       dispatch(
         getContentTranslation(params.id, params.langId, (data) => {
           setData(data);
-          setEditorState1(() => {
-            const blocksFromHTML = convertFromHTML(data?.content);
-            const contentState = ContentState.createFromBlockArray(
-              blocksFromHTML.contentBlocks,
-              blocksFromHTML.entityMap
-            );
-            return EditorState.createWithContent(contentState);
-          });
+          if (data?.content) {
+            setEditorState1(() => {
+              const blocksFromHTML = convertFromHTML(data?.content);
+              const contentState = ContentState.createFromBlockArray(
+                blocksFromHTML.contentBlocks,
+                blocksFromHTML.entityMap
+              );
+              return EditorState.createWithContent(contentState);
+            });
+          } else setEditorState1(() => EditorState.createEmpty());
         })
       );
     } else {

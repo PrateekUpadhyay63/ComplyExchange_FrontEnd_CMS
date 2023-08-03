@@ -35,12 +35,10 @@ export const signupAction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log(responseData.status=='200')
           Utils.showAlert(1, "User Registered successfully");
         }
       },
       (error) => {
-        console.log(error)
         let { data } = error;
         Utils.showAlert(2, data.message);
       }
@@ -56,7 +54,6 @@ export const getUserById = (value,callback) => {
       (resData) => {
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resDatas")
             callback(resData.data)
             
           }
@@ -81,10 +78,8 @@ export const getCountryById = (value,callback) => {
       Utils.endPoints.GET_COUNTRY_BY_ID,
       `?id=${value}`,
       (resData) => {
-        console.log("ress",resData)
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({
@@ -109,10 +104,8 @@ export const getAgentEformSelection = (value,callback) => {
       Utils.endPoints.GET_E_FORM_SELECTION_WARNING,
       `?id=${value}`,
       (resData) => {
-        console.log("ress",resData)
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({
@@ -140,7 +133,6 @@ export const loginAction = (value,callback) => {
 
       value,
       (responseData) => {
-        console.log(responseData)
         if(responseData.status ==200){
           localStorage.setItem('accessToken',responseData.data.token.accessToken)
           localStorage.setItem('userDetails',JSON.stringify(responseData.data))
@@ -167,7 +159,6 @@ export const getLanguageList = (page,size,search) => {
       Utils.endPoints.LANG_BY_SEARCH,
       params,
       (resData) => {
-        console.log(resData,"hskadbsakjh")
         dispatch({
           type: Utils.ActionName.LANG_BY_SEARCH,
           payload: {
@@ -1393,7 +1384,6 @@ export const deleteDocumentation = (id) => {
           type: Utils.ActionName.DELETE_DOCUMENTAION,
           payload: { data: data.data },
         });
-        console.log(responseData,"responseData")
         if (responseData) {
 
           Utils.showAlert(1, "Deleted Successfully");
@@ -1501,7 +1491,6 @@ export const CountryUpsert = (value) => {
         
       },
       (error) => {
-        console.log("error",error)
         Utils.showAlert(2, error.statusText);
 
       }

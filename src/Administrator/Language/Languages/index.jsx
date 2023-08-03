@@ -113,6 +113,10 @@ import Language from "../../../reusables/language";
     dispatch(getAllLanguages());
     // googleTranslateElementInit()
   }, []);
+
+  useEffect(() => {
+    dispatch(getLanguageList(page, size, search))
+  }, [page]);
   return (
     <Fragment>
       <ThemeOptions />
@@ -268,6 +272,19 @@ Languages
                   </Paper>
                 </table>
               </div>
+              {languageData?.langData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12 mb-2" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={languageData?.langData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
               <div className='table_content'>
                 <span> Enable Asian Character Set:</span>
                 <Checkbox type="checkbox" />
@@ -275,6 +292,7 @@ Languages
                   (Note: this character set considerably increases the PDF size)
                 </span>
               </div>
+              
             </div>
             <div className="actionBtnclass">
            
@@ -293,16 +311,8 @@ Languages
               {/* </Button> */}
             </div>
 
-            {languageData?.langData?.totalPages > 1 ? (
-              <Stack spacing={2}>
-                <Pagination
-                  count={languageData?.langData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-              </Stack>
-            ) : (
-              ""
-            )}
+       
+
           </div>
         </div>
       </div>

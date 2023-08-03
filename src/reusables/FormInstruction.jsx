@@ -30,13 +30,13 @@ import "./reusables.scss";
 
 import {createFormInstruction,
     getFormInstructionById,
-    updateFormInstruction, } from "../redux/Actions";
+    updateFormInstruction,getAllFormInstructions } from "../redux/Actions";
 
 
 
 
 const DialogEdit = props => {
-  const { open, setOpen, idData, response, getList } = props
+  const { open, setOpen, idData, response, getList,closeCallback } = props
  
   const handleClose = () => setOpen(false)
  
@@ -81,6 +81,7 @@ const DialogEdit = props => {
     } else {
       dispatch(createFormInstruction(createData));
     }
+    closeCallback()
     handleClose()
   };
   return (

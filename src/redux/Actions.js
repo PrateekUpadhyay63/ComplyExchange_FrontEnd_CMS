@@ -3357,6 +3357,7 @@ export const createFormInstruction = (value) => {
         });
          if (responseData) {
           Utils.showAlert(1, responseData?.data);
+          getAllFormInstructions(1,10,"")
         }
       },
       (error) => {
@@ -3455,6 +3456,7 @@ export const deleteFormInstruction = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
+          getAllFormInstructions(1,10,"")
         }
       },
       (error) => {

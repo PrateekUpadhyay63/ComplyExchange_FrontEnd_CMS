@@ -764,7 +764,7 @@ export const getAllContentType = (value) => {
 };
 
 
-export const GetAllHelpVideos = (value) => {
+export const GetAllHelpVideos = (callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_ALL_HELP_VIDEOS,
@@ -772,12 +772,15 @@ export const GetAllHelpVideos = (value) => {
       (resData) => {
         const { data } = resData;
         if (resData.status === 200) {
+          console.log(resData.data,"xcvbnmasdfgh")
+          callback(resData?.data)
           dispatch({
             type: Utils.ActionName.GET_ALL_HELP_VIDEOS,
             payload: {
               helpData: resData.data,
             },
           });
+         
         } else {
           Utils.showAlert(2, resData.message);
         }

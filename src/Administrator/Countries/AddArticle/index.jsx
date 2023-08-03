@@ -43,7 +43,9 @@ export default function Countries_details() {
   const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
   console.log("form",formData);
   const namedata =useSelector((state)=>state.getIncomeReducer);
- 
+  const countryData = useSelector(
+    (state) => state?.getCountryByIdReducer?.getCountryByIdData
+  );
   const [data, setData] = useState({
     countryId: 0,
     name:"",
@@ -82,6 +84,13 @@ const [data1 , setData1] = useState({
     dispatch(getMaxNumber());
   }, []);
 
+  useEffect(() => {
+    if (params?.id) {
+      dispatch(getCountryById(params.id), (item) => {
+        setData(item);
+      });
+    }
+  }, []);
 
   useEffect(()=>{
     dispatch(GetIncomeTypes());
@@ -104,10 +113,12 @@ const [data1 , setData1] = useState({
       }
     dispatch(CountriesUpsertArticle(updateData));
     }
-    history.push("/countries");
+    history.push("/countries_add");
   }
 
- 
+  useEffect(() => {
+    setData(countryData);
+  }, [countryData]);
   const handleToogle = (e) => {
     setData({ ...data, [e.target.name]: e.target.checked });
   };
@@ -358,7 +369,7 @@ const [data1 , setData1] = useState({
                 variant="outlined"
                 sx={{ mr: 1}}
                 onClick={()=>{
-                  history.push("/countries")
+                  history.push("/countries_add")
                  }}
               >
                 cancel

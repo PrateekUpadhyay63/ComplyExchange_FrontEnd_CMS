@@ -196,7 +196,7 @@ Languages
                             <TableCell className="table_head">Status</TableCell>
 
                             <TableCell
-                              align="center"
+                              align="right"
                               colSpan={2}
                               className="table_head"
                             >
@@ -234,9 +234,9 @@ Languages
                                 {row.status}
                               </TableCell>
 
-                              <TableCell className="table_content actionRow">
+                              <TableCell align="right" className="table_content actionRow">
                                 {row.action}
-                                <div style={{ display: "flex" }}>
+                                <div style={{ display: "flex" ,justifyContent:"flex-end"}}>
                                   <EditIcon
                                     style={{ color: "green", fontSize: "20px" }}
                                     onClick={() => {

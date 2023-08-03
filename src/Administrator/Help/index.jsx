@@ -44,7 +44,7 @@ export default function Language_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
-
+const [arr,setArr]=useState()
   const [data, setData] = useState( {
   enableVideoTab: false,
   loginPageId: 0,
@@ -88,12 +88,12 @@ export default function Language_details() {
 
 
   useEffect(() => {
-    dispatch(GetAllHelpVideos(params.id),(data)=>{ setData(data) });
+    dispatch(GetAllHelpVideos((data)=>{ setArr(data) }));
   }, []);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-  
+  console.log(data,"djfthcg")
     let updateData = {
       enableVideoTab: data?.enableVideoTab,
       loginPageId: data?.loginPageId,
@@ -110,7 +110,7 @@ export default function Language_details() {
       w8BCI: data?.w8BCI,
       w8EXPId: data?.w8EXPId,
       w8EXP: data?.w8EXP,
-      w8IMYId: data?.w8IMYId,
+      w8IMYId: data?.w8IMYId,  
       w8IMY: data?.w8IMY,
       w9Id: data?.w9Id,
       w9: data?.w9,
@@ -131,7 +131,7 @@ export default function Language_details() {
 
     }
    
-    dispatch(postHelpVideo(id, updateData));
+    dispatch(postHelpVideo(updateData));
    
    
     history.push("/help");
@@ -145,6 +145,17 @@ export default function Language_details() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const arrHandleChange = (e) => {
+    setData((prevState) => {
+      return({
+        ...prevState,
+        [e.target.name]: e.target.value
+      });
+    });
+
+  };
+  
 
   return (
     <Card>
@@ -162,10 +173,8 @@ export default function Language_details() {
                 <p
                    underline="hover"
                    color="#000000"
-                 
-                  
                 >
-   Help
+               Help
                 </p>
               </Breadcrumbs>
             </div>
@@ -189,8 +198,9 @@ export default function Language_details() {
                 <Checkbox  className="checkBox" name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
                 </div>
               </div>
-              {formData?.map((row, ind) =>{
-                console.log("roww1",row);
+              {console.log( "xcvbnm,",arr)}
+              {arr?.map((row, ind) =>{
+                // console.log("roww1",row);
           return  (    
           
           <div className="row">
@@ -211,12 +221,12 @@ export default function Language_details() {
                   <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                    
-                    onChange={(e) => handleChange(e, row.id)}
+                    name={row.pageName}
+                    value={data[row?.pageName]}
+                    onChange={(e) => arrHandleChange(e, row.id)}
                     required
                   />
-                  <span className="table_content mx-4">{row.language}</span>
+                  <span className="table_content mx-4">{row.name}:{row.pageCount}</span>
                 </div>
               </div>
   )})}

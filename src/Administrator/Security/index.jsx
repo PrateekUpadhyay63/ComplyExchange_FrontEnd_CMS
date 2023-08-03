@@ -57,6 +57,7 @@ export default function ContentManagement() {
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
+  const [data, setData] = useState()
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
@@ -72,27 +73,11 @@ export default function ContentManagement() {
   useEffect(() => {
     dispatch(getSecurityKeys());
   }, []);
-  // {
-  //   "id": 1,
-  //   "key": "string",
-  //   "keyType": "string",
-  //   "createdOn": "2023-07-22T23:06:00.7",
-  //   "modifiedOn": "0001-01-01T00:00:00"
-  // }
-  //   const setSubmit = (e) => {
-  //     e.preventDefault();
-  //     setPage(1);
-  //     setSize(10);
-  //     dispatch(getAllFormInstructions(page, size, search));
-  //   };
-  //   const deleteItems = async () => {
-  //     dispatch(deleteFormInstruction(idData));
-  //     dispatch(getAllFormInstructions(page, size));
-  //   };
 
-  //   useEffect(() => {
-  //     dispatch(getAllFormInstructions(page, size));
-  //   }, [page]);
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -161,13 +146,13 @@ export default function ContentManagement() {
                         <TableRow>
                           <TableCell
                             align="center"
-                            scope="col"
+                           
                             style={{ fontSize: "20px" }}
                           ></TableCell>
-                          <TableCell className="table_head" scope="col">
+                          <TableCell className="table_head">
                             Incoming Request Key
                           </TableCell>
-                          <TableCell scope="col" className="table_head">
+                          <TableCell className="table_head">
                             Last Updated On
                           </TableCell>
                         </TableRow>
@@ -185,6 +170,7 @@ export default function ContentManagement() {
                                     className="w-100 textFieldClass"
                                     value={i.key}
                                     name="name"
+                                    onChange={handleChange}
                                   />
                                 </TableCell>
                                 <TableCell>
@@ -244,6 +230,7 @@ export default function ContentManagement() {
                                     className="w-100 textFieldClass"
                                     value={i.key}
                                     name="name"
+                                    onChange={handleChange}
                                   />
                                 </TableCell>
                                 <TableCell>

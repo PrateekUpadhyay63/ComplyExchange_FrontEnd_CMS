@@ -335,6 +335,7 @@ export default function Language_details() {
                           name="toolTip"
                           value={data?.toolTip}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>

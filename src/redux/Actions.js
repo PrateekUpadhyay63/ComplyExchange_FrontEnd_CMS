@@ -3821,7 +3821,7 @@ export const createEasy = (value) => {
     return (dispatch) => {
       Utils.api.getApiCall(
         Utils.endPoints.GET_RULE_TRANSLATION,
-        `?pageId=${pageId}&languageId=${languageId}`,
+        `?ruleId=${pageId}&languageId=${languageId}`,
         (resData) => {
           if (resData.status === 200) {
             if(callback){

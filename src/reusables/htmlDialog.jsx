@@ -53,7 +53,7 @@ const Modal = (props) => {
 
   const handleSubmit = () => {
     const file = fileData;
-    if (file === undefined) {
+    if (file === undefined || file === "") {
       setError(true)
     } else {
       setError(false)

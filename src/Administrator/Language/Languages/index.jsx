@@ -54,7 +54,7 @@ import Language from "../../../reusables/language";
   const history = useHistory();
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getLangListReducer);
-  const languageData = useSelector((state) => state.LanguagesReducer);
+  const languageData = useSelector((state) => state.getLangReducer);
 
   const [idData, setIdData] = useState(0);
   const [open, setOpen] = useState(false);
@@ -204,10 +204,10 @@ Languages
                             </TableCell>
                           </TableRow>
                         </TableHead>
-                        {console.log(tableData,"edsgfasfd")}
-                        {tableData?.allLanguageData && tableData?.allLanguageData?.length ? (
+                        {console.log(languageData?.langData?.records,"edsgfasfd")}
+                        {languageData?.langData && languageData?.langData?.records?.length ? (
                         <TableBody>
-                          {tableData?.allLanguageData?.map((row) => (
+                          {languageData?.langData?.records?.map((row) => (
                             <TableRow
                               key={row.name}
                               sx={{
@@ -293,10 +293,10 @@ Languages
               {/* </Button> */}
             </div>
 
-            {tableData?.langData?.totalPages > 1 ? (
+            {languageData?.langData?.totalPages > 1 ? (
               <Stack spacing={2}>
                 <Pagination
-                  count={tableData?.langData?.totalPages}
+                  count={languageData?.langData?.totalPages}
                   onChange={(e, value) => setPage(value)}
                 />
               </Stack>

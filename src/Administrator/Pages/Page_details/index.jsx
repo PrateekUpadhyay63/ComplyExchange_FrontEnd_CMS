@@ -290,7 +290,7 @@ export default function Pages_details() {
         getPageById(params.id, (data) => {
           setData(data);
           setEditorState1(() => {
-            const blocksFromHTML = convertFromHTML(data?.summary);
+            const blocksFromHTML = convertFromHTML(data?.pageContent);
             const contentState = ContentState.createFromBlockArray(
               blocksFromHTML.contentBlocks,
               blocksFromHTML.entityMap

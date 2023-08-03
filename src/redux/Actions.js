@@ -58,6 +58,7 @@ export const getUserById = (value,callback) => {
           if(callback){
             console.log(resData,"resDatas")
             callback(resData.data)
+            
           }
           dispatch({
             type: Utils.ActionName.GET_USER_BY_ID,

@@ -138,7 +138,7 @@ const row=[]
                     setSubmit(e);
                   }}
                   className="btn-cstm"
-                  style={{ float: "right" }}
+                  style={{ float: "right", display: "none" }}
                 >
                   Search
                 </Button>

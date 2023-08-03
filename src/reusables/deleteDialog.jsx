@@ -29,7 +29,7 @@ const DialogTransition = (props) => {
       <Dialog
         open={open}
         keepMounted
-        onClose={handleClose}
+        // onClose={handleClose}
         TransitionComponent={Transition}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"

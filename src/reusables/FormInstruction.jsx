@@ -89,7 +89,7 @@ const DialogEdit = props => {
       <Dialog
         open={open}
         keepMounted
-        onClose={handleClose}
+        // onClose={handleClose}
       
       >
       

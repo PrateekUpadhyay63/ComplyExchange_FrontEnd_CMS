@@ -737,11 +737,15 @@ export const getSelfCertificationById = (value , callback) => {
   };
 };
 
-export const getAllContentType = (value) => {
+export const getAllContentType = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_ALL_CONTENT,
-      ``,
+      params,
       (resData) => {
         const { data } = resData;
         if (resData.status === 200) {

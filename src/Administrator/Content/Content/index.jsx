@@ -91,14 +91,25 @@ export default function ContentManagement() {
     setSize(10);
     dispatch(getAllContentType(page, size, search));
   };
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllContentType(page, size, search));
+    }
+  },[search])
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    dispatch(getAllContentType(page, size));
+  }, [page]);
  
   const tableData = useSelector((state) => state.getAllContentTypeByIdReducer);
 
   useEffect(() => {
-    dispatch(getAllContentType());
+    dispatch(getAllContentType(page, size, search));
     dispatch(getAllLanguages())
   }, []);
 
@@ -193,10 +204,10 @@ export default function ContentManagement() {
                             
                           </TableRow >
                         </TableHead>
-                         {tableData?.contentData && tableData?.contentData.length ? (
+                         {tableData?.contentData && tableData?.contentData?.records?.length ? (
                         <TableBody>
                           {
-                          tableData?.contentData.map((row) => (
+                          tableData?.contentData?.records.map((row) => (
                             <TableRow
                             className="tableRow1"
                               key={row.name}

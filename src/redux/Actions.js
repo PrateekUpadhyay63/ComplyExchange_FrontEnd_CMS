@@ -2116,17 +2116,12 @@ export const exportContent = () => {
       Utils.endPoints.EXPORT_CONTENT,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_CONTENT,
-            payload: {
-             contentExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2142,17 +2137,12 @@ export const exportRule = () => {
       Utils.endPoints.EXPORT_RULES,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_RULES,
-            payload: {
-             ruleExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2168,16 +2158,12 @@ export const exportCountries = () => {
       Utils.endPoints.EXPORT_COUNTRIES,
       "",
       (resData) => {
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_COUNTRIES,
-            payload: {
-             countriesExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2193,16 +2179,12 @@ export const exportEasy = () => {
       Utils.endPoints.EXPORT_EASY,
       "",
       (resData) => {
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_EASY,
-            payload: {
-             easyExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;

@@ -347,7 +347,7 @@ export const upsertSecurityKeys = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data.message);
         }
       },
       (error) => {

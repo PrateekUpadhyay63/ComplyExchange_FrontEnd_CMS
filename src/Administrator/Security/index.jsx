@@ -57,7 +57,12 @@ export default function ContentManagement() {
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
-  const [data, setData] = useState()
+  const [data, setData] = useState({
+    id: 0,
+    key: "",
+    keyId: 0,
+    keyType: "",
+  })
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
@@ -69,10 +74,12 @@ export default function ContentManagement() {
 
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getSecurityKeysReducer);
-
+  console.log("form",tableData)
   useEffect(() => {
     dispatch(getSecurityKeys());
   }, []);
+
+
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -81,7 +88,15 @@ export default function ContentManagement() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // upsertSecurityKeys(data)
+    let updateData = {
+      id: 0,
+      key: "",
+      keyId: 0,
+      keyType: ""
+
+    }
+    dispatch(upsertSecurityKeys(updateData));
+    history.push("/security_keys");
   };
 
   return (
@@ -169,7 +184,7 @@ export default function ContentManagement() {
                                   <TextField
                                     className="w-100 textFieldClass"
                                     value={i.key}
-                                    name="name"
+                                    name="key"
                                     onChange={handleChange}
                                   />
                                 </TableCell>
@@ -229,7 +244,7 @@ export default function ContentManagement() {
                                   <TextField
                                     className="w-100 textFieldClass"
                                     value={i.key}
-                                    name="name"
+                                    name="key"
                                     onChange={handleChange}
                                   />
                                 </TableCell>

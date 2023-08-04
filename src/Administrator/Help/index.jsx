@@ -105,8 +105,9 @@ export default function Language_details() {
 
     }
    
-    dispatch(postHelpVideo(data));
-   
+    // dispatch(postHelpVideo(data));
+
+    dispatch(postHelpVideo(updateData));
    
     history.push("/help");
   };

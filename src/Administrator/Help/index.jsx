@@ -44,30 +44,19 @@ export default function Language_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
-const [arr,setArr]=useState()
+  const [arr,setArr]=useState()
   const [data, setData] = useState( {
   enableVideoTab: false,
-  loginPageId: 0,
   loginPage: "",
-  formSelectionPageId: 0,
   formSelectionPage: "",
-  onboardingPageId: 0,
   onboardingPage: "",
-  w8BENEId: 0,
   w8BENE: "",
   w8BEN: "",
-  w8BENId: 0,
-  w8BCIId: 0,
   w8BCI: "",
-  w8EXPId: 0,
   w8EXP: "",
-  w8IMYId: 0,
   w8IMY: "",
-  w9Id: 0,
   w9: "",
-  help8233Id: 0,
   help8233: "",
-  selfCertId: 0,
   selfCert: "",
   scrollbars: false,
   resizable: false,
@@ -79,13 +68,10 @@ const [arr,setArr]=useState()
   height: "",
   left: "",
   top: "",
-  }
   
-   
+}
+ 
   );
-
-
-
 
   useEffect(() => {
     dispatch(GetAllHelpVideos((data)=>{ setArr(data) }));
@@ -93,30 +79,19 @@ const [arr,setArr]=useState()
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-  console.log(data,"djfthcg")
+    console.log(data,"djfthcg")
     let updateData = {
       enableVideoTab: data?.enableVideoTab,
-      loginPageId: data?.loginPageId,
       loginPage: data?.loginPage,
-      formSelectionPageId: data?.formSelectionPageId,
       formSelectionPage: data?.formSelectionPage,
-      onboardingPageId: data?.onboardingPageId,
       onboardingPage: data?.onboardingPage,
-      w8BENEId: data?.w8BENEId,
       w8BENE: data?.w8BENE,
       w8BEN: data?.w8BEN,
-      w8BENId: data?.w8BENId,
-      w8BCIId: data?.w8BCIId,
       w8BCI: data?.w8BCI,
-      w8EXPId: data?.w8EXPId,
       w8EXP: data?.w8EXP,
-      w8IMYId: data?.w8IMYId,  
       w8IMY: data?.w8IMY,
-      w9Id: data?.w9Id,
       w9: data?.w9,
-      help8233Id: data?.help8233Id,
       help8233: data?.help8233,
-      selfCertId: data?.selfCertId,
       selfCert: data?.selfCert,
       scrollbars: data?.scrollbars,
       resizable: data?.resizable,

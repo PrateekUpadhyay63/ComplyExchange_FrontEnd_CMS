@@ -156,7 +156,7 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA"
-                            onClick={(e) => handleToogle(e)}
+                          onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox "
                           checked={data?.enableMFA}
                         />
@@ -183,6 +183,7 @@ export default function Countries_details() {
                       </div>
                       <div className="col-10">
                         <Select
+                        required
                           align="center"
                           defaultValue={0}
                           type="Mobile"

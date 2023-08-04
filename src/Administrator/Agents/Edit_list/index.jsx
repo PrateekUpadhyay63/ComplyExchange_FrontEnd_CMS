@@ -1884,7 +1884,7 @@ function EditList({ match }) {
                         <label>Display Alias</label>
                       </TableCell>
                       <TableCell
-                        align="right"
+                        align="center"
                         className="table_head"
                         scope="col"
                       >
@@ -1919,7 +1919,7 @@ function EditList({ match }) {
                                 </label>
                               </div>
                             </TableCell>
-                            <TableCell align="right">
+                            <TableCell align="center">
                               <div className="mr-2">
                                 <Checkbox
                                   className="p-0"

@@ -42,13 +42,13 @@ export default function Countries_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
   console.log("form",formData);
-  const namedata =useSelector((state)=>state.getIncomeReducer);
+  const namedata = useSelector((state)=>state.getIncomeReducer);
   const countryData = useSelector(
     (state) => state?.getCountryByIdReducer?.getCountryByIdData
   );
   const [data, setData] = useState({
     countryId: 0,
-    name:"",
+    // name:"",
     number: "",
     description: "",
     treatyRates: "",
@@ -102,8 +102,8 @@ const [data1 , setData1] = useState({
     e.preventDefault();
     if(params.id){
     let updateData = {
-    countryId: data?.countryId,
-    name: data?.name,
+      countryId: parseInt(params?.id),
+    // name: data?.name,
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,

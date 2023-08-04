@@ -319,7 +319,7 @@ export default function Subpage_details() {
               <Checkbox
                 name="displayOnTopMenu"
                 checked={data?.displayOnTopMenu}
-                
+                required
                 onClick={(e) => handleToogle(e)}
               />
             </div>
@@ -339,6 +339,7 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="redirectPageLabelToURL"
                 // placeholder='Enter Name'
                 value={data?.redirectPageLabelToURL}
@@ -357,6 +358,7 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="menuBackgroundColor"
                 // placeholder='Enter Name'
                 value={data?.menuBackgroundColor}
@@ -374,6 +376,7 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="unselectedTextColor"
                 value={data?.unselectedTextColor}
                 onChange={handleChange}
@@ -390,6 +393,7 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="selectedTextColor"
                 // placeholder='Enter Name'
                 value={data?.selectedTextColor}
@@ -405,6 +409,7 @@ export default function Subpage_details() {
             </div>
             <div className="col-md-9 col-12 ">
               <Checkbox
+              required
                 name="displayOnFooter"
                 checked={data?.displayOnFooter}
                 
@@ -423,7 +428,7 @@ export default function Subpage_details() {
               <Checkbox
                 name="displayOnLeftMenu"
                 checked={data?.displayOnLeftMenu}
-                
+                required
                 onClick={(e) => handleToogle(e)}
 
               />

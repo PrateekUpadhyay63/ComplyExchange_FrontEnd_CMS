@@ -46,39 +46,39 @@ export default function Language_details() {
   console.log("form",formData)
 const [arr,setArr]=useState()
   const [data, setData] = useState( {
-  enableVideoTab: false,
-  loginPageId: 0,
-  loginPage: "",
-  formSelectionPageId: 0,
-  formSelectionPage: "",
-  onboardingPageId: 0,
-  onboardingPage: "",
-  w8BENEId: 0,
-  w8BENE: "",
-  w8BEN: "",
-  w8BENId: 0,
-  w8BCIId: 0,
-  w8BCI: "",
-  w8EXPId: 0,
-  w8EXP: "",
-  w8IMYId: 0,
-  w8IMY: "",
-  w9Id: 0,
-  w9: "",
-  help8233Id: 0,
-  help8233: "",
-  selfCertId: 0,
-  selfCert: "",
-  scrollbars: false,
-  resizable: false,
-  status: false,
-  location: false,
-  toolbar: false,
-  menubar: false,
-  width: "",
-  height: "",
-  left: "",
-  top: "",
+  // enableVideoTab: false,
+  // loginPageId: 0,
+  // loginPage: "",
+  // formSelectionPageId: 0,
+  // formSelectionPage: "",
+  // onboardingPageId: 0,
+  // onboardingPage: "",
+  // w8BENEId: 0,
+  // w8BENE: "",
+  // w8BEN: "",
+  // w8BENId: 0,
+  // w8BCIId: 0,
+  // w8BCI: "",
+  // w8EXPId: 0,
+  // w8EXP: "",
+  // w8IMYId: 0,
+  // w8IMY: "",
+  // w9Id: 0,
+  // w9: "",
+  // help8233Id: 0,
+  // help8233: "",
+  // selfCertId: 0,
+  // selfCert: "",
+  // scrollbars: false,
+  // resizable: false,
+  // status: false,
+  // location: false,
+  // toolbar: false,
+  // menubar: false,
+  // width: "",
+  // height: "",
+  // left: "",
+  // top: "",
   }
   
    
@@ -131,7 +131,7 @@ const [arr,setArr]=useState()
 
     }
    
-    dispatch(postHelpVideo(updateData));
+    dispatch(postHelpVideo(data));
    
    
     history.push("/help");
@@ -153,6 +153,9 @@ const [arr,setArr]=useState()
         [e.target.name]: e.target.value
       });
     });
+    console.log(e.target.name,e.target.value,"eeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+
+    // setData({...data,  [e.target.name]: e.target.value})
 
   };
   

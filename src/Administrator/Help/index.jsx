@@ -106,7 +106,7 @@ export default function Language_details() {
 
     }
    
-    dispatch(postHelpVideo(updateData));
+    dispatch(postHelpVideo(data));
    
    
     history.push("/help");
@@ -128,6 +128,9 @@ export default function Language_details() {
         [e.target.name]: e.target.value
       });
     });
+    console.log(e.target.name,e.target.value,"eeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+
+    // setData({...data,  [e.target.name]: e.target.value})
 
   };
   

@@ -87,6 +87,8 @@ import {
   ExportRuleReducer,
   getSelfCertificationReducer,
   getAllUsersReducer,
+  getUserByIdReducer,
+  
   getIgaDropDownReducer,
   getEformSelectionWarningReducer,
 
@@ -140,6 +142,7 @@ export default function configureStore() {
       getCh4HiddenCountiesReducer,
       getCh4ImpCountiesReducer,
       getAllEasyReducer,
+      getUserByIdReducer,
       getYearsReducer,
       getEasyByIdReducer,
       getTranslatedPageReducer,

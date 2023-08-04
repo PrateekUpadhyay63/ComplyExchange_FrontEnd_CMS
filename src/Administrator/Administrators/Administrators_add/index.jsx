@@ -41,14 +41,14 @@ export default function Countries_details() {
           id: 0,
           email: "",
           roleId: 1,
-          countryCode: "",
+         
           enableMFA: false,
           enableMFA_SMS: false,
           mobileNumber: "",
         }
       : {
           email: "",
-          countryCode: "",
+         
           roleId: 1,
           enableMFA: false,
           enableMFA_SMS: false,

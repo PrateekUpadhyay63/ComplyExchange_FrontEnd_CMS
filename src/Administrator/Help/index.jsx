@@ -79,7 +79,6 @@ export default function Language_details() {
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-    console.log(data,"djfthcg")
     let updateData = {
       enableVideoTab: data?.enableVideoTab,
       loginPage: data?.loginPage,

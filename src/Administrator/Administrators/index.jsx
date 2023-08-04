@@ -46,7 +46,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { getAllUsers } from "../../redux/Actions";
+import { getAllUsers, } from "../../redux/Actions";
 function createData(agent, content, action) {
   return { agent, content, action };
 }

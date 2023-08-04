@@ -113,7 +113,7 @@ const [data1 , setData1] = useState({
       }
     dispatch(CountriesUpsertArticle(updateData));
     }
-    history.push("/countries_add");
+    history.push(`/countries_add/${params?.id}`);
   }
 
   useEffect(() => {
@@ -369,7 +369,7 @@ const [data1 , setData1] = useState({
                 variant="outlined"
                 sx={{ mr: 1}}
                 onClick={()=>{
-                  history.push("/countries_add")
+                  history.push(`/countries_add/${params?.id}`);
                  }}
               >
                 cancel

@@ -73,7 +73,21 @@ export default function Language_details() {
    },[formData])
 
   useEffect(() => {
-    dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+    if (params.id){
+      dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+    }
+   else{
+    setData({ name: "",
+    isProxyMandatory: false,
+    isCountryOfResidenceRequired: false,
+    isImportant: false,
+    isUSIndividual: false,
+    isNonUSIndividual: false,
+    isUSBusiness: false,
+    isNonUSBusiness: false,
+    isIntermediary: false,
+    isNonUSGovernment: false})
+   }
   }, []);
 
   const handleSubmit = async (e) => {

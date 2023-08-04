@@ -112,12 +112,14 @@ const DialogEdit = props => {
                 
 
                   <TextField
-                   className='table_text'
+                    required
+                    type='password'
+                    className='table_text'
                     size="small"
                     name="oldPassword"
                     value={data.oldPassword}
                     onChange={handleChange}
-                    required
+                    
                   />
                 </div>
               </div>
@@ -136,6 +138,7 @@ const DialogEdit = props => {
                   <TextField
                    className='table_text'
                     size="small"
+                    type='password'
                     name="password"
                     value={data.password}
                     onChange={handleChange}

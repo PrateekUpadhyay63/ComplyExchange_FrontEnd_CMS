@@ -400,18 +400,23 @@ export const GetDocumentationTypes = () => {
   };
 };
 
-export const GetDocumentationCH3 = () => {
+export const GetDocumentationCH3 = (callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_CH3_DOC,
       "",
       (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
         dispatch({
           type: Utils.ActionName.GET_CH3_DOC,
           payload: {
             ch3Data: resData.data,
           },
         });
+      }
       },
       (error) => {
         let { data } = error;
@@ -420,18 +425,23 @@ export const GetDocumentationCH3 = () => {
     );
   };
 };
-export const GetDocumentationCH4 = () => {
+export const GetDocumentationCH4 = (callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_CH4_DOC,
       "",
       (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
         dispatch({
           type: Utils.ActionName.GET_CH4_DOC,
           payload: {
             ch4Data: resData.data,
           },
         });
+      }
       },
       (error) => {
         let { data } = error;
@@ -454,7 +464,7 @@ export const getch3ById = (value , callback) => {
           dispatch({
             type: Utils.ActionName.GET_CH3_DOC_BY_iD,
             payload: {
-              ch3DataId: resData.data,
+              ch3Data: resData.data,
             },
           });
         } else {
@@ -482,7 +492,7 @@ export const getch4ById = (value , callback) => {
           dispatch({
             type: Utils.ActionName.GET_CH4_DOC_BY_iD,
             payload: {
-              ch4DataId: resData.data,
+              ch4Data: resData.data,
             },
           });
         } else {
@@ -1889,7 +1899,7 @@ export const insertFormTypesUSTranslation = value => {
     const dataToSend = { message: value }
     Utils.api.postApiCall(
       Utils.endPoints.POST_US_TRANSLATION,
-      value,
+      value,"",
       responseData => {
         let { data } = responseData
         dispatch({
@@ -3494,7 +3504,7 @@ export const postHelpVideo = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data.message);
         }
       },
       (error) => {

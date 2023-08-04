@@ -53,27 +53,37 @@ export default function Language_details() {
   let params = useParams();
   const history = useHistory();
 
-  const DocCh3data = useSelector((state)=>state.getdocCH3Reducer);
-  
-  const DocCh4data = useSelector((state)=>state.getdocCH4Reducer);
+  // const DocCh3data = params?.id ? useSelector((state)=>state.getdocch3ReducerById) : ((state)=>state.getdocCH3Reducer)  
+  // const DocCh4data = params?.id ? useSelector((state)=>state.getdocCH4Reducer): ((state)=>state.getdocCH4Reducer)
+
+
   const nameData = useSelector((state) => state.getdocTypeReducer);
   const [data, setData] = useState({
     name: "",
     documentationId: 0,
   });
+  const [DocCh3data,setDocCh3data]=useState([])
+  const [DocCh4data,setDocCh4data]=useState([])
+
   const [error, setError] = useState({
     name: false,
     documentationId: false,
   });
 
   useEffect(()=>{
-    dispatch(GetDocumentationCH3());
-  
-  },[])
+    if(params.id){
+      dispatch(getch3ById(params?.id,(data)=>{setDocCh3data(data)}));
+      dispatch(getch4ById(params?.id,(data)=>{setDocCh4data(data)}));
+
+    }else{
+    dispatch(GetDocumentationCH3((data)=>{setDocCh3data(data)}));
+    dispatch(GetDocumentationCH4((data)=>{setDocCh4data(data)}));
+    }
+  },[params?.id])
 
 
   useEffect(()=>{
-    dispatch(GetDocumentationCH4());
+   
   
   },[])
 
@@ -119,7 +129,7 @@ export default function Language_details() {
       history.push("/documentation");
     }
   };
-
+console.log(DocCh3data,DocCh4data,"asdfghjkl")
   return (
     <Fragment>
       <ThemeOptions />
@@ -208,7 +218,7 @@ export default function Language_details() {
 <div className="col-5">
 <div className="table_Content">Chapter 3 Entity Types:</div>
                 <div className="d-flex row">
-                {DocCh3data?.ch3Data?.map((i,ind)=>{
+                {DocCh3data?.map((i,ind)=>{
    return ( 
                   <span key={ind}>
                     <Checkbox onClick={(e) => handleToogle(e)}size="small" type="checkbox" />
@@ -226,7 +236,7 @@ export default function Language_details() {
               <div className="col-5">
                 <div className="table_Content">Chapter 4 Status:</div>
                 <div className="d-flex row">
-                {DocCh4data?.ch4Data?.map((i,ind)=>{
+                {DocCh4data?.map((i,ind)=>{
    return ( 
                   <span key={ind}>
                     <Checkbox onClick={(e) => handleToogle(e)} size="small" type="checkbox" />

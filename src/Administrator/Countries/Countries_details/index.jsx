@@ -377,7 +377,7 @@ export default function Countries_details() {
                           size="small"
                           type="submit"
                           onClick={() => {
-                            history.push(`/article/${params.id}`);
+                            history.push(`/article/${params?.id}`);
                           }}
                           sx={{ mx: 2 }}
                           variant="contained"

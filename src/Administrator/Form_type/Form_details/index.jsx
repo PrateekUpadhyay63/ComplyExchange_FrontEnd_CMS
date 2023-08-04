@@ -625,18 +625,18 @@ const handleSubmit = async event => {
   formData.append('description', data.description)
   formData.append('substituteFormStatement', data.substituteFormStatement)
   formData.append('eSubmitStatement', data.eSubmitStatement)
-  formData.append('eSubmitTemplatePDF', imageFile1)       // BACKEND ISSUE
-  formData.append('printTemplatePDF', imageFile2)  //BACKEND ISSUE
+  formData.append('eSubmitTemplatePDF', imageFile1)       
+  formData.append('printTemplatePDF', imageFile2)  
   formData.append('useOnboardingURL', data.useOnboardingURL)
   formData.append('specifyURL', data.specifyURL)
 
 
-  if (params?.id) {
-    formData.append('id', params.id)
-    dispatch(updateFormTypes(formData))
-  } else {
+  // if (params?.id) {
+  //   formData.append('id', params.id)
     dispatch(updateUSFormTypes(formData))
-  }
+  // } else {
+  //   dispatch(updateUSFormTypes(formData))
+  // }
   history.push(Utils.Pathname.formType)
 }
 

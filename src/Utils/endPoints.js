@@ -155,6 +155,11 @@ const endPoint = {
   INSERT_FORM_INSTRUCTIONS: "FormInstructions/InsertFormInstructions",
   UPDATE_FORM_INSTRUCTIONS: "FormInstructions/UpdateFormInstructions",
 
+  GET_CH3_DOC:"Documentation/GetChapter3EntityTypes",
+  GET_CH4_DOC:"Documentation/GetChapter4EntityTypes",
+  GET_CH3_DOC_BY_iD:"Documentation/GetDocumentationChapter3ById",
+  GET_CH4_DOC_BY_iD:"Documentation/GetDocumentationChapter4ById",
+
   //Rules Api's
 
   GET_ALL_RULES: "Rule/GetAllRules",

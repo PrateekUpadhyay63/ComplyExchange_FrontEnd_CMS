@@ -37,6 +37,10 @@ const {
   GET_SUBPAGE_NO,
   GET_ALL_DOCUMENTATION,
   GET_DOCUMENTATION_TYPES,
+  GET_CH3_DOC,
+  GET_CH3_DOC_BY_iD,
+  GET_CH4_DOC,
+  GET_CH4_DOC_BY_iD,
   GET_DOCUMENTAION_BY_ID,
   GET_IMPORTANT_COUNTRIES,
   GET_ALL_RULES,
@@ -96,7 +100,14 @@ const {
 
 let initialState = [];
 
-
+export const getUserByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_USER_BY_ID:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 
 export const getAllUsersReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -511,6 +522,39 @@ export const getAllCountriesDataReducer = (state = initialState, action) => {
 };
 
 
+export const getdocCH3Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH3_DOC:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getdocch3ReducerById = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH3_DOC_BY_iD:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getdocCH4Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH4_DOC:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getdocCH4ReducerById = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH4_DOC_BY_iD:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getdocTypeReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DOCUMENTATION_TYPES:
@@ -519,6 +563,17 @@ export const getdocTypeReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+
+
+
+
+
+
+
+
+
+
 export const getIncomeReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_INCOME_CODE:

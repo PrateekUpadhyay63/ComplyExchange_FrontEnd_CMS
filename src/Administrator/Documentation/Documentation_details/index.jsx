@@ -43,13 +43,19 @@ import {
   getDocById,
   createDocType,
   updateDocType,
+  GetDocumentationCH3,
+  GetDocumentationCH4,
+  getch3ById,
+  getch4ById,
 } from "../../../redux/Actions";
 export default function Language_details() {
   const dispatch = useDispatch();
   let params = useParams();
   const history = useHistory();
 
-  const formData = useSelector((state) => state.getdocByIdReducer);
+  const DocCh3data = useSelector((state)=>state.getdocCH3Reducer);
+  
+  const DocCh4data = useSelector((state)=>state.getdocCH4Reducer);
   const nameData = useSelector((state) => state.getdocTypeReducer);
   const [data, setData] = useState({
     name: "",
@@ -59,6 +65,17 @@ export default function Language_details() {
     name: false,
     documentationId: false,
   });
+
+  useEffect(()=>{
+    dispatch(GetDocumentationCH3());
+  
+  },[])
+
+
+  useEffect(()=>{
+    dispatch(GetDocumentationCH4());
+  
+  },[])
 
   useEffect(() => {
     dispatch(GetDocumentationTypes());
@@ -71,7 +88,9 @@ export default function Language_details() {
       );
     }
   }, []);
-
+  const handleToogle = (e) => {
+    setData({ ...data, [e.target.name]: e.target.checked });
+  };
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -172,6 +191,8 @@ export default function Language_details() {
                   {error.documentationId ? (<p className="errorClass">Please Enter Name</p>):""}
                 </FormControl>
               </div>
+
+
               <div className="col-12">
                 <div className="d-flex">
                   <span>
@@ -182,6 +203,45 @@ export default function Language_details() {
                   </span>
                 </div>
               </div>
+<div className="d-flex mt-2">
+
+<div className="col-5">
+<div className="table_Content">Chapter 3 Entity Types:</div>
+                <div className="d-flex row">
+                {DocCh3data?.ch3Data?.map((i,ind)=>{
+   return ( 
+                  <span key={ind}>
+                    <Checkbox onClick={(e) => handleToogle(e)}size="small" type="checkbox" />
+                    <span className="  table_contentt">
+                    {i.name}
+                    </span>
+                  </span>
+                    )
+                  })}
+                </div>
+              </div>
+             
+
+
+              <div className="col-5">
+                <div className="table_Content">Chapter 4 Status:</div>
+                <div className="d-flex row">
+                {DocCh4data?.ch4Data?.map((i,ind)=>{
+   return ( 
+                  <span key={ind}>
+                    <Checkbox onClick={(e) => handleToogle(e)} size="small" type="checkbox" />
+                    <span className="table_contentt">
+                    {i.name}
+                    </span>
+                  </span>
+                    )
+                  })}
+                </div>
+              </div>
+</div>
+              
+
+             
 
               <div className="col-12 my-2 mx-auto">
                 <div className="col-12 ">

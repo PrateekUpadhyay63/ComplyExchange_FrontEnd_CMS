@@ -162,6 +162,32 @@ const getLangById=(id)=>{
 const handleChange = (e) => {
   setData({ ...data, [e.target.name]: e.target.value });
 };
+
+
+useEffect(() => {
+  if (params.id) {
+    dispatch(
+      getRuleTranslation(params.id,params.langId ,(data) => {
+        setData(data);
+        if(data?.warning){
+        setEditorState1(() => {
+          const blocksFromHTML = convertFromHTML(data?.warning);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          return EditorState.createWithContent(contentState);
+        });
+      }
+      
+      })
+    );
+  } else {
+    setEditorState1(() => EditorState.createEmpty());
+    
+  }
+}, [params.id]);
 const handleSubmit = async (e) => {
   e.preventDefault();
   let updateData={

@@ -3,6 +3,7 @@ const endPoint = {
    SIGNUP: "Account/SignUp",
    USER:"Account/GetUser",
    ALL_USER:"Account/GetAllUser",
+   
   // forgotPassword: "/forget-password",
   // resendOtp: "/resend-otp",
   // verifyOTP: "/verify-otp",

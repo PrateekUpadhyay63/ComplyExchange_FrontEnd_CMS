@@ -36,25 +36,40 @@ export default function Countries_details() {
   let history = useHistory();
   const formData = useSelector((state) => state.getUserByIdReducer);
   const [data, setData] = useState({
-    countryCode: "",
+    
     email: "",
     enableMFA: false,
     enableMFA_SMS: false,
     id: params?.id,
     mobileNumber: "",
-    password: null,
+    password: "",
     roleId: 1,
-    roleName: null,
+    roleName: "",
   });
-  // useEffect(() => {
-  //   setData(formData?.getUserByIdData);
-  // }, [formData]);
+ 
+  useEffect(() => {
+    setData(formData?.getUserByIdData);
+  }, [formData]);
+
 
   useEffect(() => {
     if (params?.id) {
-      dispatch(getUserById(params?.id), (item) => {
-        setData(item);
+      dispatch(getUserById(params?.id), (data) => {
+        setData(data);
       });
+    
+    }
+    else{
+      setData({
+        email: "",
+        enableMFA: false,
+        enableMFA_SMS: false,
+        id: params?.id,
+        mobileNumber: "",
+        password: "",
+        roleId: 1,
+        roleName: "",
+      })
     }
   }, []);
 
@@ -122,7 +137,7 @@ export default function Countries_details() {
                           : "Add Administrator"}
                       </div>
                     }
-                    <div className="row">
+                  <div className="row">
                       <div className="col-2">
                         <div className="table_content">Email:<span style={{color:"red"}}>*</span></div>
                       </div>
@@ -139,6 +154,25 @@ export default function Countries_details() {
                         />
                       </div>
                     </div>
+                    {!params.id ? ( <div className="row">
+                      <div className="col-2">
+                        <div className="table_content">Password:<span style={{color:"red"}}>*</span></div>
+                      </div>
+                      <div className="col-10">
+                        <div className="table_content"></div>
+
+                        <TextField
+                          className="table_content"
+                          size="small"
+                          name="password"
+                          value={data?.password}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>):
+                    ""
+                    }
                     <div className="row">
                       <div className="col-2">
                         <div className="table_content">

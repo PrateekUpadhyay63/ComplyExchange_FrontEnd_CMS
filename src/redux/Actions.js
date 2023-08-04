@@ -400,6 +400,107 @@ export const GetDocumentationTypes = () => {
   };
 };
 
+export const GetDocumentationCH3 = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_CH3_DOC,
+          payload: {
+            ch3Data: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const GetDocumentationCH4 = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_CH4_DOC,
+          payload: {
+            ch4Data: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch3ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH3_DOC_BY_iD,
+            payload: {
+              ch3DataId: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch4ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH4_DOC_BY_iD,
+            payload: {
+              ch4DataId: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
+
+
 export const getLOB = () => {
   return (dispatch) => {
     Utils.api.getApiCall(

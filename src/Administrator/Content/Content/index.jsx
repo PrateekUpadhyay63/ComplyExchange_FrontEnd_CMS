@@ -268,6 +268,19 @@ export default function ContentManagement() {
                   </Paper>
                 </table>
               </div>
+              {tableData?.contentData?.totalPages > 1 ? (
+            <Stack spacing={2}>
+            <Pagination
+             variant="outlined"
+             shape="rounded"
+             color="primary"
+                  count={tableData?.contentData?.totalPages}
+                  onChange={(e, value) => setPage(value)}
+                />
+            </Stack>
+             ) : (
+              ""
+            )}
             </div>
               <div className="col-12 mb-4 mt-2" >
                 <Button  size="small"className="btn-cstm mx-1 mb-4" style={{ float: "right",marginLeft:'5px', }} onClick={()=>{
@@ -280,19 +293,7 @@ export default function ContentManagement() {
                   Export 
                 </Button>
               </div>
-              {tableData?.contentData?.totalPages > 1 ? (
-            <Stack style={{marginLeft:'20px'}}spacing={2}>
-            <Pagination
-             variant="outlined"
-             shape="rounded"
-             color="primary"
-                  count={tableData?.contentData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-            </Stack>
-             ) : (
-              ""
-            )}
+             
           </div>
         </div>
       </div>

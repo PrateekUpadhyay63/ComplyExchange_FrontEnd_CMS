@@ -143,7 +143,7 @@ const [data1 , setData1] = useState({
                    underline="hover"
                    color="#0c62a8"
                  onClick={()=>{
-                  history.push("/countries")
+                  history.push(`/countries/${params?.id}`)
                  }}
                   
                 >

@@ -71,6 +71,7 @@ export default function ContentManagement() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
+  const [textFieldsData, setTextFieldsData] = useState([]);
 
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getSecurityKeysReducer);
@@ -80,22 +81,43 @@ export default function ContentManagement() {
   }, []);
 
 
+  useEffect(() => {
+   
+    if (tableData?.securityKeyData) {
+      const initialValues = tableData?.securityKeyData.map((i) => ({
+        
+        id: i?.id,
+        key: i?.key,
+        keyType: i?.keyType
+      }));
+      setTextFieldsData(initialValues);
+    }
+  }, [tableData?.securityKeyData]);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   
-
+  const handleChangeTextField = (id, newValue) => {
+    setTextFieldsData((prevData) =>
+      prevData.map((item) => (item.id === id ? { ...item, key: newValue } : item))
+    );
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    let updateData = {
-      id: 0,
-      key: "",
-      keyId: 0,
-      keyType: ""
+    const updatedKeys = textFieldsData.map((item) => ({
+      id: item?.id,
+      key: item?.key,
+      keyId: item?.keyId,
+      keyType: item?.keyType
 
-    }
-    dispatch(upsertSecurityKeys(updateData));
+    }));
+    updatedKeys.forEach((keyItem) => {
+      if(keyItem.keyType === 'Outgoing Request Key' || keyItem.keyType === 'Incoming Request Key'){
+        dispatch(upsertSecurityKeys(keyItem));
+      }
+    })
+    // dispatch(upsertSecurityKeys(updatedKeys));
     history.push("/security_keys");
   };
 
@@ -115,38 +137,7 @@ export default function ContentManagement() {
                 </p>
               </Breadcrumbs>
             </div>
-            {/* <div className=" row m-1  border p-3 box_style">
-              <div className="col-8 d-flex ">
-                <TextField
-                  style={{ backgroundColor: "#fff" }}
-                  name="search"
-                  className="mx-md-3 mx-auto w-50 rounded-Input"
-                  placeholder="Search"
-                  type="search"
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              <div className="col-4">
-                <Button
-                  size="small"
-                  //   onClick={(e) => {
-                  //     setSubmit(e);
-                  //   }}
-                  className="btn-cstm"
-                  style={{ float: "right" }}
-                >
-                  Search
-                </Button>
-              </div>
-            </div> */}
+          
             <div className=" row m-1  card p-0">
               <Paper>
                 <div className="headerText my-2 mx-4 ">Security Keys</div>
@@ -177,15 +168,15 @@ export default function ContentManagement() {
                           if (i.keyType === "Incoming Request Key") {
                             return (
                               <TableRow key={ind}>
-                                <TableCell className="text" scope="row">
-                                  {ind+1}
+                                <TableCell className="text">
+                                  {ind + 1}
                                 </TableCell>
                                 <TableCell>
                                   <TextField
                                     className="w-100 textFieldClass"
-                                    value={i.key}
+                                    defaultValue={i.key}
                                     name="key"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChangeTextField(i.id, e.target.value)}
                                   />
                                 </TableCell>
                                 <TableCell>
@@ -237,15 +228,17 @@ export default function ContentManagement() {
                           if (i.keyType === "Outgoing Request Key") {
                             return (
                               <TableRow key={ind}>
-                                <TableCell className="text" scope="row">
+                                <TableCell className="text">
                                   {ind+1}
                                 </TableCell>
                                 <TableCell>
+                               
                                   <TextField
                                     className="w-100 textFieldClass"
-                                    value={i.key}
+                                    defaultValue={i.key}
                                     name="key"
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChangeTextField(i.id, e.target.value)}
+                                    // onChange={handleChange}
                                   />
                                 </TableCell>
                                 <TableCell>
@@ -298,22 +291,7 @@ export default function ContentManagement() {
         </div>
       </div>
 
-      {/* <FormInstruction
-        open={open}
-        idData={idData}
-        setOpen={setOpen}
-        handleClickOpen={handleClickOpen}
-        handleClose={handleClose}
-      />
-       <DialogTransition
-        open={open1}
-        deleteItems={deleteItems}
-        setOpen={setOpen1}
-        handleClickOpen={handleClickOpen1}
-        handleClose={handleClose1}
-        deleteApi={deleteFormInstruction}
-        getAllApi={getAllFormInstructions}
-      /> */}
+    
     </Fragment>
   );
 }

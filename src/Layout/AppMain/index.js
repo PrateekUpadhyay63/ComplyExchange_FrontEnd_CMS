@@ -422,7 +422,7 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/countries_add" component={isAuth() ?Countries_edit: login}/>
+        <Route path="/countries_add/:id" component={isAuth() ?Countries_edit: login}/>
       </Suspense>
 <Suspense
         fallback={

@@ -61,9 +61,21 @@ export default function Language_details() {
   const [data, setData] = useState({
     name: "",
     documentationId: 0,
+    documentationTypeId: 0,
+    chapter3EntityItems: [
+      {
+        chapter3TypeId: 0
+      }
+    ],
+    chapter4EntityItems: [
+      {
+        chapter4TypeId: 0
+      }
+    ]
   });
-  const [DocCh3data,setDocCh3data]=useState([])
-  const [DocCh4data,setDocCh4data]=useState([])
+  const [DocCh3data,setDocCh3data]=useState([]);
+  const [DocCh4data,setDocCh4data]=useState([]);
+
 
   const [error, setError] = useState({
     name: false,
@@ -130,10 +142,12 @@ export default function Language_details() {
     }
   };
 console.log(DocCh3data,DocCh4data,"asdfghjkl")
+
+
   return (
     <Fragment>
       <ThemeOptions />
-      {/* <AppHeader /> */}
+      
       <div className="app-main">
         <AppSidebar />
         {/* <form onSubmit={documentationI}> */}

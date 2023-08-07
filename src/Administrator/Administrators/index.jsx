@@ -261,8 +261,8 @@ const row=[]
                                   }} />
                              
                               
-                                  <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
-                                   />
+                                  {/* <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
+                                   /> */}
                                
                             
                               </div>

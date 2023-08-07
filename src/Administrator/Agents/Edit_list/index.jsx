@@ -737,6 +737,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -791,6 +792,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -845,6 +847,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -901,6 +904,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -957,6 +961,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1013,6 +1018,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1069,6 +1075,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1125,6 +1132,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1181,6 +1189,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1237,6 +1246,7 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                           onClick={() => history.push("/agent_content_edit")}
                             style={{
                               color: "green",
                               fontSize: "20px",
@@ -1825,6 +1835,9 @@ function EditList({ match }) {
                       <TableCell>
                         <div className="d-flex">
                           <EditIcon
+                            onClick={() => {
+                              setOpen2(true);
+                            }}
                             style={{
                               color: "green",
                               fontSize: "20px",

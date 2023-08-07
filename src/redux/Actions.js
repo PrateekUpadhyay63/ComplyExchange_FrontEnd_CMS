@@ -336,7 +336,7 @@ export const getMaxNumber = () => {
 
 export const upsertSecurityKeys = (value) => {
   return (dispatch) => {
-    const dataToSend = { message: value };
+    // const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.UPSERT_SECURITY_KEY,
       value,
@@ -793,7 +793,7 @@ export const getDocById = (value,callback) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message);
       }
     );
   };
@@ -1558,6 +1558,7 @@ export const changePassword = (value) => {
          if (responseData) {
           Utils.showAlert(1, responseData?.data?.message);
           if(responseData?.data?.message !== ""){
+          
             // callback();
           }
         }
@@ -1630,10 +1631,12 @@ export const CountriesUpsertArticle = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data.message);
+          console.log(responseData,"success")
+          Utils.showAlert(1, "Countries article updated successfully");
         }
       },
       (error) => {
+        console.log(error,"error---")
         Utils.showAlert(2, error.statusText);
       }
     );

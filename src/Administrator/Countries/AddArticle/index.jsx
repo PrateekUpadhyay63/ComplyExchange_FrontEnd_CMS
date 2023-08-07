@@ -54,30 +54,36 @@ export default function Countries_details() {
     treatyRates: "",
     maxNoOfParagraph: 0,
     includeSubParagraph: false,
-    showInDropDown: false
-  }
-  // }:{
-  //   countryId: 0,
-  //   number: "",
-  //   description: "",
-  //   treatyRates: "",
-  //   maxNoOfParagraph: 0,
-  //   includeSubParagraph: false,
-  //   showInDropDown: false,
-  // });
+    showInDropDown: false,
+    selectedIncomeCodeIds: []
+  })
 
-  )
+
+  console.log(data,"daataaa")
 const [data1 , setData1] = useState({
   name: "",
   Id: 0,
 });
   const [selectAll, setSelectAll] = useState(false);
+  const [selectArray , setSelectArray] = useState([])
 
   const handleSelectAll = () => {
+
+    namedata?.incTypeData?.filter((item)=>{
+      let arr = selectArray
+      
+      arr.push(item.id)
+    
+      setSelectArray(arr)
+
+    }) 
+
+    
     setSelectAll(true);
   };
 
   const handleUnselectAll = () => {
+    setSelectArray([])
     setSelectAll(false);
   };
   useEffect(() => {
@@ -102,14 +108,14 @@ const [data1 , setData1] = useState({
     e.preventDefault();
     if(params.id){
     let updateData = {
-      countryId: parseInt(params?.id),
-    // name: data?.name,
+    countryId: parseInt(params?.id),
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,
     maxNoOfParagraph: data?.maxNoOfParagraph,
     includeSubParagraph: data?.includeSubParagraph,
     showInDropDown: data?.showInDropDown,
+    selectedIncomeCodeIds:selectArray
       }
     dispatch(CountriesUpsertArticle(updateData));
     }
@@ -119,7 +125,11 @@ const [data1 , setData1] = useState({
   useEffect(() => {
     setData(countryData);
   }, [countryData]);
-  const handleToogle = (e) => {
+
+
+  const handleToogle = (e,id) => {
+    console.log(id,"idd")
+    // setSelectArray([...selectArray, id])
     setData({ ...data, [e.target.name]: e.target.checked });
   };
   
@@ -349,7 +359,7 @@ const [data1 , setData1] = useState({
              return ( 
               <div key={ind} className="col-12">
                  <span>
-              <Checkbox onClick={(e) => handleToogle(e)} checked={selectAll}/>
+              <Checkbox onClick={(e) => handleToogle(e,i?.id)} checked={selectAll}  value={data?.selectedIncomeCodeIds}/>
               <sapn className="table_content mt-1 p-0" >{i.name}</sapn>
             </span>
               </div>

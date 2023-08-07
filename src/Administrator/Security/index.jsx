@@ -62,7 +62,7 @@ export default function ContentManagement() {
     key: "",
     keyId: 0,
     keyType: "",
-  })
+  });
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
@@ -75,20 +75,19 @@ export default function ContentManagement() {
 
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getSecurityKeysReducer);
-  console.log("form",tableData)
+  console.log("form", tableData);
   useEffect(() => {
     dispatch(getSecurityKeys());
   }, []);
-
+  console.log("textFieldsData", textFieldsData);
 
   useEffect(() => {
-   
     if (tableData?.securityKeyData) {
       const initialValues = tableData?.securityKeyData.map((i) => ({
-        
         id: i?.id,
         key: i?.key,
-        keyType: i?.keyType
+        keyId: i?.keyId,
+        keyType: i?.keyType,
       }));
       setTextFieldsData(initialValues);
     }
@@ -97,29 +96,41 @@ export default function ContentManagement() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  
+
   const handleChangeTextField = (id, newValue) => {
     setTextFieldsData((prevData) =>
-      prevData.map((item) => (item.id === id ? { ...item, key: newValue } : item))
+      prevData.map((item) =>
+        item.id === id ? { ...item, key: newValue } : item
+      )
     );
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedKeys = textFieldsData.map((item) => ({
       id: item?.id,
       key: item?.key,
-      keyId: item?.keyId,
-      keyType: item?.keyType
-
+      keyId:
+        item?.keyType === "Outgoing Request Key"
+          ? 2
+          : item.keyType === "Incoming Request Key"
+          ? 1
+          : "",
+      keyType: item?.keyType,
     }));
-    updatedKeys.forEach((keyItem) => {
-      if(keyItem.keyType === 'Outgoing Request Key' || keyItem.keyType === 'Incoming Request Key'){
-        dispatch(upsertSecurityKeys(keyItem));
-      }
-    })
-    // dispatch(upsertSecurityKeys(updatedKeys));
+    const validKeys = updatedKeys.filter((keyItem) => (
+      keyItem.keyType === "Outgoing Request Key" || keyItem.keyType === "Incoming Request Key"
+    ));
+  
+    if (validKeys.length > 0) {
+      dispatch(upsertSecurityKeys(validKeys));
+    }
+  
     history.push("/security_keys");
   };
+   
+  
+  
 
   return (
     <Fragment>
@@ -137,7 +148,7 @@ export default function ContentManagement() {
                 </p>
               </Breadcrumbs>
             </div>
-          
+
             <div className=" row m-1  card p-0">
               <Paper>
                 <div className="headerText my-2 mx-4 ">Security Keys</div>
@@ -152,7 +163,6 @@ export default function ContentManagement() {
                         <TableRow>
                           <TableCell
                             align="center"
-                           
                             style={{ fontSize: "20px" }}
                           ></TableCell>
                           <TableCell className="table_head">
@@ -176,7 +186,12 @@ export default function ContentManagement() {
                                     className="w-100 textFieldClass"
                                     defaultValue={i.key}
                                     name="key"
-                                    onChange={(e) => handleChangeTextField(i.id, e.target.value)}
+                                    onChange={(e) =>
+                                      handleChangeTextField(
+                                        i.id,
+                                        e.target.value
+                                      )
+                                    }
                                   />
                                 </TableCell>
                                 <TableCell>
@@ -224,20 +239,24 @@ export default function ContentManagement() {
                         </TableRow>
                       </thead>
                       <tbody>
-                      {tableData?.securityKeyData?.map((i, ind) => {
+                        {tableData?.securityKeyData?.map((i, ind) => {
                           if (i.keyType === "Outgoing Request Key") {
                             return (
                               <TableRow key={ind}>
                                 <TableCell className="text">
-                                  {ind+1}
+                                  {ind + 1}
                                 </TableCell>
                                 <TableCell>
-                               
                                   <TextField
                                     className="w-100 textFieldClass"
                                     defaultValue={i.key}
                                     name="key"
-                                    onChange={(e) => handleChangeTextField(i.id, e.target.value)}
+                                    onChange={(e) =>
+                                      handleChangeTextField(
+                                        i.id,
+                                        e.target.value
+                                      )
+                                    }
                                     // onChange={handleChange}
                                   />
                                 </TableCell>
@@ -290,8 +309,6 @@ export default function ContentManagement() {
           )} */}
         </div>
       </div>
-
-    
     </Fragment>
   );
 }

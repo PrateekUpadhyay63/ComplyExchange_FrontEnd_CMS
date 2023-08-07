@@ -56,22 +56,15 @@ export default function Language_details() {
   // const DocCh3data = params?.id ? useSelector((state)=>state.getdocch3ReducerById) : ((state)=>state.getdocCH3Reducer)  
   // const DocCh4data = params?.id ? useSelector((state)=>state.getdocCH4Reducer): ((state)=>state.getdocCH4Reducer)
 
-
+  const [selectArray , setSelectArray] = useState([])
+  const [selectArray1 , setSelectArray1] = useState([])
   const nameData = useSelector((state) => state.getdocTypeReducer);
   const [data, setData] = useState({
     name: "",
     documentationId: 0,
     documentationTypeId: 0,
-    chapter3EntityItems: [
-      {
-        chapter3TypeId: 0
-      }
-    ],
-    chapter4EntityItems: [
-      {
-        chapter4TypeId: 0
-      }
-    ]
+    chapter3TypeId: [0],
+    chapter4TypeId: [0],
   });
   const [DocCh3data,setDocCh3data]=useState([]);
   const [DocCh4data,setDocCh4data]=useState([]);
@@ -110,8 +103,27 @@ export default function Language_details() {
       );
     }
   }, []);
-  const handleToogle = (e) => {
-    setData({ ...data, [e.target.name]: e.target.checked });
+
+  const handleToggle = (e, itemId) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      setSelectArray(prevArray => [...prevArray, itemId]);
+    } else {
+      setSelectArray(prevArray => prevArray.filter(id => id !== itemId));
+    }
+  };
+
+
+
+  const handleToggle1 = (e, itemId) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      setSelectArray1(prevArray => [...prevArray, itemId]);
+    } else {
+      setSelectArray1(prevArray => prevArray.filter(id => id !== itemId));
+    }
   };
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -134,8 +146,16 @@ export default function Language_details() {
         documentationId: false,
       });
       if (params?.id) {
-        dispatch(updateDocType(data));
-      } else {
+        let updateData = {
+          name: data?.name,
+          documentationId: data?.documentationId,
+          documentationTypeId: data?.documentationTypeId,
+          chapter3TypeId: selectArray,
+          chapter4TypeId: selectArray1
+        }
+        dispatch(updateDocType(updateData));
+      } 
+      else {
         dispatch(createDocType(data));
       }
       history.push("/documentation");
@@ -155,7 +175,7 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
           <div className="app-main__inner">
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <p
+                <Link
                   underline="hover"
                   color="#0c62a8"
                   onClick={() => {
@@ -163,10 +183,10 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
                   }}
                 >
                   Documentation
-                </p>
-                <Link underline="hover" color="#000000">
-                  Documentation Details
                 </Link>
+                <p underline="hover" color="#000000">
+                  Documentation Details
+                </p>
               </Breadcrumbs>
             </div>
             <div className="col-12 my-3"></div>
@@ -232,12 +252,13 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
 <div className="col-5">
 <div className="table_Content">Chapter 3 Entity Types:</div>
                 <div className="d-flex row">
-                {DocCh3data?.map((i,ind)=>{
+                {DocCh3data?.map((item)=>{
    return ( 
-                  <span key={ind}>
-                    <Checkbox onClick={(e) => handleToogle(e)}size="small" type="checkbox" />
+                  <span key={item.id}>
+                    <Checkbox   checked={selectArray.includes(item.id)}
+            onChange={(e) => handleToggle(e, item.id)}size="small" type="checkbox" />
                     <span className="  table_contentt">
-                    {i.name}
+                    {item.name}
                     </span>
                   </span>
                     )
@@ -250,12 +271,13 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
               <div className="col-5">
                 <div className="table_Content">Chapter 4 Status:</div>
                 <div className="d-flex row">
-                {DocCh4data?.map((i,ind)=>{
+                {DocCh4data?.map((item)=>{
    return ( 
-                  <span key={ind}>
-                    <Checkbox onClick={(e) => handleToogle(e)} size="small" type="checkbox" />
+                  <span key={item.id}>
+                    <Checkbox onClick={(e) => handleToggle1(e,item.id)}  checked={selectArray1.includes(item.id)} size="small" type="checkbox" />
+                   {/* { console.log("i",i)} */}
                     <span className="table_contentt">
-                    {i.name}
+                    {item.name}
                     </span>
                   </span>
                     )

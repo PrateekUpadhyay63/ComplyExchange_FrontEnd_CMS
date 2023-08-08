@@ -38,7 +38,10 @@ import {createFormInstruction,
 const DialogEdit = props => {
   const { open, setOpen, idData, response, getList,closeCallback } = props
  
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    setData({})
+  }
  
   const dispatch = useDispatch();
   let params = useParams();
@@ -78,6 +81,8 @@ const DialogEdit = props => {
  
     if (idData) {
       dispatch(updateFormInstruction(updateData));
+      setData({})
+      
     } else {
       dispatch(createFormInstruction(createData));
     }

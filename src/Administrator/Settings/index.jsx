@@ -46,7 +46,8 @@ import {
   getQuestionLanguageById  ,
   getHintLanguageById  ,
   upsertQuestionTranslations,
-  getHintTranslation 
+  getHintTranslation ,
+
 
 } from "../../redux/Actions";
 import "./index.scss";
@@ -65,6 +66,7 @@ const history = useHistory();
   const hintLanguageData = useSelector((state) => state.getSettingHintReducer);
 
   const [rowId, setRowId] = useState({});
+  const [editId, setEditId] = useState()
   const [rowId1, setRowId1] = useState({});
   const [dropDownData, setDropDownData] = useState([]);
   const [dropDownData1, setDropDownData1] = useState([]);
@@ -528,7 +530,9 @@ const history = useHistory();
                         <div className="d-flex mx-auto">
                          
                             <EditIcon   onClick={() => {
+                              console.log(row.id,"oooo")
                                   setOpen(true);
+                                  setEditId(row)
                                
                                  
                                 }} style={{ color: "green",fontSize:"20px",cursor:'pointer' }} />
@@ -564,6 +568,7 @@ const history = useHistory();
        <SettingsModal
         open={open}
         setOpen={setOpen}
+        EditId={editId}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose1}
       />

@@ -133,11 +133,17 @@ export const loginAction = (value,callback) => {
 
       value,
       (responseData) => {
-        if(responseData.status ==200){
+      
+        if(responseData.status == 200){
+          console.log(responseData,"resss")
           localStorage.setItem('accessToken',responseData.data.token.accessToken)
           localStorage.setItem('userDetails',JSON.stringify(responseData.data))
           Utils.showAlert(1, "Logged in Succesfully");
-          callback();
+        
+          setTimeout(() => {
+            callback();
+          }, 1000); // Change 3000 to the desired delay in milliseconds
+        
         }
       },
       (error) => {
@@ -1520,6 +1526,10 @@ export const deleteDocumentation = (id) => {
 };
 
 
+
+
+
+
 export const updateUser = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
@@ -1533,7 +1543,7 @@ export const updateUser = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data?.message);
         }
       },
       (error) => {
@@ -1556,6 +1566,7 @@ export const changePassword = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+          console.log(responseData,"res")
           Utils.showAlert(1, responseData?.data?.message);
           if(responseData?.data?.message !== ""){
           
@@ -1577,13 +1588,15 @@ export const createPAGES = (value) => {
       Utils.endPoints.CREATE_PAGE,
       value,"multi",
       (responseData) => {
-        let { data } = responseData;
+        let { data } = responseData;     
+             console.log(responseData,"eeee")
+
         dispatch({
           type: Utils.ActionName.CREATE_PAGE,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Page created successfully.");
         }
       },
       (error) => {
@@ -1605,7 +1618,7 @@ export const CountryUpsert = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          // Utils.showAlert(1, responseData?.statusText ? responseData?.statusText : responseData?.message);
+          Utils.showAlert(1, "Countries updated successfully.");
         }
         
       },
@@ -2012,6 +2025,7 @@ export const updatePAGES = (value) => {
           payload: { data: data.data },
         });
         if (responseData) {
+          console.log(responseData,"kkk")
           Utils.showAlert(1, responseData?.data);
         }
       },
@@ -3507,7 +3521,8 @@ export const postHelpVideo = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data.message);
+          Utils.showAlert(1, "Help video updated successfully.");
+          // console.log(responseData,"dataa")
         }
       },
       (error) => {
@@ -3729,6 +3744,31 @@ export const updateEasy = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.UPDATE_EASY,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const updateQuestion = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPDATE_QUESTION,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPDATE_QUESTION,
           payload: { data: data.data },
         });
          if (responseData) {

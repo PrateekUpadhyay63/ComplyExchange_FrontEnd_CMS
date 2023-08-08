@@ -71,9 +71,16 @@ export default function Countries_details() {
     lob: false,
     lobDocumentLocation: "",
     lobDocumentURL: "",
+    
   });
   useEffect(() => {
-    setData(countryData);
+    // igaModelId
+    console.log("countryData", countryData);
+    setData({ ...countryData, 
+      iga: countryData?.igaModelId,
+    crs: countryData?.crsExchangeIn,
+    lobDocumentURL: countryData?.lobDocumentURL
+    });
   }, [countryData]);
 
   useEffect(() => {
@@ -105,7 +112,7 @@ export default function Countries_details() {
         crs: data?.crs,
         lob: data?.lob,
         lobDocumentLocation: data?.lobDocumentLocation,
-        lobDocumentURL: data?.lobDocumentURL,
+        lobDocumentURL: data?.lobDocumentURL
       };
       dispatch(CountryUpsert(updateData));
     }
@@ -181,7 +188,6 @@ export default function Countries_details() {
                     onChange={handleChange}
                     required
                   /> */}
-                       
                       </div>
                     </div>
                     <div className="row">
@@ -227,16 +233,14 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Select
                           align="center"
-                          defaultValue={0}
+                          value={data?.bankStandardNameFormat}
                           className="selectBox text table_content"
                           name="bankStandardNameFormat"
                           onChange={handleChange}
                         >
                           <MenuItem value={0}> ---Select----</MenuItem>
                           <MenuItem value={1}>Sort Code</MenuItem>
-                          <MenuItem value={2}>
-                            ABA/Routing Numbers
-                          </MenuItem>
+                          <MenuItem value={2}>ABA/Routing Numbers</MenuItem>
                         </Select>
                       </div>
                     </div>
@@ -273,18 +277,14 @@ export default function Countries_details() {
                         </div>
                       </div>
                       <div className="col-10">
-                        {console.log(igDropDownData,"igDropDownData")}
+                        {/* {console.log(igDropDownData,"igDropDownData")} */}
                         <Select
                           align="center"
-                          defaultValue={0}
+                          value={data?.iga}
                           className="selectBox text table_content"
                           name="iga"
                           onChange={handleChange}
                         >
-                           <MenuItem value={0}>
-                                {" "}
-                                --Select--
-                              </MenuItem>
                           {igDropDownData?.map((i, ind) => {
                             return (
                               <MenuItem key={ind} value={i?.id}>
@@ -305,12 +305,11 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Select
                           align="center"
-                          defaultValue={1}
+                          value={data?.crs}
                           className="selectBox text table_content"
                           name="crs"
                           onChange={handleChange}
                         >
-                          <MenuItem value={1}> ---Select----</MenuItem>
                           {formData?.map((i, ind) => {
                             return (
                               <MenuItem key={ind} value={i}>
@@ -362,7 +361,7 @@ export default function Countries_details() {
                           name="lobDocumentURL"
                           value={data?.lobDocumentURL}
                           onChange={handleChange}
-                          required
+                          
                         />
                       </div>
                     </div>

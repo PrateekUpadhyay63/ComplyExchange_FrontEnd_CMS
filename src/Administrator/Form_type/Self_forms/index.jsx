@@ -629,6 +629,7 @@ export default function Language_details () {
                         ></div>
                         {console.log(data.displayName)}
                         <TextField
+                        required
                           style={{ width: '50%' }}
                           name='displayName'
                           value={data?.displayName}
@@ -652,7 +653,7 @@ export default function Language_details () {
                         ></div>
 
                         <TextField
-                        
+                        required
                           style={{ width: '50%' }}
                           name='revision'
                           value={data?.revision}

@@ -40,8 +40,9 @@ export default function Countries_details() {
     email: "",
     enableMFA: false,
     enableMFA_SMS: false,
-    id: params?.id,
+    id: 0,
     mobileNumber: "",
+    countryCode:"",
     password: "",
     roleId: 1,
     roleName: "",
@@ -49,6 +50,7 @@ export default function Countries_details() {
  
   useEffect(() => {
     setData(formData?.getUserByIdData);
+   
   }, [formData]);
 
 
@@ -64,14 +66,19 @@ export default function Countries_details() {
         email: "",
         enableMFA: false,
         enableMFA_SMS: false,
-        id: params?.id,
+        id: 0,
         mobileNumber: "",
         password: "",
+        countryCode:"",
         roleId: 1,
         roleName: "",
+
       })
     }
   }, []);
+  useEffect(()=>{
+    
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +92,7 @@ export default function Countries_details() {
         mobileNumber: data?.mobileNumber,
       };
       dispatch(updateUser(updateData)
-      // , ()=>{history.push("/administrators")}
+   
       );
     } else {
       dispatch(signupAction(data));
@@ -197,6 +204,7 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA_SMS"
+                          value={data?.enableMFA_SMS}
                           onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           checked={data?.enableMFA_SMS}
@@ -210,15 +218,16 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Select
                           align="center"
-                          defaultValue={0}
-                          type="Mobile"
+                          onChange={handleChange}
+                          value={data?.countryCode}
+                         
                           name="countryCode"
                      
                           className="selectBox text table_content"
                         >
-                          <MenuItem value={0}> ---Select----</MenuItem>
-                          <MenuItem value={1}>+91</MenuItem>
-                          <MenuItem value={2}>+1</MenuItem>
+                          <MenuItem> ---Select----</MenuItem>
+                          <MenuItem value={"+91"}>+91</MenuItem>
+                          <MenuItem value={"+1"}>+1</MenuItem>
                         </Select>
                       </div>
                     </div>

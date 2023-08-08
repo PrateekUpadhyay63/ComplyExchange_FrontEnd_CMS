@@ -232,7 +232,7 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
                       );
                     })}
                   </Select>
-                  {error.documentationId ? (<p className="errorClass">Please Enter Name</p>):""}
+                  {error.documentationId ? (<p className="errorClass">Please Enter Document Type</p>):""}
                 </FormControl>
               </div>
 

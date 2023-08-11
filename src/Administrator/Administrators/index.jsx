@@ -278,7 +278,7 @@ const row=[]
             </div>
             <div className="actionBtn">
               <Button
-                className="btn-cstm  mt-2 mx-1"
+                className="btn-cstm  mt-1 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
                 onClick={() => {

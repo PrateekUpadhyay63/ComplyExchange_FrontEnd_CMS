@@ -49,6 +49,7 @@ export default function Language_details () {
   const dispatch = useDispatch()
   let params = useParams()
   const history= useHistory()
+  const [editorError, setEditorError] = useState(false);
 
   const parentDropDown = useSelector(state => state.ParentDropDownReducer)
   const idUSFormTypeData = useSelector(state => state.getUSFormTypeByIdReducer)
@@ -213,12 +214,15 @@ export default function Language_details () {
 
   const handleEditorStateChange2 = editorState => {
     setEditorState2(editorState)
+    setEditorError(false);
   }
   const handleEditorStateChange3 = editorState => {
     setEditorState3(editorState)
+  
   }
   const handleEditorStateChange4 = editorState => {
     setEditorState4(editorState)
+   
   }
 
   const handleEditorStateChange5 = editorState => {
@@ -614,6 +618,10 @@ const handleImage2 = e => {
 }
 
 const handleSubmit = async event => {
+  if (!editorState2.getCurrentContent().hasText()) {
+    setEditorError(true);
+    return; // Don't proceed with submission
+  }
   console.log("dataa",data)
   event.preventDefault()
   const formData = new FormData()
@@ -814,10 +822,14 @@ const handleRadioChange = (e) => {
                           Summary Header:<span style={{color:"red"}}>*</span>
                         </div>
                       </div>
+                      {editorError && <div className='error'>Summary Header is required.</div>}
                       <div className='col-9 editor-div'>
-                        <div>
+                      
+   
+
+                        <div >
                           <Editor
-                          
+                            
                             editorState={editorState2}
                             onEditorStateChange={handleEditorStateChange2}
                             wrapperClassName='wrapper-class'

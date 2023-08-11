@@ -243,7 +243,7 @@ export default function Language_details() {
     console.log(params,"PARAMS")
     // if(params?.easyId && params?.id){
       const updateData ={
-        toolTip: data.toolTip,
+      toolTip: data.toolTip,
       easyHelpId: Number(params?.id),
       languageId:Number(params?.langId),
       text: data.text,

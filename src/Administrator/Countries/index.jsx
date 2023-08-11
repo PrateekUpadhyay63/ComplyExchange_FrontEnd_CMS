@@ -198,7 +198,7 @@ export default function ContentManagement() {
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                    setOpen1(true);
+                                    setOpen(true);
                             
                                   }} />
                              
@@ -349,14 +349,14 @@ export default function ContentManagement() {
               )}
         </div>
       </div>
-    {/* <DialogModal
-        open={open1}
+    <DialogModal
+        open={open}
 
-        setOpen={setOpen1}
-        handleClickOpen={handleClickOpen1}
-        handleClose={handleClose1}
+        setOpen={setOpen}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
  
-      /> */}
+      />
       {/* <FormInstruction
         open={open}
         idData={idData}

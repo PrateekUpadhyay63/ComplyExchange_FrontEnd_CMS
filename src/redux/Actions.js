@@ -135,14 +135,14 @@ export const loginAction = (value,callback) => {
       (responseData) => {
       
         if(responseData.status == 200){
-          console.log(responseData,"resss")
+         
           localStorage.setItem('accessToken',responseData.data.token.accessToken)
           localStorage.setItem('userDetails',JSON.stringify(responseData.data))
           Utils.showAlert(1, "Logged in Succesfully");
         
           setTimeout(() => {
             callback();
-          }, 1000); // Change 3000 to the desired delay in milliseconds
+          }, 1000); 
         
         }
       },
@@ -353,7 +353,7 @@ export const upsertSecurityKeys = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data.message);
+          Utils.showAlert(1, "Keys updated successfully.");
         }
       },
       (error) => {
@@ -1461,6 +1461,7 @@ export const deleteCapacities = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
+          dispatch(GetAllCapacities(1,10,""))
         }
       },
       (error) => {
@@ -1486,7 +1487,7 @@ export const deletePAGES = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
-          getAllPages(1,10)
+          dispatch(getAllPages(1, 10));
         }
       },
       (error) => {
@@ -1511,13 +1512,13 @@ export const deleteDocumentation = (id) => {
         if (responseData) {
 
           Utils.showAlert(1, "Deleted Successfully");
-          getAllDocumentaions("",1,10);
+          dispatch (getAllDocumentaions("",1,10));
         }
       },
       (error) => {
         if(error.status===200){
           Utils.showAlert(1, "Deleted Successfully");
-          getAllDocumentaions("",1,10);
+          dispatch (getAllDocumentaions("",1,10));
         }else
         Utils.showAlert(2, error.data);
       }
@@ -1975,7 +1976,7 @@ export const updateDocType = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data.message);
         }
       },
       (error) => {
@@ -3548,7 +3549,7 @@ export const updateFormInstruction = (value) => {
         });
          if (responseData) {
           Utils.showAlert(1, responseData?.data);
-    dispatch(getAllFormInstructions(1, 10));
+          dispatch(getAllFormInstructions(1, 10));
 
         }
       },
@@ -3574,7 +3575,7 @@ export const deleteFormInstruction = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
-          getAllFormInstructions(1,10,"")
+         dispatch( getAllFormInstructions(1,10,""))
         }
       },
       (error) => {

@@ -185,7 +185,7 @@ const endPoint = {
   GET_PAGE_TRANSLATION: "Page/GetPageTranslation",
   INSERT_PAGE_TRANSLATION: "Page/InsertTranslation",
   GET_EASY_TRANSLATION: "EasyHelp/GetEasyHelpTranslation",
-  INSERT_EASY_TRANSLATION: "EasyHelp/InsertEasyHelpTranslation",
+  INSERT_EASY_TRANSLATION: "EasyHelp/UpsertEasyHelpTranslation",
   GET_RULE_TRANSLATION: "Rule/GetRuleTranslation",
   INSERT_RULE_TRANSLATION: "Rule/InsertRuleTranslation",
 

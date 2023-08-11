@@ -81,13 +81,19 @@ const DialogEdit = props => {
  
     if (idData) {
       dispatch(updateFormInstruction(updateData));
-      setData({})
+      setData({
+        description:"",
+      url:""
+      })
       
     } else {
       dispatch(createFormInstruction(createData));
+      setData({})
     }
+    setData({})
     closeCallback()
     handleClose()
+    
   };
   return (
     <Fragment>
@@ -171,7 +177,7 @@ const DialogEdit = props => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               
+               onChange={handleSubmit}
                 variant="contained"
               >
                 Save

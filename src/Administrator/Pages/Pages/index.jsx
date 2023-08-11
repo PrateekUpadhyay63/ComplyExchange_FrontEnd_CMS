@@ -104,7 +104,7 @@ const Pages = ({ match }) => {
 
   const deleteItems = async () => {
     dispatch(deletePAGES(idData));
-    dispatch(getAllPages(page, size));
+    // dispatch(getAllPages(page, size));
   };
 
   useEffect(() => {

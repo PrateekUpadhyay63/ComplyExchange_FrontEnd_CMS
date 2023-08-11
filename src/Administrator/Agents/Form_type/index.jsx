@@ -220,16 +220,17 @@ function FormType({ match }) {
                           defaultValue={1}
                           fullWidth
                           name="parent"
+                          onChange={handleChange}
                         >
                           <MenuItem value="1">---Select---</MenuItem>
-                          <MenuItem value="">Affidavit</MenuItem>
-                          <MenuItem value="">Connected documentation</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Armed Forces Card</MenuItem>
-                          <MenuItem value="">Birth Certificate</MenuItem>
-                          <MenuItem value="">Work visa</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Other</MenuItem>
+                          <MenuItem value="2">Affidavit</MenuItem>
+                          <MenuItem value="4">Connected documentation</MenuItem>
+                          <MenuItem value="6">---</MenuItem>
+                          <MenuItem value="5">Armed Forces Card</MenuItem>
+                          <MenuItem value="6">Birth Certificate</MenuItem>
+                          <MenuItem value="7">Work visa</MenuItem>
+                          <MenuItem value="8">---</MenuItem>
+                          <MenuItem value="9">Other</MenuItem>
                         </Select>
                       </TableCell>
                     </TableRow>
@@ -272,17 +273,18 @@ function FormType({ match }) {
                           style={{ textAlign: "center" }}
                           defaultValue={1}
                           fullWidth
+                          onChange={handleChange}
                           name="parent"
                         >
-                          <MenuItem value="1">---Select---</MenuItem>
-                          <MenuItem value="">Affidavit</MenuItem>
-                          <MenuItem value="">Connected documentation</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Armed Forces Card</MenuItem>
-                          <MenuItem value="">Birth Certificate</MenuItem>
-                          <MenuItem value="">Work visa</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Other</MenuItem>
+                         <MenuItem value="1">---Select---</MenuItem>
+                          <MenuItem value="2">Affidavit</MenuItem>
+                          <MenuItem value="4">Connected documentation</MenuItem>
+                          <MenuItem value="6">---</MenuItem>
+                          <MenuItem value="5">Armed Forces Card</MenuItem>
+                          <MenuItem value="6">Birth Certificate</MenuItem>
+                          <MenuItem value="7">Work visa</MenuItem>
+                          <MenuItem value="8">---</MenuItem>
+                          <MenuItem value="9">Other</MenuItem>
                         </Select>
                       </TableCell>
                     </TableRow>
@@ -327,16 +329,17 @@ function FormType({ match }) {
                           style={{ textAlign: "center" }}
                           fullWidth
                           name="parent"
+                          onChange={handleChange}
                         >
-                          <MenuItem value="1">---Select---</MenuItem>
-                          <MenuItem value="">Affidavit</MenuItem>
-                          <MenuItem value="">Connected documentation</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Armed Forces Card</MenuItem>
-                          <MenuItem value="">Birth Certificate</MenuItem>
-                          <MenuItem value="">Work visa</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Other</MenuItem>
+                           <MenuItem value="1">---Select---</MenuItem>
+                          <MenuItem value="2">Affidavit</MenuItem>
+                          <MenuItem value="4">Connected documentation</MenuItem>
+                          <MenuItem value="6">---</MenuItem>
+                          <MenuItem value="5">Armed Forces Card</MenuItem>
+                          <MenuItem value="6">Birth Certificate</MenuItem>
+                          <MenuItem value="7">Work visa</MenuItem>
+                          <MenuItem value="8">---</MenuItem>
+                          <MenuItem value="9">Other</MenuItem>
                         </Select>
                       </TableCell>
                     </TableRow>
@@ -378,17 +381,18 @@ function FormType({ match }) {
                           className="selectBox"
                           defaultValue={1}
                           fullWidth
+                          onChange={handleChange}
                           style={{ textAlign: "center" }}
                         >
-                          <MenuItem value="1">---Select---</MenuItem>
-                          <MenuItem value="">Affidavit</MenuItem>
-                          <MenuItem value="">Connected documentation</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Armed Forces Card</MenuItem>
-                          <MenuItem value="">Birth Certificate</MenuItem>
-                          <MenuItem value="">Work visa</MenuItem>
-                          <MenuItem value="">---</MenuItem>
-                          <MenuItem value="">Other</MenuItem>
+                       <MenuItem value="1">---Select---</MenuItem>
+                          <MenuItem value="2">Affidavit</MenuItem>
+                          <MenuItem value="4">Connected documentation</MenuItem>
+                          <MenuItem value="6">---</MenuItem>
+                          <MenuItem value="5">Armed Forces Card</MenuItem>
+                          <MenuItem value="6">Birth Certificate</MenuItem>
+                          <MenuItem value="7">Work visa</MenuItem>
+                          <MenuItem value="8">---</MenuItem>
+                          <MenuItem value="9">Other</MenuItem>
                         </Select>
                       </TableCell>
                     </TableRow>

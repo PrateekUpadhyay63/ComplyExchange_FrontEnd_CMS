@@ -112,6 +112,7 @@ console.log(rowData,"LANG DATA")
                        
 
                         <TextField
+                        required
                          className='table_text'
                           size="small"
                           name="name"
@@ -135,6 +136,7 @@ console.log(rowData,"LANG DATA")
                    
 
                         <TextField
+                        required
                          className='table_text'
                           size="small"
                           name="isoCode"

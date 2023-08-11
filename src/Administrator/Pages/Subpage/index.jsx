@@ -227,7 +227,7 @@ export default function Subpage_details() {
   const handleSubmit = async (e) => {
     e.preventDefault();
       dispatch(createSubPAGES(data));
-              history.push(Utils.Pathname.pages);
+      history.push(Utils.Pathname.pages);
 
   };
 

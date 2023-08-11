@@ -62,9 +62,9 @@ export default function Language_details() {
   const [data, setData] = useState({
     name: "",
     documentationId: 0,
-    documentationTypeId: 0,
-    chapter3TypeId: [0],
-    chapter4TypeId: [0],
+    documentationTypeId: "",
+    chapter3TypeId: [],
+    chapter4TypeId: [],
   });
   const [DocCh3data,setDocCh3data]=useState([]);
   const [DocCh4data,setDocCh4data]=useState([]);
@@ -145,6 +145,8 @@ export default function Language_details() {
         name: false,
         documentationId: false,
       });
+      console.log("Selected Chapter 3 IDs:", selectArray);
+      console.log("Selected Chapter 4 IDs:", selectArray1);
       if (params?.id) {
         let updateData = {
           name: data?.name,
@@ -153,6 +155,7 @@ export default function Language_details() {
           chapter3TypeId: selectArray,
           chapter4TypeId: selectArray1
         }
+        console.log("Update Data:", updateData);
         dispatch(updateDocType(updateData));
       } 
       else {
@@ -232,7 +235,7 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
                       );
                     })}
                   </Select>
-                  {error.documentationId ? (<p className="errorClass">Please Enter Document Type</p>):""}
+                  {error.documentationId ? (<p className="errorClass">Please Enter Name</p>):""}
                 </FormControl>
               </div>
 
@@ -275,7 +278,7 @@ console.log(DocCh3data,DocCh4data,"asdfghjkl")
    return ( 
                   <span key={item.id}>
                     <Checkbox onClick={(e) => handleToggle1(e,item.id)}  checked={selectArray1.includes(item.id)} size="small" type="checkbox" />
-                   {/* { console.log("i",i)} */}
+                   
                     <span className="table_contentt">
                     {item.name}
                     </span>

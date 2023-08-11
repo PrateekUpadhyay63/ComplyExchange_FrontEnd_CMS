@@ -302,8 +302,11 @@ Languages
                 style={{ float: "right" }}
                 onClick={() => {
                   setOpen1(true);
-                  // setIdData1(row.id);
-                  setData({});
+                
+                  setData({
+                    languageName: '', // Reset the languageName field to an empty string
+      languageCode: '',
+                  });
                 }}
               >
                 Add Language

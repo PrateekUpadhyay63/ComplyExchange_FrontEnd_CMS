@@ -249,7 +249,6 @@ export default function ContentManagement() {
                               <TableCell className="table_content tableRow1" align="right">
                                 {row.action}
                                 <div className="actionRow">
-                                 
                                     <EditIcon style={{ color: "green" , fontSize:'20px' }}
                                     onClick={() => {
                                       history.push(

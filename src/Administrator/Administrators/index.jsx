@@ -290,16 +290,19 @@ const row=[]
          
             </div>
           </div>
-          {/* {tableData?.formInstructionData?.totalPages > 1 ? ( */}
-            {/* <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack> */}
-          {/* ) : (
-            ""
-          )} */}
+        {tableData?.allUsersData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12 mb-2" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={tableData?.allUsersData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
         </div>
       </div>
 

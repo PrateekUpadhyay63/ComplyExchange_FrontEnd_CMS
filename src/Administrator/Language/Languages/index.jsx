@@ -304,8 +304,8 @@ Languages
                   setOpen1(true);
                 
                   setData({
-                    languageName: '', // Reset the languageName field to an empty string
-      languageCode: '',
+                    name: "",
+                    isoCode: "",
                   });
                 }}
               >

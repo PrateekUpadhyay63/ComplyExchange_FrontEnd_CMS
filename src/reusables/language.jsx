@@ -28,7 +28,7 @@ import "./reusables.scss";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 
-import { createLanguages, getLanguagesById, updateLanguage } from "../redux/Actions";
+import { createLanguages, getLanguagesById, updateLanguage,getLanguageList } from "../redux/Actions";
 
 
 
@@ -75,6 +75,7 @@ console.log(rowData,"LANG DATA")
     } else {
       dispatch(createLanguages(data));
     }
+    dispatch(getLanguageList(1, 10, ""));
     handleClose();
   };
   return (

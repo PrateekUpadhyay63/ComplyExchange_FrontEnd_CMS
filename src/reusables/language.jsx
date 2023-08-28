@@ -47,8 +47,8 @@ const  DialogEdit = props => {
 
 
   useEffect(()=>{
-  setData(rowData)
-  if(idData!==0){
+    if(idData!==0){
+    setData(rowData)
     dispatch(getLanguagesById(idData),(item)=>{ setData(item)});
   }
 },[])
@@ -58,7 +58,6 @@ useEffect(()=>{
 if(idData){
   dispatch(getLanguagesById(idData),(data)=>{ setData(data)});
 }
-console.log(rowData,"LANG DATA")
 },[idData])
 
   

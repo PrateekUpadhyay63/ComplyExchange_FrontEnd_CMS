@@ -248,8 +248,10 @@ const row=[]
                 size="small"
 
                 onClick={() => {
-                  setOpen(true);
-                  setIdData(row.id);
+                  setIdData(0);
+                  if(idData===0){
+                    setOpen(true);
+                  }
                 }} 
               >
                 Add Form Instruction

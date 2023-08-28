@@ -55,7 +55,6 @@ export const getUserById = (value,callback) => {
         if (resData.status === 200) {
           if(callback){
             callback(resData.data)
-            
           }
           dispatch({
             type: Utils.ActionName.GET_USER_BY_ID,
@@ -1570,7 +1569,6 @@ export const changePassword = (value) => {
           console.log(responseData,"res")
           Utils.showAlert(1, responseData?.data?.message);
           if(responseData?.data?.message !== ""){
-          
             // callback();
           }
         }
@@ -1681,7 +1679,7 @@ export const createDocType = (value) => {
   };
 };
 
-export const createSubPAGES = (value) => {
+export const createSubPAGES = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -1693,13 +1691,20 @@ export const createSubPAGES = (value) => {
           type: Utils.ActionName.ADD_SUB_PAGE,
           payload: { data: data.data },
         });
-         if (responseData) {
+         if (responseData.status==200) {
           Utils.showAlert(1, responseData?.data);
+          callback()
         }
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        console.log(error,"ERRORRR")
+        if(data.error==="Violation of UNIQUE KEY constraint \u0027UQ__Pages__737584F6DA83FBCC\u0027. Cannot insert duplicate key in object \u0027dbo.Pages\u0027. The duplicate key value is (a).\r\nThe statement has been terminated."){
+          Utils.showAlert(2, "Subpage name already exist.Please choose another name.");
+        } 
+        else{
+          Utils.showAlert(2, error.statusText);
+        }
       }
     );
   };

@@ -324,28 +324,11 @@ export default function Pages_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let createData = {
-      name: data.name,
-      // translations: "",
-      parentId: data.parentId,
-      displayOnTopMenu: data.displayOnTopMenu,
-      displayOnFooter: data.displayOnFooter,
-      redirectPageLabelToURL: data.redirectPageLabelToURL,
-      menuBackgroundColor: data.menuBackgroundColor,
-      unselectedTextColor: data.unselectedTextColor,
-      selectedTextColor: data.selectedTextColor,
-      displayOnLeftMenu: data.displayOnLeftMenu,
-      pageContent: data.pageContent,
-      summary: data.summary,
-    };
-   
-
-    if (params?.id) {
-      let updateData = {
+    if(!convertToRaw(editorState1.getCurrentContent()).blocks.every(b => b.text.trim() === '')){
+      let createData = {
         name: data.name,
         // translations: "",
-        id: params.id,
-        // parentId: data.parentId,
+        parentId: data.parentId,
         displayOnTopMenu: data.displayOnTopMenu,
         displayOnFooter: data.displayOnFooter,
         redirectPageLabelToURL: data.redirectPageLabelToURL,
@@ -356,11 +339,33 @@ export default function Pages_details() {
         pageContent: data.pageContent,
         summary: data.summary,
       };
-      dispatch(updatePAGES(updateData));
-    } else {
-      dispatch(createPAGES(createData));
+     
+  
+      if (params?.id) {
+        let updateData = {
+          name: data.name,
+          // translations: "",
+          id: params.id,
+          // parentId: data.parentId,
+          displayOnTopMenu: data.displayOnTopMenu,
+          displayOnFooter: data.displayOnFooter,
+          redirectPageLabelToURL: data.redirectPageLabelToURL,
+          menuBackgroundColor: data.menuBackgroundColor,
+          unselectedTextColor: data.unselectedTextColor,
+          selectedTextColor: data.selectedTextColor,
+          displayOnLeftMenu: data.displayOnLeftMenu,
+          pageContent: data.pageContent,
+          summary: data.summary,
+        };
+        dispatch(updatePAGES(updateData));
+      } else {
+        dispatch(createPAGES(createData));
+      }
+      history.push(Utils.Pathname.pages);
     }
-    history.push(Utils.Pathname.pages);
+    else{
+      console.log("content field is required")
+    }
   };
 
   return (
@@ -409,7 +414,6 @@ export default function Pages_details() {
                 </div>
                 <div className="col-10">
                   <Checkbox
-                    required
                     className="complyColor"
                     name="displayOnTopMenu"
                     checked={data?.displayOnTopMenu}
@@ -428,7 +432,6 @@ export default function Pages_details() {
 
                   <TextField
                     className="textFieldClass"
-                    required
                     fullWidth
                     name="redirectPageLabelToURL"
                     value={data?.redirectPageLabelToURL}
@@ -444,7 +447,6 @@ export default function Pages_details() {
                 <div className="col-10">
                   <TextField
                     className="textFieldClass"
-                    required
                     fullWidth
                     name="menuBackgroundColor"
                     // placeholder='Enter Name'
@@ -460,7 +462,6 @@ export default function Pages_details() {
                 <div className="col-10">
                   <TextField
                     className="textFieldClass"
-                    required
                     fullWidth
                     name="unselectedTextColor"
                     value={data?.unselectedTextColor}
@@ -475,7 +476,6 @@ export default function Pages_details() {
                 <div className="col-10">
                   <TextField
                     className="textFieldClass"
-                    required
                     fullWidth
                     name="selectedTextColor"
                     // placeholder='Enter Name'
@@ -490,7 +490,6 @@ export default function Pages_details() {
                 </div>
                 <div className="col-10">
                   <Checkbox
-                    required
                     className="complyColor"
                     name="displayOnFooter"
                     checked={data?.displayOnFooter}
@@ -504,7 +503,6 @@ export default function Pages_details() {
                 </div>
                 <div className="col-10">
                   <Checkbox
-                    required
                     className="complyColor"
                     name="displayOnLeftMenu"
                     checked={data?.displayOnLeftMenu}

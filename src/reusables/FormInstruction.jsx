@@ -37,6 +37,7 @@ import {createFormInstruction,
 
 const DialogEdit = props => {
   const { open, setOpen, idData, response, getList,closeCallback } = props
+  console.log(idData)
  
   const handleClose = () => {
     setOpen(false)
@@ -54,13 +55,27 @@ const DialogEdit = props => {
    url:""
   });
 
-  useEffect(() => {
+  function setInitialData(){
+    console.log(idData,"IDDATA")
     if(idData){
+      if(idData == 0){
+        setData({  description:"",
+        url:""})
+      }else
       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
     }else{
-      setData({})
+      setData({  description:"",
+      url:""})
     }
+  }
+
+  useEffect(() => {
+    setInitialData();
 }, [idData]); 
+
+useEffect(() => {
+  setInitialData();
+}, []); 
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });

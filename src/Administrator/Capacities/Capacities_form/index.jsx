@@ -180,8 +180,8 @@ console.log(CapacitiesData,"CapacitiesData")
          
                                 <TableHead>
                                     <TableRow  className='table_head'>
-                                        <TableCell className='table_head'  >Name</TableCell>
-                                        <TableCell className='table_head' >Is proxy mandatory</TableCell>
+                                        <TableCell className='table_head'>Name</TableCell>
+                                        <TableCell className='table_head'>Is proxy mandatory</TableCell>
                                         <TableCell className='table_head'>Residence country required</TableCell>
                                         <TableCell className='table_head'>Important	</TableCell>
                                         <TableCell className='table_head'>U.S. Individual	</TableCell>

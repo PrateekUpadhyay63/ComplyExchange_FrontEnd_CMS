@@ -1874,7 +1874,7 @@ function UserManagement ({ match }) {
                         />
                       </div>
                       <div className='col-7 d-flex'>
-                        <div className='d-flex justify-content-between'>
+                        <div className='d-flex justify-content-between formatClass'>
                           <div
                             className='my-auto text mx-1'
                             

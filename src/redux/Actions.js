@@ -1453,13 +1453,15 @@ export const deleteCapacities = (id) => {
       `${Utils.endPoints.DELETE_CAPACITIES}?id=${id}`,
       "",
       (responseData) => {
+        console.log(responseData,"ERRORR")
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_CAPACITIES,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, "Deleted Successfully");
+        
+          Utils.showAlert(1, responseData?.data);
           dispatch(GetAllCapacities(1,10,""))
         }
       },
@@ -1501,7 +1503,7 @@ export const deleteDocumentation = (id) => {
   return (dispatch) => {
     // const dataToSend = { message: value };
     Utils.api.deleteApiCall(
-      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,       
+      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,"",     
       (responseData) => {
         let { data } = responseData;
         dispatch({

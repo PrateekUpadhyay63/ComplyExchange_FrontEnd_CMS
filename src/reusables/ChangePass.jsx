@@ -189,7 +189,6 @@ const DialogEdit = props => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               onClick={handleSubmit}
                 variant="contained"
               >
                 Save

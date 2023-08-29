@@ -1,4 +1,4 @@
-import React, { Fragment, Component, useState,useEffect } from "react";
+import React, { Fragment, Component, useState, useEffect } from "react";
 
 import Slider from "react-slick";
 // import {Button} from "@mui/material";
@@ -26,6 +26,7 @@ const Login = () => {
   const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const [isError, setError] = useState({ email: false, password: false });
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -43,18 +44,27 @@ const Login = () => {
     adaptiveHeight: true,
   };
 
-  useEffect(()=>{localStorage.clear();},[])
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
+    if(data.email.trim()!=="" && data.password.trim()!=="")
+   { dispatch(
       loginAction(data, () => {
         history.push("/content");
         window.location.reload();
       })
-    );
+    );}
+    else{
+      if(data.email.trim()===""){
+        setError({ ...isError, email: true });
+      }else
+     { setError({ ...isError, password: true });}
+    }
   };
   return (
     <Fragment>
@@ -134,7 +144,7 @@ const Login = () => {
               </h6> */}
 
               <div>
-                <Form>
+                <form onSubmit={handleSubmit}>
                   <Row>
                     <Col md={6}>
                       <FormGroup>
@@ -151,8 +161,8 @@ const Login = () => {
                           placeholder="Email here..."
                           onChange={handleChange}
                         />
-                         
                       </FormGroup>
+                      {isError.email ? (<small className="errorClass">Please Enter Email.</small>) : ''}
                     </Col>
                     <Col md={6} className="column">
                       <FormGroup>
@@ -162,27 +172,31 @@ const Login = () => {
                         <Input
                           required
                           autoComplete="off"
-                          type={showPassword ? "text" : "password"} 
+                          type={showPassword ? "text" : "password"}
                           name="password"
                           id="examplePassword"
                           placeholder="Password here..."
                           value={data.password}
                           onChange={handleChange}
                         />
-                         <div className="position-absolute d-flex end-0 mr-5 h-10" style={{ cursor: "pointer" }}>
-          {showPassword ? (
-            <AiOutlineEye
-              onClick={() => setShowPassword(false)}
-              aria-hidden="true"
-            />
-          ) : (
-            <AiOutlineEyeInvisible
-              onClick={() => setShowPassword(true)}
-              aria-hidden="true"
-            />
-          )}
-        </div>
+                        <div
+                          className="position-absolute d-flex end-0 mr-5 h-10"
+                          style={{ cursor: "pointer" }}
+                        >
+                          {showPassword ? (
+                            <AiOutlineEye
+                              onClick={() => setShowPassword(false)}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <AiOutlineEyeInvisible
+                              onClick={() => setShowPassword(true)}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </div>
                       </FormGroup>
+                      {isError.password ? (<small className="errorClass">Please Enter Password.</small>) : ''}
                     </Col>
                   </Row>
 
@@ -197,16 +211,12 @@ const Login = () => {
                       >
                         Forget Password
                       </Link>{" "} */}
-                      <Button
-                        color="primary"
-                        size="small"
-                        onClick={handleSubmit}
-                      >
+                      <Button type="submit" color="primary" size="small">
                         Login
                       </Button>
                     </div>
                   </div>
-                </Form>
+                </form>
               </div>
             </Col>
           </Col>

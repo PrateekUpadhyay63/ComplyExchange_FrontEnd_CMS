@@ -151,9 +151,9 @@ export default function ContentManagement() {
 
             <div className=" row m-1  card p-0">
               <Paper>
-                <div className="headerText my-2 mx-4 ">Security Keys</div>
+                <div className="headerText custom_my_2 mx-4 ">Security Keys</div>
 
-                <div className=" my-2  d-flex">
+                <div className=" custom_my_2  d-flex">
                   <div
                     className="col-5 borderbox maxdiv mx-4"
                     style={{ height: "320px" }}
@@ -196,11 +196,12 @@ export default function ContentManagement() {
                                 </TableCell>
                                 <TableCell>
                                   <div className="text">
+                                    
                                     {/* For time add  HH:mm:ss */}
-                                    {moment(i?.modifiedOnmoment).format(
+                                    {moment(i?.modifiedOn).format(
                                       "YYYY-MM-DD"
                                     )
-                                      ? moment(i?.modifiedOnmoment).format(
+                                      ? moment(i?.modifiedOn).format(
                                           "YYYY-MM-DD"
                                         )
                                       : moment(i?.createdOn).format(
@@ -263,10 +264,10 @@ export default function ContentManagement() {
                                 <TableCell>
                                   <div className="text">
                                     {/* For time add  HH:mm:ss */}
-                                    {moment(i?.modifiedOnmoment).format(
+                                    {moment(i?.modifiedOn).format(
                                       "YYYY-MM-DD"
                                     )
-                                      ? moment(i?.modifiedOnmoment).format(
+                                      ? moment(i?.modifiedOn).format(
                                           "YYYY-MM-DD"
                                         )
                                       : moment(i?.createdOn).format(

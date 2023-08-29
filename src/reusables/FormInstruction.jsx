@@ -103,9 +103,11 @@ useEffect(() => {
       
     } else {
       dispatch(createFormInstruction(createData));
-      setData({})
+      setData({  description:"",
+      url:""})
     }
-    setData({})
+    setData({  description:"",
+    url:""})
     closeCallback()
     handleClose()
     

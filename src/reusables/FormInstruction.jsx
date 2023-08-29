@@ -36,7 +36,7 @@ import {createFormInstruction,
 
 
 const DialogEdit = props => {
-  const { open, setOpen, idData, response, getList,closeCallback } = props
+  const { open, setOpen, idData, response, getList,closeCallback,setIdData } = props
   console.log(idData)
  
   const handleClose = () => {
@@ -102,7 +102,7 @@ useEffect(() => {
       })
       
     } else {
-      dispatch(createFormInstruction(createData));
+      dispatch(createFormInstruction(createData,()=>setIdData(-1)));
       setData({  description:"",
       url:""})
     }

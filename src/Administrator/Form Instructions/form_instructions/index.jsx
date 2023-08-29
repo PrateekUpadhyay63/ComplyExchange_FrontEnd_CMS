@@ -254,6 +254,9 @@ export default function ContentManagement() {
           {tableData?.formInstructionData?.totalPages > 1 ? (
             <Stack style={{ marginTop: "10px" }} spacing={2}>
               <Pagination
+               variant="outlined"
+               shape="rounded"
+               color="primary"
                 count={tableData?.formInstructionData?.totalPages}
                 onChange={(e, value) => setPage(value)}
               />
@@ -270,6 +273,7 @@ export default function ContentManagement() {
         setOpen={setOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
+        setIdData={setIdData}
         closeCallback={() => {
           dispatch(getAllFormInstructions(1, 10));
         }}

@@ -42,6 +42,7 @@ import {
   getSubPageById,
 } from "../../../redux/Actions";
 import "./index.scss";
+import { error } from "jquery";
 
 export default function Pages_details() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ export default function Pages_details() {
   let params = useParams();
   const [click, setClick] = useState(false);
   const [click1, setClick1] = useState(false);
+  const [isError,setError]=useState({name:false,content:false});
   const [data, setData] = useState(
     params.id
       ? {
@@ -324,7 +326,7 @@ export default function Pages_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!convertToRaw(editorState1.getCurrentContent()).blocks.every(b => b.text.trim() === '')){
+    if(!convertToRaw(editorState1.getCurrentContent()).blocks.every(b => b.text.trim() === '') && data.name.trim()!==""){
       let createData = {
         name: data.name,
         // translations: "",
@@ -361,10 +363,14 @@ export default function Pages_details() {
       } else {
         dispatch(createPAGES(createData));
       }
+      setError({name:false,content:false});
       history.push(Utils.Pathname.pages);
     }
     else{
-      console.log("content field is required")
+      if(data.name.trim()===""){
+        setError({ ...isError, name: true });
+      }else
+     { setError({ ...isError, content: true });}
     }
   };
 
@@ -395,17 +401,18 @@ export default function Pages_details() {
 
               <div className="row mx-2">
                 <div className="col-2">
-                  <div className="table_content">Name:</div>
+                  <div className="table_content">Name<span className="errorClass">*</span>:</div>
                 </div>
                 <div className="col-10">
                   <TextField
                     className="textFieldClass"
-                    required
                     fullWidth
+                    required
                     name="name"
                     value={data?.name}
                     onChange={handleChange}
                   />
+                {isError.name ? (<small className="errorClass">This field is mandatory.</small>) : ''}
                 </div>
               </div>
               <div className="row mx-2">
@@ -512,7 +519,7 @@ export default function Pages_details() {
               </div>
               <div className="row mx-2">
                 <div className="col-2">
-                  <div className="table_content">Content:</div>
+                  <div className="table_content">Content<span className="errorClass">*</span>:</div>
                 </div>
                 <div className="col-10 editor-div">
                   <div>
@@ -551,6 +558,7 @@ export default function Pages_details() {
                       </div>
                     </div>
                   </div>
+               {isError.content ? (<small className="errorClass">This field is mandatory.</small>) : ''}
                 </div>
               </div>
               <div className="row mx-2">

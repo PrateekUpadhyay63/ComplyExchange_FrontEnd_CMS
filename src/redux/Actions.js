@@ -1588,14 +1588,15 @@ export const createPAGES = (value) => {
       value,"multi",
       (responseData) => {
         let { data } = responseData;     
-             console.log(responseData,"eeee")
-
         dispatch({
           type: Utils.ActionName.CREATE_PAGE,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, "Page created successfully.");
+          if(responseData.status==500){
+            Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
+          }else
+          {Utils.showAlert(1, "Page created successfully.");}
         }
       },
       (error) => {
@@ -3454,9 +3455,7 @@ export const getFormInstructionById = (value,callback) => {
               formInstructionById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
+        } 
       },
       (error) => {
         let { data } = error;
@@ -3466,7 +3465,7 @@ export const getFormInstructionById = (value,callback) => {
   };
 };
 
-export const createFormInstruction = (value) => {
+export const createFormInstruction = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -3479,6 +3478,7 @@ export const createFormInstruction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+          callback();
           Utils.showAlert(1, responseData?.data);
           getAllFormInstructions(1,10,"")
         }

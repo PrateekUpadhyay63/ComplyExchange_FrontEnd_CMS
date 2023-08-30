@@ -199,13 +199,13 @@ export default function ContentManagement() {
                                     
                                     {/* For time add  HH:mm:ss */}
                                     {moment(i?.modifiedOn).format(
-                                      "YYYY-MM-DD"
+                                      "YYYY-MM-DD HH:mm:ss"
                                     )
                                       ? moment(i?.modifiedOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )
                                       : moment(i?.createdOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )}
                                   </div>
                                 </TableCell>
@@ -265,13 +265,13 @@ export default function ContentManagement() {
                                   <div className="text">
                                     {/* For time add  HH:mm:ss */}
                                     {moment(i?.modifiedOn).format(
-                                      "YYYY-MM-DD"
+                                      "YYYY-MM-DD HH:mm:ss"
                                     )
                                       ? moment(i?.modifiedOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )
                                       : moment(i?.createdOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )}
                                   </div>
                                 </TableCell>

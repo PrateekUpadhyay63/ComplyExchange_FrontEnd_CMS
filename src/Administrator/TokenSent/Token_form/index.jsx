@@ -2,6 +2,7 @@ import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
+import DoneIcon from '@mui/icons-material/Done';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
@@ -146,13 +147,11 @@ export default function ContentManagement() {
                         <TableCell align="center" className='table_head'>
                        Save & Exit (Last continued)
                         </TableCell>
-                        <TableCell align="center" className='table_head'>
+                        <TableCell align="right" className='table_head'>
                         Expired	
                         </TableCell>
                       
-                        <TableCell align="right" className='table_head'>
-                        Action
-                        </TableCell>
+                       
                        
                       
             
@@ -195,10 +194,10 @@ export default function ContentManagement() {
                             <TableCell className="table_content" align="center">
                                
                             </TableCell>
-                            <TableCell align="center">
-                            <Checkbox className='checkBox'/>
+                            <TableCell align="right">
+                            <DoneIcon style={{width:"80%",height:"20px",color:"green"}}/>
                             </TableCell>
-                            <TableCell align="right" >
+                            {/* <TableCell align="right" >
                                
                                    
                                    
@@ -214,7 +213,7 @@ export default function ContentManagement() {
                                
                                
 
-                            </TableCell>
+                            </TableCell> */}
                            
                           
                    

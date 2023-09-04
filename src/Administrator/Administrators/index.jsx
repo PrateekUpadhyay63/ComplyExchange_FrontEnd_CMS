@@ -178,7 +178,7 @@ const row=[]
                           >
                           	Change password
                           </TableCell>
-                          <TableCell
+                          {/* <TableCell
                             align="center"
                            className='table_head'
                           >
@@ -188,11 +188,11 @@ const row=[]
                             align="center"
                            className='table_head'
                           >MFA enabled - SMS
-                          </TableCell>
+                          </TableCell> */}
                     
                     
                           <TableCell
-                            align="center"
+                            align="right"
                            className='table_head'
                           >
                             Actions
@@ -222,7 +222,7 @@ const row=[]
                              Change password</Link>  
                                 </TableCell>
                           
-                            <TableCell className="table_content" align="center">
+                            {/* <TableCell className="table_content" align="center">
                             <Checkbox
                               name="isPartnership"
                               
@@ -248,9 +248,9 @@ const row=[]
                               }
                             
                             />
-                            </TableCell>
+                            </TableCell> */}
 
-                            <TableCell className="table_content" align="center">
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}

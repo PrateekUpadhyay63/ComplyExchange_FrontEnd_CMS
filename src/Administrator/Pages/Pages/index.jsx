@@ -39,9 +39,10 @@ import {
   Breadcrumbs,
   Pagination,
 } from "@mui/material";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import Stack from "@mui/material/Stack";
 import DialogTransition from "../../../reusables/deleteDialog";
-
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUpRounded';
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
@@ -191,9 +192,16 @@ const Pages = ({ match }) => {
                           <TableCell align="center" className="table_head">
                             Translations
                           </TableCell>
-                          <TableCell align="right" className="table_head">
+                          <TableCell align="right" className="table_head justifyContent-center">
+                          
                             Actions
+                           
+                            
                           </TableCell>
+                          <TableCell align="right" className="table_head" >
+                           Order
+                          </TableCell>
+                          
                         </TableRow>
                       </TableHead>
                       <TableBody className="tableRow">
@@ -206,7 +214,7 @@ const Pages = ({ match }) => {
                               },
                             }}
                           >
-                            <TableCell className="table_content tableRow" >
+                            <TableCell  className="table_content tableRow" >
                               {row.name}
                             </TableCell>
 
@@ -249,14 +257,15 @@ const Pages = ({ match }) => {
 
                             <TableCell
                               className="table_content actionRow tableRow"
-                              align="right"
-                              colSpan={2}
+                              align="center"
+                            
                             >
                               {row.action}
                               <div
                                 style={{
                                   display: "flex",
-                                  justifyContent: "flex-end",
+                                  justifyContent:"flex-end"
+                                 
                                 }}
                               >
                                 <EditIcon
@@ -271,6 +280,43 @@ const Pages = ({ match }) => {
                                 <DeleteIcon
                                   style={{
                                     color: "red",
+                                    fontSize: "20px",
+                                    marginLeft: "5px",
+                                  }}
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setIdData(row.id);
+                                  }}
+                                />
+                              </div>
+                            </TableCell>
+                            <TableCell
+                              className="table_content actionRow tableRow"
+                              align="right"
+                            
+                            >
+                              {row.action}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent:"flex-end",
+                                  flexDirection:"column",
+                                  flexWrap:"wrap-reverse"
+                                 
+                                }}
+                              >
+                                <KeyboardDoubleArrowUpRoundedIcon
+                                  style={{  fontSize: "20px" }}
+                                  onClick={() => {
+                                    history.push(
+                                      `${Utils.Pathname.pageInfoId}/${row.id}`
+                                    );
+                                  }}
+                                />
+
+                                <KeyboardDoubleArrowDownIcon
+                                  style={{
+                                   
                                     fontSize: "20px",
                                     marginLeft: "5px",
                                   }}

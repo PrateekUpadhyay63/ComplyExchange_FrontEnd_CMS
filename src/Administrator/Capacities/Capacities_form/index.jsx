@@ -11,25 +11,25 @@ import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
 import { Fragment } from "react";
 import {
-    TextField,
-    Typography,
-    Collapse,
-    CardHeader,
-    IconButton,
-    CardContent,
-    CardActions,
-    Card,
-    Divider,
-    Breadcrumbs,Link,
-    Grid,
-    Select,
-    MenuItem,
-    Checkbox,
-    Button,
-    Paper
+  TextField,
+  Typography,
+  Collapse,
+  CardHeader,
+  IconButton,
+  CardContent,
+  CardActions,
+  Card,
+  Divider,
+  Breadcrumbs, Link,
+  Grid,
+  Select,
+  MenuItem,
+  Checkbox,
+  Button,
+  Paper
 } from "@mui/material";
 import Table from '@mui/material/Table';
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ThemeOptions from "../../../Layout/ThemeOptions/";
@@ -39,25 +39,26 @@ import Pagination from '@mui/material/Pagination';
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Stack from "@mui/material/Stack";
+import DoneIcon from '@mui/icons-material/Done';
 import DialogTransition from "../../../reusables/deleteDialog";
-import {GetAllCapacities,getCapacitiesById,deleteCapacities} from "../../../redux/Actions"
+import { GetAllCapacities, getCapacitiesById, deleteCapacities } from "../../../redux/Actions"
 
 export default function ContentManagement() {
 
-    const CapacitiesData = useSelector((state) => state.getAllCapacitiesReducer)
- 
-    const nameData = useSelector((state)=> state.getCapacitiesById);
-    const [page, setPage] = useState(1);
-    const [size, setSize] = useState(10);
-    const[search,setSearch]=useState("");
-    
-    
-      const [open, setOpen] = useState(false);
-      const handleClickOpen = () => setOpen(true);
-      const handleClose = () => setOpen(false);
-      const [idData, setIdData] = useState(0);
+  const CapacitiesData = useSelector((state) => state.getAllCapacitiesReducer)
 
-    const [data, setData] = useState({
+  const nameData = useSelector((state) => state.getCapacitiesById);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
+  const [search, setSearch] = useState("");
+
+
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [idData, setIdData] = useState(0);
+
+  const [data, setData] = useState({
     id: 2,
     name: "Capacity",
     isProxyMandatory: true,
@@ -69,30 +70,30 @@ export default function ContentManagement() {
     isNonUSBusiness: true,
     isIntermediary: true,
     isNonUSGovernment: true,
-  
-   })
+
+  })
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(GetAllCapacities(page, size));
   }, [page]);
 
-const setSubmit = (e) => {
+  const setSubmit = (e) => {
     e.preventDefault();
-  setPage(1);
-  setSize(10)
-  dispatch(GetAllCapacities(page, size,search));
+    setPage(1);
+    setSize(10)
+    dispatch(GetAllCapacities(page, size, search));
   };
-  useState(()=>{
-    dispatch(GetAllCapacities(page,size))
-  },[])
+  useState(() => {
+    dispatch(GetAllCapacities(page, size))
+  }, [])
   const idName = (id) => {
     const result = nameData?.capacityName?.filter((item) => {
       if (item.id == id) {
         return item;
       }
     });
-    if(result.length){
+    if (result.length) {
       return result[0]?.name;
     }
   };
@@ -101,52 +102,52 @@ const setSubmit = (e) => {
     dispatch(deleteCapacities(idData));
     dispatch(GetAllCapacities(page, size));
   };
-  
+
   const handleToogle = (e) => {
     setData({ ...data, [e.target.name]: e.target.checked });
   };
-    const handleChange = (e) => {
-      console.log(e.target.value);
-      setData({ ...data, [e.target.name]: e.target.value });
-    };
-    const handleSubmit=(e)=>{
-      e.preventDefault();
-      }
-    const history=useHistory();
-    const row=[]
-console.log(CapacitiesData,"CapacitiesData")
-    return (
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+  const history = useHistory();
+  const row = []
+  console.log(CapacitiesData, "CapacitiesData")
+  return (
 
-    
+
     <Fragment>
-        <ThemeOptions />
-        {/* <AppHeader /> */}
-        <div className="app-main">
-            <AppSidebar />
-            <div className="app-main__outer">
-                <div className="app-main__inner">
-                <div role="presentation" className="bread_crumbs">
+      <ThemeOptions />
+      {/* <AppHeader /> */}
+      <div className="app-main">
+        <AppSidebar />
+        <div className="app-main__outer">
+          <div className="app-main__inner">
+            <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
                 <p
-                   underline="hover"
-                   color="#000000"
-                   aria-current="page"
-                  
+                  underline="hover"
+                  color="#000000"
+                  aria-current="page"
+
                 >
-    Capacities
+                  Capacities
                 </p>
               </Breadcrumbs>
             </div>
-                    <div className=" row m-1  border p-3 box_style">
-                  <form onSubmit={setSubmit}>
-                    <div className="col-8 d-flex ">
+            <div className=" row m-1  border p-3 box_style">
+              <form onSubmit={setSubmit}>
+                <div className="col-8 d-flex ">
                   <TextField
-                  
-                    style={{ backgroundColor: "#fff"}}
+
+                    style={{ backgroundColor: "#fff" }}
                     name="search"
-                    
+
                     value={search}
-                    onChange={(e)=>setSearch(e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)}
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
@@ -161,176 +162,142 @@ console.log(CapacitiesData,"CapacitiesData")
                     }}
                   />
                 </div>
-                </form>
+              </form>
 
               <div className="col-4">
-                <Button  size="small"className="btn-cstm" style={{ float: "right" , display:"none" }} onClick={setSubmit}>
+                <Button size="small" className="btn-cstm" style={{ float: "right", display: "none" }} onClick={setSubmit}>
                   Search
                 </Button>
               </div>
-              
+
             </div>
-            <form  className="m-1 " onSubmit={handleSubmit}>
-                   
-                    <div className="  card p-3" style={{overflowX:"auto"}}>
+            <form className="m-1 " onSubmit={handleSubmit}>
 
-                            <table class="table table-hover table-striped">
-                          
-                 
-         
-                                <TableHead>
-                                    <TableRow  className='table_head'>
-                                        <TableCell className='table_head'>Name</TableCell>
-                                        <TableCell className='table_head'>Is proxy mandatory</TableCell>
-                                        <TableCell className='table_head'>Residence country required</TableCell>
-                                        <TableCell className='table_head'>Important	</TableCell>
-                                        <TableCell className='table_head'>U.S. Individual	</TableCell>
-                                        <TableCell className='table_head'>Non U.S. Individual	</TableCell>
-                                        <TableCell className='table_head'>U.S. Business	</TableCell>
-                                        <TableCell className='table_head' >Non U.S. Business</TableCell>
-                                        <TableCell className='table_head'>Intermediary</TableCell>
-                                        <TableCell className='table_head'>Non US Government	</TableCell>
-                                        <TableCell  className='table_head'>Actions</TableCell>
+              <div className="  card p-3" style={{ overflowX: "auto" }}>
 
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                {CapacitiesData?.capacitiesData?.records?.map((i, ind) => {
-                                    return(
-                                    <TableRow>
-                                        <TableCell  style={{fontWeight:'500'}} className="table_content"scope="row">{i.name}</TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox"
-                                         name="isProxyMandatory"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isProxyMandatory
-                                              i.isProxyMandatory
-                                            //  : data.isProxyMandatory
-                                         }
-                                        /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox"  name="isCountryOfResidenceRequired"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isCountryOfResidenceRequired
-                                              i.isCountryOfResidenceRequired
-                                            //  : data.isCountryOfResidenceRequired
-                                         } /></TableCell>
+                <table class="table table-hover table-striped">
 
 
-                                        <TableCell><Checkbox className="p-0 checkBox"  name="isImportant"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isImportant
-                                              i.isImportant
-                                            //  : data.isImportant
-                                         } /></TableCell>
 
+                  <TableHead>
+                    <TableRow className='table_head'>
+                      <TableCell className='table_head'>Name</TableCell>
+                      <TableCell className='table_head'>Is proxy mandatory</TableCell>
+                      <TableCell className='table_head'>Residence country required</TableCell>
+                      <TableCell className='table_head'>Important	</TableCell>
+                      <TableCell className='table_head'>U.S. Individual	</TableCell>
+                      <TableCell className='table_head'>Non U.S. Individual	</TableCell>
+                      <TableCell className='table_head'>U.S. Business	</TableCell>
+                      <TableCell className='table_head' >Non U.S. Business</TableCell>
+                      <TableCell className='table_head'>Intermediary</TableCell>
+                      <TableCell className='table_head'>Non US Government	</TableCell>
+                      <TableCell className='table_head'>Actions</TableCell>
 
-                                        <TableCell><Checkbox className="p-0 checkBox" name="isUSIndividual"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isUSIndividual
-                                              i.isUSIndividual
-                                            //  : data.isUSIndividual
-                                         }  /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox"  name="isNonUSIndividual"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isNonUSIndividual
-                                              i.isNonUSIndividual
-                                            //  : data.isNonUSIndividual
-                                         }  /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox" name="isUSBusiness"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isUSBusiness
-                                              i.isUSBusiness
-                                            //  : data.isUSBusiness
-                                         }  /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox" name="isNonUSBusiness"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isNonUSBusiness
-                                              i.isNonUSBusiness
-                                            //  : data.isNonUSBusiness
-                                         } /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox" name="isIntermediary"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isIntermediary
-                                              i.isIntermediary
-                                            //  : data.isIntermediary
-                                         }  /></TableCell>
-                                        <TableCell><Checkbox className="p-0 checkBox" name="isNonUSGovernment"
-                                         onClick={(e) => handleToogle(e)}
-                                        
-                                         checked={
-                                          //  i.isNonUSGovernment
-                                              i.isNonUSGovernment
-                                            //  : data.isNonUSGovernment
-                                         }  /></TableCell> 
-                                        <TableCell>
-                                            <div className="actionRow" style={{display:'flex'}}>
-                                            <EditIcon   style={{ color: "green" , fontSize:'20px' }} onClick={() => {
-                                      history.push(`/capacities_edit/${i.id}`)}}/>
-                                           <DeleteIcon style={{ color: "red" , fontSize:'20px' , marginLeft:'5px'}}  onClick={() => {
-                                      setOpen(true);
-                                      setIdData(i.id);
-                                    }} />
-                                            </div>
-                                        </TableCell>
-
-                                    </TableRow>
-                                    )
-                                        })}
-                                
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {CapacitiesData?.capacitiesData?.records?.map((i, ind) => {
+                      return (
+                        <TableRow>
+                          <TableCell style={{ fontWeight: '500' }} className="table_content" scope="row">{i.name}</TableCell>
+                          <TableCell>
                             
-                                </TableBody>
-                           {/* </Table> */}
+                          {  i?.isProxyMandatory ?( <DoneIcon className="p-0 checkBox"
+                           
+                          />):""}</TableCell>
+                          <TableCell>{ i?.isCountryOfResidenceRequired ?(<DoneIcon className="p-0 checkBox" name="isCountryOfResidenceRequired"
+                            />):""}</TableCell>
+
+
+                          <TableCell>
+                            
+                         { i?.isImportant? ( <DoneIcon className="p-0 checkBox" name="isImportant" />):""}
+                         
+                         </TableCell>
+
+
+                          <TableCell>
+                            
+                          {  i?.isUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isUSIndividual"
+                           />):""}
+                           
+                           </TableCell>
+                          <TableCell>
+                           { i?.isNonUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isNonUSIndividual"
+                           />):""}
+                           </TableCell>
+                          <TableCell>
+                           { i?.isUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isUSBusiness"/>):""}
+                          </TableCell>
+                          <TableCell>
+                           { i?.isNonUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isNonUSBusiness"
+                           
+                             />):""}
                              
-                            </table>
-                    <div style={{marginTop: '5px' }}>
-                        <h5 className='table_content'>Note: Capacities entered here MUST be entered in Administration. If not capacity will appear blank on import.</h5>
-                    </div>
-                        </div>
+                             </TableCell>
+                          <TableCell>
+                          {i?.isIntermediary ? ( <DoneIcon className="p-0 checkBox" />):"" }
+                           
 
-                  
-                    </form>
-               
-                            <div className="col-12 my-2">
-                            <Button  size="small"className="btn-cstm mx-1" style={{ float: "right" ,marginLeft:'5px'}}>Export</Button>
-                                <Button  size="small" onClick={()=>{
-                                    history.push("/capacities_info")
-                                }} className="btn-cstm " style={{ float: "right" ,}}>Add Capacity</Button>
-                              
-
+                           </TableCell>
+                          <TableCell>
+                            {i?.isNonUSGovernment ? (<DoneIcon className="p-0 checkBox" />) : ""}
+                          </TableCell>
+                          <TableCell>
+                            <div className="actionRow" style={{ display: 'flex' }}>
+                              <EditIcon style={{ color: "green", fontSize: '20px' }} onClick={() => {
+                                history.push(`/capacities_edit/${i.id}`)
+                              }} />
+                              <DeleteIcon style={{ color: "red", fontSize: '20px', marginLeft: '5px' }} onClick={() => {
+                                setOpen(true);
+                                setIdData(i.id);
+                              }} />
                             </div>
-                            <Stack spacing={2}>
+                          </TableCell>
 
-                            {CapacitiesData?.CapacitiesData?.totalPages > 1 ? (
-              <Stack style={{marginTop:"10px"}} spacing={2}>
-                <Pagination
-                  count={CapacitiesData?.CapacitiesData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-              </Stack>
-              ) : ""}
-                            </Stack>
-                   
+                        </TableRow>
+                      )
+                    })}
+
+
+                  </TableBody>
+                  {/* </Table> */}
+
+                </table>
+                <div style={{ marginTop: '5px' }}>
+                  <h5 className='table_content'>Note: Capacities entered here MUST be entered in Administration. If not capacity will appear blank on import.</h5>
                 </div>
-               
-            </div>
-        </div>
+              </div>
 
-        <DialogTransition
+
+            </form>
+
+            <div className="col-12 my-2">
+              <Button size="small" className="btn-cstm mx-1" style={{ float: "right", marginLeft: '5px' }}>Export</Button>
+              <Button size="small" onClick={() => {
+                history.push("/capacities_info")
+              }} className="btn-cstm " style={{ float: "right", }}>Add Capacity</Button>
+
+
+            </div>
+            <Stack spacing={2}>
+
+              {CapacitiesData?.CapacitiesData?.totalPages > 1 ? (
+                <Stack style={{ marginTop: "10px" }} spacing={2}>
+                  <Pagination
+                    count={CapacitiesData?.CapacitiesData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : ""}
+            </Stack>
+
+          </div>
+
+        </div>
+      </div>
+
+      <DialogTransition
         open={open}
         deleteItems={deleteItems}
         setOpen={setOpen}
@@ -338,10 +305,10 @@ console.log(CapacitiesData,"CapacitiesData")
         handleClose={handleClose}
         deleteApi={deleteCapacities}
         getAllApi={GetAllCapacities}
-        closeCallback={()=>{
+        closeCallback={() => {
           dispatch(GetAllCapacities(1, 10));
-              }}
+        }}
       />
     </Fragment>
-);
+  );
 }

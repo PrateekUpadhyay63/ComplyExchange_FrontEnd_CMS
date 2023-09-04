@@ -146,10 +146,13 @@ export default function PhraseTable() {
                   </Button>
                 </div>
             </div>
+            <div className="row headingLabel complyColor">Glossary entries for US English</div>
             <div className=" row m-1  card p-3" style={{ overflowX: "auto" }}>
               <div className="col-12 d-flex">
                 <table class="table table-hover table-striped">
+
                   <Paper>
+                   
                     <TableContainer sx={{}}>
                       <Table sx={{ minWidth: 650 }}class="table table-hover table-striped">
                         <TableHead>

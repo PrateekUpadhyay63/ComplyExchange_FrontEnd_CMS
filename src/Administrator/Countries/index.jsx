@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-import { getAllCountriesData, getAllCountries} from "../../redux/Actions";
+import { getAllCountriesData, getAllCountries,importCountries,exportCountries} from "../../redux/Actions";
 
 import DialogModal from "../../reusables/Countries";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -43,6 +43,7 @@ import {
   Tooltip,
   Link,
 } from "@mui/material";
+import Modal from "../../reusables/htmlDialog"
 // import FormInstruction from "../../../reusables/FormInstruction"
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -66,7 +67,7 @@ export default function ContentManagement() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
-
+  const [fileData,setFileData] =useState();
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getAllCountriesDataReducer);
 //   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
@@ -197,7 +198,7 @@ export default function ContentManagement() {
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                    setOpen1(true);
+                                    setOpen(true);
                             
                                   }} />
                              
@@ -317,23 +318,21 @@ export default function ContentManagement() {
               </Paper>
          
             </div>
-            {/* <div className="col-12">
+            <div className="col-12">
               <Button
                 className="btn-cstm  mt-2 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
-
                 onClick={() => {
-                  setOpen(true);
-                  // setIdData(row.id);
+                  setOpen1(true);
                 }} 
               >
                import 
               </Button>
-              <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }}>
+              <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }} onClick={()=>{dispatch(exportCountries())}}>
                 Export
               </Button>
-            </div> */}
+            </div>
           </div>
           {tableData?.countryData?.totalPages > 1 ? (
                 <Stack className="px-3 col-12" spacing={2}>
@@ -351,11 +350,11 @@ export default function ContentManagement() {
         </div>
       </div>
     <DialogModal
-        open={open1}
+        open={open}
 
-        setOpen={setOpen1}
-        handleClickOpen={handleClickOpen1}
-        handleClose={handleClose1}
+        setOpen={setOpen}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
  
       />
       {/* <FormInstruction
@@ -374,6 +373,20 @@ export default function ContentManagement() {
         deleteApi={deleteFormInstruction}
         getAllApi={getAllFormInstructions}
       /> */}
+      <Modal
+       open={open1}
+       // deleteItems={deleteItems}
+       fileData={fileData}
+       setFileData={setFileData}
+       dispatch={dispatch}
+       setOpen={setOpen1}
+       handleClickOpen={handleClickOpen1}
+       handleClose={handleClose1}
+       Heading="Import Countries Data"
+       apiCall={(formData)=>{
+    dispatch(importCountries(formData))
+       }}
+      />
     </Fragment>
 
 

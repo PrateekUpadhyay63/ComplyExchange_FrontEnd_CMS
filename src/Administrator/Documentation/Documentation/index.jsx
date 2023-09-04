@@ -74,6 +74,11 @@ const DocumentaionList = () => {
     dispatch(getAllDocumentaions(page, size));
   };
 
+
+  useEffect(()=>{
+    
+  })
+
   const getDocName = (id) => {
     const result = nameData?.docTypeData?.filter((item) => {
       if (item.id == id) {
@@ -84,8 +89,14 @@ const DocumentaionList = () => {
       return result[0]?.name;
     }
   };
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllDocumentaions(page, size, search));
+    }
+  },[search])
 
-  const idName = (id) => {};
   useEffect(() => {
     dispatch(GetDocumentationTypes());
     dispatch(getAllDocumentaions(page, size));

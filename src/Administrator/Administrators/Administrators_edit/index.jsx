@@ -36,27 +36,49 @@ export default function Countries_details() {
   let history = useHistory();
   const formData = useSelector((state) => state.getUserByIdReducer);
   const [data, setData] = useState({
-    countryCode: "",
+    
     email: "",
     enableMFA: false,
     enableMFA_SMS: false,
-    id: params?.id,
+    id: 0,
     mobileNumber: "",
-    password: null,
+    countryCode:"",
+    password: "",
     roleId: 1,
-    roleName: null,
+    roleName: "",
   });
-  // useEffect(() => {
-  //   setData(formData?.getUserByIdData);
-  // }, [formData]);
+ 
+  useEffect(() => {
+    setData(formData?.getUserByIdData);
+   
+  }, [formData]);
+
 
   useEffect(() => {
     if (params?.id) {
-      dispatch(getUserById(params?.id), (item) => {
-        setData(item);
+      dispatch(getUserById(params?.id), (data) => {
+        setData(data);
       });
+    
+    }
+    else{
+      setData({
+        email: "",
+        enableMFA: false,
+        enableMFA_SMS: false,
+        id: 0,
+        mobileNumber: "",
+        password: "",
+        countryCode:"",
+        roleId: 1,
+        roleName: "",
+
+      })
     }
   }, []);
+  useEffect(()=>{
+    
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +92,7 @@ export default function Countries_details() {
         mobileNumber: data?.mobileNumber,
       };
       dispatch(updateUser(updateData)
-      // , ()=>{history.push("/administrators")}
+   
       );
     } else {
       dispatch(signupAction(data));
@@ -122,9 +144,9 @@ export default function Countries_details() {
                           : "Add Administrator"}
                       </div>
                     }
-                    <div className="row">
+                  <div className="row">
                       <div className="col-2">
-                        <div className="table_content">Email:</div>
+                        <div className="table_content">Email:<span style={{color:"red"}}>*</span></div>
                       </div>
                       <div className="col-10">
                         <div className="table_content"></div>
@@ -139,6 +161,25 @@ export default function Countries_details() {
                         />
                       </div>
                     </div>
+                    {!params.id ? ( <div className="row">
+                      <div className="col-2">
+                        <div className="table_content">Password:<span style={{color:"red"}}>*</span></div>
+                      </div>
+                      <div className="col-10">
+                        <div className="table_content"></div>
+
+                        <TextField
+                          className="table_content"
+                          size="small"
+                          name="password"
+                          value={data?.password}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>):
+                    ""
+                    }
                     <div className="row">
                       <div className="col-2">
                         <div className="table_content">
@@ -163,6 +204,7 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA_SMS"
+                          value={data?.enableMFA_SMS}
                           onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           checked={data?.enableMFA_SMS}
@@ -176,15 +218,16 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Select
                           align="center"
-                          defaultValue={0}
-                          type="Mobile"
+                          onChange={handleChange}
+                          value={data?.countryCode}
+                         
                           name="countryCode"
-                          // value={}
+                     
                           className="selectBox text table_content"
                         >
-                          <MenuItem value={0}> ---Select----</MenuItem>
-                          <MenuItem value={1}>+91</MenuItem>
-                          <MenuItem value={2}>+1</MenuItem>
+                          <MenuItem> ---Select----</MenuItem>
+                          <MenuItem value={"+91"}>+91</MenuItem>
+                          <MenuItem value={"+1"}>+1</MenuItem>
                         </Select>
                       </div>
                     </div>

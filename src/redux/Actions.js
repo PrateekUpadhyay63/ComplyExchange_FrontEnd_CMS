@@ -35,12 +35,10 @@ export const signupAction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log(responseData.status=='200')
           Utils.showAlert(1, "User Registered successfully");
         }
       },
       (error) => {
-        console.log(error)
         let { data } = error;
         Utils.showAlert(2, data.message);
       }
@@ -56,7 +54,6 @@ export const getUserById = (value,callback) => {
       (resData) => {
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resDatas")
             callback(resData.data)
           }
           dispatch({
@@ -80,10 +77,8 @@ export const getCountryById = (value,callback) => {
       Utils.endPoints.GET_COUNTRY_BY_ID,
       `?id=${value}`,
       (resData) => {
-        console.log("ress",resData)
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({
@@ -108,10 +103,8 @@ export const getAgentEformSelection = (value,callback) => {
       Utils.endPoints.GET_E_FORM_SELECTION_WARNING,
       `?id=${value}`,
       (resData) => {
-        console.log("ress",resData)
         if (resData.status === 200) {
           if(callback){
-            console.log(resData,"resData from action")
             callback(resData.data)
           }
           dispatch({
@@ -139,12 +132,17 @@ export const loginAction = (value,callback) => {
 
       value,
       (responseData) => {
-        console.log(responseData)
-        if(responseData.status ==200){
+      
+        if(responseData.status == 200){
+         
           localStorage.setItem('accessToken',responseData.data.token.accessToken)
           localStorage.setItem('userDetails',JSON.stringify(responseData.data))
           Utils.showAlert(1, "Logged in Succesfully");
-          callback();
+        
+          setTimeout(() => {
+            callback();
+          }, 1000); 
+        
         }
       },
       (error) => {
@@ -251,7 +249,7 @@ export const getAllDocumentaions = (page,size,search) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message); 
       }
     );
   };
@@ -343,7 +341,7 @@ export const getMaxNumber = () => {
 
 export const upsertSecurityKeys = (value) => {
   return (dispatch) => {
-    const dataToSend = { message: value };
+    // const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.UPSERT_SECURITY_KEY,
       value,
@@ -354,7 +352,7 @@ export const upsertSecurityKeys = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Keys updated successfully.");
         }
       },
       (error) => {
@@ -406,6 +404,117 @@ export const GetDocumentationTypes = () => {
     );
   };
 };
+
+export const GetDocumentationCH3 = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+        dispatch({
+          type: Utils.ActionName.GET_CH3_DOC,
+          payload: {
+            ch3Data: resData.data,
+          },
+        });
+      }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const GetDocumentationCH4 = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+        dispatch({
+          type: Utils.ActionName.GET_CH4_DOC,
+          payload: {
+            ch4Data: resData.data,
+          },
+        });
+      }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch3ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH3_DOC_BY_iD,
+            payload: {
+              ch3Data: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch4ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH4_DOC_BY_iD,
+            payload: {
+              ch4Data: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
+
 
 export const getLOB = () => {
   return (dispatch) => {
@@ -689,7 +798,7 @@ export const getDocById = (value,callback) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message);
       }
     );
   };
@@ -702,16 +811,12 @@ export const getSubPageById = (value) => {
       `?Id=${value}`,
       (resData) => {
         const { data } = resData;
-        if (resData.status === 200) {
           dispatch({
             type: Utils.ActionName.GET_SUBPAGE_NO,
             payload: {
               pageSubDataById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
       },
       (error) => {
         let { data } = error;
@@ -748,11 +853,15 @@ export const getSelfCertificationById = (value , callback) => {
   };
 };
 
-export const getAllContentType = (value) => {
+export const getAllContentType = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_ALL_CONTENT,
-      ``,
+      params,
       (resData) => {
         const { data } = resData;
         if (resData.status === 200) {
@@ -775,7 +884,7 @@ export const getAllContentType = (value) => {
 };
 
 
-export const GetAllHelpVideos = (value) => {
+export const GetAllHelpVideos = (callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_ALL_HELP_VIDEOS,
@@ -783,12 +892,15 @@ export const GetAllHelpVideos = (value) => {
       (resData) => {
         const { data } = resData;
         if (resData.status === 200) {
+          console.log(resData.data,"xcvbnmasdfgh")
+          callback(resData?.data)
           dispatch({
             type: Utils.ActionName.GET_ALL_HELP_VIDEOS,
             payload: {
               helpData: resData.data,
             },
           });
+         
         } else {
           Utils.showAlert(2, resData.message);
         }
@@ -1341,13 +1453,16 @@ export const deleteCapacities = (id) => {
       `${Utils.endPoints.DELETE_CAPACITIES}?id=${id}`,
       "",
       (responseData) => {
+        console.log(responseData,"ERRORR")
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_CAPACITIES,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, "Deleted Successfully");
+        
+          Utils.showAlert(1, responseData?.data);
+          dispatch(GetAllCapacities(1,10,""))
         }
       },
       (error) => {
@@ -1373,7 +1488,7 @@ export const deletePAGES = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
-          getAllPages(1,10)
+          dispatch(getAllPages(1, 10));
         }
       },
       (error) => {
@@ -1388,24 +1503,33 @@ export const deleteDocumentation = (id) => {
   return (dispatch) => {
     // const dataToSend = { message: value };
     Utils.api.deleteApiCall(
-      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,
-        
+      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,"",     
       (responseData) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_DOCUMENTAION,
           payload: { data: data.data },
         });
-         if (responseData) {
-                    Utils.showAlert(1, "Deleted Successfully");
+        if (responseData) {
+
+          Utils.showAlert(1, "Deleted Successfully");
+          dispatch (getAllDocumentaions("",1,10));
         }
       },
       (error) => {
-        Utils.showAlert(2, error.error);
+        if(error.status===200){
+          Utils.showAlert(1, "Deleted Successfully");
+          dispatch (getAllDocumentaions("",1,10));
+        }else
+        Utils.showAlert(2, error.data);
       }
     );
   };
 };
+
+
+
+
 
 
 export const updateUser = (value) => {
@@ -1421,7 +1545,7 @@ export const updateUser = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data?.message);
         }
       },
       (error) => {
@@ -1444,6 +1568,7 @@ export const changePassword = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+          console.log(responseData,"res")
           Utils.showAlert(1, responseData?.data?.message);
           if(responseData?.data?.message !== ""){
             // callback();
@@ -1464,13 +1589,16 @@ export const createPAGES = (value) => {
       Utils.endPoints.CREATE_PAGE,
       value,"multi",
       (responseData) => {
-        let { data } = responseData;
+        let { data } = responseData;     
         dispatch({
           type: Utils.ActionName.CREATE_PAGE,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          if(responseData.status==500){
+            Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
+          }else
+          {Utils.showAlert(1, "Page created successfully.");}
         }
       },
       (error) => {
@@ -1492,12 +1620,11 @@ export const CountryUpsert = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          // Utils.showAlert(1, responseData?.statusText ? responseData?.statusText : responseData?.message);
+          Utils.showAlert(1, "Countries updated successfully.");
         }
         
       },
       (error) => {
-        console.log("error",error)
         Utils.showAlert(2, error.statusText);
 
       }
@@ -1519,10 +1646,12 @@ export const CountriesUpsertArticle = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          console.log(responseData,"success")
+          Utils.showAlert(1, "Countries article updated successfully");
         }
       },
       (error) => {
+        console.log(error,"error---")
         Utils.showAlert(2, error.statusText);
       }
     );
@@ -1553,7 +1682,7 @@ export const createDocType = (value) => {
   };
 };
 
-export const createSubPAGES = (value) => {
+export const createSubPAGES = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -1565,13 +1694,20 @@ export const createSubPAGES = (value) => {
           type: Utils.ActionName.ADD_SUB_PAGE,
           payload: { data: data.data },
         });
-         if (responseData) {
+         if (responseData.status==200) {
           Utils.showAlert(1, responseData?.data);
+          callback()
         }
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        console.log(error,"ERRORRR")
+        if(data.error==="Violation of UNIQUE KEY constraint \u0027UQ__Pages__737584F6DA83FBCC\u0027. Cannot insert duplicate key in object \u0027dbo.Pages\u0027. The duplicate key value is (a).\r\nThe statement has been terminated."){
+          Utils.showAlert(2, "Subpage name already exist.Please choose another name.");
+        } 
+        else{
+          Utils.showAlert(2, error.statusText);
+        }
       }
     );
   };
@@ -1788,7 +1924,7 @@ export const insertFormTypesUSTranslation = value => {
     const dataToSend = { message: value }
     Utils.api.postApiCall(
       Utils.endPoints.POST_US_TRANSLATION,
-      value,
+      value,"",
       responseData => {
         let { data } = responseData
         dispatch({
@@ -1848,7 +1984,7 @@ export const updateDocType = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data.message);
         }
       },
       (error) => {
@@ -1898,6 +2034,7 @@ export const updatePAGES = (value) => {
           payload: { data: data.data },
         });
         if (responseData) {
+          console.log(responseData,"kkk")
           Utils.showAlert(1, responseData?.data);
         }
       },
@@ -1979,7 +2116,7 @@ export const importRule = (value) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data);
+        Utils.showAlert(2, data?.error);
       },
       "multi"
     );
@@ -1998,6 +2135,31 @@ export const importEasy = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.IMPORT_EASY,
+          payload: { data: data.data },
+        });
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data);
+      },
+      "multi"
+    );
+  };
+};
+
+export const importCountries = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.IMPORT_COUNTRIES,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.IMPORT_COUNTRIES,
           payload: { data: data.data },
         });
         if (responseData) {
@@ -2095,17 +2257,12 @@ export const exportContent = () => {
       Utils.endPoints.EXPORT_CONTENT,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_CONTENT,
-            payload: {
-             contentExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2121,17 +2278,33 @@ export const exportRule = () => {
       Utils.endPoints.EXPORT_RULES,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_RULES,
-            payload: {
-             ruleExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.error);
+      }
+    );
+  };
+};
+
+export const exportCountries = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.EXPORT_COUNTRIES,
+      "",
+      (resData) => {
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2147,16 +2320,12 @@ export const exportEasy = () => {
       Utils.endPoints.EXPORT_EASY,
       "",
       (resData) => {
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_EASY,
-            payload: {
-             easyExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -3037,7 +3206,7 @@ export const updateContent = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_CONTENT,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3045,7 +3214,7 @@ export const updateContent = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Content Updated Successfully");
         }
       },
       (error) => {
@@ -3053,6 +3222,7 @@ export const updateContent = (value) => {
         Utils.showAlert(2, data.message);
       }
     );
+    
   };
 };
 
@@ -3287,9 +3457,7 @@ export const getFormInstructionById = (value,callback) => {
               formInstructionById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
+        } 
       },
       (error) => {
         let { data } = error;
@@ -3299,7 +3467,7 @@ export const getFormInstructionById = (value,callback) => {
   };
 };
 
-export const createFormInstruction = (value) => {
+export const createFormInstruction = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -3312,7 +3480,9 @@ export const createFormInstruction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+          callback();
           Utils.showAlert(1, responseData?.data);
+          getAllFormInstructions(1,10,"")
         }
       },
       (error) => {
@@ -3351,7 +3521,7 @@ export const postHelpVideo = (value) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
       `${Utils.endPoints.POST_HELP_VIDEOS}`,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3359,7 +3529,8 @@ export const postHelpVideo = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Help video updated successfully.");
+          // console.log(responseData,"dataa")
         }
       },
       (error) => {
@@ -3385,7 +3556,7 @@ export const updateFormInstruction = (value) => {
         });
          if (responseData) {
           Utils.showAlert(1, responseData?.data);
-    dispatch(getAllFormInstructions(1, 10));
+          dispatch(getAllFormInstructions(1, 10));
 
         }
       },
@@ -3411,6 +3582,7 @@ export const deleteFormInstruction = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
+         dispatch( getAllFormInstructions(1,10,""))
         }
       },
       (error) => {
@@ -3474,7 +3646,7 @@ export const updateRule = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_RULES,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3580,6 +3752,31 @@ export const updateEasy = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.UPDATE_EASY,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const updateQuestion = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPDATE_QUESTION,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPDATE_QUESTION,
           payload: { data: data.data },
         });
          if (responseData) {
@@ -3772,7 +3969,7 @@ export const createEasy = (value) => {
     return (dispatch) => {
       Utils.api.getApiCall(
         Utils.endPoints.GET_RULE_TRANSLATION,
-        `?pageId=${pageId}&languageId=${languageId}`,
+        `?ruleId=${pageId}&languageId=${languageId}`,
         (resData) => {
           if (resData.status === 200) {
             if(callback){
@@ -3992,7 +4189,7 @@ export const upsertCountries = (value) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.POST_UPSERT_COUNTRIES,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({

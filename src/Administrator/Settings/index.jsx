@@ -45,18 +45,21 @@ import {
   getAllSettings,
   getQuestionLanguageById  ,
   getHintLanguageById  ,
+  upsertSettings,
   upsertQuestionTranslations,
-  getHintTranslation 
+  getHintTranslation ,
+
 
 } from "../../redux/Actions";
 import "./index.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 
 
 export default function Settings() {
 
 const dispatch=useDispatch();
 const history = useHistory();
+let params = useParams()
 
   const [submit , setSubmit] = useState("1");
   const tableData = useSelector((state) => state.getSettingsQuestionsReducer);
@@ -65,6 +68,7 @@ const history = useHistory();
   const hintLanguageData = useSelector((state) => state.getSettingHintReducer);
 
   const [rowId, setRowId] = useState({});
+  const [editId, setEditId] = useState()
   const [rowId1, setRowId1] = useState({});
   const [dropDownData, setDropDownData] = useState([]);
   const [dropDownData1, setDropDownData1] = useState([]);
@@ -74,8 +78,27 @@ const history = useHistory();
     setOpen1(false);
     setRowId({});
   };
-
+  const [data, setData] = useState({
+    id: 0,
+    defaultCoverPagePdf_FileName: "",
+    lengthOfConfirmationCode: "",
+    defaultLogoType: "",
+    defaultLogo_FileName: "",
+    googleTranslateAPIKey: "",
+    purgeRedundantSubmissionData: "",
+    runExchangeInIframe: false,
+    defaultRetroactiveStatement: "",
+    underMaintenance: false,
+    reSendTokenEmailFeature: false,
+    activateNonEmailPINprocess: false,
+    blockForeignCharacterInput: false,
+    twilioAuthToken: null,
+    twilioAccountSid: null,
+    twilioSMSFromMobileNumber: null,
+    
+  });
   const [open, setOpen] = useState(false);
+  const [imageFile, setImageFile] = useState(null)
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -97,6 +120,55 @@ const history = useHistory();
     const selectedSubmit = event.target.value;
     setSubmit(selectedSubmit);
   }
+
+  const handleChange = e => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+  const handleImage = e => {
+    var binaryData = []
+    binaryData.push(e.target.files[0])
+    // let image_as_base64 = URL.createObjectURL(
+    //   new Blob(binaryData, { type: 'application/zip' })
+    // )
+    let imageFile = e.target.files[0]
+    console.log(e.target.files[0], 'test')
+    if (!imageFile.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      alert('Please select a valid image.')
+    } else {
+      setImageFile(imageFile)
+    }
+  }
+  const handleToogle = e => {
+    setData({ ...data, [e.target.name]: e.target.checked })
+  }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+      let updateData = {
+        // count,ryId: parseInt(params?.id),
+        id: params.id,
+        defaultCoverPagePdf_FileName: data?.imageFile,
+        lengthOfConfirmationCode: data?.lengthOfConfirmationCode,
+        defaultLogoType: "",
+        defaultLogo_FileName: data?.imageFile,
+        googleTranslateAPIKey: data?.googleTranslateAPIKey,
+        purgeRedundantSubmissionData: data?.purgeRedundantSubmissionData,
+        runExchangeInIframe: data?.runExchangeInIframe,
+        defaultRetroactiveStatement: data?.defaultRetroactiveStatement,
+        underMaintenance: data?.underMaintenance,
+        reSendTokenEmailFeature: data?.reSendTokenEmailFeature ,
+        activateNonEmailPINprocess: data?.activateNonEmailPINprocess,
+        blockForeignCharacterInput: data?.blockForeignCharacterInput,
+        twilioAuthToken: data?.twilioAuthToken,
+        twilioAccountSid: data?.twilioAccountSid,
+        twilioSMSFromMobileNumber: data?.twilioSMSFromMobileNumber,
+      };
+      dispatch(upsertSettings(updateData));
+    }
+    // history.push("/settings");
+
+
   return (
     <Fragment>
     <ThemeOptions />
@@ -151,7 +223,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7 input-file">
-                  <Input className="file-Input-select"type="file" id="myfile" name="myfile" />
+                  <Input  onChange={(e) => handleImage(e)} className="file-Input-select"type="file" id="myfile" name="myfile" />
                 </div>
               </div>
             </div>
@@ -163,7 +235,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField className="w-50 textFieldClass" fullWidth name="lengthOfConfirmationCode" value={data?.lengthOfConfirmationCode} onChange={handleChange}/>
                 </div>
               </div>
             </div>
@@ -181,7 +253,7 @@ const history = useHistory();
                     <option value="REMOVE">Remove</option>
                     
                   </select>
-                  {submit === "UPLOAD" && <Input  type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
+                  {submit === "UPLOAD" && <Input onChange={(e) => handleImage(e)} value={data?.defaultLogoType} type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
                 </div>
               </div>
             </div>
@@ -194,7 +266,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange}className="w-50 textFieldClass" fullWidth name="googleTranslateAPIKey" value={data?.googleTranslateAPIKey}/>
                 </div>
               </div>
             </div>
@@ -207,7 +279,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className=" d-flex col-lg-6 col-12 text">
-                <FormGroup className="d-block text">
+                <FormGroup value={data?.purgeRedundantSubmissionData}className="d-block text">
                   <FormControlLabel className="m-0 text" label="Aged: 3 months" control={<Checkbox defaultChecked />}/>
                   <FormControlLabel className="m-0 text" label="6 months" control={<Checkbox />} />
                   <FormControlLabel className="m-0 text" label="9 months" control={<Checkbox />}  />
@@ -233,7 +305,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.runExchangeInIframe} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -246,7 +318,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="name"/>
+                <TextField onChange={handleChange} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
                 </div>
               </div>
             </div>
@@ -258,7 +330,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.underMaintenance} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -270,7 +342,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass"  fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass"  fullWidth name="name"/>
                 </div>
               </div>
             </div>
@@ -282,7 +354,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField  className="w-50 textFieldClass " fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass " fullWidth name="name"/>
                 </div>
               </div>
             </div>
@@ -294,19 +366,19 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox"/>
+                <Checkbox onChange={handleToogle} defaultChecked={true} className="checkBox"/>
                 </div>
               </div>
             </div>
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
-                  <div className="my-auto text w-100" variant="body2">
+                  <div className="my-auto text w-100" variant="body2" >
                   Twilio auth token
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
                 </div>
               </div>
             </div>
@@ -318,7 +390,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAccountSid" value={data?.twilioAccountSid}/>
                 </div>
               </div>
             </div>
@@ -330,7 +402,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioSMSFromMobileNumber" value={data?.twilioSMSFromMobileNumber}/>
                 </div>
               </div>
             </div>
@@ -366,7 +438,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.reSendTokenEmailFeature } className="checkBox" />
                 </div>
               </div>
             </div>
@@ -378,7 +450,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7 p-relative">
-                <Checkbox defaultChecked={false} className="checkBox" /> 
+                <Checkbox onChange={handleToogle} checked={data?.activateNonEmailPINprocess} className="checkBox" /> 
                 <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="The below features will be amended by selecting this option: \n Email TOKEN feature – will be replaced by security question and answer process \n Resend confirmation code – will be replaced by security question and answer process" arrow>
                   <InfoIcon/>
                 </Tooltip>
@@ -393,7 +465,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false}className="checkBox" />
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
                 </div>
               </div>
             </div>
@@ -405,7 +477,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.blockForeignCharacterInput} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -417,7 +489,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -429,7 +501,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox  onChange={handleToogle}defaultChecked={true} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -441,7 +513,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} defaultChecked={true} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -528,7 +600,9 @@ const history = useHistory();
                         <div className="d-flex mx-auto">
                          
                             <EditIcon   onClick={() => {
+                              console.log(row.id,"oooo")
                                   setOpen(true);
+                                  setEditId(row)
                                
                                  
                                 }} style={{ color: "green",fontSize:"20px",cursor:'pointer' }} />
@@ -550,6 +624,7 @@ const history = useHistory();
           <div className="col-12">
             <Button
             size="small"
+            onClick={handleSubmit}
               className="btn-cstm mb-3 mt-1"
               style={{ float: "right"}}
             >
@@ -564,6 +639,7 @@ const history = useHistory();
        <SettingsModal
         open={open}
         setOpen={setOpen}
+        EditId={editId}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose1}
       />

@@ -46,7 +46,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { getAllUsers } from "../../redux/Actions";
+import { getAllUsers, } from "../../redux/Actions";
 function createData(agent, content, action) {
   return { agent, content, action };
 }
@@ -261,8 +261,8 @@ const row=[]
                                   }} />
                              
                               
-                                  <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
-                                   />
+                                  {/* <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
+                                   /> */}
                                
                             
                               </div>
@@ -278,7 +278,7 @@ const row=[]
             </div>
             <div className="actionBtn">
               <Button
-                className="btn-cstm  mt-2 mx-1"
+                className="btn-cstm  mt-1 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
                 onClick={() => {
@@ -290,16 +290,19 @@ const row=[]
          
             </div>
           </div>
-          {/* {tableData?.formInstructionData?.totalPages > 1 ? ( */}
-            {/* <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack> */}
-          {/* ) : (
-            ""
-          )} */}
+        {tableData?.allUsersData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12 mb-2" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={tableData?.allUsersData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
         </div>
       </div>
 

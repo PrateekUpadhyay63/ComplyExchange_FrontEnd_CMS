@@ -83,10 +83,15 @@ export default function Language_details () {
         : () => EditorState.createEmpty()
     )
   }, [])
-
-  const handleEditorStateChange1 = editorState => {
+  
+   const handleEditorStateChange1 = editorState => {
+  
     setEditorState1(editorState)
-  }
+}
+  
+
+  
+  
 
   const handleEditorStateChange2 = editorState => {
     setEditorState2(editorState)
@@ -328,10 +333,12 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='easykey'
                           value={data?.easykey}
                           onChange={handleChange}
+                          
                         />
                       </div>
                     </div>
@@ -352,10 +359,12 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='tooltip'
                           value={data?.tooltip}
                           onChange={handleChange}
+                        
                         />
                       </div>
                     </div>

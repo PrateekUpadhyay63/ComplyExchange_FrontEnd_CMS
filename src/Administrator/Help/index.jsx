@@ -44,41 +44,41 @@ export default function Language_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
-
+const [arr,setArr]=useState()
   const [data, setData] = useState( {
-  enableVideoTab: false,
-  loginPageId: 0,
-  loginPage: "",
-  formSelectionPageId: 0,
-  formSelectionPage: "",
-  onboardingPageId: 0,
-  onboardingPage: "",
-  w8BENEId: 0,
-  w8BENE: "",
-  w8BEN: "",
-  w8BENId: 0,
-  w8BCIId: 0,
-  w8BCI: "",
-  w8EXPId: 0,
-  w8EXP: "",
-  w8IMYId: 0,
-  w8IMY: "",
-  w9Id: 0,
-  w9: "",
-  help8233Id: 0,
-  help8233: "",
-  selfCertId: 0,
-  selfCert: "",
-  scrollbars: false,
-  resizable: false,
-  status: false,
-  location: false,
-  toolbar: false,
-  menubar: false,
-  width: "",
-  height: "",
-  left: "",
-  top: "",
+  // enableVideoTab: false,
+  // loginPageId: 0,
+  // loginPage: "",
+  // formSelectionPageId: 0,
+  // formSelectionPage: "",
+  // onboardingPageId: 0,
+  // onboardingPage: "",
+  // w8BENEId: 0,
+  // w8BENE: "",
+  // w8BEN: "",
+  // w8BENId: 0,
+  // w8BCIId: 0,
+  // w8BCI: "",
+  // w8EXPId: 0,
+  // w8EXP: "",
+  // w8IMYId: 0,
+  // w8IMY: "",
+  // w9Id: 0,
+  // w9: "",
+  // help8233Id: 0,
+  // help8233: "",
+  // selfCertId: 0,
+  // selfCert: "",
+  // scrollbars: false,
+  // resizable: false,
+  // status: false,
+  // location: false,
+  // toolbar: false,
+  // menubar: false,
+  // width: "",
+  // height: "",
+  // left: "",
+  // top: "",
   }
   
    
@@ -88,12 +88,12 @@ export default function Language_details() {
 
 
   useEffect(() => {
-    dispatch(GetAllHelpVideos(params.id),(data)=>{ setData(data) });
+    dispatch(GetAllHelpVideos((data)=>{ setArr(data) }));
   }, []);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-  
+  console.log(data,"djfthcg")
     let updateData = {
       enableVideoTab: data?.enableVideoTab,
       loginPageId: data?.loginPageId,
@@ -110,7 +110,7 @@ export default function Language_details() {
       w8BCI: data?.w8BCI,
       w8EXPId: data?.w8EXPId,
       w8EXP: data?.w8EXP,
-      w8IMYId: data?.w8IMYId,
+      w8IMYId: data?.w8IMYId,  
       w8IMY: data?.w8IMY,
       w9Id: data?.w9Id,
       w9: data?.w9,
@@ -131,7 +131,7 @@ export default function Language_details() {
 
     }
    
-    dispatch(postHelpVideo(id, updateData));
+    dispatch(postHelpVideo(data));
    
    
     history.push("/help");
@@ -145,6 +145,20 @@ export default function Language_details() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const arrHandleChange = (e) => {
+    setData((prevState) => {
+      return({
+        ...prevState,
+        [e.target.name]: e.target.value
+      });
+    });
+    console.log(e.target.name,e.target.value,"eeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+
+    // setData({...data,  [e.target.name]: e.target.value})
+
+  };
+  
 
   return (
     <Card>
@@ -162,10 +176,8 @@ export default function Language_details() {
                 <p
                    underline="hover"
                    color="#000000"
-                 
-                  
                 >
-   Help
+               Help
                 </p>
               </Breadcrumbs>
             </div>
@@ -189,8 +201,9 @@ export default function Language_details() {
                 <Checkbox  className="checkBox" name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
                 </div>
               </div>
-              {formData?.map((row, ind) =>{
-                console.log("roww1",row);
+              {console.log( "xcvbnm,",arr)}
+              {arr?.map((row, ind) =>{
+                // console.log("roww1",row);
           return  (    
           
           <div className="row">
@@ -211,12 +224,12 @@ export default function Language_details() {
                   <TextField
                   className="table_content"
                     size="small"
-                    name="name"
-                    
-                    onChange={(e) => handleChange(e, row.id)}
+                    name={row.pageName}
+                    value={data[row?.pageName]}
+                    onChange={(e) => arrHandleChange(e, row.id)}
                     required
                   />
-                  <span className="table_content mx-4">{row.language}</span>
+                  <span className="table_content mx-4">{row.name}:{row.pageCount}</span>
                 </div>
               </div>
   )})}

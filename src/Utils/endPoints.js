@@ -3,6 +3,7 @@ const endPoint = {
    SIGNUP: "Account/SignUp",
    USER:"Account/GetUser",
    ALL_USER:"Account/GetAllUser",
+   
   // forgotPassword: "/forget-password",
   // resendOtp: "/resend-otp",
   // verifyOTP: "/verify-otp",
@@ -34,6 +35,8 @@ const endPoint = {
  GET_YEARS:"/Countries/GetYears",
  GET_MAXNUMBER:"/Countries/MaxNumber",
  GET_IGA:"/Countries/GetIGA",
+ IMPORT_COUNTRIES:"Countries/Import",
+ EXPORT_COUNTRIES:"Countries/Export",
 
  //Help
  GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",
@@ -152,6 +155,11 @@ const endPoint = {
   INSERT_FORM_INSTRUCTIONS: "FormInstructions/InsertFormInstructions",
   UPDATE_FORM_INSTRUCTIONS: "FormInstructions/UpdateFormInstructions",
 
+  GET_CH3_DOC:"Documentation/GetChapter3EntityTypes",
+  GET_CH4_DOC:"Documentation/GetChapter4EntityTypes",
+  GET_CH3_DOC_BY_iD:"Documentation/GetDocumentationChapter3ById",
+  GET_CH4_DOC_BY_iD:"Documentation/GetDocumentationChapter4ById",
+
   //Rules Api's
 
   GET_ALL_RULES: "Rule/GetAllRules",
@@ -177,7 +185,7 @@ const endPoint = {
   GET_PAGE_TRANSLATION: "Page/GetPageTranslation",
   INSERT_PAGE_TRANSLATION: "Page/InsertTranslation",
   GET_EASY_TRANSLATION: "EasyHelp/GetEasyHelpTranslation",
-  INSERT_EASY_TRANSLATION: "EasyHelp/InsertEasyHelpTranslation",
+  INSERT_EASY_TRANSLATION: "EasyHelp/UpsertEasyHelpTranslation",
   GET_RULE_TRANSLATION: "Rule/GetRuleTranslation",
   INSERT_RULE_TRANSLATION: "Rule/InsertRuleTranslation",
 
@@ -191,6 +199,7 @@ const endPoint = {
   GET_QUESTION_LANGUAGE:"Setting/GetAllHintLanguage",
   UPSERT_QUESTION_TRANSLATION:"Setting/UpsertQuestionTranslation",
   GET_HINT_TRANSLATION:"Setting/GetQuestionHintTranslation",
+  UPDATE_QUESTION:"Setting/UpdateQuestion",
 
   //Security keys
   GET_SECURITY_KEY:"SecurityKey/GetSecurity",

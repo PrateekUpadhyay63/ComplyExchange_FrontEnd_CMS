@@ -2,7 +2,9 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 
 // Charts
-
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import TableHead from "@mui/material/TableHead";
 // import ChartsSparklines1 from "./Sparklines1/";
 // import ChartsSparklines2 from "./Sparklines2/";
 // import ChartsChartJs from "./ChartJs/";
@@ -10,6 +12,7 @@ import { Route } from "react-router-dom";
 // import ApexCharts from "./ApexCharts/";
 
 // Layout
+import TableRow from "@mui/material/TableRow";
 
 import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
@@ -52,12 +55,12 @@ const LOBManagement = ({ match }) => {
     isCorporation: false,
     isDisregardedEntity: false,
     isPartnership: false,
-    isSimpleTrust: false,
-    isGrantorTrust: false,
-    isComplexTrust: false,
+    isSimpleTableRowust: false,
+    isGrantorTableRowust: false,
+    isComplexTableRowust: false,
     isEstate: false,
     isGovernment: false,
-    isCentralBankofIssue: false,
+    isCenTableRowalBankofIssue: false,
     isTaxExemptOrganization: false,
     isPrivateFoundation: false,
     isInternationalOrganization: false,
@@ -110,31 +113,31 @@ e.preventDefault();
             <form className="m-md-3 " onSubmit={handleSubmit}>
             <div className=" row  card p-2  " style={{overflowX:"auto"}}>
               <div className="col-12 p-0 " style={{ overflow: "auto" }}>
-                <table class="table table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th  className='table_head'  scope="col">LOB Type / Chapter 3 statuses</th>
-                      <th   className='table_head'scope="col">Corporation</th>
-                      <th  className='table_head' scope="col">Disregarded Entity</th>
-                      <th  className='table_head'scope="col">Partnership </th>
-                      <th  className='table_head'scope="col">Simple Trust </th>
-                      <th  className='table_head'scope="col">Grantor Trust </th>
-                      <th  className='table_head'scope="col">Complex Trust </th>
-                      <th className='table_head' scope="col">Estate </th>
-                      <th  className='table_head' scope="col">Government </th>
-                      <th  className='table_head'scope="col">Central Bank of Issue </th>
-                      <th  className='table_head'scope="col">Tax Exempt Organization </th>
-                      <th  className='table_head'scope="col">Private Foundation </th>
-                      <th  className='table_head' scope="col">International Organization </th>
-                      <th   className='table_head'scope="col">Action </th>
-                    </tr>
-                  </thead>
+                <table class="table table-hover table-sTableRowiped">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell  className='table_head'  scope="col">LOB Type / Chapter 3 statuses</TableCell>
+                      <TableCell   className='table_head'scope="col">Corporation</TableCell>
+                      <TableCell  className='table_head' scope="col">Disregarded Entity</TableCell>
+                      <TableCell  className='table_head'scope="col">Partnership </TableCell>
+                      <TableCell  className='table_head'scope="col">Simple TableRowust </TableCell>
+                      <TableCell  className='table_head'scope="col">Grantor TableRowust </TableCell>
+                      <TableCell  className='table_head'scope="col">Complex TableRowust </TableCell>
+                      <TableCell className='table_head' scope="col">Estate </TableCell>
+                      <TableCell  className='table_head' scope="col">Government </TableCell>
+                      <TableCell  className='table_head'scope="col">CenTableRowal Bank of Issue </TableCell>
+                      <TableCell  className='table_head'scope="col">Tax Exempt Organization </TableCell>
+                      <TableCell  className='table_head'scope="col">Private Foundation </TableCell>
+                      <TableCell  className='table_head' scope="col">International Organization </TableCell>
+                      <TableCell   className='table_head'scope="col">Action </TableCell>
+                    </TableRow>
+                  </TableHead>
                   <tbody>
                     {lobData?.lobData?.map((i, ind) => {
                       return (
-                        <tr key={i.id}>
-                          <th style={{fontWeight:'450'}}  className="table_content" >{idName(i.chapter3StatusId)}</th>
-                          <td>
+                        <TableRow key={i.id}>
+                          <TableCell style={{fontWeight:'450'}}  className="table_content" >{idName(i.chapter3StatusId)}</TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isCorporation"
                               onClick={(e) => handleToogle(e)}
@@ -146,8 +149,8 @@ e.preventDefault();
                               }
                              
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isDisregardedEntity"
                               onClick={(e) => handleToogle(e)}
@@ -159,8 +162,8 @@ e.preventDefault();
                               }
                              
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isPartnership"
                               onClick={(e) => handleToogle(e)}
@@ -172,47 +175,47 @@ e.preventDefault();
                               }
                             
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
-                              name="isSimpleTrust"
+                              name="isSimpleTableRowust"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
                               checked={
-                                // i.isSimpleTrust
-                                  i.isSimpleTrust
-                                  // : data.isSimpleTrust
+                                // i.isSimpleTableRowust
+                                  i.isSimpleTableRowust
+                                  // : data.isSimpleTableRowust
                               }
                         
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
-                              name="isGrantorTrust"
+                              name="isGrantorTableRowust"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
                               checked={
-                                // i.isGrantorTrust
-                                  i.isGrantorTrust
-                                  // : data.isGrantorTrust
+                                // i.isGrantorTableRowust
+                                  i.isGrantorTableRowust
+                                  // : data.isGrantorTableRowust
                               }
                              
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
-                              name="isComplexTrust"
+                              name="isComplexTableRowust"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
                               checked={
-                                // i.isComplexTrust
-                                  i.isComplexTrust
-                                  // : data.isComplexTrust
+                                // i.isComplexTableRowust
+                                  i.isComplexTableRowust
+                                  // : data.isComplexTableRowust
                               }
                             
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isEstate"
                               onClick={(e) => handleToogle(e)}
@@ -221,8 +224,8 @@ e.preventDefault();
                                 // i.isEstate : data.isEstate}
                            
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isGovernment"
                               onClick={(e) => handleToogle(e)}
@@ -234,21 +237,21 @@ e.preventDefault();
                               }
                            
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
-                              name="isCentralBankofIssue"
+                              name="isCenTableRowalBankofIssue"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
                               checked={
-                                // i.isCentralBankofIssue
-                                  i.isCentralBankofIssue
-                                  // : data.isCentralBankofIssue
+                                // i.isCenTableRowalBankofIssue
+                                  i.isCenTableRowalBankofIssue
+                                  // : data.isCenTableRowalBankofIssue
                               }
                             
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isTaxExemptOrganization"
                               onClick={(e) => handleToogle(e)}
@@ -260,8 +263,8 @@ e.preventDefault();
                               }
                             
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isPrivateFoundation"
                               onClick={(e) => handleToogle(e)}
@@ -273,8 +276,8 @@ e.preventDefault();
                               }
                              
                             />
-                          </td>
-                          <td>
+                          </TableCell>
+                          <TableCell>
                             <Checkbox
                               name="isInternationalOrganization"
                               onClick={(e) => handleToogle(e)}
@@ -286,8 +289,8 @@ e.preventDefault();
                               }
                              
                             />
-                          </td>
-                          <td className="actionRow">
+                          </TableCell>
+                          <TableCell className="actionRow">
                          
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
@@ -296,8 +299,8 @@ e.preventDefault();
                                     );
                                   }} />
                               
-                          </td>
-                        </tr>
+                          </TableCell>
+                        </TableRow>
                       );
                     })}
                   </tbody>

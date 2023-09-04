@@ -30,15 +30,19 @@ import "./reusables.scss";
 
 import {createFormInstruction,
     getFormInstructionById,
-    updateFormInstruction, } from "../redux/Actions";
+    updateFormInstruction,getAllFormInstructions } from "../redux/Actions";
 
 
 
 
 const DialogEdit = props => {
-  const { open, setOpen, idData, response, getList } = props
+  const { open, setOpen, idData, response, getList,closeCallback,setIdData } = props
+  console.log(idData)
  
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    setData({})
+  }
  
   const dispatch = useDispatch();
   let params = useParams();
@@ -51,13 +55,27 @@ const DialogEdit = props => {
    url:""
   });
 
-  useEffect(() => {
+  function setInitialData(){
+    console.log(idData,"IDDATA")
     if(idData){
+      if(idData == 0){
+        setData({  description:"",
+        url:""})
+      }else
       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
     }else{
-      setData({})
+      setData({  description:"",
+      url:""})
     }
+  }
+
+  useEffect(() => {
+    setInitialData();
 }, [idData]); 
+
+useEffect(() => {
+  setInitialData();
+}, []); 
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -78,10 +96,21 @@ const DialogEdit = props => {
  
     if (idData) {
       dispatch(updateFormInstruction(updateData));
+      setData({
+        description:"",
+      url:""
+      })
+      
     } else {
-      dispatch(createFormInstruction(createData));
+      dispatch(createFormInstruction(createData,()=>setIdData(-1)));
+      setData({  description:"",
+      url:""})
     }
+    setData({  description:"",
+    url:""})
+    closeCallback()
     handleClose()
+    
   };
   return (
     <Fragment>
@@ -89,7 +118,7 @@ const DialogEdit = props => {
       <Dialog
         open={open}
         keepMounted
-        onClose={handleClose}
+        // onClose={handleClose}
       
       >
       
@@ -106,7 +135,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    Description:
+                    Description:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
@@ -128,7 +157,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    URL:
+                    URL:<span style={{color:"red"}}>*</span>
 
                   </div>
                 </div>
@@ -165,7 +194,7 @@ const DialogEdit = props => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               
+               onChange={handleSubmit}
                 variant="contained"
               >
                 Save

@@ -58,6 +58,7 @@ export default function Subpage_details() {
   const idPageData= useSelector((state) => state.pageDataByIdReducer);
   const {pageDataById} = idPageData
   let params = useParams();
+  const [isError,setError]=useState({name:false,content:false});
   const [data, setData] = useState(
       {
           name: "",
@@ -233,19 +234,15 @@ export default function Subpage_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = {
-      name: data.name.trim() == "",
-      redirectPageLabelToURL: data.redirectPageLabelToURL.trim() == "",
-      menuBackgroundColor: data.menuBackgroundColor.trim() == "",
-      content: data.content.trim() == "",
-    };
-    // If there are errors, update the formErrors state and stop form submission
-    if (Object.values(errors).some((error) => error)) {
-      setFormErrors(errors);
-      return;
+    if(!convertToRaw(editorState1.getCurrentContent()).blocks.every(b => b.text.trim() === '') && data.name.trim()!==""){
+      dispatch(createSubPAGES(data,()=>{history.push(Utils.Pathname.pages);setError({name:false,content:false});}));
     }
-      dispatch(createSubPAGES(data));
-              history.push(Utils.Pathname.pages);
+    else{
+      if(data.name.trim()===""){
+        setError({ ...isError, name: true });
+      }else
+     { setError({ ...isError, content: true });}
+    }
   };
 
   return (
@@ -317,7 +314,7 @@ export default function Subpage_details() {
                 onChange={handleChange}
               />
             </div>
-            {formErrors.name && <p className="errorClass">Name is required.</p>}
+            {isError.name ? (<small className="errorClass">This field is mandatory.</small>) : ''}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -330,8 +327,6 @@ export default function Subpage_details() {
                 name="displayOnTopMenu"
                 required
                 checked={data?.displayOnTopMenu}
-                // value={data?.displayOnTopMenu}
-
                 onClick={(e) => handleToogle(e)}
               />
             </div>
@@ -449,7 +444,6 @@ export default function Subpage_details() {
               <Checkbox
                 name="displayOnLeftMenu"
                 checked={data?.displayOnLeftMenu}
-                
                 onClick={(e) => handleToogle(e)}
 
               />
@@ -498,6 +492,7 @@ export default function Subpage_details() {
                             </button>
                           </div>
                         </div>
+                          {isError.content ? (<small className="errorClass">This field is mandatory.</small>) : ''}
             </div>
             {formErrors.content && (
               <p className="errorClass">content is required.</p>

@@ -1,5 +1,5 @@
 // ** React Imports
-import { forwardRef, Fragment, useState } from "react";
+import { forwardRef, Fragment, useState ,useEffect} from "react";
 
 // ** MUI Imports
 import Button from "@mui/material/Button";
@@ -36,9 +36,14 @@ const Modal = (props) => {
     setFileData,
   } = props;
   // ** State
+
+
+
+
   const handleClose = () => {
-    setFileData();
+    setFileData(null);
     setOpen(false);
+    console.log(fileData,open,"djfhnvd")
   };
 
   const handleDelete = async () => {
@@ -48,7 +53,7 @@ const Modal = (props) => {
 
   const handleSubmit = () => {
     const file = fileData;
-    if (file === undefined) {
+    if (file === undefined || file === "") {
       setError(true)
     } else {
       setError(false)
@@ -70,7 +75,7 @@ const Modal = (props) => {
       <Dialog
         open={open}
         keepMounted
-        onClose={handleClose}
+        // onClose={handleClose}
         TransitionComponent={Transition}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"

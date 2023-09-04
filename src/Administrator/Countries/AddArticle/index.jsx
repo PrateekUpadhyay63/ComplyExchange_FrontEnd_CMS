@@ -42,46 +42,61 @@ export default function Countries_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
   console.log("form",formData);
-  const namedata =useSelector((state)=>state.getIncomeReducer);
- 
+  const namedata = useSelector((state)=>state.getIncomeReducer);
+  const countryData = useSelector(
+    (state) => state?.getCountryByIdReducer?.getCountryByIdData
+  );
   const [data, setData] = useState({
     countryId: 0,
-    name:"",
+    // name:"",
     number: "",
     description: "",
     treatyRates: "",
     maxNoOfParagraph: 0,
     includeSubParagraph: false,
-    showInDropDown: false
-  }
-  // }:{
-  //   countryId: 0,
-  //   number: "",
-  //   description: "",
-  //   treatyRates: "",
-  //   maxNoOfParagraph: 0,
-  //   includeSubParagraph: false,
-  //   showInDropDown: false,
-  // });
+    showInDropDown: false,
+    selectedIncomeCodeIds: []
+  })
 
-  )
+
+  console.log(data,"daataaa")
 const [data1 , setData1] = useState({
   name: "",
   Id: 0,
 });
   const [selectAll, setSelectAll] = useState(false);
+  const [selectArray , setSelectArray] = useState([])
 
   const handleSelectAll = () => {
+
+    namedata?.incTypeData?.filter((item)=>{
+      let arr = selectArray
+      
+      arr.push(item.id)
+    
+      setSelectArray(arr)
+
+    }) 
+
+    
     setSelectAll(true);
   };
 
   const handleUnselectAll = () => {
+    setSelectArray([])
     setSelectAll(false);
   };
   useEffect(() => {
     dispatch(getMaxNumber());
   }, []);
 
+  useEffect(() => {
+    if (params?.id) {
+      dispatch(getCountryById(params.id), (item) => {
+        setData(item);
+      });
+    }
+  }, []);
 
   useEffect(()=>{
     dispatch(GetIncomeTypes());
@@ -93,21 +108,28 @@ const [data1 , setData1] = useState({
     e.preventDefault();
     if(params.id){
     let updateData = {
-    countryId: data?.countryId,
+    countryId: parseInt(params?.id),
     number: data?.number,
     description: data?.description,
     treatyRates: data?.treatyRates,
     maxNoOfParagraph: data?.maxNoOfParagraph,
     includeSubParagraph: data?.includeSubParagraph,
     showInDropDown: data?.showInDropDown,
+    selectedIncomeCodeIds:selectArray
       }
     dispatch(CountriesUpsertArticle(updateData));
     }
-    history.push("/countries");
+    history.push(`/countries_add/${params?.id}`);
   }
 
- 
-  const handleToogle = (e) => {
+  useEffect(() => {
+    setData(countryData);
+  }, [countryData]);
+
+
+  const handleToogle = (e,id) => {
+    console.log(id,"idd")
+    // setSelectArray([...selectArray, id])
     setData({ ...data, [e.target.name]: e.target.checked });
   };
   
@@ -131,7 +153,7 @@ const [data1 , setData1] = useState({
                    underline="hover"
                    color="#0c62a8"
                  onClick={()=>{
-                  history.push("/countries")
+                  history.push(`/countries/${params?.id}`)
                  }}
                   
                 >
@@ -337,7 +359,7 @@ const [data1 , setData1] = useState({
              return ( 
               <div key={ind} className="col-12">
                  <span>
-              <Checkbox onClick={(e) => handleToogle(e)} checked={selectAll}/>
+              <Checkbox onClick={(e) => handleToogle(e,i?.id)} checked={selectAll}  value={data?.selectedIncomeCodeIds}/>
               <sapn className="table_content mt-1 p-0" >{i.name}</sapn>
             </span>
               </div>
@@ -357,7 +379,7 @@ const [data1 , setData1] = useState({
                 variant="outlined"
                 sx={{ mr: 1}}
                 onClick={()=>{
-                  history.push("/countries")
+                  history.push(`/countries_add/${params?.id}`);
                  }}
               >
                 cancel

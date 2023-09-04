@@ -57,6 +57,12 @@ export default function ContentManagement() {
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
+  const [data, setData] = useState({
+    id: 0,
+    key: "",
+    keyId: 0,
+    keyType: "",
+  });
 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
@@ -65,39 +71,66 @@ export default function ContentManagement() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
+  const [textFieldsData, setTextFieldsData] = useState([]);
 
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getSecurityKeysReducer);
-
+  console.log("form", tableData);
   useEffect(() => {
     dispatch(getSecurityKeys());
   }, []);
-  // {
-  //   "id": 1,
-  //   "key": "string",
-  //   "keyType": "string",
-  //   "createdOn": "2023-07-22T23:06:00.7",
-  //   "modifiedOn": "0001-01-01T00:00:00"
-  // }
-  //   const setSubmit = (e) => {
-  //     e.preventDefault();
-  //     setPage(1);
-  //     setSize(10);
-  //     dispatch(getAllFormInstructions(page, size, search));
-  //   };
-  //   const deleteItems = async () => {
-  //     dispatch(deleteFormInstruction(idData));
-  //     dispatch(getAllFormInstructions(page, size));
-  //   };
+  console.log("textFieldsData", textFieldsData);
 
-  //   useEffect(() => {
-  //     dispatch(getAllFormInstructions(page, size));
-  //   }, [page]);
+  useEffect(() => {
+    if (tableData?.securityKeyData) {
+      const initialValues = tableData?.securityKeyData.map((i) => ({
+        id: i?.id,
+        key: i?.key,
+        keyId: i?.keyId,
+        keyType: i?.keyType,
+      }));
+      setTextFieldsData(initialValues);
+    }
+  }, [tableData?.securityKeyData]);
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeTextField = (id, newValue) => {
+    setTextFieldsData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, key: newValue } : item
+      )
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // upsertSecurityKeys(data)
+    const updatedKeys = textFieldsData.map((item) => ({
+      id: item?.id,
+      key: item?.key,
+      keyId:
+        item?.keyType === "Outgoing Request Key"
+          ? 2
+          : item.keyType === "Incoming Request Key"
+          ? 1
+          : "",
+      keyType: item?.keyType,
+    }));
+    const validKeys = updatedKeys.filter((keyItem) => (
+      keyItem.keyType === "Outgoing Request Key" || keyItem.keyType === "Incoming Request Key"
+    ));
+  
+    if (validKeys.length > 0) {
+      dispatch(upsertSecurityKeys(validKeys));
+    }
+  
+    history.push("/security_keys");
   };
+   
+  
+  
 
   return (
     <Fragment>
@@ -115,43 +148,12 @@ export default function ContentManagement() {
                 </p>
               </Breadcrumbs>
             </div>
-            {/* <div className=" row m-1  border p-3 box_style">
-              <div className="col-8 d-flex ">
-                <TextField
-                  style={{ backgroundColor: "#fff" }}
-                  name="search"
-                  className="mx-md-3 mx-auto w-50 rounded-Input"
-                  placeholder="Search"
-                  type="search"
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              <div className="col-4">
-                <Button
-                  size="small"
-                  //   onClick={(e) => {
-                  //     setSubmit(e);
-                  //   }}
-                  className="btn-cstm"
-                  style={{ float: "right" }}
-                >
-                  Search
-                </Button>
-              </div>
-            </div> */}
+
             <div className=" row m-1  card p-0">
               <Paper>
-                <div className="headerText my-2 mx-4 ">Security Keys</div>
+                <div className="headerText custom_my_2 mx-4 ">Security Keys</div>
 
-                <div className=" my-2  d-flex">
+                <div className=" custom_my_2  d-flex">
                   <div
                     className="col-5 borderbox maxdiv mx-4"
                     style={{ height: "320px" }}
@@ -161,13 +163,12 @@ export default function ContentManagement() {
                         <TableRow>
                           <TableCell
                             align="center"
-                            scope="col"
                             style={{ fontSize: "20px" }}
                           ></TableCell>
-                          <TableCell className="table_head" scope="col">
+                          <TableCell className="table_head">
                             Incoming Request Key
                           </TableCell>
-                          <TableCell scope="col" className="table_head">
+                          <TableCell className="table_head">
                             Last Updated On
                           </TableCell>
                         </TableRow>
@@ -177,27 +178,34 @@ export default function ContentManagement() {
                           if (i.keyType === "Incoming Request Key") {
                             return (
                               <TableRow key={ind}>
-                                <TableCell className="text" scope="row">
-                                  {ind+1}
+                                <TableCell className="text">
+                                  {ind + 1}
                                 </TableCell>
                                 <TableCell>
                                   <TextField
                                     className="w-100 textFieldClass"
-                                    value={i.key}
-                                    name="name"
+                                    defaultValue={i.key}
+                                    name="key"
+                                    onChange={(e) =>
+                                      handleChangeTextField(
+                                        i.id,
+                                        e.target.value
+                                      )
+                                    }
                                   />
                                 </TableCell>
                                 <TableCell>
                                   <div className="text">
+                                    
                                     {/* For time add  HH:mm:ss */}
-                                    {moment(i?.modifiedOnmoment).format(
-                                      "YYYY-MM-DD"
+                                    {moment(i?.modifiedOn).format(
+                                      "YYYY-MM-DD HH:mm:ss"
                                     )
-                                      ? moment(i?.modifiedOnmoment).format(
-                                          "YYYY-MM-DD"
+                                      ? moment(i?.modifiedOn).format(
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )
                                       : moment(i?.createdOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )}
                                   </div>
                                 </TableCell>
@@ -232,31 +240,38 @@ export default function ContentManagement() {
                         </TableRow>
                       </thead>
                       <tbody>
-                      {tableData?.securityKeyData?.map((i, ind) => {
+                        {tableData?.securityKeyData?.map((i, ind) => {
                           if (i.keyType === "Outgoing Request Key") {
                             return (
                               <TableRow key={ind}>
-                                <TableCell className="text" scope="row">
-                                  {ind+1}
+                                <TableCell className="text">
+                                  {ind + 1}
                                 </TableCell>
                                 <TableCell>
                                   <TextField
                                     className="w-100 textFieldClass"
-                                    value={i.key}
-                                    name="name"
+                                    defaultValue={i.key}
+                                    name="key"
+                                    onChange={(e) =>
+                                      handleChangeTextField(
+                                        i.id,
+                                        e.target.value
+                                      )
+                                    }
+                                    // onChange={handleChange}
                                   />
                                 </TableCell>
                                 <TableCell>
                                   <div className="text">
                                     {/* For time add  HH:mm:ss */}
-                                    {moment(i?.modifiedOnmoment).format(
-                                      "YYYY-MM-DD"
+                                    {moment(i?.modifiedOn).format(
+                                      "YYYY-MM-DD HH:mm:ss"
                                     )
-                                      ? moment(i?.modifiedOnmoment).format(
-                                          "YYYY-MM-DD"
+                                      ? moment(i?.modifiedOn).format(
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )
                                       : moment(i?.createdOn).format(
-                                          "YYYY-MM-DD"
+                                          "YYYY-MM-DD HH:mm:ss"
                                         )}
                                   </div>
                                 </TableCell>
@@ -295,23 +310,6 @@ export default function ContentManagement() {
           )} */}
         </div>
       </div>
-
-      {/* <FormInstruction
-        open={open}
-        idData={idData}
-        setOpen={setOpen}
-        handleClickOpen={handleClickOpen}
-        handleClose={handleClose}
-      />
-       <DialogTransition
-        open={open1}
-        deleteItems={deleteItems}
-        setOpen={setOpen1}
-        handleClickOpen={handleClickOpen1}
-        handleClose={handleClose1}
-        deleteApi={deleteFormInstruction}
-        getAllApi={getAllFormInstructions}
-      /> */}
     </Fragment>
   );
 }

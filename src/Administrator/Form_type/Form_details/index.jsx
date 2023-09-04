@@ -49,6 +49,7 @@ export default function Language_details () {
   const dispatch = useDispatch()
   let params = useParams()
   const history= useHistory()
+  const [editorError, setEditorError] = useState(false);
 
   const parentDropDown = useSelector(state => state.ParentDropDownReducer)
   const idUSFormTypeData = useSelector(state => state.getUSFormTypeByIdReducer)
@@ -62,30 +63,30 @@ export default function Language_details () {
       ? {
           id: params.id,
           name: '',
-          displayName: '',
-          revision: '',
-          isDisabled: false,
-          eSubmitPDFTemplateId: null,
-          printPDFTemplateId: null,
-          logo: '',
-          introductionText: '',
-          tINPageText: '',
-          certificationText: '',
-          eSignatureText: ''
-        }
+          isDisabled: '',
+          fullHeader: '',
+          summaryHeader: '',
+          description:'',
+          substituteFormStatement: '',
+          printTemplatePDF: null,
+          eSubmitTemplatePDF: null,
+          useOnboardingURL: false,
+          specifyURL:"",
+         
+                }
       : {
           name: '',
-          displayName: '',
-          revision: '',
-          isDisabled: false,
-          eSubmitPDFTemplateId: null,
-          printPDFTemplateId: null,
-          logo: '',
-          introductionText: '',
-          tINPageText: '',
-          certificationText: '',
-          eSignatureText: ''
-        }
+          isDisabled: '',
+          fullHeader: '',
+          summaryHeader: '',
+          description:'',
+          substituteFormStatement: '',
+          printTemplatePDF: null,
+          eSubmitTemplatePDF: null,
+          useOnboardingURL: false,
+          specifyURL:"",
+         
+                }
   )
 
   useEffect(() => {
@@ -213,12 +214,15 @@ export default function Language_details () {
 
   const handleEditorStateChange2 = editorState => {
     setEditorState2(editorState)
+    setEditorError(false);
   }
   const handleEditorStateChange3 = editorState => {
     setEditorState3(editorState)
+  
   }
   const handleEditorStateChange4 = editorState => {
     setEditorState4(editorState)
+   
   }
 
   const handleEditorStateChange5 = editorState => {
@@ -512,6 +516,68 @@ useEffect(() => {
 }, [editorState5])
 
 
+
+
+//GET By ID UseEffect
+
+useEffect(() => {
+  if (params.id) {
+    dispatch(
+      getFormUSTypeById(params.id, (data) => {
+        setData(data);
+        console.log("datata",data)
+        setEditorState1(() => {
+          const blocksFromHTML = convertFromHTML(data?.fullHeader);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState2(() => {
+          const blocksFromHTML = convertFromHTML(data?.summaryHeader);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState3(() => {
+          const blocksFromHTML = convertFromHTML(data?.description);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState4(() => {
+          const blocksFromHTML = convertFromHTML(data?.substituteFormStatement);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState5(() => {
+          const blocksFromHTML = convertFromHTML(data?.eSubmitStatement);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+      })
+    );
+  } else {
+    setEditorState1(() => EditorState.createEmpty());
+    setEditorState2(() => EditorState.createEmpty());
+    setEditorState3(() => EditorState.createEmpty());
+    setEditorState4(() => EditorState.createEmpty());
+    setEditorState5(() => EditorState.createEmpty());
+  }
+}, [params.id]);
+
   const handleChange = e => {
     console.log(e.target)
     setData({ ...data, [e.target.name]: e.target.value })
@@ -552,26 +618,32 @@ const handleImage2 = e => {
 }
 
 const handleSubmit = async event => {
+  if (!editorState2.getCurrentContent().hasText()) {
+    setEditorError(true);
+    return; // Don't proceed with submission
+  }
+  console.log("dataa",data)
   event.preventDefault()
   const formData = new FormData()
   formData.append('id', params.id)
-  formData.append('Name', data.name)
-  formData.append('IsDisabled', data.isDisabled)
-  formData.append('FullHeader', data.fullHeader)
-  formData.append('SummaryHeader', data.summaryHeader)
-  formData.append('Description', data.description)
-  formData.append('SubstituteFormStatement', data.substituteFormStatement)
-  formData.append('ESubmitStatement', data.eSubmitStatement)
-  formData.append('ESubmitTemplatePDF', imageFile1)       // BACKEND ISSUE
-  formData.append('PrintTemplatePDF', imageFile2)  //BACKEND ISSUE
-  formData.append('UseOnboardingURL', data.useOnboardingURL)
-   formData.append('SpecifyURL', data.specifyURL)
+  formData.append('name', data.name)
+  formData.append('isDisabled', data.isDisabled)
+  formData.append('fullHeader', data.fullHeader)
+  formData.append('summaryHeader', data.summaryHeader)
+  formData.append('description', data.description)
+  formData.append('substituteFormStatement', data.substituteFormStatement)
+  formData.append('eSubmitStatement', data.eSubmitStatement)
+  formData.append('eSubmitTemplatePDF', imageFile1)       
+  formData.append('printTemplatePDF', imageFile2)  
+  formData.append('useOnboardingURL', data.useOnboardingURL)
+  formData.append('specifyURL', data.specifyURL)
+
 
   // if (params?.id) {
   //   formData.append('id', params.id)
-  //   dispatch(updateFormTypes(formData))
-  // } else {
     dispatch(updateUSFormTypes(formData))
+  // } else {
+  //   dispatch(updateUSFormTypes(formData))
   // }
   history.push(Utils.Pathname.formType)
 }
@@ -747,12 +819,17 @@ const handleRadioChange = (e) => {
                           variant='body2'
                         className='table_content'
                         >
-                          Summary Header:
+                          Summary Header:<span style={{color:"red"}}>*</span>
                         </div>
                       </div>
+                      {editorError && <div className='error'>Summary Header is required.</div>}
                       <div className='col-9 editor-div'>
-                        <div>
+                      
+   
+
+                        <div >
                           <Editor
+                            
                             editorState={editorState2}
                             onEditorStateChange={handleEditorStateChange2}
                             wrapperClassName='wrapper-class'
@@ -941,6 +1018,8 @@ const handleRadioChange = (e) => {
                       </div>
                       <div className='col-9 input-file'>
                         <select  className='table_content'
+                         name='printTemplatePDF'
+                         value={data?.printTemplatePDF}
                           onChange={handleSelect}
                           style={{
                             minWidth: '120px',
@@ -965,6 +1044,8 @@ const handleRadioChange = (e) => {
                       <div className='col-9 input-file'>
                         <select
                          className='table_content'
+                         name='eSubmitTemplatePDF'
+                         value={data?.eSubmitTemplatePDF}
                           onChange={handleFile}
                           style={{
                             minWidth: '120px',

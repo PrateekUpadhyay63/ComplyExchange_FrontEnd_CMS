@@ -91,29 +91,35 @@ export default function ContentManagement() {
     setSize(10);
     dispatch(getAllContentType(page, size, search));
   };
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllContentType(page, size, search));
+    }
+  },[search])
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    dispatch(getAllContentType(page, size));
+  }, [page]);
  
   const tableData = useSelector((state) => state.getAllContentTypeByIdReducer);
 
   useEffect(() => {
-    dispatch(getAllContentType());
+    dispatch(getAllContentType(page, size, search));
     dispatch(getAllLanguages())
   }, []);
 
-
-
-  
-
-  console.log(tableData,"tableData")
   return (
     <Fragment>
       <ThemeOptions />
       {/* <AppHeader /> */}
       <div className="app-main">
         <AppSidebar />
-        <div className="app-main__outer">
+        <div className="app-main__outer" >
           <div className="app-main__inner">
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
@@ -198,10 +204,10 @@ export default function ContentManagement() {
                             
                           </TableRow >
                         </TableHead>
-                         {tableData?.contentData && tableData?.contentData.length ? (
+                         {tableData?.contentData && tableData?.contentData?.records?.length ? (
                         <TableBody>
                           {
-                          tableData?.contentData.map((row) => (
+                          tableData?.contentData?.records.map((row) => (
                             <TableRow
                             className="tableRow1"
                               key={row.name}
@@ -243,7 +249,6 @@ export default function ContentManagement() {
                               <TableCell className="table_content tableRow1" align="right">
                                 {row.action}
                                 <div className="actionRow">
-                                 
                                     <EditIcon style={{ color: "green" , fontSize:'20px' }}
                                     onClick={() => {
                                       history.push(
@@ -262,6 +267,19 @@ export default function ContentManagement() {
                   </Paper>
                 </table>
               </div>
+              {tableData?.contentData?.totalPages > 1 ? (
+            <Stack spacing={2}>
+            <Pagination
+             variant="outlined"
+             shape="rounded"
+             color="primary"
+                  count={tableData?.contentData?.totalPages}
+                  onChange={(e, value) => setPage(value)}
+                />
+            </Stack>
+             ) : (
+              ""
+            )}
             </div>
               <div className="col-12 mb-4 mt-2" >
                 <Button  size="small"className="btn-cstm mx-1 mb-4" style={{ float: "right",marginLeft:'5px', }} onClick={()=>{
@@ -274,19 +292,7 @@ export default function ContentManagement() {
                   Export 
                 </Button>
               </div>
-              {tableData?.contentData?.totalPages > 1 ? (
-            <Stack style={{marginLeft:'20px'}}spacing={2}>
-            <Pagination
-             variant="outlined"
-             shape="rounded"
-             color="primary"
-                  count={tableData?.contentData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-            </Stack>
-             ) : (
-              ""
-            )}
+             
           </div>
         </div>
       </div>

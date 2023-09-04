@@ -1874,7 +1874,7 @@ function UserManagement ({ match }) {
                         />
                       </div>
                       <div className='col-7 d-flex'>
-                        <div className='d-flex justify-content-between'>
+                        <div className='d-flex justify-content-between formatClass'>
                           <div
                             className='my-auto text mx-1'
                             
@@ -3611,8 +3611,8 @@ function UserManagement ({ match }) {
                        
                         
                        
-                        name='retroactiveStatement'
-                        value={data?.retroactiveStatement}
+                        name='retroactiveEffectiveDate'
+                        value={data?.retroactiveEffectiveDate}
                         // onChange={handleChange}
                         fullWidth
                         onChange={handleChange}
@@ -3650,7 +3650,7 @@ function UserManagement ({ match }) {
                     
                   
                 
-                    <div className='row mx-2 my-1'>
+                    {/* <div className='row mx-2 my-1'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
                           className='my-auto text'
@@ -3663,7 +3663,7 @@ function UserManagement ({ match }) {
                       <div className='col-5'>
                       <Checkbox  className='col-1' defaultChecked={false} />
                       </div>
-                    </div>
+                    </div> */}
                    
                     <div className='row mx-2 my-1'>
                       <div className='col-5 d-flex justify-content-between'>
@@ -3739,7 +3739,7 @@ function UserManagement ({ match }) {
                         <TextField className='textFieldClass text'fullWidth name='name' />
                       </div>
                     </div>
-                    <div className='row mx-2 my-1'>
+                    {/* <div className='row mx-2 my-1'>
                       <div className='col-12 d-flex'>
                         <div
                           className='my-auto text'
@@ -3765,7 +3765,7 @@ function UserManagement ({ match }) {
                       <div className='col-5'>
                         <TextField className='textFieldClass text' fullWidth name='name' />
                       </div>
-                    </div>
+                    </div> */}
                   </Collapse>
                 </div>
                 <div className='col-12 my-2 mx-auto'>

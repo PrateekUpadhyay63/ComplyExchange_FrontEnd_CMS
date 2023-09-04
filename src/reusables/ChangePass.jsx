@@ -105,19 +105,21 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                    Old Password:
+                    Old Password:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
                 
 
                   <TextField
-                   className='table_text'
+                    required
+                    type='password'
+                    className='table_text'
                     size="small"
                     name="oldPassword"
                     value={data.oldPassword}
                     onChange={handleChange}
-                    required
+                    
                   />
                 </div>
               </div>
@@ -127,7 +129,7 @@ const DialogEdit = props => {
                    
                     className='table_text'
                   >
-                New Password:
+                New Password:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
@@ -136,6 +138,7 @@ const DialogEdit = props => {
                   <TextField
                    className='table_text'
                     size="small"
+                    type='password'
                     name="password"
                     value={data.password}
                     onChange={handleChange}
@@ -186,7 +189,6 @@ const DialogEdit = props => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               onClick={handleSubmit}
                 variant="contained"
               >
                 Save

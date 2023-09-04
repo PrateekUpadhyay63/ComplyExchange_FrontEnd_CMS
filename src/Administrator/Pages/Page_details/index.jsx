@@ -60,26 +60,26 @@ export default function Pages_details() {
           id: params.id,
           name: "",
           parent: null,
-          displayOnTopMenu: false,
+          // displayOnTopMenu: false,
           displayOnFooter: false,
           redirectPageLabelToURL: "",
-          menuBackgroundColor: "",
-          unselectedTextColor: "",
-          selectedTextColor: "",
-          displayOnLeftMenu: false,
+          // menuBackgroundColor: "",
+          // unselectedTextColor: "",
+          // selectedTextColor: "",
+          // displayOnLeftMenu: false,
           pageContent: "",
           summary: "",
         }
       : {
           name: "",
           parentId: 0,
-          displayOnTopMenu: false,
+          // displayOnTopMenu: false,
           displayOnFooter: false,
           redirectPageLabelToURL: "",
-          menuBackgroundColor: "",
-          unselectedTextColor: "",
-          selectedTextColor: "",
-          displayOnLeftMenu: false,
+          // menuBackgroundColor: "",
+          // unselectedTextColor: "",
+          // selectedTextColor: "",
+          // displayOnLeftMenu: false,
           pageContent: "",
           summary: "",
         }
@@ -331,13 +331,13 @@ export default function Pages_details() {
         name: data.name,
         // translations: "",
         parentId: data.parentId,
-        displayOnTopMenu: data.displayOnTopMenu,
+        // displayOnTopMenu: data.displayOnTopMenu,
         displayOnFooter: data.displayOnFooter,
         redirectPageLabelToURL: data.redirectPageLabelToURL,
-        menuBackgroundColor: data.menuBackgroundColor,
-        unselectedTextColor: data.unselectedTextColor,
-        selectedTextColor: data.selectedTextColor,
-        displayOnLeftMenu: data.displayOnLeftMenu,
+        // menuBackgroundColor: data.menuBackgroundColor,
+        // unselectedTextColor: data.unselectedTextColor,
+        // selectedTextColor: data.selectedTextColor,
+        // displayOnLeftMenu: data.displayOnLeftMenu,
         pageContent: data.pageContent,
         summary: data.summary,
       };
@@ -349,13 +349,13 @@ export default function Pages_details() {
           // translations: "",
           id: params.id,
           // parentId: data.parentId,
-          displayOnTopMenu: data.displayOnTopMenu,
+          // displayOnTopMenu: data.displayOnTopMenu,
           displayOnFooter: data.displayOnFooter,
           redirectPageLabelToURL: data.redirectPageLabelToURL,
-          menuBackgroundColor: data.menuBackgroundColor,
-          unselectedTextColor: data.unselectedTextColor,
-          selectedTextColor: data.selectedTextColor,
-          displayOnLeftMenu: data.displayOnLeftMenu,
+          // menuBackgroundColor: data.menuBackgroundColor,
+          // unselectedTextColor: data.unselectedTextColor,
+          // selectedTextColor: data.selectedTextColor,
+          // displayOnLeftMenu: data.displayOnLeftMenu,
           pageContent: data.pageContent,
           summary: data.summary,
         };
@@ -415,7 +415,7 @@ export default function Pages_details() {
                 {isError.name ? (<small className="errorClass">This field is mandatory.</small>) : ''}
                 </div>
               </div>
-              <div className="row mx-2">
+              {/* <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Display on top menu:</div>
                 </div>
@@ -427,7 +427,7 @@ export default function Pages_details() {
                     onClick={(e) => handleToogle(e)}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">
@@ -447,7 +447,7 @@ export default function Pages_details() {
                   {/* )} */}
                 </div>
               </div>
-              <div className="row mx-2">
+              {/* <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Menu background color:</div>
                 </div>
@@ -461,8 +461,8 @@ export default function Pages_details() {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-              <div className="row mx-2">
+              </div> */}
+              {/* <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Unselected text color:</div>
                 </div>
@@ -475,8 +475,8 @@ export default function Pages_details() {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-              <div className="row mx-2">
+              </div> */}
+              {/* <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Selected text color:</div>
                 </div>
@@ -490,7 +490,7 @@ export default function Pages_details() {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Display on footer:</div>
@@ -504,7 +504,7 @@ export default function Pages_details() {
                   />
                 </div>
               </div>
-              <div className="row mx-2">
+              {/* <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Display on left menu:</div>
                 </div>
@@ -516,7 +516,7 @@ export default function Pages_details() {
                     onClick={(e) => handleToogle(e)}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="row mx-2">
                 <div className="col-2">
                   <div className="table_content">Content<span className="errorClass">*</span>:</div>

@@ -80,21 +80,21 @@ let params = useParams()
   };
   const [data, setData] = useState({
     id: 0,
-    defaultCoverPagePdf_FileName: "",
+    // defaultCoverPagePdf_FileName: "",
     lengthOfConfirmationCode: "",
     defaultLogoType: "",
     defaultLogo_FileName: "",
     googleTranslateAPIKey: "",
     purgeRedundantSubmissionData: "",
     runExchangeInIframe: false,
-    defaultRetroactiveStatement: "",
+    // defaultRetroactiveStatement: "",
     underMaintenance: false,
     reSendTokenEmailFeature: false,
     activateNonEmailPINprocess: false,
     blockForeignCharacterInput: false,
     twilioAuthToken: null,
-    twilioAccountSid: null,
-    twilioSMSFromMobileNumber: null,
+    // twilioAccountSid: null,
+    // twilioSMSFromMobileNumber: null,
     
   });
   const [open, setOpen] = useState(false);
@@ -148,21 +148,21 @@ let params = useParams()
       let updateData = {
         // count,ryId: parseInt(params?.id),
         id: params.id,
-        defaultCoverPagePdf_FileName: data?.imageFile,
+        // defaultCoverPagePdf_FileName: data?.imageFile,
         lengthOfConfirmationCode: data?.lengthOfConfirmationCode,
         defaultLogoType: "",
         defaultLogo_FileName: data?.imageFile,
         googleTranslateAPIKey: data?.googleTranslateAPIKey,
         purgeRedundantSubmissionData: data?.purgeRedundantSubmissionData,
         runExchangeInIframe: data?.runExchangeInIframe,
-        defaultRetroactiveStatement: data?.defaultRetroactiveStatement,
+        // defaultRetroactiveStatement: data?.defaultRetroactiveStatement,
         underMaintenance: data?.underMaintenance,
         reSendTokenEmailFeature: data?.reSendTokenEmailFeature ,
         activateNonEmailPINprocess: data?.activateNonEmailPINprocess,
         blockForeignCharacterInput: data?.blockForeignCharacterInput,
         twilioAuthToken: data?.twilioAuthToken,
-        twilioAccountSid: data?.twilioAccountSid,
-        twilioSMSFromMobileNumber: data?.twilioSMSFromMobileNumber,
+        // twilioAccountSid: data?.twilioAccountSid,
+        // twilioSMSFromMobileNumber: data?.twilioSMSFromMobileNumber,
       };
       dispatch(upsertSettings(updateData));
     }
@@ -215,7 +215,7 @@ let params = useParams()
                 </div>
               </div>
             </div> */}
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -226,7 +226,7 @@ let params = useParams()
                   <Input  onChange={(e) => handleImage(e)} className="file-Input-select"type="file" id="myfile" name="myfile" />
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -270,7 +270,47 @@ let params = useParams()
                 </div>
               </div>
             </div>
-            
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Crypto Key:
+                  </div>
+                </div>
+                <div className="col-7">
+                <TextField onChange={handleChange}className="w-50 textFieldClass" fullWidth name="cryptoKey" value={data?.cryptoKey}/>
+                <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="Key used for creating the HMAC signature hash for the form POST" arrow>
+                  <InfoIcon/>
+                </Tooltip>
+                </div>
+              </div>
+            </div>
+            {/* greg */}
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2"> 
+                  Log Incoming Requests:
+                  </div>
+                </div>
+                <div className="col-7">
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
+                </div>
+              </div>
+            </div>
+           {/* fgfbdr */}
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2"> 
+                  Enable Warning Block:
+                  </div>
+                </div>
+                <div className="col-7">
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
+                </div>
+              </div>
+            </div>
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -310,7 +350,7 @@ let params = useParams()
               </div>
             </div>
            
-             <div className="col-12 d-flex">
+             {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -321,7 +361,7 @@ let params = useParams()
                 <TextField onChange={handleChange} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -358,7 +398,7 @@ let params = useParams()
                 </div>
               </div>
             </div>
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -369,7 +409,7 @@ let params = useParams()
                 <Checkbox onChange={handleToogle} defaultChecked={true} className="checkBox"/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -382,7 +422,7 @@ let params = useParams()
                 </div>
               </div>
             </div>
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -393,8 +433,8 @@ let params = useParams()
                 <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAccountSid" value={data?.twilioAccountSid}/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -405,8 +445,8 @@ let params = useParams()
                 <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioSMSFromMobileNumber" value={data?.twilioSMSFromMobileNumber}/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -417,8 +457,8 @@ let params = useParams()
                 <TextField className="w-50 textFieldClass" fullWidth name="name"/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -429,7 +469,7 @@ let params = useParams()
                 <TextField className="w-50 textFieldClass" fullWidth name="name"/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -460,7 +500,7 @@ let params = useParams()
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
-                  <div className="my-auto text w-100" variant="body2">
+                  <div className="my-auto text w-100" variant="body2"> 
                   No Token/PIN process:
                   </div>
                 </div>
@@ -522,6 +562,11 @@ let params = useParams()
             <div className="col-12 d-flex">
               <table class="table table-hover table-striped">
                 <thead>
+                  <TableRow>
+                  <TableCell className="table_header"scope="col" >
+                      Security Questions
+                    </TableCell>
+                  </TableRow>
                   <TableRow>
                     <TableCell className="table_head"scope="col" style={{ fontSize: "20px" }}>
                       Question
@@ -616,9 +661,73 @@ let params = useParams()
                 </TableBody>
               </table>
             </div>
-          
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2" >
+                  API URL
+                  </div>
+                </div>
+                <div className="col-7">
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
+                </div>
+              </div>
+            </div>
+            
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+              <div className="my-auto text w-100">
+                  Agent Headers:
+                  </div>
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Tax forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Dual forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  CRS forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
-         
                   </div>
                   
           <div className="col-12">

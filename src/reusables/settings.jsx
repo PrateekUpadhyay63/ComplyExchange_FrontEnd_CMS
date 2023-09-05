@@ -125,7 +125,7 @@ const DialogEdit = (props) => {
             >
               {
                 <div className="row headingtext ">
-                  {idData ? " Edit Setting" : "Add Setting"}
+                  {idData ? " Edit Setting" : "Edit Security Question"}
                 </div>
               }
               <div className="row">

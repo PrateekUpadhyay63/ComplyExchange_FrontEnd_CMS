@@ -20,6 +20,7 @@ import {
   MenuItem,
   Checkbox,
   Button,
+  Paper,
   Link,
 } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
@@ -672,6 +673,108 @@ let params = useParams()
                 <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
                 </div>
               </div>
+            </div>
+
+
+            <div className="col-12" >
+            
+                <div className="headerText custom_my_2">Request Headers</div>
+
+                <div className=" custom_my_2 mt-4  d-flex">
+                  <div
+                    className="col-5"
+                    style={{ height: "320px" }}
+                  >
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow >
+                          <TableCell
+                            align="left"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head">
+                          Request Header Key
+                          </TableCell>
+                         
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                      
+                              <TableRow >
+                                <TableCell className="text">
+                               
+                                </TableCell>
+                                <TableCell>
+                                  <TextField
+                                  fullWidth
+                                    className="w-100 textFieldClass"
+                                  
+                                    name="key"
+                                   
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <div className="text">
+                                    
+                                   
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                      
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div
+                    className="col-5 "
+                    style={{ height: "320px" }}
+                  >
+                    <div></div>
+
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow>
+                          <TableCell
+                            align="middle"
+                            scope="col"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head" scope="col">
+                          Request Header Value
+                          </TableCell>
+                        
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                       
+                        
+                           
+                              <TableRow>
+                                <TableCell className="text">
+                                
+                                </TableCell>
+                                <TableCell>
+                                  <TextField
+                                    className="w-100 textFieldClass"
+                                    
+                                    name="key"
+                                
+                                   onChange={handleChange}
+                                  />
+                                </TableCell>
+                                <TableCell>
+                                  <div className="text">
+                                   
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                        
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+             
             </div>
             
             <div className="col-12 d-flex">

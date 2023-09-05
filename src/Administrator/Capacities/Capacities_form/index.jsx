@@ -204,14 +204,14 @@ export default function ContentManagement() {
                             
                           {  i?.isProxyMandatory ?( <DoneIcon className="p-0 checkBox"
                            
-                          />):""}</TableCell>
+                          />):<Checkbox/>}</TableCell>
                           <TableCell>{ i?.isCountryOfResidenceRequired ?(<DoneIcon className="p-0 checkBox" name="isCountryOfResidenceRequired"
-                            />):""}</TableCell>
+                            />):<Checkbox/>}</TableCell>
 
 
                           <TableCell>
                             
-                         { i?.isImportant? ( <DoneIcon className="p-0 checkBox" name="isImportant" />):""}
+                         { i?.isImportant? ( <DoneIcon className="p-0 checkBox" name="isImportant" />):<Checkbox/>}
                          
                          </TableCell>
 
@@ -219,29 +219,29 @@ export default function ContentManagement() {
                           <TableCell>
                             
                           {  i?.isUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isUSIndividual"
-                           />):""}
+                           />):<Checkbox/>}
                            
                            </TableCell>
                           <TableCell>
                            { i?.isNonUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isNonUSIndividual"
-                           />):""}
+                           />):<Checkbox/>}
                            </TableCell>
                           <TableCell>
-                           { i?.isUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isUSBusiness"/>):""}
+                           { i?.isUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isUSBusiness"/>):<Checkbox/>}
                           </TableCell>
                           <TableCell>
                            { i?.isNonUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isNonUSBusiness"
                            
-                             />):""}
+                             />):<Checkbox/>}
                              
                              </TableCell>
                           <TableCell>
-                          {i?.isIntermediary ? ( <DoneIcon className="p-0 checkBox" />):"" }
+                          {i?.isIntermediary ? ( <DoneIcon className="p-0 checkBox" />):<Checkbox/> }
                            
 
                            </TableCell>
                           <TableCell>
-                            {i?.isNonUSGovernment ? (<DoneIcon className="p-0 checkBox" />) : ""}
+                            {i?.isNonUSGovernment ? (<DoneIcon className="p-0 checkBox" />) : <Checkbox/>}
                           </TableCell>
                           <TableCell>
                             <div className="actionRow" style={{ display: 'flex' }}>

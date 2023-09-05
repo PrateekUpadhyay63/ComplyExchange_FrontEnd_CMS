@@ -10,6 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from "@mui/icons-material/Edit";
 import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
@@ -175,6 +176,42 @@ export default function PhraseTable() {
                             >
                               Warning
                             </TableCell>
+                            <TableCell
+                              
+                              align="center"
+                              className="table_head tableWidth"
+                            >
+                             Opt Out Disabled
+                            </TableCell>
+                            <TableCell
+                              
+                              align="center"
+                              className="table_head tableWidth"
+                            >
+                              Disable Continue
+                            </TableCell>
+                            <TableCell
+                              
+                              align="center"
+                              className="table_head tableWidth"
+                            >
+                             Suppress Rule Treaty Country
+                            </TableCell>
+                            <TableCell
+                              
+                              align="center"
+                              className="table_head tableWidth"
+                            >
+                              Suppress Rule Non Treaty Country
+                            </TableCell>
+                            <TableCell
+                              
+                              align="center"
+                              className="table_head tableWidth"
+                            >
+                              Suppress Rule IGA in Place
+                            </TableCell>
+                           
 
                             <TableCell
                               
@@ -235,11 +272,10 @@ export default function PhraseTable() {
                               </TableCell>
 
                               <TableCell  align="center">
-                                <Checkbox
-                                  type="Checkbox"
-                                  checked={row.disableRule}
+                               {row?.disableRule ?(<DoneIcon
+                                  
                                   className="checkBox tableWidth"
-                                />
+                                />): <Checkbox/>}
                               </TableCell>
                               <TableCell
                                style={{width:'130px'}}
@@ -261,6 +297,66 @@ export default function PhraseTable() {
                                   Select Languages
                                 </span>
                               </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                                <span
+                                  className="addSubpage"
+                                 
+                                >
+                                  Select Languages
+                                </span>
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                                <span
+                                  className="addSubpage"
+                                 
+                                >
+                                  Select Languages
+                                </span>
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                                <span
+                                  className="addSubpage"
+                                 
+                                >
+                                  Select Languages
+                                </span>
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                                <span
+                                  className="addSubpage"
+                                  
+                                >
+                                  Select Languages
+                                </span>
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                                <span
+                                  className="addSubpage"
+                                  
+                                >
+                                  Select Languages
+                                </span>
+                              </TableCell>
 
                               <TableCell colSpan={2} align="right" className="actionRow tableWidth">
                                 <EditIcon
@@ -270,17 +366,7 @@ export default function PhraseTable() {
                                   style={{ color: "green", fontSize: "20px" }}
                                 />
 
-                                {/* <DeleteIcon
-                                  style={{
-                                    color: "red",
-                                    fontSize: "20px",
-                                    marginLeft: "5px",
-                                  }}
-                                  onClick={() => {
-                                    setOpen(true);
-                                    setIdData(row.id);
-                                  }}
-                                /> */}
+                               
                               </TableCell>
                             </TableRow>
                           ))}

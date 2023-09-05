@@ -21,6 +21,8 @@ import {
   getAllFormInstructions,
   deleteFormInstruction,
 } from "../../../redux/Actions";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -170,6 +172,9 @@ export default function ContentManagement() {
                         <TableCell align="center" className="table_head">
                           Actions
                         </TableCell>
+                         <TableCell align="right" className="table_head">
+                          Order
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -218,6 +223,40 @@ export default function ContentManagement() {
                               />
                             </div>
                           </TableCell>
+  <TableCell
+                              className="table_content actionRow tableRow"
+                              align="right"
+                            
+                            >
+                              {row.action}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent:"flex-end",
+                                  flexDirection:"row",
+                                  flexWrap:"wrap-reverse"
+                                 
+                                }}
+                              >
+                                <KeyboardDoubleArrowUpRoundedIcon
+                                  style={{  fontSize: "20px" }}
+                                  
+                                />
+
+                                <KeyboardDoubleArrowDownIcon
+                                  style={{
+                                   
+                                    fontSize: "20px",
+                                    marginLeft: "5px",
+                                  }}
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setIdData(row.id);
+                                  }}
+                                />
+                              </div>
+                            </TableCell>
+
                         </TableRow>
                       ))}
                     </TableBody>
@@ -225,11 +264,12 @@ export default function ContentManagement() {
                 </div>
               </Paper>
               <div style={{ display: "flex" }}>
+             
                 <div className="table_content mt-2">Display on left menu:</div>
-                <span>
-                  {" "}
+               
+                 
                   <Checkbox type="checkbox" size="small" />
-                </span>
+               
               </div>
             </div>
             <div className="actionBtn">

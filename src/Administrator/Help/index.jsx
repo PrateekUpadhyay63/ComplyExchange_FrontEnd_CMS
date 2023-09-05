@@ -188,12 +188,8 @@ const [arr,setArr]=useState()
             <div className="row d-flex">
                 <div className="col-2">
                   <div
-                   
-                    
                     className="table_content mt-3"
                   >
-                 
-
                   Enable Video Tab:
                   </div>
                 </div>
@@ -205,11 +201,9 @@ const [arr,setArr]=useState()
               {arr?.map((row, ind) =>{
                 // console.log("roww1",row);
           return  (    
-          
           <div className="row">
                 <div className="col-2" >
                   <div
-                  
                     className="table_content"
                   >
                     {row.pageName}:
@@ -217,12 +211,11 @@ const [arr,setArr]=useState()
                 </div>
                 <div className="col-10">
                   <div
-                   
                     className="table_content"
                   ></div>
 
                   <TextField
-                  className="table_content"
+                  className=" table_content "
                     size="small"
                     name={row.pageName}
                     value={data[row?.pageName]}

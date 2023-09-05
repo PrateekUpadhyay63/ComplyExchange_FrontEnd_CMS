@@ -564,7 +564,7 @@ const arr=[1,2,3,4,5]
               <table class="table table-hover table-striped">
                 <thead>
                   <TableRow>
-                  <TableCell className="table_header"scope="col" >
+                  <TableCell className="table_header"scope="col"  style={{backgroundColor:"white"}}>
                       Security Questions
                     </TableCell>
                   </TableRow>
@@ -666,7 +666,7 @@ const arr=[1,2,3,4,5]
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2" >
-                  API URL :
+                  API URL:
                   </div>
                 </div>
                 <div className="col-7">

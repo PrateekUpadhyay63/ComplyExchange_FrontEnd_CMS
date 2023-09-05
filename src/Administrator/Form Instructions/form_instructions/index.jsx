@@ -223,7 +223,7 @@ export default function ContentManagement() {
                               />
                             </div>
                           </TableCell>
-  <TableCell
+                          <TableCell
                               className="table_content actionRow tableRow"
                               align="right"
                             
@@ -263,14 +263,27 @@ export default function ContentManagement() {
                   </table>
                 </div>
               </Paper>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex"  }}>
              
-                <div className="table_content mt-2">Display on left menu:</div>
+                <div className="table_content mt-2">Check to show Instructions tab in eForms:</div>
                
                  
                   <Checkbox type="checkbox" size="small" />
                
               </div>
+              {tableData?.formInstructionData?.totalPages > 1 ? (
+            <Stack style={{ marginTop: "10px" }} spacing={2}>
+              <Pagination
+               variant="outlined"
+               shape="rounded"
+               color="primary"
+                count={tableData?.formInstructionData?.totalPages}
+                onChange={(e, value) => setPage(value)}
+              />
+            </Stack>
+          ) : (
+            ""
+          )}
             </div>
             <div className="actionBtn">
               <Button
@@ -286,24 +299,12 @@ export default function ContentManagement() {
               >
                 Add Form Instruction
               </Button>
-              {/* <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }}>
-                Save
-              </Button> */}
+            
+               
             </div>
+      
           </div>
-          {tableData?.formInstructionData?.totalPages > 1 ? (
-            <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-               variant="outlined"
-               shape="rounded"
-               color="primary"
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack>
-          ) : (
-            ""
-          )}
+       
         </div>
       </div>
 

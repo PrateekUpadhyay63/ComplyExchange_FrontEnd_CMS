@@ -186,9 +186,9 @@ const Pages = ({ match }) => {
                       <TableHead>
                         <TableRow>
                           <TableCell className="table_head">Name</TableCell>
-                          <TableCell align="center" className="table_head">
+                          {/* <TableCell align="center" className="table_head">
                             Sub Pages
-                          </TableCell>
+                          </TableCell> */}
 
                           <TableCell align="center" className="table_head">
                             Translations
@@ -219,7 +219,7 @@ const Pages = ({ match }) => {
                               {row.name}
                             </TableCell>
 
-                            <TableCell align="center" className="table_content tableRow">
+                            {/* <TableCell align="center" className="table_content tableRow">
                               {row?.subpageCount ? row?.subpageCount : "No"} sub
                               page{" "}
                               <span
@@ -232,7 +232,7 @@ const Pages = ({ match }) => {
                               >
                                 Add Sub Page
                               </span>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell
                               align="center"
                               className="table_content tableRow"

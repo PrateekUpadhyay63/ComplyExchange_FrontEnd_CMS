@@ -61,7 +61,7 @@ export default function Settings() {
 const dispatch=useDispatch();
 const history = useHistory();
 let params = useParams()
-
+const arr=[1,2,3,4,5]
   const [submit , setSubmit] = useState("1");
   const tableData = useSelector((state) => state.getSettingsQuestionsReducer);
   const settingsData = useSelector((state) => state.getSettingsReducer);
@@ -666,11 +666,11 @@ let params = useParams()
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2" >
-                  API URL
+                  API URL :
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
+                <TextField onChange={handleChange} className="w-100 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
                 </div>
               </div>
             </div>
@@ -678,9 +678,9 @@ let params = useParams()
 
             <div className="col-12" >
             
-                <div className="headerText custom_my_2">Request Headers</div>
+                <div style={{fontSize:"13px",color:"black"}} className="headerText custom_my_2">Request Headers:</div>
 
-                <div className=" custom_my_2 mt-4  d-flex">
+                <div className=" custom_my_2 mt-2  d-flex">
                   <div
                     className="col-5"
                     style={{ height: "320px" }}
@@ -700,26 +700,26 @@ let params = useParams()
                       </thead>
                       <tbody>
                       
+                            {arr.map((i,ind)=>
+                            {return(
                               <TableRow >
                                 <TableCell className="text">
-                               
+                               {ind+1}
                                 </TableCell>
                                 <TableCell>
+                                  
                                   <TextField
                                   fullWidth
-                                    className="w-100 textFieldClass"
-                                  
+                                    
+                                 
                                     name="key"
                                    
                                   />
-                                </TableCell>
-                                <TableCell>
-                                  <div className="text">
-                                    
                                    
-                                  </div>
                                 </TableCell>
+                               
                               </TableRow>
+                            )})  }
                       
                       </tbody>
                     </table>
@@ -729,7 +729,7 @@ let params = useParams()
                     className="col-5 "
                     style={{ height: "320px" }}
                   >
-                    <div></div>
+                  
 
                     <table class="table table-hover">
                       <thead>
@@ -749,25 +749,27 @@ let params = useParams()
                        
                         
                            
-                              <TableRow>
+                      {arr.map((i,ind)=>
+                            {return(
+                              <TableRow >
                                 <TableCell className="text">
-                                
+                              
                                 </TableCell>
                                 <TableCell>
+                                  
                                   <TextField
-                                    className="w-100 textFieldClass"
+                                  fullWidth
                                     
-                                    name="key"
                                 
-                                   onChange={handleChange}
-                                  />
-                                </TableCell>
-                                <TableCell>
-                                  <div className="text">
+                                    name="key"
                                    
-                                  </div>
+                                  />
+                                    
+                           
                                 </TableCell>
+                               
                               </TableRow>
+                            )})  }
                         
                         
                       </tbody>

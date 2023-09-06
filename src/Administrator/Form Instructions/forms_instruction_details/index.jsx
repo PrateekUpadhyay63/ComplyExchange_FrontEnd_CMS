@@ -124,7 +124,6 @@ export default function Language_details() {
                     className="table_content"
                   >
                     URL:
-
                   </Typography>
                 </div>
                 <div className="col-9">
@@ -135,13 +134,10 @@ export default function Language_details() {
                     onChange={handleChange}
                     isRequired="true"
                     required
-                   
                   />
                 </div>
               </div>
-           
             </div>
-
             <div className="actionBtn">
               <Button
               

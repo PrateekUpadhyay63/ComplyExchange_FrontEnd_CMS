@@ -1,10 +1,10 @@
 export const MainNav = [
 
-  {
-    icon: "pe-7s-note",
-    label: "Content Block",
-    to: "#/content",
-  },
+  // {
+  //   icon: "pe-7s-note",
+  //   label: "Content Block",
+  //   to: "#/content",
+  // },
   {
     icon: "pe-7s-users",
     label: "Agent",
@@ -81,11 +81,11 @@ export const MainNav = [
     label: "Token Sent",
     to: "#/tokens",
   },
-  {
-    icon: "pe-7s-help2",
-    label: "Glossaries",
-    to: "#/glossaries",
-  },
+  // {
+  //   icon: "pe-7s-help2",
+  //   label: "Glossaries",
+  //   to: "#/glossaries",
+  // },
   {
     icon: "pe-7s-safe",
     label: "Countries",

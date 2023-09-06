@@ -146,13 +146,13 @@ const DialogEdit = props => {
                   />
                 </div>
               </div>
-              {/* <div className="row">
+              <div className="row">
                 <div className="col-3 table_text">
                   <div
                    
                     className='table_text'
                   >
-                    Confirm Password:
+                    Confirm Password:<span style={{color:"red"}}>*</span>
 
                   </div>
                 </div>
@@ -168,7 +168,7 @@ const DialogEdit = props => {
                    
                   />
                 </div>
-              </div> */}
+              </div>
            
            
 

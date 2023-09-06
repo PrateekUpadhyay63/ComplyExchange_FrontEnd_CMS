@@ -21,6 +21,8 @@ import {
   getAllFormInstructions,
   deleteFormInstruction,
 } from "../../../redux/Actions";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -170,6 +172,9 @@ export default function ContentManagement() {
                         <TableCell align="center" className="table_head">
                           Actions
                         </TableCell>
+                         <TableCell align="right" className="table_head">
+                          Order
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -218,19 +223,67 @@ export default function ContentManagement() {
                               />
                             </div>
                           </TableCell>
+                          <TableCell
+                              className="table_content actionRow tableRow"
+                              align="right"
+                            
+                            >
+                              {row.action}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent:"flex-end",
+                                  flexDirection:"row",
+                                  flexWrap:"wrap-reverse"
+                                 
+                                }}
+                              >
+                                <KeyboardDoubleArrowUpRoundedIcon
+                                  style={{  fontSize: "20px" }}
+                                  
+                                />
+
+                                <KeyboardDoubleArrowDownIcon
+                                  style={{
+                                   
+                                    fontSize: "20px",
+                                    marginLeft: "5px",
+                                  }}
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setIdData(row.id);
+                                  }}
+                                />
+                              </div>
+                            </TableCell>
+
                         </TableRow>
                       ))}
                     </TableBody>
                   </table>
                 </div>
               </Paper>
-              <div style={{ display: "flex" }}>
-                <div className="table_content mt-2">Display on left menu:</div>
-                <span>
-                  {" "}
+              <div style={{ display: "flex"  }}>
+             
+                <div className="table_content mt-2">Check to show Instructions tab in eForms:</div>
+               
+                 
                   <Checkbox type="checkbox" size="small" />
-                </span>
+               
               </div>
+              {tableData?.formInstructionData?.totalPages > 1 ? (
+            <Stack style={{ marginTop: "10px" }} spacing={2}>
+              <Pagination
+               variant="outlined"
+               shape="rounded"
+               color="primary"
+                count={tableData?.formInstructionData?.totalPages}
+                onChange={(e, value) => setPage(value)}
+              />
+            </Stack>
+          ) : (
+            ""
+          )}
             </div>
             <div className="actionBtn">
               <Button
@@ -246,24 +299,12 @@ export default function ContentManagement() {
               >
                 Add Form Instruction
               </Button>
-              {/* <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }}>
-                Save
-              </Button> */}
+            
+               
             </div>
+      
           </div>
-          {tableData?.formInstructionData?.totalPages > 1 ? (
-            <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-               variant="outlined"
-               shape="rounded"
-               color="primary"
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack>
-          ) : (
-            ""
-          )}
+       
         </div>
       </div>
 

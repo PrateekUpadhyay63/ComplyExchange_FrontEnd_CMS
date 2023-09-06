@@ -267,7 +267,7 @@ export default function Language_details() {
                       </div>
                       </div>
 
-                      {/* <div className="row">
+                <div className="row">
                 <div className="col-3">
                   <div
                  
@@ -294,6 +294,7 @@ export default function Language_details() {
                  <Checkbox/>
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-3">
                   <div
@@ -307,6 +308,7 @@ export default function Language_details() {
                  <Checkbox/>
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-3">
                   <div
@@ -319,7 +321,8 @@ export default function Language_details() {
                 <div className="col-9">
                  <Checkbox/>
                 </div>
-              </div> */}
+              </div>
+
                       <div className="row">
                         <div className="col-3">
                           <div
@@ -339,10 +342,11 @@ export default function Language_details() {
                           />
                         </div>
                       </div>
+
                       <div className="row">
                         <div className="col-3">
                           <div
-                            variant="body2"
+                            
                            className="table_content"
                           >
                             Disable Rule:

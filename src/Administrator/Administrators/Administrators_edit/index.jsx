@@ -180,7 +180,26 @@ export default function Countries_details() {
                     </div>):
                     ""
                     }
-                    <div className="row">
+                     {!params.id ? ( <div className="row">
+                      <div className="col-2">
+                        <div className="table_content">Confirm Password:<span style={{color:"red"}}>*</span></div>
+                      </div>
+                      <div className="col-10">
+                        <div className="table_content"></div>
+
+                        <TextField
+                          className="table_content"
+                          size="small"
+                          name="password"
+                          value={data?.password}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+                    </div>):
+                    ""
+                    }
+                    {/* <div className="row">
                       <div className="col-2">
                         <div className="table_content">
                           Enable MFA (Multi Factor Authentication) - Email:
@@ -210,7 +229,7 @@ export default function Countries_details() {
                           checked={data?.enableMFA_SMS}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="row">
                       <div className="col-2">
                         <div className="table_content">Country Code:</div>

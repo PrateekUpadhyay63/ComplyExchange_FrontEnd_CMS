@@ -2730,7 +2730,7 @@ function UserManagement ({ match }) {
                             ECI Mandatory Information
                           </div>
                         </div>
-                        <div className='d-flex '>
+                        {/* <div className='d-flex '>
                           <Checkbox
                             className='p-0'
                             name='usSourcedIncomeDeclarationOptional'
@@ -2744,7 +2744,7 @@ function UserManagement ({ match }) {
                           >
                             US Sourced Income Declaration (optional)
                           </div>
-                        </div>
+                        </div> */}
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'

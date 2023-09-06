@@ -272,7 +272,7 @@ export default function PhraseTable() {
                               </TableCell>
 
                               <TableCell  align="center">
-                               {row?.disableRule ?(<DoneIcon
+                               {row?.disableRule ?(<DoneIcon style={{fontSize:"40px"}}
                                   
                                   className="checkBox tableWidth"
                                 />): <Checkbox/>}

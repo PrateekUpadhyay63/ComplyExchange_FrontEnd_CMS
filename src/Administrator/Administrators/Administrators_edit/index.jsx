@@ -9,6 +9,7 @@ import {
   CardContent,
   CardActions,
   Card,
+  FormHelperText,
   Divider,
   div,
   Select,
@@ -34,6 +35,9 @@ export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history = useHistory();
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const formData = useSelector((state) => state.getUserByIdReducer);
   const [data, setData] = useState({
     
@@ -82,6 +86,34 @@ export default function Countries_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!data.email) {
+      setEmailError("This field is required");
+      return; 
+    }
+    if (!data.password) {
+      setPasswordError("This field is required");
+      return; 
+    }
+   
+    if (!data.confirmPassword) {
+      setConfirmPasswordError("This field is required");
+      return; 
+    }
+
+    if (data.password !== data.confirmPassword) {
+      setConfirmPasswordError("Passwords doesn't match");
+      return; 
+    } else {
+      setConfirmPasswordError("");
+    }
+   
+
+   
+    setEmailError("");
+    
+    setPasswordError("");
+    setConfirmPasswordError("");
+    
     if (params.id) {
       let updateData = {
         id: params?.id,
@@ -97,8 +129,10 @@ export default function Countries_details() {
     } else {
       dispatch(signupAction(data));
     }
+    
     history.push("/administrators");
   };
+  
 
   const handleToogle = (e) => {
     setData({ ...data, [e.target.name]: e.target.checked });
@@ -106,6 +140,27 @@ export default function Countries_details() {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+
+   
+    if (e.target.name === "email" && e.target.value === "") {
+      setEmailError("This field is required");
+    } else {
+      setEmailError(""); 
+    }
+    if (e.target.name === "password" && e.target.value === "") {
+      setPasswordError("This field is required");
+    } else {
+      setPasswordError(""); 
+    }
+    
+    if (e.target.name === "confirmPassword" && e.target.value === "") {
+      setConfirmPasswordError("This field is required");
+    } else {
+      setConfirmPasswordError(""); 
+    }
+
+    
+   
   };
 
   return (
@@ -158,7 +213,9 @@ export default function Countries_details() {
                           value={data?.email}
                           onChange={handleChange}
                           required
-                        />
+                          error={!!emailError} 
+                          />
+                          <FormHelperText error={!!emailError}>{emailError}</FormHelperText>
                       </div>
                     </div>
                     {!params.id ? ( <div className="row">
@@ -169,13 +226,18 @@ export default function Countries_details() {
                         <div className="table_content"></div>
 
                         <TextField
+                        type="password"
                           className="table_content"
                           size="small"
                           name="password"
                           value={data?.password}
                           onChange={handleChange}
                           required
+                          error={!!passwordError}
                         />
+                         <FormHelperText error={!!passwordError}>
+          {passwordError}
+        </FormHelperText>
                       </div>
                     </div>):
                     ""
@@ -188,13 +250,18 @@ export default function Countries_details() {
                         <div className="table_content"></div>
 
                         <TextField
+                         type="password"
                           className="table_content"
                           size="small"
-                          name="password"
-                          value={data?.password}
+                          name="confirmPassword"
+                          value={data?.confirmPassword}
                           onChange={handleChange}
                           required
-                        />
+                          error={!!confirmPasswordError} // Set error prop to display the error message
+                          />
+                          <FormHelperText error={!!confirmPasswordError}>
+                            {confirmPasswordError}
+                          </FormHelperText>
                       </div>
                     </div>):
                     ""

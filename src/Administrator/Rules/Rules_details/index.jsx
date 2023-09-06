@@ -268,63 +268,63 @@ export default function Language_details() {
                       </div>
 
                 <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                   <div
                  
-                    sx={{fontWeight: 100, color: "black", fontSize: "13px",marginTop:'10px' }}
+                 className="table_content"
                   >
                 Exclude from "Opt out" process:
                   </div>
                 </div>
-                <div className="col-9">
+                <div className="col-8">
                  <Checkbox/>
                 </div>
               </div>
               
               <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                   <div
                  
-                    sx={{ fontWeight: 100, color: "black", fontSize: "13px",marginTop:'10px' }}
+                 className="table_content"
                   >
                 Suppress if Treaty Country suppression activated in Agent screen:
                   </div>
                 </div>
-                <div className="col-9">
+                <div className="col-8">
                  <Checkbox/>
                 </div>
               </div>
 
               <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                   <div
-                 
-                    sx={{fontWeight: 100, color: "black", fontSize: "13px",marginTop:'10px' }}
+                 className="table_content"
+                   
                   >
         Suppress if Non Treaty Country suppression activated in Agent screen:
                   </div>
                 </div>
-                <div className="col-9">
+                <div className="col-8">
                  <Checkbox/>
                 </div>
               </div>
 
               <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                   <div
-                 
-                    sx={{ fontWeight: 100, color: "black", fontSize: "13px",marginTop:'10px' }}
+                 className="table_content"
+                    
                   >
             Suppress if IGA Process suppression activated in Agent screen:
                   </div>
                 </div>
-                <div className="col-9">
+                <div className="col-8">
                  <Checkbox/>
                 </div>
               </div>
 
                       <div className="row">
-                        <div className="col-3">
+                        <div className="col-4">
                           <div
                          
                             className="table_content"
@@ -333,30 +333,30 @@ export default function Language_details() {
                             button disabled):
                           </div>
                         </div>
-                        <div className="col-9">
+                        <div className="col-8">
                           <Checkbox
                             name="isNotAllowedSubmissionToContinue"
                             onClick={(e) => handleToogle(e)}
-                            className="p-0 checkBox"
+                            className=" checkBox"
                             checked={data.isNotAllowedSubmissionToContinue}
                           />
                         </div>
                       </div>
 
-                      <div className="row">
-                        <div className="col-3">
+                      <div className="row ">
+                        <div className="col-4">
                           <div
                             
-                           className="table_content"
+                           className="table_content mt-2"
                           >
                             Disable Rule:
                           </div>
                         </div>
-                        <div className="col-9">
+                        <div className="col-8">
                           <Checkbox
                             name="disableRule"
                             onClick={(e) => handleToogle(e)}
-                            className="p-0 checkBox"
+                            className=" checkBox"
                             checked={data.disableRule}
                           />
                         </div>

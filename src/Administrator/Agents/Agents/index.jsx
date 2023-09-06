@@ -13,10 +13,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 import { Fragment } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import {Delete,ContentCopy,Edit} from "@mui/icons-material";
 import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AppFooter from "../../../Layout/AppFooter/";
@@ -50,6 +50,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DialogTransition from "../../../reusables/deleteDialog";
 import Transition from "../../../reusables/languagesModal";
+import AgentCopyDialog from "../../../reusables/copyAgent";
 
 import {
   getAllAgents,
@@ -65,6 +66,7 @@ function AgentsTable() {
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [idData, setIdData] = useState(0);
+  const [idData2, setIdData2] = useState(0);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
@@ -75,8 +77,15 @@ function AgentsTable() {
     setOpen1(false);
     setRowId({});
   };
+  const [open2, setOpen2] = useState(false);
+  const handleClickOpen2 = () => setOpen2(true);
+  const handleClose2 = () => {
+    setOpen2(false);
+    setRowId2({});
+  };
   const [dropDownData, setDropDownData] = useState([]);
   const [rowId, setRowId] = useState({});
+  const [rowId2, setRowId2] = useState({});
 
   const tableData = useSelector((state) => state.getAllAgentsReducer);
   const languageData = useSelector((state) => state.LanguagesReducer);
@@ -186,12 +195,11 @@ function AgentsTable() {
                           <TableCell align="center" className="table_head">
                             Configure Agents
                           </TableCell>
-                          <TableCell align="center" className="table_head">
+                          {/* <TableCell align="center" className="table_head">
                             <div style={{ minWidth: "6rem" }}>
                               Store CDF on the fly
                             </div>
-                          </TableCell>
-
+                          </TableCell> */}
                           <TableCell align="right" className="table_head">
                             Actions
                           </TableCell>
@@ -286,17 +294,27 @@ function AgentsTable() {
                                 </div>
                               </TableCell>
 
-                              <TableCell align="center">
+                              {/* <TableCell align="center">
                                 <span>
                                   <Checkbox type="checkbox" />
                                 </span>
-                              </TableCell>
+                              </TableCell> */}
                               <TableCell align="right" colSpan={2}>
                                 <div
                                   className="actionRow"
                                   style={{ display: "flex" ,justifyContent:'flex-end' }}
                                 >
-                                  <EditIcon
+                                    <ContentCopy
+                                    style={{
+                                      color: "black",
+                                      fontSize: "20px",
+                                    }}
+                                        onClick={() => {
+                                          setOpen2(true);
+                                          setIdData2(row.id);
+                                        }}
+                                  /> 
+                                  <Edit
                                     style={{
                                       color: "green",
                                       fontSize: "20px",
@@ -306,7 +324,7 @@ function AgentsTable() {
                                     }}
                                   />
 
-                                  <DeleteIcon
+                                  <Delete
                                     onClick={() => {
                                       setOpen(true);
                                       setIdData(row.id);
@@ -373,6 +391,13 @@ function AgentsTable() {
         deleteApi={deleteAgents}
         getAllApi={getAllAgents}
       />
+      <AgentCopyDialog
+       open={open2}
+       rowId={rowId2}   
+       setOpen={setOpen2}
+       handleClickOpen={handleClickOpen2}
+       handleClose={handleClose2}
+       />
     </Fragment>
   );
 }

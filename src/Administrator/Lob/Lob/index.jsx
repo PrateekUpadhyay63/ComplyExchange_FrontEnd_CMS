@@ -140,8 +140,9 @@ e.preventDefault();
                           <TableCell style={{fontWeight:'450'}}  className="table_content" >{idName(i.chapter3StatusId)}</TableCell>
                           <TableCell>
                             {i?.isCorporation ? (<DoneIcon
-                              name="isCorporation"
-                              onClick={(e) => handleToogle(e)}
+                            style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
+                              
+                             
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isCorporation
@@ -154,6 +155,7 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isDisregardedEntity ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isDisregardedEntity"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
@@ -168,8 +170,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isPartnership ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isPartnership"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isPartnership
@@ -181,8 +184,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isSimpleTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isSimpleTrust"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isSimpleTableRowust
@@ -194,8 +198,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isGrantorTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isGrantorTrust"
-                              onClick={(e) => handleToogle(e)}
+                            
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isGrantorTableRowust
@@ -207,8 +212,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isComplexTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isComplexTrust"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isComplexTableRowust
@@ -221,8 +227,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isEstate ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isEstate"
-                              onClick={(e) => handleToogle(e)}
+                           
                               className="p-0 checkBox"
                               // checked={i.isEstate }
                                 // i.isEstate : data.isEstate}
@@ -231,8 +238,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isGovernment ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isGovernment"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isGovernment
@@ -245,8 +253,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isCentralBankofIssue ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isCentralBankofIssue"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isCenTableRowalBankofIssue
@@ -259,8 +268,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isTaxExemptOrganization ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isTaxExemptOrganization"
-                              onClick={(e) => handleToogle(e)}
+                            
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isTaxExemptOrganization
@@ -273,8 +283,9 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isPrivateFoundation ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isPrivateFoundation"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
                               // checked={
                               //   // i.isPrivateFoundation
@@ -286,14 +297,11 @@ e.preventDefault();
                           </TableCell>
                           <TableCell>
                           {i?.isInternationalOrganization ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isInternationalOrganization"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
-                              checked={
-                                // i.isInternationalOrganization
-                                  i.isInternationalOrganization
-                                  // : data.isInternationalOrganization
-                              }
+                              
                             />):<Checkbox
                             disabled/>}
                           </TableCell>

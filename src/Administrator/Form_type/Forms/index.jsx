@@ -56,8 +56,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { Check, CheckBox } from "@mui/icons-material";
-
+import { Check } from "@mui/icons-material";
+import DoneIcon from '@mui/icons-material/Done';
 export default function FormTypeTable() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -210,10 +210,11 @@ export default function FormTypeTable() {
                                   {row.name}
                                 </TableCell>
                                 <TableCell>
-                                  <CheckBox
+                                 {row?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): <Checkbox
                                     className="checkBox"
-                                    checked={row?.isDisabled}
-                                  />
+                                   
+
+                                  />}
                                 </TableCell>
                                 <TableCell
                                   align="center"
@@ -321,10 +322,11 @@ export default function FormTypeTable() {
                                   {rows1.displayName}
                                 </TableCell>
                                 <TableCell className="table_content">
-                                  <CheckBox
+                                {rows1?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): <Checkbox
                                     className="checkBox"
-                                    checked={rows1?.isDisabled}
-                                  />
+                                   
+
+                                  />}
                                 </TableCell>
                                 <TableCell
                                   align="center"

@@ -128,7 +128,7 @@ const AgentCopyDialog = (props) => {
             >
               {
                 <div className="row headingtext ">
-                  {idData ? " Edit Form Instruction" : "Add Form Instruction"}
+                  {idData ? " Edit Copy Agent" : "Copy Agent"}
                 </div>
               }
               <div className="row">

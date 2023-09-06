@@ -307,7 +307,7 @@ function AgentsTable() {
                                     <ContentCopy
                                     style={{
                                       color: "black",
-                                      fontSize: "20px",
+                                      fontSize: "17px",
                                     }}
                                         onClick={() => {
                                           setOpen2(true);
@@ -318,6 +318,7 @@ function AgentsTable() {
                                     style={{
                                       color: "green",
                                       fontSize: "20px",
+                                      marginLeft: "5px",
                                     }}
                                     onClick={() => {
                                       history.push(`agent_details/${row.id}`);

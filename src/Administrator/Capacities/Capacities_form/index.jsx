@@ -202,46 +202,46 @@ export default function ContentManagement() {
                           <TableCell style={{ fontWeight: '500' }} className="table_content" scope="row">{i.name}</TableCell>
                           <TableCell>
                             
-                          {  i?.isProxyMandatory ?( <DoneIcon className="p-0 checkBox"
+                          {  i?.isProxyMandatory ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox"
                            
                           />):<Checkbox/>}</TableCell>
-                          <TableCell>{ i?.isCountryOfResidenceRequired ?(<DoneIcon className="p-0 checkBox" name="isCountryOfResidenceRequired"
+                          <TableCell>{ i?.isCountryOfResidenceRequired ?(<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isCountryOfResidenceRequired"
                             />):<Checkbox/>}</TableCell>
 
 
                           <TableCell>
                             
-                         { i?.isImportant? ( <DoneIcon className="p-0 checkBox" name="isImportant" />):<Checkbox/>}
+                         { i?.isImportant? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isImportant" />):<Checkbox/>}
                          
                          </TableCell>
 
 
                           <TableCell>
                             
-                          {  i?.isUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isUSIndividual"
+                          {  i?.isUSIndividual ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isUSIndividual"
                            />):<Checkbox/>}
                            
                            </TableCell>
                           <TableCell>
-                           { i?.isNonUSIndividual ?( <DoneIcon className="p-0 checkBox" name="isNonUSIndividual"
+                           { i?.isNonUSIndividual ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isNonUSIndividual"
                            />):<Checkbox/>}
                            </TableCell>
                           <TableCell>
-                           { i?.isUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isUSBusiness"/>):<Checkbox/>}
+                           { i?.isUSBusiness ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isUSBusiness"/>):<Checkbox/>}
                           </TableCell>
                           <TableCell>
-                           { i?.isNonUSBusiness ? (<DoneIcon className="p-0 checkBox" name="isNonUSBusiness"
+                           { i?.isNonUSBusiness ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}} className="p-0 checkBox" name="isNonUSBusiness"
                            
                              />):<Checkbox/>}
                              
                              </TableCell>
                           <TableCell>
-                          {i?.isIntermediary ? ( <DoneIcon className="p-0 checkBox" />):<Checkbox/> }
+                          {i?.isIntermediary ? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" />):<Checkbox/> }
                            
 
                            </TableCell>
                           <TableCell>
-                            {i?.isNonUSGovernment ? (<DoneIcon className="p-0 checkBox" />) : <Checkbox/>}
+                            {i?.isNonUSGovernment ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}} className="p-0 checkBox" />) : <Checkbox/>}
                           </TableCell>
                           <TableCell>
                             <div className="actionRow" style={{ display: 'flex' }}>

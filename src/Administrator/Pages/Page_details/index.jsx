@@ -407,7 +407,7 @@ export default function Pages_details() {
                   <TextField
                     className="textFieldClass"
                     fullWidth
-                    required
+                    
                     name="name"
                     value={data?.name}
                     onChange={handleChange}
@@ -524,7 +524,7 @@ export default function Pages_details() {
                 <div className="col-10 editor-div">
                   <div>
                     <Editor
-                      required
+                      
                       wrapperClassName="wrapper-class"
                       editorClassName="editor-class"
                       toolbarClassName="toolbar-class"
@@ -568,7 +568,7 @@ export default function Pages_details() {
                 <div className="col-10 editor-div">
                   <div>
                     <Editor
-                      required
+                      
                       wrapperClassName="wrapper-class"
                       editorClassName="editor-class"
                       toolbarClassName="toolbar-class"

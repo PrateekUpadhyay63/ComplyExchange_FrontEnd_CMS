@@ -20,6 +20,7 @@ import {
   MenuItem,
   Checkbox,
   Button,
+  Paper,
   Link,
 } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
@@ -60,7 +61,7 @@ export default function Settings() {
 const dispatch=useDispatch();
 const history = useHistory();
 let params = useParams()
-
+const arr=[1,2,3,4,5]
   const [submit , setSubmit] = useState("1");
   const tableData = useSelector((state) => state.getSettingsQuestionsReducer);
   const settingsData = useSelector((state) => state.getSettingsReducer);
@@ -563,7 +564,7 @@ let params = useParams()
               <table class="table table-hover table-striped">
                 <thead>
                   <TableRow>
-                  <TableCell className="table_header"scope="col" >
+                  <TableCell className="table_header"scope="col"  style={{backgroundColor:"white"}}>
                       Security Questions
                     </TableCell>
                   </TableRow>
@@ -665,13 +666,117 @@ let params = useParams()
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2" >
-                  API URL
+                  API URL:
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
+                <TextField onChange={handleChange} className="w-100 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
                 </div>
               </div>
+            </div>
+
+
+            <div className="col-12" >
+            
+                <div style={{fontSize:"13px",color:"black"}} className="headerText custom_my_2">Request Headers:</div>
+
+                <div className=" custom_my_2 mt-2  d-flex">
+                  <div
+                    className="col-5"
+                    style={{ height: "320px" }}
+                  >
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow >
+                          <TableCell
+                            align="left"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head">
+                          Request Header Key
+                          </TableCell>
+                         
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                      
+                            {arr.map((i,ind)=>
+                            {return(
+                              <TableRow >
+                                <TableCell className="text">
+                               {ind+1}
+                                </TableCell>
+                                <TableCell>
+                                  
+                                  <TextField
+                                  fullWidth
+                                    
+                                 
+                                    name="key"
+                                   
+                                  />
+                                   
+                                </TableCell>
+                               
+                              </TableRow>
+                            )})  }
+                      
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div
+                    className="col-5 "
+                    style={{ height: "320px" }}
+                  >
+                  
+
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow>
+                          <TableCell
+                            align="middle"
+                            scope="col"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head" scope="col">
+                          Request Header Value
+                          </TableCell>
+                        
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                       
+                        
+                           
+                      {arr.map((i,ind)=>
+                            {return(
+                              <TableRow >
+                                <TableCell className="text">
+                              
+                                </TableCell>
+                                <TableCell>
+                                  
+                                  <TextField
+                                  fullWidth
+                                    
+                                
+                                    name="key"
+                                   
+                                  />
+                                    
+                           
+                                </TableCell>
+                               
+                              </TableRow>
+                            )})  }
+                        
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+             
             </div>
             
             <div className="col-12 d-flex">

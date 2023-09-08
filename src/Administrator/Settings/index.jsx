@@ -280,9 +280,9 @@ const arr=[1,2,3,4,5]
                 </div>
                 <div className="col-7">
                 <TextField onChange={handleChange}className="w-50 textFieldClass" fullWidth name="cryptoKey" value={data?.cryptoKey}/>
-                <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="Key used for creating the HMAC signature hash for the form POST" arrow>
+                {/* <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="Key used for creating the HMAC signature hash for the form POST" arrow>
                   <InfoIcon/>
-                </Tooltip>
+                </Tooltip> */}
                 </div>
               </div>
             </div>
@@ -321,10 +321,10 @@ const arr=[1,2,3,4,5]
                 </div>
                 <div className=" d-flex col-lg-6 col-12 text">
                 <FormGroup value={data?.purgeRedundantSubmissionData}className="d-block text">
-                  <FormControlLabel className="m-0 text" label="Aged: 3 months" control={<Checkbox defaultChecked />}/>
-                  <FormControlLabel className="m-0 text" label="6 months" control={<Checkbox />} />
-                  <FormControlLabel className="m-0 text" label="9 months" control={<Checkbox />}  />
-                  <FormControlLabel className="m-0 text" label="12 months" control={<Checkbox />}  />
+                  <FormControlLabel className="m-0 text" label="Aged: 3 months" control={<Checkbox defaultChecked className="checkBox" />}/>
+                  <FormControlLabel className="m-0 text" label="6 months" control={<Checkbox className="checkBox" />} />
+                  <FormControlLabel className="m-0 text" label="9 months" control={<Checkbox className="checkBox"/>}  />
+                  <FormControlLabel className="m-0 text" label="12 months" control={<Checkbox className="checkBox" />}  />
                 </FormGroup>
                 <div  className="col-lg-2 mx-1 mt-2 ">
                 <Button style={{fontSize:"8px",marginLeft:"3px"}}
@@ -678,12 +678,12 @@ const arr=[1,2,3,4,5]
 
             <div className="col-12" >
             
-                <div style={{fontSize:"13px",color:"black"}} className="headerText custom_my_2">Request Headers:</div>
+                <div style={{fontSize:"13px",color:"black",fontWeight:'550'}} className="headerText custom_my_2">Request Headers:</div>
 
                 <div className=" custom_my_2 mt-2  d-flex">
                   <div
                     className="col-5"
-                    style={{ height: "320px" }}
+                    style={{ height: "370px",width:"50%" }}
                   >
                     <table class="table table-hover">
                       <thead>
@@ -692,7 +692,7 @@ const arr=[1,2,3,4,5]
                             align="left"
                             style={{ fontSize: "20px" }}
                           ></TableCell>
-                          <TableCell className="table_head">
+                          <TableCell className="table_head" style={{backgroundColor:'#f3ededd9'}}>
                           Request Header Key
                           </TableCell>
                          
@@ -706,9 +706,9 @@ const arr=[1,2,3,4,5]
                                 <TableCell className="text">
                                {ind+1}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="textFieldClassInput">
                                   
-                                  <TextField
+                                  <TextField className="textFieldClassInput"
                                   fullWidth
                                     
                                  
@@ -726,8 +726,8 @@ const arr=[1,2,3,4,5]
                   </div>
 
                   <div
-                    className="col-5 "
-                    style={{ height: "320px" }}
+                    className="col-5 " style={{ height: "370px",width:"50%" }}
+                    
                   >
                   
 
@@ -739,7 +739,7 @@ const arr=[1,2,3,4,5]
                             scope="col"
                             style={{ fontSize: "20px" }}
                           ></TableCell>
-                          <TableCell className="table_head" scope="col">
+                          <TableCell className="table_head" style={{backgroundColor:'#f3ededd9'}}>
                           Request Header Value
                           </TableCell>
                         
@@ -755,9 +755,9 @@ const arr=[1,2,3,4,5]
                                 <TableCell className="text">
                               
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="textFieldClassInput">
                                   
-                                  <TextField
+                                  <TextField className="textFieldClassInput"
                                   fullWidth
                                     
                                 
@@ -781,7 +781,7 @@ const arr=[1,2,3,4,5]
             
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
-              <div className="my-auto text w-100">
+              <div className=" w-100  mb-2 " style={{fontWeight:'550'}}>
                   Agent Headers:
                   </div>
                 <div className="col-5 d-flex">

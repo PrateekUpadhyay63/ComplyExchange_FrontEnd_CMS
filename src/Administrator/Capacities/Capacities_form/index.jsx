@@ -204,14 +204,14 @@ export default function ContentManagement() {
                             
                           {  i?.isProxyMandatory ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox"
                            
-                          />):<Checkbox/>}</TableCell>
+                          />):""}</TableCell>
                           <TableCell>{ i?.isCountryOfResidenceRequired ?(<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isCountryOfResidenceRequired"
-                            />):<Checkbox/>}</TableCell>
+                            />):""}</TableCell>
 
 
                           <TableCell>
                             
-                         { i?.isImportant? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isImportant" />):<Checkbox/>}
+                         { i?.isImportant? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isImportant" />):""}
                          
                          </TableCell>
 
@@ -219,29 +219,29 @@ export default function ContentManagement() {
                           <TableCell>
                             
                           {  i?.isUSIndividual ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isUSIndividual"
-                           />):<Checkbox/>}
+                           />):""}
                            
                            </TableCell>
                           <TableCell>
                            { i?.isNonUSIndividual ?( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isNonUSIndividual"
-                           />):<Checkbox/>}
+                           />):""}
                            </TableCell>
                           <TableCell>
-                           { i?.isUSBusiness ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isUSBusiness"/>):<Checkbox/>}
+                           { i?.isUSBusiness ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" name="isUSBusiness"/>):""}
                           </TableCell>
                           <TableCell>
                            { i?.isNonUSBusiness ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}} className="p-0 checkBox" name="isNonUSBusiness"
                            
-                             />):<Checkbox/>}
+                             />):""}
                              
                              </TableCell>
                           <TableCell>
-                          {i?.isIntermediary ? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" />):<Checkbox/> }
+                          {i?.isIntermediary ? ( <DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}}className="p-0 checkBox" />):"" }
                            
 
                            </TableCell>
                           <TableCell>
-                            {i?.isNonUSGovernment ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}} className="p-0 checkBox" />) : <Checkbox/>}
+                            {i?.isNonUSGovernment ? (<DoneIcon style={{fontSize:"28px",fontWeight:"bold",color:"green"}} className="p-0 checkBox" />) : ""}
                           </TableCell>
                           <TableCell>
                             <div className="actionRow" style={{ display: 'flex' }}>

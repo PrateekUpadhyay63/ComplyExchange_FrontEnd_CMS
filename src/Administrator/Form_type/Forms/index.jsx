@@ -210,11 +210,9 @@ export default function FormTypeTable() {
                                   {row.name}
                                 </TableCell>
                                 <TableCell>
-                                 {row?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): <Checkbox
-                                    className="checkBox"
-                                   
+                                 {row?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): ("")
 
-                                  />}
+                                  }
                                 </TableCell>
                                 <TableCell
                                   align="center"
@@ -322,11 +320,7 @@ export default function FormTypeTable() {
                                   {rows1.displayName}
                                 </TableCell>
                                 <TableCell className="table_content">
-                                {rows1?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): <Checkbox
-                                    className="checkBox"
-                                   
-
-                                  />}
+                                {rows1?.isDisabled ?(<DoneIcon style={{fontSize:"35px",color:"green",fontWeight:"bold"}}/> ): ("")}
                                 </TableCell>
                                 <TableCell
                                   align="center"

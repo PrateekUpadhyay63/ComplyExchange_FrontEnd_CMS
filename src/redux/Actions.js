@@ -1582,6 +1582,36 @@ export const changePassword = (value) => {
   };
 };
 
+export const copyAgents = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.postApiCall(
+      Utils.endPoints.COPY_AGENT,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;     
+        dispatch({
+          type: Utils.ActionName.COPY_AGENT,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          if(responseData.status==500){
+            // Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
+          }else
+          {Utils.showAlert(1, "Agent Copied successfully.");
+          if(callback){
+            callback();
+          }
+      }
+
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
 export const createPAGES = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };

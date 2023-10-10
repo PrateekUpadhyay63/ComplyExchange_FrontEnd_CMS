@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-// import { getAllFormInstructions, deleteFormInstruction} from "../../../redux/Actions";
+import { getAllCountriesData, getAllCountries,importCountries,exportCountries} from "../../redux/Actions";
 
 import DialogModal from "../../reusables/Countries";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -43,6 +43,7 @@ import {
   Tooltip,
   Link,
 } from "@mui/material";
+import Modal from "../../reusables/htmlDialog"
 // import FormInstruction from "../../../reusables/FormInstruction"
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -53,7 +54,7 @@ function createData(agent, content, action) {
 
 export default function ContentManagement() {
   const history = useHistory();
-const row=[]
+// const row=[]
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1= () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
@@ -66,28 +67,29 @@ const row=[]
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
-
+  const [fileData,setFileData] =useState();
   const dispatch = useDispatch();
+  const tableData = useSelector((state) => state.getAllCountriesDataReducer);
 //   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, []);
+  useEffect(() => {
+    dispatch(getAllCountriesData(page, size));
+  }, []);
 
-//   const setSubmit = (e) => {
-//     e.preventDefault();
-//     setPage(1);
-//     setSize(10);
-//     dispatch(getAllFormInstructions(page, size, search));
-//   };
+  const setSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllCountriesData(page, size, search));
+  };
 //   const deleteItems = async () => {
 //     dispatch(deleteFormInstruction(idData));
 //     dispatch(getAllFormInstructions(page, size));
 //   };
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, [page]);
+  useEffect(() => {
+    dispatch(getAllCountriesData(page, size));
+  }, [page]);
 
   return (
     <Fragment>
@@ -100,23 +102,30 @@ const row=[]
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                  
                   
                 >
             Countries
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className="row headingLabel complyColor">List of Countries (Treaty Country, Applicable Articles, Withholding Rates & Income Code selection)</div>
-            <div className=" row m-1  border p-3 box_style">
-            <div className="col-8 d-flex ">
-                  
+            <div className=" row m-1 card p-3 box_style">
+              <form
+                className="row"
+                onSubmit={(e) => {
+                  setSubmit(e);
+                }}
+              >
+                <div className="col-8 d-flex ">
                   <TextField
-                    style={{ backgroundColor: "#fff", }}
+                    style={{ backgroundColor: "#fff", borderRadius: "10px" }}
                     name="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
@@ -131,18 +140,17 @@ const row=[]
                     }}
                   />
                 </div>
-              <div className="col-4">
-                <Button
-                 size="small"
-                //   onClick={(e) => {
-                //     setSubmit(e);
-                //   }}
-                  className="btn-cstm"
-                  style={{ float: "right" }}
-                >
-                  Search
-                </Button>
-              </div>
+                <div className="col-4 ">
+                  <Button
+                    size="small"
+                    type="submit"
+                    className="btn-cstm"
+                    style={{ float: "right", display: "none" }}
+                  >
+                    Search
+                  </Button>
+                </div>
+              </form>
             </div>
             <div
               className=" row m-1  card p-3"
@@ -162,18 +170,19 @@ const row=[]
                        
                     
                           <TableCell
-                         style={{justifyContent:'flex-end'}}
+                          align="right"
+                         style={{justifyContent:'flex-end',marginLeft:'20px'}}
                            className='table_head'
                           >
                             Actions
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
+                     
                       <TableBody>
                         {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
                           <TableRow
-                            key={row.id}
+                            // key={row.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
@@ -184,12 +193,12 @@ const row=[]
 
                           
 
-                            <TableCell className="table_content" align="end">
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                    setOpen1(true);
+                                    setOpen(true);
                             
                                   }} />
                              
@@ -206,6 +215,7 @@ const row=[]
                           </TableRow>
                         {/* ))} */}
                       </TableBody>
+                     
                     </table>
                   </div>
                 {/* <h1 >Forms Instructions</h1> */}
@@ -258,54 +268,50 @@ const row=[]
                           </TableCell>
                     
                           <TableCell
-                            align="center"
+                            align="right"
                            className='table_head'
                           >
                             Actions
                           </TableCell>
                         </TableRow>
                       </TableHead>
-                      {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
+                      {tableData?.countryData && tableData?.countryData.records?.length ? (
                       <TableBody>
-                        {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
+                        {console.log("dataa", tableData)}
+                    {tableData?.countryData?.records?.map((row, ind) =>
+                    { console.log("roww1",row);
+                   return  (
+                     
                           <TableRow
-                            key={row.id}
+                            key={row.name}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
                           >
-                            <TableCell className="table_content" component="th" scope="row">
-                            Afghanistan
+                            <TableCell className="table_content">
+                           {row.name}
                             </TableCell>
 
-                            <TableCell className="table_content" align="center">	Model 1</TableCell>
+                            <TableCell className="table_content" align="center">{row.iga}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
+                            <TableCell className="table_content" align="center">{row.treatyEffectiveYear}</TableCell>
+                            <TableCell className="table_content" align="center">{row.crs}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
-                            <TableCell className="table_content" align="center">1</TableCell>
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
+                            <TableCell className="table_content" align="center">{row.lob}</TableCell>
 
-                            <TableCell className="table_content" align="center">
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push("/countries_edit")
+                                   history.push(`/countries_edit/${row.id}`)
                                   }} />
-                             
-                              
-                                  {/* <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
-                                  onClick={()=>{
-                                    setOpen1(true);
-                                    setIdData(row.id)
-                                  }}   /> */}
-                               
-                            
                               </div>
                             </TableCell>
                           </TableRow>
-                        {/* ))} */}
+                        )})}
                       </TableBody>
+                         ) : <div className="notDataDiv">No Data Available</div>} 
                     </table>
                   </div>
               
@@ -317,37 +323,38 @@ const row=[]
                 className="btn-cstm  mt-2 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
-
                 onClick={() => {
-                  setOpen(true);
-                  setIdData(row.id);
+                  setOpen1(true);
                 }} 
               >
                import 
               </Button>
-              <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }}>
+              <Button size="small"className="btn-cstm mt-2 " style={{ float: "right" }} onClick={()=>{dispatch(exportCountries())}}>
                 Export
               </Button>
             </div>
           </div>
-          {/* {tableData?.formInstructionData?.totalPages > 1 ? ( */}
-            {/* <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack> */}
-          {/* ) : (
-            ""
-          )} */}
+          {tableData?.countryData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={tableData?.countryData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
         </div>
       </div>
     <DialogModal
-        open={open1}
+        open={open}
 
-        setOpen={setOpen1}
-        handleClickOpen={handleClickOpen1}
-        handleClose={handleClose1}
+        setOpen={setOpen}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
  
       />
       {/* <FormInstruction
@@ -366,6 +373,20 @@ const row=[]
         deleteApi={deleteFormInstruction}
         getAllApi={getAllFormInstructions}
       /> */}
+      <Modal
+       open={open1}
+       // deleteItems={deleteItems}
+       fileData={fileData}
+       setFileData={setFileData}
+       dispatch={dispatch}
+       setOpen={setOpen1}
+       handleClickOpen={handleClickOpen1}
+       handleClose={handleClose1}
+       Heading="Import Countries Data"
+       apiCall={(formData)=>{
+    dispatch(importCountries(formData))
+       }}
+      />
     </Fragment>
 
 

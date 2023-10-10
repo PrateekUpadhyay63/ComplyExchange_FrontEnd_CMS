@@ -73,7 +73,7 @@ table{
     font-family: "Roboto","Helvetica","Arial",sans-serif;
   }
 .checkBox{
-    color:#16639e;
+    color:#0c5810 !important;
   }
 
 
@@ -205,6 +205,8 @@ display: none !important;
   .input-file input{
     height: auto !important;
     padding: 0 !important;
+    width: 80% !important;
+    border: 1px solid;
   }
 
   .editor-div button{
@@ -276,7 +278,7 @@ display: none !important;
   font-weight: 550 !important;
   margin: 0.5rem;
   justify-content: end;
-  color:"#3498db" !important;
+  // color:"#3498db" !important;
   display: flex;
 
   cursor: pointer !important;
@@ -284,10 +286,25 @@ display: none !important;
 
 .bread_crumbs a:hover{
   cursor: pointer !important;
+ 
   text-decoration: underline !important;
   :hover:after {
     color: inherit !important;
   }
 
+  .notDataDiv{
+    text-align: "-webkit-match-parent";
+    width: 100%;
+    font-size: larger;
+    padding: 8%;
+}
+}
+.bread_crumbs p{
+  margin: 0px !important;
+  cursor: default !important;
+}
 
+.errorClass{
+  color: red !important;
+  font-size: 12px !important;
 }

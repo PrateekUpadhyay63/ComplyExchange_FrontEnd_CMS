@@ -2,14 +2,18 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 
 // Charts
-
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import TableHead from "@mui/material/TableHead";
 // import ChartsSparklines1 from "./Sparklines1/";
 // import ChartsSparklines2 from "./Sparklines2/";
 // import ChartsChartJs from "./ChartJs/";
 // import ChartsGauges from "./Gauges/";
 // import ApexCharts from "./ApexCharts/";
+import DoneIcon from '@mui/icons-material/Done';
 
 // Layout
+import TableRow from "@mui/material/TableRow";
 
 import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
@@ -97,197 +101,211 @@ e.preventDefault();
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs mt-3">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                   
                 >
            LOB
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <form className="m-md-3 " onSubmit={handleSubmit}>
             <div className=" row  card p-2  " style={{overflowX:"auto"}}>
               <div className="col-12 p-0 " style={{ overflow: "auto" }}>
-                <table class="table table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th  className='table_head'  scope="col">LOB Type / Chapter 3 statuses</th>
-                      <th   className='table_head'scope="col">Corporation</th>
-                      <th  className='table_head' scope="col">Disregarded Entity</th>
-                      <th  className='table_head'scope="col">Partnership </th>
-                      <th  className='table_head'scope="col">Simple Trust </th>
-                      <th  className='table_head'scope="col">Grantor Trust </th>
-                      <th  className='table_head'scope="col">Complex Trust </th>
-                      <th className='table_head' scope="col">Estate </th>
-                      <th  className='table_head' scope="col">Government </th>
-                      <th  className='table_head'scope="col">Central Bank of Issue </th>
-                      <th  className='table_head'scope="col">Tax Exempt Organization </th>
-                      <th  className='table_head'scope="col">Private Foundation </th>
-                      <th  className='table_head' scope="col">International Organization </th>
-                      <th   className='table_head'scope="col">Action </th>
-                    </tr>
-                  </thead>
+                <table class="table table-hover table-sTableRowiped">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell  className='table_head'  scope="col">LOB Type / Chapter 3 statuses</TableCell>
+                      <TableCell   className='table_head'scope="col">Corporation</TableCell>
+                      <TableCell  className='table_head' scope="col">Disregarded Entity</TableCell>
+                      <TableCell  className='table_head'scope="col">Partnership</TableCell>
+                      <TableCell  className='table_head'scope="col">Simple Trust</TableCell>
+                      <TableCell  className='table_head'scope="col">Grantor Trust</TableCell>
+                      <TableCell  className='table_head'scope="col">Complex Trust</TableCell>
+                      <TableCell className='table_head' scope="col">Estate</TableCell>
+                      <TableCell  className='table_head' scope="col">Government</TableCell>
+                      <TableCell  className='table_head'scope="col">Central Bank of Issue</TableCell>
+                      <TableCell  className='table_head'scope="col">Tax Exempt Organization</TableCell>
+                      <TableCell  className='table_head'scope="col">Private Foundation</TableCell>
+                      <TableCell  className='table_head' scope="col">International Organization</TableCell>
+                      <TableCell   className='table_head'scope="col">Action</TableCell>
+                    </TableRow>
+                  </TableHead>
                   <tbody>
                     {lobData?.lobData?.map((i, ind) => {
                       return (
-                        <tr key={i.id}>
-                          <th style={{fontWeight:'450'}}  className="table_content" >{idName(i.chapter3StatusId)}</th>
-                          <td>
-                            <Checkbox
-                              name="isCorporation"
-                              onClick={(e) => handleToogle(e)}
-                              className="p-0 checkBox"
-                              checked={
-                                // i.isCorporation
-                                  i.isCorporation
-                                  // : data.isCorporation
-                              }
+                        <TableRow key={i.id}>
+                          <TableCell style={{fontWeight:'450'}}  className="table_content" >{idName(i.chapter3StatusId)}</TableCell>
+                          <TableCell>
+                            {i?.isCorporation ? (<DoneIcon
+                            style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
+                              
                              
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              className="p-0 checkBox"
+                              // checked={
+                              //   // i.isCorporation
+                              //     i.isCorporation
+                              //     // : data.isCorporation
+                              // }
+                             
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isDisregardedEntity ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isDisregardedEntity"
                               onClick={(e) => handleToogle(e)}
                               className="p-0 checkBox"
-                              checked={
-                                // i.isDisregardedEntity
-                                  i.isDisregardedEntity
-                                  // : data.isDisregardedEntity
-                              }
+                              // checked={
+                              //   // i.isDisregardedEntity
+                              //     i.isDisregardedEntity
+                              //     // : data.isDisregardedEntity
+                              // }
                              
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isPartnership ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isPartnership"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
-                              checked={
-                                // i.isPartnership
-                                  i.isPartnership
-                                  // : data.isPartnership
-                              }
-                            
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              // checked={
+                              //   // i.isPartnership
+                              //     i.isPartnership
+                              //     // : data.isPartnership
+                              // }
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isSimpleTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isSimpleTrust"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
-                              checked={
-                                // i.isSimpleTrust
-                                  i.isSimpleTrust
-                                  // : data.isSimpleTrust
-                              }
-                        
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              // checked={
+                              //   // i.isSimpleTableRowust
+                              //     i.isSimpleTableRowust
+                              //     // : data.isSimpleTableRowust
+                              // }
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isGrantorTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isGrantorTrust"
-                              onClick={(e) => handleToogle(e)}
+                            
                               className="p-0 checkBox"
-                              checked={
-                                // i.isGrantorTrust
-                                  i.isGrantorTrust
-                                  // : data.isGrantorTrust
-                              }
-                             
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              // checked={
+                              //   // i.isGrantorTableRowust
+                              //     i.isGrantorTableRowust
+                              //     // : data.isGrantorTableRowust
+                              // }
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isComplexTrust ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isComplexTrust"
-                              onClick={(e) => handleToogle(e)}
+                             
                               className="p-0 checkBox"
-                              checked={
-                                // i.isComplexTrust
-                                  i.isComplexTrust
-                                  // : data.isComplexTrust
-                              }
+                              // checked={
+                              //   // i.isComplexTableRowust
+                              //     i.isComplexTableRowust
+                              //     // : data.isComplexTableRowust
+                              // }
                             
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isEstate ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isEstate"
-                              onClick={(e) => handleToogle(e)}
-                              // className="p-0 checkBox"
-                              checked={i.isEstate }
+                           
+                              className="p-0 checkBox"
+                              // checked={i.isEstate }
                                 // i.isEstate : data.isEstate}
-                           
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isGovernment ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isGovernment"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
-                              checked={
-                                // i.isGovernment
-                                  i.isGovernment
-                                  // : data.isGovernment
-                              }
+                              // checked={
+                              //   // i.isGovernment
+                              //     i.isGovernment
+                              //     // : data.isGovernment
+                              // }
                            
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isCentralBankofIssue ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isCentralBankofIssue"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
-                              checked={
-                                // i.isCentralBankofIssue
-                                  i.isCentralBankofIssue
-                                  // : data.isCentralBankofIssue
-                              }
+                              // checked={
+                              //   // i.isCenTableRowalBankofIssue
+                              //     i.isCenTableRowalBankofIssue
+                              //     // : data.isCenTableRowalBankofIssue
+                              // }
                             
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isTaxExemptOrganization ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isTaxExemptOrganization"
-                              onClick={(e) => handleToogle(e)}
-                              className="p-0 checkBox"
-                              checked={
-                                // i.isTaxExemptOrganization
-                                  i.isTaxExemptOrganization
-                                  // : data.isTaxExemptOrganization
-                              }
                             
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              className="p-0 checkBox"
+                              // checked={
+                              //   // i.isTaxExemptOrganization
+                              //     i.isTaxExemptOrganization
+                              //     // : data.isTaxExemptOrganization
+                              // }
+                            
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isPrivateFoundation ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isPrivateFoundation"
-                              onClick={(e) => handleToogle(e)}
-                              className="p-0 checkBox"
-                              checked={
-                                // i.isPrivateFoundation
-                                  i.isPrivateFoundation
-                                  // : data.isPrivateFoundation
-                              }
                              
-                            />
-                          </td>
-                          <td>
-                            <Checkbox
+                              className="p-0 checkBox"
+                              // checked={
+                              //   // i.isPrivateFoundation
+                              //     i.isPrivateFoundation
+                              //     // : data.isPrivateFoundation
+                              // }
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell>
+                          {i?.isInternationalOrganization ? (<DoneIcon
+                          style={{fontSize:"28px",fontWeight:"bold",color:"green"}}
                               name="isInternationalOrganization"
-                              onClick={(e) => handleToogle(e)}
+                              
                               className="p-0 checkBox"
-                              checked={
-                                // i.isInternationalOrganization
-                                  i.isInternationalOrganization
-                                  // : data.isInternationalOrganization
-                              }
-                             
-                            />
-                          </td>
-                          <td className="actionRow">
+                              
+                            />):<Checkbox
+                            disabled/>}
+                          </TableCell>
+                          <TableCell className="actionRow">
                          
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
@@ -296,8 +314,8 @@ e.preventDefault();
                                     );
                                   }} />
                               
-                          </td>
-                        </tr>
+                          </TableCell>
+                        </TableRow>
                       );
                     })}
                   </tbody>

@@ -1,10 +1,12 @@
 import Utils from "../Utils";
 
 const {
+  GET_ALL_COUNTRIES,
   GET_ALL_PAGES,
   COUNTRIES,
   LANGUAGES,
   CREATE_PAGE,
+  GET_ALL_HELP_VIDEOS,
   ADD_SUB_PAGE,
   PARENT_DROPDOWN,
   GET_ALL_CONTENT,
@@ -25,6 +27,7 @@ const {
   GET_LANGUAGE_BY_ID,
   GET_ALL_LOB,
   GET_LOB,
+  GET_INCOME_CODE,
   UPDATE_LOB,
   GET_ALL_FORM_INSTRUCTIONS,
   GET_FORM_INSTRUCTION_BY_ID,
@@ -34,6 +37,10 @@ const {
   GET_SUBPAGE_NO,
   GET_ALL_DOCUMENTATION,
   GET_DOCUMENTATION_TYPES,
+  GET_CH3_DOC,
+  GET_CH3_DOC_BY_iD,
+  GET_CH4_DOC,
+  GET_CH4_DOC_BY_iD,
   GET_DOCUMENTAION_BY_ID,
   GET_IMPORTANT_COUNTRIES,
   GET_ALL_RULES,
@@ -43,6 +50,7 @@ const {
   GET_CHAPTER4_HIDDEN_ENTITY,
   GET_CHAPTER4_IMPORTANT_ENTITY,
   GET_ALL_EASY,
+  GET_COUNTRY_BY_ID,
   GET_EASY_BY_ID,
   GET_PAGE_TRANSLATION,
   GET_EASY_TRANSLATION,
@@ -81,12 +89,36 @@ const {
   POST_CONTENT_TRANSLATION,
   GET_SOURCED_INCOME_ONBOARDED,
   GET_SELF_CERTIFICATION,
-
+  GET_SECURITY_KEY,
+  GET_USER_BY_ID,
+  ALL_USER,
+  GET_YEARS,
+  GET_MAXNUMBER,
+  GET_IGA,
+  GET_E_FORM_SELECTION_WARNING,
 } = Utils.ActionName;
 
 let initialState = [];
 
-export const getLangListReducer = (state = initialState, action) => {
+export const getUserByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_USER_BY_ID:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAllUsersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ALL_USER:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getLangReducer = (state = initialState, action) => {
   switch (action.type) {
     case LANG_BY_SEARCH:
       return { ...state, ...action.payload };
@@ -95,6 +127,54 @@ export const getLangListReducer = (state = initialState, action) => {
   }
 };
 
+export const getCountryByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_COUNTRY_BY_ID:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getLangListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LANGUAGES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
+
+export const getSecurityKeysReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SECURITY_KEY:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
+
+export const getYearsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_YEARS:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getNumbersReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_MAXNUMBER:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getSelfCertificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SELF_CERTIFICATION:
@@ -432,9 +512,71 @@ export const getAllPagesReducer = (state = initialState, action) => {
   }
 };
 
+export const getAllCountriesDataReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_COUNTRIES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const getdocCH3Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH3_DOC:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getdocch3ReducerById = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH3_DOC_BY_iD:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getdocCH4Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH4_DOC:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getdocCH4ReducerById = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CH4_DOC_BY_iD:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getdocTypeReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_DOCUMENTATION_TYPES:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+export const getIncomeReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_INCOME_CODE:
       return { ...state, ...action.payload };
     default:
       return state;
@@ -568,6 +710,8 @@ export const getAllContentTypeByIdReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+
 
 export const getTranslatedPageReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -704,6 +848,15 @@ export const getAllContentReducer = (state = initialState, action) => {
   }
 };
 
+export const getAllHelpVideoReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_HELP_VIDEOS:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 export const getAllAgentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_AGENTS:
@@ -757,6 +910,24 @@ export const CountriesReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const getEformSelectionWarningReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_E_FORM_SELECTION_WARNING:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const getIgaDropDownReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_IGA:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 
 export const LanguagesReducer = (state = initialState, action) => {
   switch (action.type) {

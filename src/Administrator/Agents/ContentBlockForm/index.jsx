@@ -160,15 +160,15 @@ export default function Language_details() {
                 >
                   Agent Edit List
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                  
                   
                   
                 >
                   Agent Content Block Form
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style" style={{height:"900px"}}>
@@ -253,6 +253,7 @@ content block
                   </div>
                     <div className="actionBtn">
                       <Button
+                       onClick={()=>{history.push("/agent")}}
                         type="reset"
                         size="small"
                         variant="outlined"

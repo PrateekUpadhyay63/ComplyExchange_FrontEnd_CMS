@@ -1,5 +1,4 @@
 .btn-cstm{
-    border: 1px solid #16639e !important;
     color: white !important;
     opacity: 0.8 !important;
 }
@@ -25,8 +24,8 @@ table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
+       .MuiSelect-select{
+        background: none;
     }
     a:hover{
         cursor: pointer;
@@ -81,4 +80,13 @@ table{
     min-height: 0.05;
     width: 65% !important;
    
+}
+.table_contentt{
+    font-size: 11px !important;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+.table_Content{
+    font-size: 13px !important;
+    font-weight: 600;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }

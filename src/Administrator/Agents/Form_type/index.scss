@@ -1,5 +1,4 @@
 .btn-cstm{
-    border: 1px solid #16639e !important;
     color: white !important;
     opacity: 0.8 !important;
 }
@@ -17,7 +16,7 @@ table{
         text-align: center;
     }
     .MuiSelect-select{
-        background: white;
+        background: none !important;
         min-height: 1.43em !important;
     }
     a:hover{
@@ -69,7 +68,7 @@ table{
   .tableField{
     padding: 0.001rem 0.002rem !important;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
-    justify-content: center;
+
     
 
 }

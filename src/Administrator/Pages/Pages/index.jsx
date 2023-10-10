@@ -6,6 +6,7 @@ import Transition from "../../../reusables/languagesModal";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -39,12 +40,13 @@ import {
   Breadcrumbs,
   Pagination,
 } from "@mui/material";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+
 import Stack from "@mui/material/Stack";
 import DialogTransition from "../../../reusables/deleteDialog";
-
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 
 import {
@@ -87,6 +89,14 @@ const Pages = ({ match }) => {
     dispatch(getAllPages(page, size));
   }, []);
 
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllPages(page, size, search));
+    }
+  },[search])
+
   const setSubmit = (e) => {
     e.preventDefault();
     setPage(1);
@@ -96,7 +106,7 @@ const Pages = ({ match }) => {
 
   const deleteItems = async () => {
     dispatch(deletePAGES(idData));
-    dispatch(getAllPages(page, size));
+    // dispatch(getAllPages(page, size));
   };
 
   useEffect(() => {
@@ -113,14 +123,14 @@ const Pages = ({ match }) => {
           <div className="app-main__inner">
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                    aria-current="page"
                   
                 >
                   Pages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1 card p-3 box_style">
@@ -176,16 +186,23 @@ const Pages = ({ match }) => {
                       <TableHead>
                         <TableRow>
                           <TableCell className="table_head">Name</TableCell>
-                          <TableCell align="center" className="table_head">
+                          {/* <TableCell align="center" className="table_head">
                             Sub Pages
-                          </TableCell>
+                          </TableCell> */}
 
                           <TableCell align="center" className="table_head">
                             Translations
                           </TableCell>
-                          <TableCell align="right" className="table_head">
+                          <TableCell align="right" className="table_head justifyContent-center">
+                          
                             Actions
+                           
+                            
                           </TableCell>
+                          <TableCell align="right" className="table_head" >
+                           Order
+                          </TableCell>
+                          
                         </TableRow>
                       </TableHead>
                       <TableBody className="tableRow">
@@ -198,11 +215,11 @@ const Pages = ({ match }) => {
                               },
                             }}
                           >
-                            <TableCell className="table_content tableRow" >
+                            <TableCell  className="table_content tableRow" >
                               {row.name}
                             </TableCell>
 
-                            <TableCell align="center" className="table_content tableRow">
+                            {/* <TableCell align="center" className="table_content tableRow">
                               {row?.subpageCount ? row?.subpageCount : "No"} sub
                               page{" "}
                               <span
@@ -215,7 +232,7 @@ const Pages = ({ match }) => {
                               >
                                 Add Sub Page
                               </span>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell
                               align="center"
                               className="table_content tableRow"
@@ -236,35 +253,20 @@ const Pages = ({ match }) => {
                                 Select Languages
                               </span>
 
-                              {/* <Select
-
-                                className="selectBox text"
-                                fullWidth
-                                name="parent"
-                                
-                              >{(dispatch(getpageLanguageById(row?.id, (item) => {return(item)})))?.map((i,ind)=>{
-                                return(<MenuItem key={ind} className="pageId" value={i.languageId}>{i.name}sx</MenuItem>)
-                              })}
-                              </Select> */}
-                              {/* {languageData?.allLanguageData?.map((i,ind)=>{
-                                  return(<button onClick={()=>{
-                                    history.push(`/page_language/${row.id}/${i.id}`)
-                                  }} key={i.id} style={{border:"none",backgroundColor:"inherit"}} className="addSubpage">
-                                    {i.name}{" "}
-                                  </button>)
-                                })} */}
+                        
                             </TableCell>
 
                             <TableCell
                               className="table_content actionRow tableRow"
-                              align="right"
-                              colSpan={2}
+                              align="center"
+                            
                             >
                               {row.action}
                               <div
                                 style={{
                                   display: "flex",
-                                  justifyContent: "flex-end",
+                                  justifyContent:"flex-end"
+                                 
                                 }}
                               >
                                 <EditIcon
@@ -279,6 +281,43 @@ const Pages = ({ match }) => {
                                 <DeleteIcon
                                   style={{
                                     color: "red",
+                                    fontSize: "20px",
+                                    marginLeft: "5px",
+                                  }}
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setIdData(row.id);
+                                  }}
+                                />
+                              </div>
+                            </TableCell>
+                            <TableCell
+                              className="table_content actionRow tableRow"
+                              align="right"
+                            
+                            >
+                              {row.action}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent:"flex-end",
+                                  flexDirection:"column",
+                                  flexWrap:"wrap-reverse"
+                                 
+                                }}
+                              >
+                                <KeyboardDoubleArrowUpRoundedIcon
+                                  style={{  fontSize: "20px" }}
+                                  onClick={() => {
+                                    history.push(
+                                      `${Utils.Pathname.pageInfoId}/${row.id}`
+                                    );
+                                  }}
+                                />
+
+                                <KeyboardDoubleArrowDownIcon
+                                  style={{
+                                   
                                     fontSize: "20px",
                                     marginLeft: "5px",
                                   }}

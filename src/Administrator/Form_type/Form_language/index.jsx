@@ -18,6 +18,7 @@ import {
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 import AppHeader from "../../../Layout/AppHeader/";
 import { Fragment } from "react";
+import Utils from '../../../Utils'
 import AppSidebar from "../../../Layout/AppSidebar/";
 import {
   EditorState,
@@ -32,26 +33,31 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
 import { CheckBox } from "@mui/icons-material";
-import { getAllLanguages } from "../../../redux/Actions";
+import { getAllLanguages,insertFormTypesUSTranslation,getFormTypesUSTranslation } from "../../../redux/Actions";
 
 
 export default function Language_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history = useHistory()
+ const editorData = useSelector(state => state.getFormTypesUSTranslation)
   const languageData = useSelector((state) => state.LanguagesReducer);
   const parentDropDown = useSelector((state) => state.ParentDropDownReducer);
   const [editorState1, setEditorState1] = useState(EditorState.createEmpty());
   const [editorState2, setEditorState2] = useState(EditorState.createEmpty());
-  let TypeId = 2;
+
   const [data, setData] = useState(
-    {
-      formUSCId: params?.id,
-      languageId: params?.langId,
+ 
+     {
       description: "",
-  substituteStatement: "",
-  bulkTranslation: false,
+      formUSCId: 0,
+      languageId:0,
+      introductionText:"",
+      substituteStatement: "",
+      bulkTranslation: true,
+
     }
+    
   );
   const getLangById=(id)=>{
     
@@ -65,36 +71,68 @@ export default function Language_details() {
     }
   }
 
-  useEffect(() => {
-
+   useEffect(() => {
     dispatch(getAllLanguages())
     // Component mounted, initialize the editor states
-    // setEditorState1(
-    //   idPageData?.pageTranslationData?.substituteStatement
-    //     ? () =>  {
-    //       const blocksFromHTML = convertFromHTML(idPageData?.pageTranslationData?.substituteStatement)
-    //       const contentState = ContentState.createFromBlockArray(
-    //         blocksFromHTML.contentBlocks,
-    //         blocksFromHTML.entityMap
-    //       )
-    //       console.log(blocksFromHTML,"blocksFromHTML")
-      
-    //       return EditorState.createWithContent(contentState)
-    //     }
-    //     : () => EditorState.createEmpty());
-    // setEditorState2(idPageData?.pageTranslationData?.summary
-    //   ? () =>  {
-    //     const blocksFromHTML = convertFromHTML(idPageData?.pageTranslationData?.summary)
-    //     const contentState = ContentState.createFromBlockArray(
-    //       blocksFromHTML.contentBlocks,
-    //       blocksFromHTML.entityMap
-    //     )
-    //     console.log(blocksFromHTML,"blocksFromHTML")
-    
-    //     return EditorState.createWithContent(contentState)
-    //   }
-    //   : () => EditorState.createEmpty());
-  }, []);
+    console.log(editorData)
+    setEditorState1(
+      editorData?.formTypeUSTranslationData?.introductionText
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              editorData?.formTypeUSTranslationData?.introductionText
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+
+    setEditorState2(
+      editorData?.formTypeUSTranslationData?.substituteStatement
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              editorData?.formTypeUSTranslationData?.substituteStatement
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+
+   
+   
+  }, [editorData])
+
+  // useEffect(() => {
+
+  //   dispatch(getAllLanguages())
+   
+   
+  // }, []);
+    useEffect(() => {
+    if (params.id) {
+      dispatch(
+        getFormTypesUSTranslation(params.id, params.langId, data => {
+          // console.log(data,"dataa")
+          if (data === '') {
+            setData({ formUSCId: parseInt(params.id), languageId: parseInt(params.langId) })
+          } else {
+            setData(data)
+          }
+        })
+      )
+    }
+  }, [params.id])
 
   const handleEditorStateChange1 = (editorState) => {
     setEditorState1(editorState);
@@ -103,6 +141,16 @@ export default function Language_details() {
   const handleEditorStateChange2 = (editorState) => {
     setEditorState2(editorState);
   };
+
+  useEffect(() => {
+    let html = draftToHtml(convertToRaw(editorState1.getCurrentContent()))
+    setData({ ...data, introductionText: html })
+  }, [editorState1])
+
+  useEffect(() => {
+    let html = draftToHtml(convertToRaw(editorState2.getCurrentContent()))
+    setData({ ...data, substituteStatement: html })
+  }, [editorState2])
 
   const convertToHtml1 = () => {
     const contentState = editorState1.getCurrentContent();
@@ -214,8 +262,12 @@ export default function Language_details() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(insertContentManagement(data));
+     dispatch(insertFormTypesUSTranslation(data))
+    history.push(Utils.Pathname.formType)
   };
+  const handleToogle = e => {
+    setData({ ...data, [e.target.name]: e.target.checked })
+  }
 
   return (
     <Card>
@@ -240,15 +292,15 @@ export default function Language_details() {
                 >
                   Forms
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                   
                   
                 >
                   Forms Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style" style={{height:'910px'}}>
@@ -285,8 +337,8 @@ export default function Language_details() {
                         <TextField
                         className="table_content"
                           size="small"
-                          name="ToolTip"
-                          value={data?.ToolTip}
+                          name="description"
+                          value={data?.description}
                           onChange={handleChange}
                         />
                       </div>
@@ -310,9 +362,11 @@ export default function Language_details() {
                             editorClassName="editor-class"
                             toolbarClassName="toolbar-class"
                             editorState={editorState1}
-                            onEditorStateChange={(value) => {
-                              handleEditorStateChange1(value);
-                            }}
+                            
+                            onEditorStateChange={handleEditorStateChange1}
+                            // onEditorStateChange={(value) => {
+                            //   handleEditorStateChange1(value);
+                            // }}
                           />
                         </div>
                         <div
@@ -355,9 +409,7 @@ export default function Language_details() {
                         >
                           <Editor
                             editorState={editorState2}
-                            onEditorStateChange={(value) => {
-                              handleEditorStateChange2(value);
-                            }}
+                            onEditorStateChange={handleEditorStateChange2}
                             wrapperClassName="wrapper-class"
                             editorClassName="editor-class"
                             toolbarClassName="toolbar-class"
@@ -399,12 +451,17 @@ export default function Language_details() {
                         </span>
                       </div>
                         <div className="col-10">
-                        <Checkbox />
+                        <Checkbox  name='bulkTranslation'
+                          onClick={e => handleToogle(e)}
+                          checked={data?.bulkTranslation} />
                         </div>
                      
                     </div>
                   <div className="actionBtn">
                     <Button
+                     onClick={()=>{
+                      history.push("/form_type")
+                    }}
                       type="reset"
                       size="small"
                       variant="outlined"

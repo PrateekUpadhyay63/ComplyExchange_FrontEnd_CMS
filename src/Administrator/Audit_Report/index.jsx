@@ -105,18 +105,18 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{height:'692px'}}>
+          <div className="app-main__outer" style={{height:'915px'}}>
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    aria-current="page"
                   
                 >
                   Audit Report
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
           <div className="row m-1 border p-3 box_style">
@@ -336,7 +336,7 @@ export default function Countries_details() {
                 size="small"
                 type="submit"
                 sx={{ mr: 1 ,my:1}}
-               
+                className="btn-cstm"
                 variant="contained"
               >
                 Save

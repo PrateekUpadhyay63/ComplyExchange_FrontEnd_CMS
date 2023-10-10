@@ -107,15 +107,15 @@ export default function PhraseTable() {
               }}>
         Glossaries
         </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                   
                   
                 >
        Glossaries Forms
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1  border p-3 box_style" >
@@ -146,10 +146,13 @@ export default function PhraseTable() {
                   </Button>
                 </div>
             </div>
+            <div className="row headingLabel complyColor">Glossary entries for US English</div>
             <div className=" row m-1  card p-3" style={{ overflowX: "auto" }}>
               <div className="col-12 d-flex">
                 <table class="table table-hover table-striped">
+
                   <Paper>
+                   
                     <TableContainer sx={{}}>
                       <Table sx={{ minWidth: 650 }}class="table table-hover table-striped">
                         <TableHead>
@@ -261,7 +264,9 @@ export default function PhraseTable() {
                   <Button  size="small"className="btn-cstm  mt-2 mb-3 " style={{ float: "right" }} >
                     Export
                   </Button>
-                  <Button  size="small"className="btn-cstm  mt-2 mb-3 mx-1" style={{ float: "right" }} >
+                  <Button  size="small"className="btn-cstm  mt-2 mb-3 mx-1" style={{ float: "right" }} onClick={()=>{
+                history.push("/glossaries")
+              }}>
                     Back
                   </Button>
                 {/* </Button> */}

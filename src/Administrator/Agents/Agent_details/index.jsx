@@ -803,20 +803,20 @@ function UserManagement ({ match }) {
                 >
                   Agents
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                   
                   
                 >
                   Agent Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <form  onSubmit={e => handleSubmit(e)} className=' mx-3 my-2'>
               <div className='row flex-column  card p-4'>
-                <div className=' col-12 expend-card'>
+                <div className=' col-10 expend-card'>
                   <CardHeader
                     className=''
                     title='Agent Detail & Domain Identification'
@@ -1048,7 +1048,7 @@ function UserManagement ({ match }) {
                     </div>
                   </Collapse>
                 </div>
-                <div className=' col-12 mt-1 expend-card '>
+                <div className=' col-10 mt-1 expend-card '>
                   <CardHeader
                     className=''
                     title='Look & Feel'
@@ -1299,7 +1299,7 @@ function UserManagement ({ match }) {
                     </div> */}
                   </Collapse>
                 </div>
-                <div className='col-12 mt-1 expend-card'>
+                <div className='col-10 mt-1 expend-card'>
                   <CardHeader
                     className=''
                     title="User ID's & Passwords"
@@ -1736,7 +1736,7 @@ function UserManagement ({ match }) {
                     </div>
                   </div>
             
-                <div className=' col-12 expend-card'>
+                <div className=' col-10 expend-card mt-2'>
                   <CardHeader
                     className=''
                     title='Process Options'
@@ -1874,7 +1874,7 @@ function UserManagement ({ match }) {
                         />
                       </div>
                       <div className='col-7 d-flex'>
-                        <div className='d-flex justify-content-between'>
+                        <div className='d-flex justify-content-between formatClass'>
                           <div
                             className='my-auto text mx-1'
                             
@@ -2730,7 +2730,7 @@ function UserManagement ({ match }) {
                             ECI Mandatory Information
                           </div>
                         </div>
-                        <div className='d-flex '>
+                        {/* <div className='d-flex '>
                           <Checkbox
                             className='p-0'
                             name='usSourcedIncomeDeclarationOptional'
@@ -2744,7 +2744,7 @@ function UserManagement ({ match }) {
                           >
                             US Sourced Income Declaration (optional)
                           </div>
-                        </div>
+                        </div> */}
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
@@ -3611,8 +3611,8 @@ function UserManagement ({ match }) {
                        
                         
                        
-                        name='retroactiveStatement'
-                        value={data?.retroactiveStatement}
+                        name='retroactiveEffectiveDate'
+                        value={data?.retroactiveEffectiveDate}
                         // onChange={handleChange}
                         fullWidth
                         onChange={handleChange}
@@ -3622,7 +3622,7 @@ function UserManagement ({ match }) {
                     </div>
                   </div>
                 </div>
-                <div className='col-8 my-2 expend-card'>
+                <div className='col-10 my-2 expend-card'>
                   <CardHeader
                     className=''
                     title='
@@ -3650,7 +3650,7 @@ function UserManagement ({ match }) {
                     
                   
                 
-                    <div className='row mx-2 my-1'>
+                    {/* <div className='row mx-2 my-1'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
                           className='my-auto text'
@@ -3663,7 +3663,7 @@ function UserManagement ({ match }) {
                       <div className='col-5'>
                       <Checkbox  className='col-1' defaultChecked={false} />
                       </div>
-                    </div>
+                    </div> */}
                    
                     <div className='row mx-2 my-1'>
                       <div className='col-5 d-flex justify-content-between'>
@@ -3739,7 +3739,7 @@ function UserManagement ({ match }) {
                         <TextField className='textFieldClass text'fullWidth name='name' />
                       </div>
                     </div>
-                    <div className='row mx-2 my-1'>
+                    {/* <div className='row mx-2 my-1'>
                       <div className='col-12 d-flex'>
                         <div
                           className='my-auto text'
@@ -3765,7 +3765,7 @@ function UserManagement ({ match }) {
                       <div className='col-5'>
                         <TextField className='textFieldClass text' fullWidth name='name' />
                       </div>
-                    </div>
+                    </div> */}
                   </Collapse>
                 </div>
                 <div className='col-12 my-2 mx-auto'>

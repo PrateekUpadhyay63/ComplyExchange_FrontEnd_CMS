@@ -80,13 +80,14 @@ export default function Language_details() {
   };
 
   useEffect(() => {
-
+    if (params?.id) {
     dispatch(getAllLanguages())
+    dispatch(getEasyTranslation(params.id,params.langId,(data)=>{ setData(data);
     // Component mounted, initialize the editor states
     setEditorState1(
-      idPageData?.pageTranslationData?.text
+      data?.text
         ? () =>  {
-          const blocksFromHTML = convertFromHTML(idPageData?.pageTranslationData?.text)
+          const blocksFromHTML = convertFromHTML(data?.text)
           const contentState = ContentState.createFromBlockArray(
             blocksFromHTML.contentBlocks,
             blocksFromHTML.entityMap
@@ -96,9 +97,9 @@ export default function Language_details() {
           return EditorState.createWithContent(contentState)
         }
         : () => EditorState.createEmpty());
-    setEditorState2(idPageData?.pageTranslationData?.moreText
+    setEditorState2(data?.moreText
       ? () =>  {
-        const blocksFromHTML = convertFromHTML(idPageData?.pageTranslationData?.moreText)
+        const blocksFromHTML = convertFromHTML(data?.moreText)
         const contentState = ContentState.createFromBlockArray(
           blocksFromHTML.contentBlocks,
           blocksFromHTML.entityMap
@@ -108,6 +109,11 @@ export default function Language_details() {
         return EditorState.createWithContent(contentState)
       }
       : () => EditorState.createEmpty());
+    }))
+    }else {
+      setEditorState1(() => EditorState.createEmpty());
+      setEditorState2(() => EditorState.createEmpty());
+    }
   }, []);
 
   const handleEditorStateChange1 = (editorState) => {
@@ -243,7 +249,7 @@ export default function Language_details() {
     console.log(params,"PARAMS")
     // if(params?.easyId && params?.id){
       const updateData ={
-        toolTip: data.toolTip,
+      toolTip: data.toolTip,
       easyHelpId: Number(params?.id),
       languageId:Number(params?.langId),
       text: data.text,
@@ -279,14 +285,14 @@ export default function Language_details() {
                 >
      Easy Help
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                   
                 >
        Easy Help Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style" style={{height:"908px"}}>
@@ -306,10 +312,12 @@ export default function Language_details() {
                         <div
                           variant="body2"
                           className="table_content"
-                        ></div>
+                        >
+                          {getLangById(data?.languageId)}
+                        </div>
 
                        
-                        <div className="table_content">{getLangById(data?.languageId)}</div>
+                       
                       </div>
                     </div>
                     <div className="row">
@@ -333,6 +341,7 @@ export default function Language_details() {
                           name="toolTip"
                           value={data?.toolTip}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -451,6 +460,10 @@ export default function Language_details() {
                   <div className="actionBtn">
                     <Button
                       type="reset"
+                      onClick={()=>{
+                        history.push("/easy")
+                       }}
+                      
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}

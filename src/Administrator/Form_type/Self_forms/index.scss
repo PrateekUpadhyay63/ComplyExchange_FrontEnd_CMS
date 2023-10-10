@@ -1,5 +1,4 @@
 .btn-cstm{
-    border: 1px solid black !important;
     color: white !important;
     opacity: 0.8 !important;
 }
@@ -7,8 +6,8 @@ table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
+       .MuiSelect-select{
+        background: none;
     }
     a:hover{
         cursor: pointer;
@@ -24,10 +23,10 @@ table{
 .MuiCollapse-vertical {
     padding: 0 0 10px 0;
   }
-  input,
-  .MuiSelect-select {
-    height: 0.25em;
-  }
+  // input,
+  // .MuiSelect-select {
+  //   height: 0.25em;
+  // }
 
 
   .btn-cstm {

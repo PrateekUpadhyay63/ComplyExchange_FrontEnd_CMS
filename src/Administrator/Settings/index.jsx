@@ -20,6 +20,7 @@ import {
   MenuItem,
   Checkbox,
   Button,
+  Paper,
   Link,
 } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
@@ -45,19 +46,22 @@ import {
   getAllSettings,
   getQuestionLanguageById  ,
   getHintLanguageById  ,
+  upsertSettings,
   upsertQuestionTranslations,
-  getHintTranslation 
+  getHintTranslation ,
+
 
 } from "../../redux/Actions";
 import "./index.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 
 
 export default function Settings() {
 
 const dispatch=useDispatch();
 const history = useHistory();
-
+let params = useParams()
+const arr=[1,2,3,4,5]
   const [submit , setSubmit] = useState("1");
   const tableData = useSelector((state) => state.getSettingsQuestionsReducer);
   const settingsData = useSelector((state) => state.getSettingsReducer);
@@ -65,6 +69,7 @@ const history = useHistory();
   const hintLanguageData = useSelector((state) => state.getSettingHintReducer);
 
   const [rowId, setRowId] = useState({});
+  const [editId, setEditId] = useState()
   const [rowId1, setRowId1] = useState({});
   const [dropDownData, setDropDownData] = useState([]);
   const [dropDownData1, setDropDownData1] = useState([]);
@@ -74,8 +79,27 @@ const history = useHistory();
     setOpen1(false);
     setRowId({});
   };
-
+  const [data, setData] = useState({
+    id: 0,
+    // defaultCoverPagePdf_FileName: "",
+    lengthOfConfirmationCode: "",
+    defaultLogoType: "",
+    defaultLogo_FileName: "",
+    googleTranslateAPIKey: "",
+    purgeRedundantSubmissionData: "",
+    runExchangeInIframe: false,
+    // defaultRetroactiveStatement: "",
+    underMaintenance: false,
+    reSendTokenEmailFeature: false,
+    activateNonEmailPINprocess: false,
+    blockForeignCharacterInput: false,
+    twilioAuthToken: null,
+    // twilioAccountSid: null,
+    // twilioSMSFromMobileNumber: null,
+    
+  });
   const [open, setOpen] = useState(false);
+  const [imageFile, setImageFile] = useState(null)
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -97,6 +121,55 @@ const history = useHistory();
     const selectedSubmit = event.target.value;
     setSubmit(selectedSubmit);
   }
+
+  const handleChange = e => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+  const handleImage = e => {
+    var binaryData = []
+    binaryData.push(e.target.files[0])
+    // let image_as_base64 = URL.createObjectURL(
+    //   new Blob(binaryData, { type: 'application/zip' })
+    // )
+    let imageFile = e.target.files[0]
+    console.log(e.target.files[0], 'test')
+    if (!imageFile.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      alert('Please select a valid image.')
+    } else {
+      setImageFile(imageFile)
+    }
+  }
+  const handleToogle = e => {
+    setData({ ...data, [e.target.name]: e.target.checked })
+  }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+      let updateData = {
+        // count,ryId: parseInt(params?.id),
+        id: params.id,
+        // defaultCoverPagePdf_FileName: data?.imageFile,
+        lengthOfConfirmationCode: data?.lengthOfConfirmationCode,
+        defaultLogoType: "",
+        defaultLogo_FileName: data?.imageFile,
+        googleTranslateAPIKey: data?.googleTranslateAPIKey,
+        purgeRedundantSubmissionData: data?.purgeRedundantSubmissionData,
+        runExchangeInIframe: data?.runExchangeInIframe,
+        // defaultRetroactiveStatement: data?.defaultRetroactiveStatement,
+        underMaintenance: data?.underMaintenance,
+        reSendTokenEmailFeature: data?.reSendTokenEmailFeature ,
+        activateNonEmailPINprocess: data?.activateNonEmailPINprocess,
+        blockForeignCharacterInput: data?.blockForeignCharacterInput,
+        twilioAuthToken: data?.twilioAuthToken,
+        // twilioAccountSid: data?.twilioAccountSid,
+        // twilioSMSFromMobileNumber: data?.twilioSMSFromMobileNumber,
+      };
+      dispatch(upsertSettings(updateData));
+    }
+    // history.push("/settings");
+
+
   return (
     <Fragment>
     <ThemeOptions />
@@ -107,14 +180,14 @@ const history = useHistory();
         <div className="app-main__inner">
         <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
-                   underline="hover"
-                  color="#171616"
+                <p
+                  
+                  color="#000000"
                    aria-current="page"
                  
                 >
                   Settings
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
      
@@ -143,7 +216,7 @@ const history = useHistory();
                 </div>
               </div>
             </div> */}
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -151,10 +224,10 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7 input-file">
-                  <Input className="file-Input-select"type="file" id="myfile" name="myfile" />
+                  <Input  onChange={(e) => handleImage(e)} className="file-Input-select"type="file" id="myfile" name="myfile" />
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -163,7 +236,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField className="w-50 textFieldClass" fullWidth name="lengthOfConfirmationCode" value={data?.lengthOfConfirmationCode} onChange={handleChange}/>
                 </div>
               </div>
             </div>
@@ -181,7 +254,7 @@ const history = useHistory();
                     <option value="REMOVE">Remove</option>
                     
                   </select>
-                  {submit === "UPLOAD" && <Input  type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
+                  {submit === "UPLOAD" && <Input onChange={(e) => handleImage(e)} value={data?.defaultLogoType} type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
                 </div>
               </div>
             </div>
@@ -194,11 +267,51 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange}className="w-50 textFieldClass" fullWidth name="googleTranslateAPIKey" value={data?.googleTranslateAPIKey}/>
                 </div>
               </div>
             </div>
-            
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Crypto Key:
+                  </div>
+                </div>
+                <div className="col-7">
+                <TextField onChange={handleChange}className="w-50 textFieldClass" fullWidth name="cryptoKey" value={data?.cryptoKey}/>
+                <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="Key used for creating the HMAC signature hash for the form POST" arrow>
+                  <InfoIcon/>
+                </Tooltip>
+                </div>
+              </div>
+            </div>
+            {/* greg */}
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2"> 
+                  Log Incoming Requests:
+                  </div>
+                </div>
+                <div className="col-7">
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
+                </div>
+              </div>
+            </div>
+           {/* fgfbdr */}
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2"> 
+                  Enable Warning Block:
+                  </div>
+                </div>
+                <div className="col-7">
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
+                </div>
+              </div>
+            </div>
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -207,7 +320,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className=" d-flex col-lg-6 col-12 text">
-                <FormGroup className="d-block text">
+                <FormGroup value={data?.purgeRedundantSubmissionData}className="d-block text">
                   <FormControlLabel className="m-0 text" label="Aged: 3 months" control={<Checkbox defaultChecked />}/>
                   <FormControlLabel className="m-0 text" label="6 months" control={<Checkbox />} />
                   <FormControlLabel className="m-0 text" label="9 months" control={<Checkbox />}  />
@@ -233,12 +346,12 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.runExchangeInIframe} className="checkBox" />
                 </div>
               </div>
             </div>
            
-             <div className="col-12 d-flex">
+             {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -246,10 +359,10 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="name"/>
+                <TextField onChange={handleChange} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -258,7 +371,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.underMaintenance} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -270,7 +383,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass"  fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass"  fullWidth name="name"/>
                 </div>
               </div>
             </div>
@@ -282,11 +395,11 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField  className="w-50 textFieldClass " fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass " fullWidth name="name"/>
                 </div>
               </div>
             </div>
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -294,23 +407,23 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox"/>
+                <Checkbox onChange={handleToogle} defaultChecked={true} className="checkBox"/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
-                  <div className="my-auto text w-100" variant="body2">
+                  <div className="my-auto text w-100" variant="body2" >
                   Twilio auth token
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
                 </div>
               </div>
             </div>
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -318,11 +431,11 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioAccountSid" value={data?.twilioAccountSid}/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -330,11 +443,11 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="name"/>
+                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="twilioSMSFromMobileNumber" value={data?.twilioSMSFromMobileNumber}/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -345,8 +458,8 @@ const history = useHistory();
                 <TextField className="w-50 textFieldClass" fullWidth name="name"/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -357,7 +470,7 @@ const history = useHistory();
                 <TextField className="w-50 textFieldClass" fullWidth name="name"/>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
@@ -366,7 +479,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.reSendTokenEmailFeature } className="checkBox" />
                 </div>
               </div>
             </div>
@@ -378,7 +491,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7 p-relative">
-                <Checkbox defaultChecked={false} className="checkBox" /> 
+                <Checkbox onChange={handleToogle} checked={data?.activateNonEmailPINprocess} className="checkBox" /> 
                 <Tooltip style={{top:"20%"}} className="cstm-tooltip checkBox" title="The below features will be amended by selecting this option: \n Email TOKEN feature – will be replaced by security question and answer process \n Resend confirmation code – will be replaced by security question and answer process" arrow>
                   <InfoIcon/>
                 </Tooltip>
@@ -388,12 +501,12 @@ const history = useHistory();
             <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
-                  <div className="my-auto text w-100" variant="body2">
+                  <div className="my-auto text w-100" variant="body2"> 
                   No Token/PIN process:
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false}className="checkBox" />
+                <Checkbox onChange={handleToogle} defaultChecked={false}className="checkBox" />
                 </div>
               </div>
             </div>
@@ -405,7 +518,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} checked={data?.blockForeignCharacterInput} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -417,7 +530,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={false} className="checkBox" />
+                <Checkbox onChange={handleToogle} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -429,7 +542,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox  onChange={handleToogle}defaultChecked={true} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -441,7 +554,7 @@ const history = useHistory();
                   </div>
                 </div>
                 <div className="col-7">
-                <Checkbox defaultChecked={true} className="checkBox" />
+                <Checkbox onChange={handleToogle} defaultChecked={true} className="checkBox" />
                 </div>
               </div>
             </div>
@@ -450,6 +563,11 @@ const history = useHistory();
             <div className="col-12 d-flex">
               <table class="table table-hover table-striped">
                 <thead>
+                  <TableRow>
+                  <TableCell className="table_header"scope="col"  style={{backgroundColor:"white"}}>
+                      Security Questions
+                    </TableCell>
+                  </TableRow>
                   <TableRow>
                     <TableCell className="table_head"scope="col" style={{ fontSize: "20px" }}>
                       Question
@@ -528,7 +646,9 @@ const history = useHistory();
                         <div className="d-flex mx-auto">
                          
                             <EditIcon   onClick={() => {
+                              console.log(row.id,"oooo")
                                   setOpen(true);
+                                  setEditId(row)
                                
                                  
                                 }} style={{ color: "green",fontSize:"20px",cursor:'pointer' }} />
@@ -542,14 +662,183 @@ const history = useHistory();
                 </TableBody>
               </table>
             </div>
-          
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2" >
+                  API URL:
+                  </div>
+                </div>
+                <div className="col-7">
+                <TextField onChange={handleChange} className="w-100 textFieldClass" fullWidth name="twilioAuthToken" value={data?.twilioAuthToken}/>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="col-12" >
+            
+                <div style={{fontSize:"13px",color:"black"}} className="headerText custom_my_2">Request Headers:</div>
+
+                <div className=" custom_my_2 mt-2  d-flex">
+                  <div
+                    className="col-5"
+                    style={{ height: "320px" }}
+                  >
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow >
+                          <TableCell
+                            align="left"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head">
+                          Request Header Key
+                          </TableCell>
+                         
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                      
+                            {arr.map((i,ind)=>
+                            {return(
+                              <TableRow >
+                                <TableCell className="text">
+                               {ind+1}
+                                </TableCell>
+                                <TableCell>
+                                  
+                                  <TextField
+                                  fullWidth
+                                    
+                                 
+                                    name="key"
+                                   
+                                  />
+                                   
+                                </TableCell>
+                               
+                              </TableRow>
+                            )})  }
+                      
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div
+                    className="col-5 "
+                    style={{ height: "320px" }}
+                  >
+                  
+
+                    <table class="table table-hover">
+                      <thead>
+                        <TableRow>
+                          <TableCell
+                            align="middle"
+                            scope="col"
+                            style={{ fontSize: "20px" }}
+                          ></TableCell>
+                          <TableCell className="table_head" scope="col">
+                          Request Header Value
+                          </TableCell>
+                        
+                        </TableRow>
+                      </thead>
+                      <tbody>
+                       
+                        
+                           
+                      {arr.map((i,ind)=>
+                            {return(
+                              <TableRow >
+                                <TableCell className="text">
+                              
+                                </TableCell>
+                                <TableCell>
+                                  
+                                  <TextField
+                                  fullWidth
+                                    
+                                
+                                    name="key"
+                                   
+                                  />
+                                    
+                           
+                                </TableCell>
+                               
+                              </TableRow>
+                            )})  }
+                        
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+             
+            </div>
+            
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+              <div className="my-auto text w-100">
+                  Agent Headers:
+                  </div>
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Tax forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  Dual forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 d-flex">
+              <div className="row my-1 w-100">
+                <div className="col-5 d-flex">
+                  <div className="my-auto text w-100" variant="body2">
+                  CRS forms Agent:
+                  </div>
+                </div>
+                <div className="col-7 input-file text">
+                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}class="file-upload-option" onchange="return UpdateFileUploadStatus($(this));">
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
-         
                   </div>
                   
           <div className="col-12">
             <Button
             size="small"
+            onClick={handleSubmit}
               className="btn-cstm mb-3 mt-1"
               style={{ float: "right"}}
             >
@@ -564,6 +853,7 @@ const history = useHistory();
        <SettingsModal
         open={open}
         setOpen={setOpen}
+        EditId={editId}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose1}
       />

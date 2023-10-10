@@ -117,14 +117,14 @@ export default function PhraseTable() {
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                 
                   
                 >
                   Easy Help
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1  card p-3 box_style">
@@ -174,29 +174,30 @@ export default function PhraseTable() {
                         sx={{ minWidth: 650 }}
                         className="table table-hover table-striped"
                       >
-                        <TableHead>
-                          <TableRow>
+                        <TableHead >
+                          <TableRow >
                             <TableCell className="table_head tableRow">Key</TableCell>
-                            <TableCell align="center" className="table_head min-width tableRow">
+                            <TableCell align="center" className="table_head min-width tableRoww">
                               Content preview
                             </TableCell>
 
-                            <TableCell align="center" className="table_head tableRow">
+                            <TableCell align="center" className="table_head tableRoww">
                               Translations
                             </TableCell>
 
                             <TableCell
                               colSpan={2}
                               align="right"
-                              className="table_head tableRow"
+                              className="table_head tableRoww"
                             >
                               Action
                             </TableCell>
                           </TableRow>
                         </TableHead>
-                        <TableBody  className="tableRow">
+                        <TableBody >
                           {tableData?.easyData?.records?.map((row) => (
                             <TableRow
+                            className="tableRoww"
                               key={row.id}
                               sx={{
                                 "&:last-child td, &:last-child th": {
@@ -205,9 +206,9 @@ export default function PhraseTable() {
                               }}
                             >
                               <TableCell
-                                component="th"
-                                className="add_Rules tableRow"
-                                scope="row"
+                               
+                                className="add_Rules "
+                               
                                 onClick={() => {
                                   history.push(`/easy_details/${row.id}`);
                                 }}
@@ -217,7 +218,7 @@ export default function PhraseTable() {
 
                               <TableCell
                              
-                                className="table_content tableRow previewClass"
+                                className="table_content previewClass"
                                 align="center"
                                 
                                 dangerouslySetInnerHTML={{__html: row.text}}
@@ -225,7 +226,7 @@ export default function PhraseTable() {
                                 
                               </TableCell>
                               <TableCell
-                                className="table_content tableRow"
+                                className="table_content "
                                 align="center"
                               >
                                 <span
@@ -244,7 +245,7 @@ export default function PhraseTable() {
                                 </span>
                               </TableCell>
 
-                              <TableCell className="actionRow tableRow" align="right">
+                              <TableCell className="actionRow" align="right">
                                 {/* <Button style={{color:"green"}}> <EditIcon /></Button> */}
                                 <DeleteIcon
                                   style={{ color: "red", fontSize: "20px" }} onClick={() => {
@@ -261,6 +262,17 @@ export default function PhraseTable() {
                   </Paper>
                 </table>
               </div>
+              {tableData?.easyData?.totalPages > 1 ? (
+              <Stack className="px-3 col-12" style={{marginTop:"5px"}} spacing={2}>
+                <Pagination
+                 variant="outlined"
+                 shape="rounded"
+                 color="primary"
+                  count={tableData?.easyData?.totalPages}
+                  onChange={(e, value) => setPage(value)}
+                />
+              </Stack>
+               ) : ""}
             </div>
             <div className="actionBtn">
               <Button
@@ -293,14 +305,7 @@ export default function PhraseTable() {
                 Export
               </Button>
             </div>
-            {tableData?.easyData?.totalPages > 1 ? (
-              <Stack className="px-3 col-12" style={{marginTop:"10px"}} spacing={2}>
-                <Pagination
-                  count={tableData?.easyData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-              </Stack>
-               ) : ""}
+           
           </div>
         </div>
       </div>

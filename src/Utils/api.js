@@ -1,6 +1,7 @@
 import Utils from '.'
 // import { logOut } from "../components/header/action";
 
+
 const getAccessTokenUsingRefreshToken = () => {
   return dispatch => {
     if ('refresh-token' in localStorage) {
@@ -97,12 +98,15 @@ const loginApiCall = (endPoint, params, successCallback, errorCallback) => {
     })
 }
 const deleteApiCall = (endPoint, params, successCallback, errorCallback) => {
- Utils.constants.axios.delete(endPoint,params,{headers:{ 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`}})
+ Utils.constants.axios.delete(endPoint,params)
     .then(response => {
       successCallback(response)
     })
     .catch(error => {
-      if (error.code === 'ECONNABORTED') {
+      if (error?.response?.status == 401) {
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("userDetails","")
+        window.location.reload();
         let payload = {
           data: {
             statusCode: 408
@@ -138,7 +142,7 @@ const deleteApiCall = (endPoint, params, successCallback, errorCallback) => {
       }
     })
 }
-let headers = {
+var headers = {
   'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
   'Content-Type': 'application/json',
 }
@@ -159,7 +163,10 @@ const postApiCall = (
       successCallback(response)
     })
     .catch(error => {
-      if (error.code === 'ECONNABORTED') {
+      if (error?.response?.status == 401) {
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("userDetails","")
+        window.location.reload();
         let payload = {
           data: {
             statusCode: 408
@@ -250,7 +257,11 @@ const getApiCall = (endPoint, params = '', successCallback, errorCallback) => {
       successCallback(response)
     })
     .catch(error => {
-      if (error.code === 'ECONNABORTED') {
+      console.log(error,"errorr")
+      if (error?.response?.status == 401) {
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("userDetails","")
+        window.location.reload();
         let payload = {
           data: {
             statusCode: 408
@@ -301,7 +312,10 @@ const putApiCall = (
       successCallback(response)
     })
     .catch(error => {
-      if (error.code === 'ECONNABORTED') {
+      if (error?.response?.status == 401) {
+        localStorage.setItem("accessToken","")
+        localStorage.setItem("userDetails","")
+        window.location.reload();
         let payload = {
           data: {
             statusCode: 408

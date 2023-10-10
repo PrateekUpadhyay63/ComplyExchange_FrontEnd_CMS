@@ -9,7 +9,6 @@ import {
   CardContent,
   CardActions,
   Card,
-  FormHelperText,
   Divider,
   div,
   Select,
@@ -19,9 +18,9 @@ import {
   Input,
 } from "@mui/material";
 
-import ThemeOptions from "../../../Layout/ThemeOptions/";
+import ThemeOptions from "../../../Layout/ThemeOptions";
 import { Fragment } from "react";
-import AppSidebar from "../../../Layout/AppSidebar/";
+import AppSidebar from "../../../Layout/AppSidebar";
 import "./index.scss";
 import {
   createCapacities,
@@ -35,85 +34,42 @@ export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history = useHistory();
-  const [passwordError, setPasswordError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const formData = useSelector((state) => state.getUserByIdReducer);
-  const [data, setData] = useState({
-    
-    email: "",
-    enableMFA: false,
-    enableMFA_SMS: false,
-    id: 0,
-    mobileNumber: "",
-    countryCode:"",
-    password: "",
-    roleId: 1,
-    roleName: "",
-  });
- 
+  const [data, setData] = useState(
+    params.id
+      ? {
+          id: 0,
+          email: "",
+          roleId: 1,
+         
+          enableMFA: false,
+          enableMFA_SMS: false,
+          mobileNumber: "",
+        }
+      : {
+          email: "",
+         
+          roleId: 1,
+          enableMFA: false,
+          enableMFA_SMS: false,
+          mobileNumber: "",
+        }
+  );
   useEffect(() => {
     setData(formData?.getUserByIdData);
-   
   }, [formData]);
 
-
   useEffect(() => {
-    if (params?.id) {
-      dispatch(getUserById(params?.id), (data) => {
-        setData(data);
-      });
-    
-    }
-    else{
-      setData({
-        email: "",
-        enableMFA: false,
-        enableMFA_SMS: false,
-        id: 0,
-        mobileNumber: "",
-        password: "",
-        countryCode:"",
-        roleId: 1,
-        roleName: "",
-
-      })
-    }
+    if(params?.id)
+    {
+    dispatch(getUserById(params.id), (data) => {
+      setData(data);
+    });
+  }
   }, []);
-  useEffect(()=>{
-    
-  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!data.email) {
-      setEmailError("This field is required");
-      return; 
-    }
-    if (!data.password) {
-      setPasswordError("This field is required");
-      return; 
-    }
-   
-    if (!data.confirmPassword) {
-      setConfirmPasswordError("This field is required");
-      return; 
-    }
-
-    if (data.password !== data.confirmPassword) {
-      setConfirmPasswordError("Passwords doesn't match");
-      return; 
-    } else {
-      setConfirmPasswordError("");
-    }
-   
-
-   
-    setEmailError("");
-    
-    setPasswordError("");
-    setConfirmPasswordError("");
-    
     if (params.id) {
       let updateData = {
         id: params?.id,
@@ -123,44 +79,19 @@ export default function Countries_details() {
         enableMFA_SMS: data?.enableMFA_SMS,
         mobileNumber: data?.mobileNumber,
       };
-      dispatch(updateUser(updateData)
-   
-      );
+      dispatch(updateUser(updateData));
     } else {
       dispatch(signupAction(data));
     }
-    
     history.push("/administrators");
   };
-  
 
-  const handleToogle = (e) => {
-    setData({ ...data, [e.target.name]: e.target.checked });
-  };
+    const handleToogle = (e) => {
+      setData({ ...data, [e.target.name]: e.target.checked });
+    };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-
-   
-    if (e.target.name === "email" && e.target.value === "") {
-      setEmailError("This field is required");
-    } else {
-      setEmailError(""); 
-    }
-    if (e.target.name === "password" && e.target.value === "") {
-      setPasswordError("This field is required");
-    } else {
-      setPasswordError(""); 
-    }
-    
-    if (e.target.name === "confirmPassword" && e.target.value === "") {
-      setConfirmPasswordError("This field is required");
-    } else {
-      setConfirmPasswordError(""); 
-    }
-
-    
-   
   };
 
   return (
@@ -199,9 +130,9 @@ export default function Countries_details() {
                           : "Add Administrator"}
                       </div>
                     }
-                  <div className="row">
+                    <div className="row">
                       <div className="col-2">
-                        <div className="table_content">Email:<span style={{color:"red"}}>*</span></div>
+                        <div className="table_content">Email:</div>
                       </div>
                       <div className="col-10">
                         <div className="table_content"></div>
@@ -213,60 +144,10 @@ export default function Countries_details() {
                           value={data?.email}
                           onChange={handleChange}
                           required
-                          error={!!emailError} 
-                          />
-                          <FormHelperText error={!!emailError}>{emailError}</FormHelperText>
+                        />
                       </div>
                     </div>
-                    {!params.id ? ( <div className="row">
-                      <div className="col-2">
-                        <div className="table_content">Password:<span style={{color:"red"}}>*</span></div>
-                      </div>
-                      <div className="col-10">
-                        <div className="table_content"></div>
-
-                        <TextField
-                        type="password"
-                          className="table_content"
-                          size="small"
-                          name="password"
-                          value={data?.password}
-                          onChange={handleChange}
-                          required
-                          error={!!passwordError}
-                        />
-                         <FormHelperText error={!!passwordError}>
-          {passwordError}
-        </FormHelperText>
-                      </div>
-                    </div>):
-                    ""
-                    }
-                     {!params.id ? ( <div className="row">
-                      <div className="col-2">
-                        <div className="table_content">Confirm Password:<span style={{color:"red"}}>*</span></div>
-                      </div>
-                      <div className="col-10">
-                        <div className="table_content"></div>
-
-                        <TextField
-                         type="password"
-                          className="table_content"
-                          size="small"
-                          name="confirmPassword"
-                          value={data?.confirmPassword}
-                          onChange={handleChange}
-                          required
-                          error={!!confirmPasswordError} // Set error prop to display the error message
-                          />
-                          <FormHelperText error={!!confirmPasswordError}>
-                            {confirmPasswordError}
-                          </FormHelperText>
-                      </div>
-                    </div>):
-                    ""
-                    }
-                    {/* <div className="row">
+                    <div className="row">
                       <div className="col-2">
                         <div className="table_content">
                           Enable MFA (Multi Factor Authentication) - Email:
@@ -290,31 +171,31 @@ export default function Countries_details() {
                       <div className="col-10">
                         <Checkbox
                           name="enableMFA_SMS"
-                          value={data?.enableMFA_SMS}
-                          onClick={(e) => handleToogle(e)}
+                            onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
                           checked={data?.enableMFA_SMS}
                         />
                       </div>
-                    </div> */}
+                    </div>
                     <div className="row">
                       <div className="col-2">
                         <div className="table_content">Country Code:</div>
                       </div>
                       <div className="col-10">
                         <Select
+                        required
                           align="center"
-                          onChange={handleChange}
-                          value={data?.countryCode}
-                         
-                          name="countryCode"
-                     
+                          defaultValue={0}
+                          type="Mobile"
+                          name = "countryCode"
+                          // value={}
                           className="selectBox text table_content"
                         >
-                          <MenuItem> ---Select----</MenuItem>
-                          <MenuItem value={"+91"}>+91</MenuItem>
-                          <MenuItem value={"+1"}>+1</MenuItem>
+                          <MenuItem value={0}> ---Select----</MenuItem>
+                          <MenuItem value={1}>+91</MenuItem>
+                          <MenuItem value={2}>+1</MenuItem>
                         </Select>
+                    
                       </div>
                     </div>
                     <div className="row">
@@ -338,12 +219,8 @@ export default function Countries_details() {
 
                   <div className="actionBtn">
                     <Button
-
                       type="reset"
                       size="small"
-                      onClick={() => {
-                        history.push("/administrators");
-                      }}
                       variant="outlined"
                       sx={{ mr: 1 }}
                     >

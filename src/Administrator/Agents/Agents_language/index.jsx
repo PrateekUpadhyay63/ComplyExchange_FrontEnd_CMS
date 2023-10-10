@@ -753,15 +753,15 @@ export default function Language_details() {
                 >
                   Agents
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                   
                   
                 >
                   Agent Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style">
@@ -772,14 +772,14 @@ export default function Language_details() {
                     </div>
                   }
                   <div>
-                    <div className="row d-flex">
+                    <div className="d-flex">
                       <div className="col-2 table_content">
                        
                           Language:
                       
                      
                       </div>
-                      <div className="col-10 table_content">
+                      <div className="col-10 table_content mt-2">
                         {getLangById(params?.langId)}
                       </div>
                     </div>
@@ -1185,6 +1185,7 @@ export default function Language_details() {
                         size="small"
                         variant="outlined"
                         sx={{ mr: 1 }}
+                        onClick={()=>{history.push("/agent")}}
                       >
                         cancel
                       </Button>

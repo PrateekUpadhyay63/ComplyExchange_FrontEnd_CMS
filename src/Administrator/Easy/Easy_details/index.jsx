@@ -83,10 +83,15 @@ export default function Language_details () {
         : () => EditorState.createEmpty()
     )
   }, [])
-
-  const handleEditorStateChange1 = editorState => {
+  
+   const handleEditorStateChange1 = editorState => {
+  
     setEditorState1(editorState)
-  }
+}
+  
+
+  
+  
 
   const handleEditorStateChange2 = editorState => {
     setEditorState2(editorState)
@@ -202,7 +207,29 @@ export default function Language_details () {
 
   useEffect(() => {
     if (params?.id) {
-      dispatch(getEasyById(params.id))
+      dispatch(getEasyById(params.id,(data)=>{
+        setData(data);
+        setEditorState1(() => {
+          const blocksFromHTML = convertFromHTML(data?.text);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          return EditorState.createWithContent(contentState);
+        });
+        setEditorState2(() => {
+          const blocksFromHTML = convertFromHTML(data?.moreText);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+          return EditorState.createWithContent(contentState);
+        });
+      }))
+    }else {
+      setEditorState1(() => EditorState.createEmpty());
+      setEditorState2(() => EditorState.createEmpty());
     }
   }, [])
   useEffect(() => {
@@ -270,15 +297,15 @@ export default function Language_details () {
                 >
      Easy Help
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   
                 >
        Easy Help Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className='row m-1 border p-3 box_style' style={{height:"910px"}}>
@@ -306,10 +333,12 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='easykey'
                           value={data?.easykey}
                           onChange={handleChange}
+                          
                         />
                       </div>
                     </div>
@@ -330,10 +359,12 @@ export default function Language_details () {
 
                         <TextField
                         className='table_content'
+                        required
                           size='small'
                           name='tooltip'
                           value={data?.tooltip}
                           onChange={handleChange}
+                        
                         />
                       </div>
                     </div>
@@ -436,7 +467,10 @@ export default function Language_details () {
                         size='small'
                         variant='outlined'
                         sx={{ mr: 1 }}
-                        onClick={e => handleCancel(e)}
+                        onClick={()=>{
+                          history.push("/easy")
+                         }}
+                        
                       >
                         Cancel
                       </Button>

@@ -154,21 +154,21 @@ export default function Language_details() {
                 <Link
                    underline="hover"
                   color="#0e548c"
-                  onClick={()=>{history.push("/agent_edit_list/:id")}}
+                  onClick={()=>{history.Linkush("/agent_edit_list/:id")}}
                   
                   
                 >
                   Agent Edit List
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                  
                   
                   
                 >
                   Agent Content Edit Form
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style" style={{height:"900px"}}>
@@ -248,6 +248,7 @@ Content Block
                   </div>
                     <div className="actionBtn">
                       <Button
+                       onClick={()=>{history.push("/agent")}}
                         type="reset"
                         size="small"
                         variant="outlined"

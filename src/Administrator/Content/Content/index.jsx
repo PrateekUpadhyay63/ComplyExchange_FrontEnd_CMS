@@ -63,7 +63,10 @@ export default function ContentManagement() {
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
   const handleClose1 = () => setOpen1(false);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
   const [idData, setIdData] = useState(0);
+  const [search, setSearch] = useState("");
   const [dropDownData, setDropDownData] = useState([]);
   const [open2, setOpen2] = useState(false);
   const handleClickOpen2 = () => setOpen2(true);
@@ -82,70 +85,93 @@ export default function ContentManagement() {
     toolTip: "",
     typeId: null,
   })
-
+  const setSubmit = (e) => {
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllContentType(page, size, search));
+  };
+  useEffect(()=>{
+    if(search===""){
+      setPage(1);
+      setSize(10);
+      dispatch(getAllContentType(page, size, search));
+    }
+  },[search])
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    dispatch(getAllContentType(page, size));
+  }, [page]);
+ 
   const tableData = useSelector((state) => state.getAllContentTypeByIdReducer);
 
   useEffect(() => {
-    dispatch(getAllContentType());
+    dispatch(getAllContentType(page, size, search));
     dispatch(getAllLanguages())
   }, []);
 
-
-
-  
-
-  console.log(tableData,"tableData")
   return (
     <Fragment>
       <ThemeOptions />
       {/* <AppHeader /> */}
       <div className="app-main">
         <AppSidebar />
-        <div className="app-main__outer">
+        <div className="app-main__outer" >
           <div className="app-main__inner">
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                   
                   
                 >
       Content Block
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
-            <div className=" row m-1  border p-3 box_style">
-              <div className="col-8 d-flex">
-               
-                <TextField
-                  style={{ backgroundColor: "#fff" }}
-                  className="mx-md-3 mx-auto w-50 rounded-Input"
-                  placeholder="Search"
-                  type="search"
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-
-
-              <div className="col-4">
-                <Button  size="small"className="btn-cstm" style={{ float: "right", display:"none" }}>
-                  Search
-                </Button>
-              </div>
+            <div className=" row m-1 card p-3 box_style">
+              <form
+                className="row"
+                onSubmit={(e) => {
+                  setSubmit(e);
+                }}
+              >
+                <div className="col-8 d-flex ">
+                  <TextField
+                    style={{ backgroundColor: "#fff", borderRadius: "10px" }}
+                    name="search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="mx-md-3 mx-auto w-50 rounded-Input"
+                    placeholder="Search"
+                    type="search"
+                    variant="outlined"
+                    size="small"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className="col-4 ">
+                  <Button
+                    size="small"
+                    type="submit"
+                    className="btn-cstm"
+                    style={{ float: "right", display: "none" }}
+                  >
+                    Search
+                  </Button>
+                </div>
+              </form>
             </div>
             <div className=" row m-1  card p-3" style={{ overflowX: "auto" }}>
               <div className="col-12 d-flex">
@@ -154,9 +180,9 @@ export default function ContentManagement() {
                     <TableContainer sx={{}}>
                       <Table sx={{ minWidth: 650 }} class="table table-hover table-striped">
                         <TableHead>
-                          <TableRow>
+                          <TableRow className="tableRow1">
                             <TableCell
-                              className='table_head'
+                              className='table_head tableRow1'
                             >
                               Name
                             </TableCell>
@@ -164,25 +190,26 @@ export default function ContentManagement() {
 
                             <TableCell 
                               align="left"
-                              className='table_head'
+                              className='table_head tableRow1'
                             >
                               Translations
                             </TableCell>
 
                             <TableCell
                               align="right"
-                              className='table_head'
+                              className='table_head tableRow1'
                             >
                               Action
                             </TableCell>
                             
-                          </TableRow>
+                          </TableRow >
                         </TableHead>
-                         {tableData?.contentData && tableData?.contentData.length ? (
+                         {tableData?.contentData && tableData?.contentData?.records?.length ? (
                         <TableBody>
                           {
-                          tableData?.contentData.map((row) => (
+                          tableData?.contentData?.records.map((row) => (
                             <TableRow
+                            className="tableRow1"
                               key={row.name}
                               sx={{
                                 "&:last-child td, &:last-child th": {
@@ -190,7 +217,7 @@ export default function ContentManagement() {
                                 },
                               }}
                             >
-                              <TableCell className="table_content "
+                              <TableCell className="table_content tableRow1"
                                 
                               
                                
@@ -201,7 +228,7 @@ export default function ContentManagement() {
                              
                               <TableCell
                               align="left"
-                              className="table_content"
+                              className="table_content tableRow1"
                               // onClick={() => getLangById(row.id)}
                             >
                               <span
@@ -219,10 +246,9 @@ export default function ContentManagement() {
                                 Select Languages
                               </span>
                             </TableCell>
-                              <TableCell className="table_content" align="right">
+                              <TableCell className="table_content tableRow1" align="right">
                                 {row.action}
                                 <div className="actionRow">
-                                 
                                     <EditIcon style={{ color: "green" , fontSize:'20px' }}
                                     onClick={() => {
                                       history.push(
@@ -241,6 +267,19 @@ export default function ContentManagement() {
                   </Paper>
                 </table>
               </div>
+              {tableData?.contentData?.totalPages > 1 ? (
+            <Stack spacing={2}>
+            <Pagination
+             variant="outlined"
+             shape="rounded"
+             color="primary"
+                  count={tableData?.contentData?.totalPages}
+                  onChange={(e, value) => setPage(value)}
+                />
+            </Stack>
+             ) : (
+              ""
+            )}
             </div>
               <div className="col-12 mb-4 mt-2" >
                 <Button  size="small"className="btn-cstm mx-1 mb-4" style={{ float: "right",marginLeft:'5px', }} onClick={()=>{
@@ -253,12 +292,7 @@ export default function ContentManagement() {
                   Export 
                 </Button>
               </div>
-            {/* <Stack style={{marginLeft:'20px'}}spacing={2}>
-            <Pagination
-                  count={tableData?.pageData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-            </Stack> */}
+             
           </div>
         </div>
       </div>

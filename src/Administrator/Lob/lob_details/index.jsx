@@ -135,19 +135,19 @@ export default function Language_details() {
                 >
            LOB
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                  
                   
                 >
            LOB Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
                
-              <div className=" row m-1 border p-3 box_style"style={{ height: "915px" }}>
+              <div className=" row m-1 border p-3 box_style"style={{ height: "800px" }}>
                 <form
                   onSubmit={(e) => {
                     handleSubmit(e);

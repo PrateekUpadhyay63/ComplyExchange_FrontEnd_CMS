@@ -28,97 +28,67 @@ import "./reusables.scss";
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 
-import {createFormInstruction,
+import {changePassword, createFormInstruction,
     getFormInstructionById,
-    updateFormInstruction,getAllFormInstructions } from "../redux/Actions";
+    updateFormInstruction, } from "../redux/Actions";
 
 
 
 
 const DialogEdit = props => {
-  const { open, setOpen, idData, response, getList,closeCallback,setIdData } = props
-  console.log(idData)
- 
-  const handleClose = () => {
-    setOpen(false)
-    setData({})
-  }
+  const { open, setOpen, idData,setIdData, response, getList } = props
+  
+  const handleClose = () =>{ setOpen(false); setIdData({}) ;setData({id: 0,
+    oldPassword: "",
+    password: ""})}
  
   const dispatch = useDispatch();
   let params = useParams();
   const history = useHistory();
 
   const formData = useSelector((state) => state.ParentDropDownReducer);
-
+  
   const [data, setData] = useState({
-   description:"",
-   url:""
+    id: 0,
+    oldPassword: "",
+    password: ""
   });
-
-  function setInitialData(){
-    console.log(idData,"IDDATA")
-    if(idData){
-      if(idData == 0){
-        setData({  description:"",
-        url:""})
-      }else
-      dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
-    }else{
-      setData({  description:"",
-      url:""})
-    }
-  }
-
-  useEffect(() => {
-    setInitialData();
-}, [idData]); 
-
-useEffect(() => {
-  setInitialData();
-}, []); 
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  
+  //   useEffect(() => {
+    //     if(idData){
+      //       dispatch(getFormInstructionById(idData,(data)=>{ setData(data)}));
+      //     }else{
+        //       setData({})
+        //     }
+        // }, [idData]); 
+        
+        const handleChange = (e) => {
+          setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    let createData={
-      description:data.description,
-      url:data.url
-    }
+    
     let updateData={
-      description: data.description,
-      id: idData ,
-      url: data.url,
+      id: idData?.id,
+      oldPassword: data.oldPassword,
+      password: data.password
     }
  
     if (idData) {
-      dispatch(updateFormInstruction(updateData));
-      setData({
-        description:"",
-      url:""
-      })
-      
-    } else {
-      dispatch(createFormInstruction(createData,()=>setIdData(-1)));
-      setData({  description:"",
-      url:""})
-    }
-    setData({  description:"",
-    url:""})
-    closeCallback()
+      dispatch(changePassword(updateData));
+    } 
     handleClose()
-    
   };
+  console.log(idData,"paprams")
   return (
     <Fragment>
      
       <Dialog
         open={open}
         keepMounted
-        // onClose={handleClose}
+        onClose={handleClose}
       
       >
       
@@ -128,14 +98,38 @@ useEffect(() => {
           handleSubmit(e);
         }}>
 
-{ <div className="row headingtext ">{idData ?" Edit Form Instruction" : "Add Form Instruction"}</div>}
+{ <div className="row headingtext ">Change Password</div>}
               <div className="row">
                 <div className="col-3 table_text" >
                   <div
                    
                     className='table_text'
                   >
-                    Description:<span style={{color:"red"}}>*</span>
+                    Old Password:<span style={{color:"red"}}>*</span>
+                  </div>
+                </div>
+                <div className="col-9">
+                
+
+                  <TextField
+                    required
+                    type='password'
+                    className='table_text'
+                    size="small"
+                    name="oldPassword"
+                    value={data.oldPassword}
+                    onChange={handleChange}
+                    
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-3 table_text" >
+                  <div
+                   
+                    className='table_text'
+                  >
+                New Password:<span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-9">
@@ -144,8 +138,9 @@ useEffect(() => {
                   <TextField
                    className='table_text'
                     size="small"
-                    name="description"
-                    value={data.description}
+                    type='password'
+                    name="password"
+                    value={data.password}
                     onChange={handleChange}
                     required
                   />
@@ -157,7 +152,7 @@ useEffect(() => {
                    
                     className='table_text'
                   >
-                    URL:<span style={{color:"red"}}>*</span>
+                    Confirm Password:<span style={{color:"red"}}>*</span>
 
                   </div>
                 </div>
@@ -194,7 +189,6 @@ useEffect(() => {
                style={{fontSize:"12px"}}
                 size="small"
                 type="submit"
-               onChange={handleSubmit}
                 variant="contained"
               >
                 Save

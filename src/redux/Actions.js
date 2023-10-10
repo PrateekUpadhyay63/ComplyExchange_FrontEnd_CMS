@@ -35,12 +35,87 @@ export const signupAction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          console.log(responseData.status=='200')
           Utils.showAlert(1, "User Registered successfully");
         }
       },
       (error) => {
-        console.log(error)
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getUserById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_USER_BY_ID,
+      `/${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_USER_BY_ID,
+            payload: {
+              getUserByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getCountryById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_BY_ID,
+      `?id=${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_COUNTRY_BY_ID,
+            payload: {
+              getCountryByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getAgentEformSelection = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_E_FORM_SELECTION_WARNING,
+      `?id=${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_E_FORM_SELECTION_WARNING,
+            payload: {
+              getAgentEformSelectionData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
         let { data } = error;
         Utils.showAlert(2, data.message);
       }
@@ -57,12 +132,17 @@ export const loginAction = (value,callback) => {
 
       value,
       (responseData) => {
-        console.log(responseData)
-        if(responseData.status ==200){
+      
+        if(responseData.status == 200){
+         
           localStorage.setItem('accessToken',responseData.data.token.accessToken)
           localStorage.setItem('userDetails',JSON.stringify(responseData.data))
           Utils.showAlert(1, "Logged in Succesfully");
-          callback();
+        
+          setTimeout(() => {
+            callback();
+          }, 1000); 
+        
         }
       },
       (error) => {
@@ -88,6 +168,32 @@ export const getLanguageList = (page,size,search) => {
           type: Utils.ActionName.LANG_BY_SEARCH,
           payload: {
             langData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const getAllUsers = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.ALL_USER,
+      params,
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.ALL_USER,
+          payload: {
+            allUsersData: resData.data,
           },
         });
       },
@@ -143,6 +249,114 @@ export const getAllDocumentaions = (page,size,search) => {
       },
       (error) => {
         let { data } = error;
+        // Utils.showAlert(2, data.message); 
+      }
+    );
+  };
+};
+
+export const getSecurityKeys = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_SECURITY_KEY,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_SECURITY_KEY,
+          payload: {
+            securityKeyData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getYears = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_YEARS,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_YEARS,
+          payload: {
+            yearData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const GetIncomeTypes = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_INCOME_CODE,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_INCOME_CODE,
+          payload: {
+            incTypeData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getMaxNumber = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_MAXNUMBER,
+      "",
+      (resData) => {
+        
+        dispatch({
+          type: Utils.ActionName.GET_MAXNUMBER,
+          payload: {
+            numberData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const upsertSecurityKeys = (value) => {
+  return (dispatch) => {
+    // const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPSERT_SECURITY_KEY,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPSERT_SECURITY_KEY,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, "Keys updated successfully.");
+        }
+      },
+      (error) => {
+        let { data } = error;
         Utils.showAlert(2, data.message);
       }
     );
@@ -190,6 +404,117 @@ export const GetDocumentationTypes = () => {
     );
   };
 };
+
+export const GetDocumentationCH3 = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+        dispatch({
+          type: Utils.ActionName.GET_CH3_DOC,
+          payload: {
+            ch3Data: resData.data,
+          },
+        });
+      }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const GetDocumentationCH4 = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+        dispatch({
+          type: Utils.ActionName.GET_CH4_DOC,
+          payload: {
+            ch4Data: resData.data,
+          },
+        });
+      }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch3ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH3_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH3_DOC_BY_iD,
+            payload: {
+              ch3Data: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+export const getch4ById = (value , callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_CH4_DOC_BY_iD,
+      `?id=${value}`,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_CH4_DOC_BY_iD,
+            payload: {
+              ch4Data: resData.data,
+            },
+          });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
+
 
 export const getLOB = () => {
   return (dispatch) => {
@@ -285,6 +610,30 @@ export const upsertUSIncomeSourceOnboard = (value) => {
   };
 };
 
+// export const upsertCountries = (value) => {
+//   return (dispatch) => {
+//     const dataToSend = { message: value };
+//     Utils.api.postApiCall(
+//       Utils.endPoints.POST_UPSERT_COUNTRIES,
+//       value,
+//       (responseData) => {
+//         let { data } = responseData;
+//         dispatch({
+//           type: Utils.ActionName.POST_UPSERT_COUNTRIES,
+//           payload: { data: data.data },
+//         });
+//          if (responseData) {
+//           Utils.showAlert(1, responseData?.data);
+//         }
+//       },
+//       (error) => {
+//         let { data } = error;
+//         Utils.showAlert(2, data.message);
+//       }
+//     );
+//   };
+// };
+
 
 export const getAllUSFormTypes = () => {
   
@@ -299,6 +648,33 @@ export const getAllUSFormTypes = () => {
             USformsData: resData.data,
           },
         });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
+export const getIgaDropDown= () => {
+
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_IGA,
+      "",
+      (resData) => {
+        dispatch({
+          type: Utils.ActionName.GET_IGA,
+          payload: {
+            igaDropDownData: resData.data,
+          },
+        });
+        // } else {
+        //   Utils.showAlert(2, data.message);
+        // }
       },
       (error) => {
         let { data } = error;
@@ -337,6 +713,39 @@ export const getAllPages = (page,size,search) => {
     );
   };
 };
+
+export const getAllCountriesData = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_COUNTRIES,
+      params,
+      (resData) => {
+        // const { data } = resData;
+        // if (resData.status === 200) {
+        dispatch({
+          type: Utils.ActionName.GET_ALL_COUNTRIES,
+          payload: {
+            countryData: resData.data,
+          },
+        });
+        // } else {
+        //   Utils.showAlert(2, data.message);
+        // }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
 export const GetAllCapacities = (page,size,search) => {
   let params= `?pageNumber=${page}&pageSize=${size}`
   if(search){
@@ -389,7 +798,7 @@ export const getDocById = (value,callback) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message);
       }
     );
   };
@@ -402,16 +811,12 @@ export const getSubPageById = (value) => {
       `?Id=${value}`,
       (resData) => {
         const { data } = resData;
-        if (resData.status === 200) {
           dispatch({
             type: Utils.ActionName.GET_SUBPAGE_NO,
             payload: {
               pageSubDataById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
       },
       (error) => {
         let { data } = error;
@@ -448,11 +853,15 @@ export const getSelfCertificationById = (value , callback) => {
   };
 };
 
-export const getAllContentType = (value) => {
+export const getAllContentType = (page,size,search) => {
+  let params= `?pageNumber=${page}&pageSize=${size}`
+  if(search){
+    params=`?searchTerm=${search}&pageNumber=${page}&pageSize=${size}`
+  }
   return (dispatch) => {
     Utils.api.getApiCall(
       Utils.endPoints.GET_ALL_CONTENT,
-      ``,
+      params,
       (resData) => {
         const { data } = resData;
         if (resData.status === 200) {
@@ -462,6 +871,36 @@ export const getAllContentType = (value) => {
               contentData: resData.data,
             },
           });
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const GetAllHelpVideos = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_HELP_VIDEOS,
+      ``,
+      (resData) => {
+        const { data } = resData;
+        if (resData.status === 200) {
+          console.log(resData.data,"xcvbnmasdfgh")
+          callback(resData?.data)
+          dispatch({
+            type: Utils.ActionName.GET_ALL_HELP_VIDEOS,
+            payload: {
+              helpData: resData.data,
+            },
+          });
+         
         } else {
           Utils.showAlert(2, resData.message);
         }
@@ -1014,13 +1453,16 @@ export const deleteCapacities = (id) => {
       `${Utils.endPoints.DELETE_CAPACITIES}?id=${id}`,
       "",
       (responseData) => {
+        console.log(responseData,"ERRORR")
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_CAPACITIES,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, "Deleted Successfully");
+        
+          Utils.showAlert(1, responseData?.data);
+          dispatch(GetAllCapacities(1,10,""))
         }
       },
       (error) => {
@@ -1046,7 +1488,7 @@ export const deletePAGES = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
-          getAllPages(1,10)
+          dispatch(getAllPages(1, 10));
         }
       },
       (error) => {
@@ -1061,20 +1503,25 @@ export const deleteDocumentation = (id) => {
   return (dispatch) => {
     // const dataToSend = { message: value };
     Utils.api.deleteApiCall(
-      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,
-        
+      `${Utils.endPoints.DELETE_DOCUMENTAION}?id=${id}`,"",     
       (responseData) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.DELETE_DOCUMENTAION,
           payload: { data: data.data },
         });
-         if (responseData) {
-                    Utils.showAlert(1, "Deleted Successfully");
+        if (responseData) {
+
+          Utils.showAlert(1, "Deleted Successfully");
+          dispatch (getAllDocumentaions("",1,10));
         }
       },
       (error) => {
-        Utils.showAlert(2, error.error);
+        if(error.status===200){
+          Utils.showAlert(1, "Deleted Successfully");
+          dispatch (getAllDocumentaions("",1,10));
+        }else
+        Utils.showAlert(2, error.data);
       }
     );
   };
@@ -1083,20 +1530,22 @@ export const deleteDocumentation = (id) => {
 
 
 
-export const createPAGES = (value) => {
+
+
+export const updateUser = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
-      Utils.endPoints.CREATE_PAGE,
-      value,"multi",
+      Utils.endPoints.UPDATE_USER,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
-          type: Utils.ActionName.CREATE_PAGE,
+          type: Utils.ActionName.UPDATE_USER,
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data?.message);
         }
       },
       (error) => {
@@ -1105,6 +1554,140 @@ export const createPAGES = (value) => {
     );
   };
 };
+
+export const changePassword = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.CHANGE_PASSWORD,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.CHANGE_PASSWORD,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          console.log(responseData,"res")
+          Utils.showAlert(1, responseData?.data?.message);
+          if(responseData?.data?.message !== ""){
+            // callback();
+          }
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
+export const copyAgents = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.postApiCall(
+      Utils.endPoints.COPY_AGENT,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;     
+        dispatch({
+          type: Utils.ActionName.COPY_AGENT,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          if(responseData.status==500){
+            // Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
+          }else
+          {Utils.showAlert(1, "Agent Copied successfully.");
+          if(callback){
+            callback();
+          }
+      }
+
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
+export const createPAGES = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.CREATE_PAGE,
+      value,"multi",
+      (responseData) => {
+        let { data } = responseData;     
+        dispatch({
+          type: Utils.ActionName.CREATE_PAGE,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          if(responseData.status==500){
+            Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
+          }else
+          {Utils.showAlert(1, "Page created successfully.");}
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+export const CountryUpsert = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRIES,
+      value,"multi",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRIES,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, "Countries updated successfully.");
+        }
+        
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+
+      }
+    );
+  };
+};
+
+
+export const CountriesUpsertArticle = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRY_ARTICLE,
+      value,"multi",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRY_ARTICLE,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          console.log(responseData,"success")
+          Utils.showAlert(1, "Countries article updated successfully");
+        }
+      },
+      (error) => {
+        console.log(error,"error---")
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
 
 export const createDocType = (value) => {
   return (dispatch) => {
@@ -1129,7 +1712,7 @@ export const createDocType = (value) => {
   };
 };
 
-export const createSubPAGES = (value) => {
+export const createSubPAGES = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -1141,13 +1724,20 @@ export const createSubPAGES = (value) => {
           type: Utils.ActionName.ADD_SUB_PAGE,
           payload: { data: data.data },
         });
-         if (responseData) {
+         if (responseData.status==200) {
           Utils.showAlert(1, responseData?.data);
+          callback()
         }
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        console.log(error,"ERRORRR")
+        if(data.error==="Violation of UNIQUE KEY constraint \u0027UQ__Pages__737584F6DA83FBCC\u0027. Cannot insert duplicate key in object \u0027dbo.Pages\u0027. The duplicate key value is (a).\r\nThe statement has been terminated."){
+          Utils.showAlert(2, "Subpage name already exist.Please choose another name.");
+        } 
+        else{
+          Utils.showAlert(2, error.statusText);
+        }
       }
     );
   };
@@ -1283,6 +1873,33 @@ export const getFormTypesSelfTranslation = (formTypeId, languageId, callback) =>
   }
 }
 
+
+export const getFormTypesUSTranslation = (formTypeId, languageId, callback) => {
+  return dispatch => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_US_TRANSLATION,
+      `?formTypeId=${formTypeId}&languageId=${languageId}`,
+      resData => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_US_TRANSLATION,
+            payload: {
+              formTypeUSTranslationData: resData.data
+            }
+          })
+        }
+      },
+      error => {
+        let { data } = error
+        Utils.showAlert(2, data.message)
+      }
+    )
+  }
+}
+
 export const insertSettingsTranslation = value => {
   return dispatch => {
     const dataToSend = { message: value }
@@ -1318,6 +1935,30 @@ export const insertFormTypesSelfTranslation = value => {
         let { data } = responseData
         dispatch({
           type: Utils.ActionName.CREATE_FORM_TYPES_SELF_TRANSLATION,
+          payload: { data: data.data }
+        })
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data)
+        }
+      },
+      error => {
+        let { data } = error
+        Utils.showAlert(2, data.message)
+      }
+    )
+  }
+}
+
+export const insertFormTypesUSTranslation = value => {
+  return dispatch => {
+    const dataToSend = { message: value }
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_US_TRANSLATION,
+      value,"",
+      responseData => {
+        let { data } = responseData
+        dispatch({
+          type: Utils.ActionName.POST_US_TRANSLATION,
           payload: { data: data.data }
         })
         if (responseData) {
@@ -1373,7 +2014,7 @@ export const updateDocType = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, responseData?.data.message);
         }
       },
       (error) => {
@@ -1423,6 +2064,7 @@ export const updatePAGES = (value) => {
           payload: { data: data.data },
         });
         if (responseData) {
+          console.log(responseData,"kkk")
           Utils.showAlert(1, responseData?.data);
         }
       },
@@ -1504,7 +2146,7 @@ export const importRule = (value) => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data);
+        Utils.showAlert(2, data?.error);
       },
       "multi"
     );
@@ -1523,6 +2165,31 @@ export const importEasy = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.IMPORT_EASY,
+          payload: { data: data.data },
+        });
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data);
+      },
+      "multi"
+    );
+  };
+};
+
+export const importCountries = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.IMPORT_COUNTRIES,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.IMPORT_COUNTRIES,
           payload: { data: data.data },
         });
         if (responseData) {
@@ -1591,7 +2258,7 @@ export const updateUSFormTypes = (value) => {
 export const getAllCountries = () => {
   return (dispatch) => {
     Utils.api.getApiCall(
-      Utils.endPoints.COUNTRIES,
+      Utils.endPoints.COUNTRIES,`?pageNumber=${1}&pageSize=${300}`,
       "",
       (resData) => {
         const { data } = resData;
@@ -1620,17 +2287,12 @@ export const exportContent = () => {
       Utils.endPoints.EXPORT_CONTENT,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_CONTENT,
-            payload: {
-             contentExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -1646,17 +2308,33 @@ export const exportRule = () => {
       Utils.endPoints.EXPORT_RULES,
       "",
       (resData) => {
-        const { data } = resData;
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_RULES,
-            payload: {
-             ruleExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.error);
+      }
+    );
+  };
+};
+
+export const exportCountries = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.EXPORT_COUNTRIES,
+      "",
+      (resData) => {
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -1672,16 +2350,12 @@ export const exportEasy = () => {
       Utils.endPoints.EXPORT_EASY,
       "",
       (resData) => {
-        if (resData.status === 200) {
-          dispatch({
-            type: Utils.ActionName.EXPORT_EASY,
-            payload: {
-             easyExportedData: resData.data,
-            },
-          });
-        } else {
-          // Utils.showAlert(2, data.message);
-        }
+        const url = window.URL.createObjectURL(new Blob([resData.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${Date.now()}.xlsx`);
+        document.body.appendChild(link);
+        link.click();
       },
       (error) => {
         let { data } = error;
@@ -2562,7 +3236,7 @@ export const updateContent = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_CONTENT,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -2570,7 +3244,7 @@ export const updateContent = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          Utils.showAlert(1, responseData?.data);
+          Utils.showAlert(1, "Content Updated Successfully");
         }
       },
       (error) => {
@@ -2578,6 +3252,7 @@ export const updateContent = (value) => {
         Utils.showAlert(2, data.message);
       }
     );
+    
   };
 };
 
@@ -2812,9 +3487,7 @@ export const getFormInstructionById = (value,callback) => {
               formInstructionById: resData.data,
             },
           });
-        } else {
-          Utils.showAlert(2, resData.message);
-        }
+        } 
       },
       (error) => {
         let { data } = error;
@@ -2824,7 +3497,7 @@ export const getFormInstructionById = (value,callback) => {
   };
 };
 
-export const createFormInstruction = (value) => {
+export const createFormInstruction = (value,callback) => {
   return (dispatch) => {
     const dataToSend = { message: value };
     Utils.api.postApiCall(
@@ -2837,7 +3510,9 @@ export const createFormInstruction = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+          callback();
           Utils.showAlert(1, responseData?.data);
+          getAllFormInstructions(1,10,"")
         }
       },
       (error) => {
@@ -2871,7 +3546,30 @@ export const createCapacities = (value) => {
     );
   };
 };
-
+export const postHelpVideo = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      `${Utils.endPoints.POST_HELP_VIDEOS}`,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_HELP_VIDEOS,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, "Help video updated successfully.");
+          // console.log(responseData,"dataa")
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
 
 
 export const updateFormInstruction = (value) => {
@@ -2888,7 +3586,7 @@ export const updateFormInstruction = (value) => {
         });
          if (responseData) {
           Utils.showAlert(1, responseData?.data);
-    dispatch(getAllFormInstructions(1, 10));
+          dispatch(getAllFormInstructions(1, 10));
 
         }
       },
@@ -2914,6 +3612,7 @@ export const deleteFormInstruction = (id) => {
         });
          if (responseData) {
           Utils.showAlert(1, "Deleted Successfully");
+         dispatch( getAllFormInstructions(1,10,""))
         }
       },
       (error) => {
@@ -2977,7 +3676,7 @@ export const updateRule = (value) => {
     const dataToSend = { message: value };
     Utils.api.putApiCall(
       Utils.endPoints.UPDATE_RULES,
-      value,
+      value,"",
       (responseData) => {
         let { data } = responseData;
         dispatch({
@@ -3083,6 +3782,31 @@ export const updateEasy = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.UPDATE_EASY,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const updateQuestion = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.UPDATE_QUESTION,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.UPDATE_QUESTION,
           payload: { data: data.data },
         });
          if (responseData) {
@@ -3225,6 +3949,28 @@ export const getEasyById = (value,callback) => {
   };
 };
 
+export const postEformSelectionWanring = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_E_FORM_SELECTION_WARNING,
+      value,
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_E_FORM_SELECTION_WARNING,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
 export const createEasy = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
@@ -3253,7 +3999,7 @@ export const createEasy = (value) => {
     return (dispatch) => {
       Utils.api.getApiCall(
         Utils.endPoints.GET_RULE_TRANSLATION,
-        `?pageId=${pageId}&languageId=${languageId}`,
+        `?ruleId=${pageId}&languageId=${languageId}`,
         (resData) => {
           if (resData.status === 200) {
             if(callback){
@@ -3455,6 +4201,29 @@ export const upsertQuestionTranslations = (value) => {
         let { data } = responseData;
         dispatch({
           type: Utils.ActionName.UPSERT_QUESTION_TRANSLATION,
+          payload: { data: data.data },
+        });
+         if (responseData) {
+          Utils.showAlert(1, responseData?.data);
+        }
+      },
+      (error) => {
+        Utils.showAlert(2, error.statusText);
+      }
+    );
+  };
+};
+
+export const upsertCountries = (value) => {
+  return (dispatch) => {
+    const dataToSend = { message: value };
+    Utils.api.postApiCall(
+      Utils.endPoints.POST_UPSERT_COUNTRIES,
+      value,"",
+      (responseData) => {
+        let { data } = responseData;
+        dispatch({
+          type: Utils.ActionName.POST_UPSERT_COUNTRIES,
           payload: { data: data.data },
         });
          if (responseData) {

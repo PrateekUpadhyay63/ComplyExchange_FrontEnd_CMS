@@ -16,8 +16,9 @@ import AppHeader from "../../Layout/AppHeader/";
 import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import ChangePass from "../../reusables/ChangePass"
 // import DialogTransition from "../../../reusables/deleteDialog";
-// import { getAllFormInstructions, deleteFormInstruction} from "../../../redux/Actions";
+// import { getAllUsers, deleteFormInstruction} from "../../../redux/Actions";
 
 
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -43,9 +44,9 @@ import {
   Tooltip,
   Link,
 } from "@mui/material";
-// import FormInstruction from "../../../reusables/FormInstruction"
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { getAllUsers, } from "../../redux/Actions";
 function createData(agent, content, action) {
   return { agent, content, action };
 }
@@ -66,28 +67,30 @@ const row=[]
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
-
+  
   const dispatch = useDispatch();
-//   const tableData = useSelector((state) => state.getAllFormInstructionReducer);
+  const tableData = useSelector((state) => state.getAllUsersReducer);
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, []);
+  useEffect(() => {
+    // tableData=localStorage.getItem("userDetails")
+    dispatch(getAllUsers(page, size));
+  }, []);
 
-//   const setSubmit = (e) => {
-//     e.preventDefault();
-//     setPage(1);
-//     setSize(10);
-//     dispatch(getAllFormInstructions(page, size, search));
-//   };
-//   const deleteItems = async () => {
-//     dispatch(deleteFormInstruction(idData));
-//     dispatch(getAllFormInstructions(page, size));
-//   };
+  const setSubmit = (e) => {
+    console.log(search,"search")
+    e.preventDefault();
+    setPage(1);
+    setSize(10);
+    dispatch(getAllUsers(page, size, search));
+  };
+  const deleteItems = async () => {
+    // dispatch(deleteFormInstruction(idData));
+    dispatch(getAllUsers(page, size));
+  };
 
-//   useEffect(() => {
-//     dispatch(getAllFormInstructions(page, size));
-//   }, [page]);
+  useEffect(() => {
+    dispatch(getAllUsers(page, size));
+  }, [page]);
 
   return (
     <Fragment>
@@ -101,18 +104,20 @@ const row=[]
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                  
                   
                 >
   Administrators
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className="row headingLabel complyColor">List of Administrators</div>
             <div className=" row m-1  border p-3 box_style">
+              <form onSubmit={(e) => {
+                    setSubmit(e);}}>
             <div className="col-8 d-flex ">
                   
                   <TextField
@@ -121,6 +126,8 @@ const row=[]
                     className="mx-md-3 mx-auto w-50 rounded-Input"
                     placeholder="Search"
                     type="search"
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     variant="outlined"
                     size="small"
                     InputProps={{
@@ -138,12 +145,14 @@ const row=[]
                 //   onClick={(e) => {
                 //     setSubmit(e);
                 //   }}
+                type="submit"
                   className="btn-cstm"
-                  style={{ float: "right" }}
+                  style={{ float: "right", display: "none" }}
                 >
                   Search
                 </Button>
               </div>
+              </form>
             </div>
             <div
               className=" row m-1  card p-3"
@@ -169,7 +178,7 @@ const row=[]
                           >
                           	Change password
                           </TableCell>
-                          <TableCell
+                          {/* <TableCell
                             align="center"
                            className='table_head'
                           >
@@ -179,11 +188,11 @@ const row=[]
                             align="center"
                            className='table_head'
                           >MFA enabled - SMS
-                          </TableCell>
+                          </TableCell> */}
                     
                     
                           <TableCell
-                            align="center"
+                            align="right"
                            className='table_head'
                           >
                             Actions
@@ -192,7 +201,7 @@ const row=[]
                       </TableHead>
                       {/* {console.log(tableData,"tableData?.formInstructionData?.records")} */}
                       <TableBody>
-                        {/* {tableData?.formInstructionData?.records?.map((row) => ( */}
+                        {tableData?.allUsersData?.records?.map((row) => (
                           <TableRow
                             key={row.id}
                             sx={{
@@ -200,37 +209,66 @@ const row=[]
                             }}
                           >
                             <TableCell className="table_content" component="th" scope="row">
-                            antony@complyexchange.com
+                            {row.email}
                             </TableCell>
 
                             <TableCell className="table_content" align="center">
-                             <Link onClick={()=>{
-                              history.push("/change_pass")
-                             }}>
+                             <Link onClick={() => {
+                  setOpen(true);
+                  setIdData(row)
+                  
+                 
+                }} >
                              Change password</Link>  
                                 </TableCell>
                           
-                            <TableCell className="table_content" align="center"></TableCell>
+                            {/* <TableCell className="table_content" align="center">
+                            <Checkbox
+                              name="isPartnership"
+                              
+                              className="p-0 checkBox"
+                              checked={
+                                // row.isPartnership
+                                  row.enableMFA
+                                  // : data.isPartnership
+                              }
+                            
+                            />
+                            </TableCell>
                         
-                            <TableCell className="table_content" align="center">{row.url}</TableCell>
-
                             <TableCell className="table_content" align="center">
+                            <Checkbox
+                              name="isPartnership"
+                              
+                              className="p-0 checkBox"
+                              checked={
+                                // row.isPartnership
+                                  row.enableMFA_SMS
+                                  // : data.isPartnership
+                              }
+                            
+                            />
+                            </TableCell> */}
+
+                            <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
                                   onClick={() => {
-                                   history.push("/administrators_edit")
+                                  //  history.push("/administrators_edit/1")
+                                   history.push(`administrators_edit/${row?.id}`)
+
                                   }} />
                              
                               
-                                  <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
-                                   />
+                                  {/* <DeleteIcon style={{ size:"small", color: "red",fontSize:"20px" ,marginLeft:"5px"}} 
+                                   /> */}
                                
                             
                               </div>
                             </TableCell>
                           </TableRow>
-                        {/* ))} */}
+                         ))} 
                       </TableBody>
                     </table>
                   </div>
@@ -238,13 +276,13 @@ const row=[]
               </Paper>
          
             </div>
-            <div className="col-12">
+            <div className="actionBtn">
               <Button
-                className="btn-cstm  mt-2 mx-1"
+                className="btn-cstm  mt-1 mx-1"
                 style={{ float: "right",marginLeft:"5px" }}
                 size="small"
                 onClick={() => {
-                  history.push("/administrators_edit")
+                  history.push("/administrators_add")
                  }}
               >
                Add Administrator
@@ -252,34 +290,38 @@ const row=[]
          
             </div>
           </div>
-          {/* {tableData?.formInstructionData?.totalPages > 1 ? ( */}
-            {/* <Stack style={{ marginTop: "10px" }} spacing={2}>
-              <Pagination
-                count={tableData?.formInstructionData?.totalPages}
-                onChange={(e, value) => setPage(value)}
-              />
-            </Stack> */}
-          {/* ) : (
-            ""
-          )} */}
+        {tableData?.allUsersData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12 mb-2" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={tableData?.allUsersData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
         </div>
       </div>
 
-      {/* <FormInstruction
+      <ChangePass
         open={open}
         idData={idData}
+        setIdData={setIdData}
         setOpen={setOpen}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
       />
-       <DialogTransition
+       {/* <DialogTransition
         open={open1}
         deleteItems={deleteItems}
         setOpen={setOpen1}
         handleClickOpen={handleClickOpen1}
         handleClose={handleClose1}
         deleteApi={deleteFormInstruction}
-        getAllApi={getAllFormInstructions}
+        getAllApi={getAllUsers}
       /> */}
     </Fragment>
 

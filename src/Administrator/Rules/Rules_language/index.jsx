@@ -162,6 +162,32 @@ const getLangById=(id)=>{
 const handleChange = (e) => {
   setData({ ...data, [e.target.name]: e.target.value });
 };
+
+
+useEffect(() => {
+  if (params.id) {
+    dispatch(
+      getRuleTranslation(params.id,params.langId ,(data) => {
+        setData(data);
+        if(data?.warning){
+        setEditorState1(() => {
+          const blocksFromHTML = convertFromHTML(data?.warning);
+          const contentState = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          return EditorState.createWithContent(contentState);
+        });
+      }
+      
+      })
+    );
+  } else {
+    setEditorState1(() => EditorState.createEmpty());
+    
+  }
+}, [params.id]);
 const handleSubmit = async (e) => {
   e.preventDefault();
   let updateData={
@@ -196,15 +222,15 @@ const handleSubmit = async (e) => {
                 >
                   Rules 
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   
                 >
                   Rules Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row m-1 border p-3 box_style">
@@ -310,6 +336,9 @@ const handleSubmit = async (e) => {
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}
+                      onClick={()=>{
+                        history.push("/rules")
+                       }}
                     >
                       cancel
                     </Button>

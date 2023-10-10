@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import React, { Suspense, lazy, Fragment } from "react";
 import Loader from "react-loaders";
-import PrivateRoute from "./privateRoute";
+// import PrivateRoute from "./privateRoute";
 import { ToastContainer } from "react-toastify";
 import { Help } from "@mui/icons-material";
 
@@ -87,15 +87,15 @@ const Rules = lazy(()=> import("../../Administrator/Rules/Rules_forms"))
 const Rules_details = lazy(()=> import("../../Administrator/Rules/Rules_details"))
 const Rules_language = lazy(()=> import("../../Administrator/Rules/Rules_language"))
 const Settings = lazy(() => import("../../Administrator/Settings"));
-const Glosaries = lazy(()=> import("../../Administrator/Glossaries/glossaries"))
+// const Glosaries = lazy(()=> import("../../Administrator/Glossaries/glossaries"))
 const CDFs = lazy(()=> import("../../Administrator/CDFs/CDFs_forms"))
 const Tokens = lazy(()=> import("../../Administrator/TokenSent/Token_form"))
-const Token_edit = lazy(()=> import("../../Administrator/TokenSent/Token_edit"))
-const Glossaries_form = lazy(()=> import ("../../Administrator/Glossaries/glossaries_form"))
+// const Token_edit = lazy(()=> import("../../Administrator/TokenSent/Token_edit"))
+// const Glossaries_form = lazy(()=> import ("../../Administrator/Glossaries/glossaries_form"))
 const Countries_form = lazy(()=> import ("../../Administrator/Countries/index"))
 const Countries_edit = lazy(()=> import ("../../Administrator/Countries/Countries_details/index"))
 const Add_Article = lazy(()=> import("../../Administrator/Countries/AddArticle"))
-const Glossaries_edit = lazy(()=> import("../../Administrator/Glossaries/Glossaries_edit"))
+// const Glossaries_edit = lazy(()=> import("../../Administrator/Glossaries/Glossaries_edit"))
 const Administrator = lazy(()=>import("../../Administrator/Administrators/index"))
 const Administrator_edit = lazy(()=>import("../../Administrator/Administrators/Administrators_edit"))
 const Administrator_pass = lazy(()=>import("../../Administrator/Administrators/Change_Pass"))
@@ -109,7 +109,7 @@ const Audit_Report = lazy(()=>import("../../Administrator/Audit_Report/index"))
 
 const AppMain = () => {
   function isAuth(){
-    if(localStorage.getItem("accessToken")){
+    if(localStorage.getItem("accessToken") && localStorage.getItem("accessToken")!==""){
        return true;
     }
     else return false;
@@ -173,7 +173,7 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/article" component={isAuth() ?Add_Article: login}/>
+        <Route path="/article/:id" component={isAuth() ?Add_Article: login}/>
       </Suspense>
 <Suspense
         fallback={
@@ -349,7 +349,25 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/administrators_edit" component={isAuth() ?Administrator_edit: login}/>
+        <Route path="/administrators_add" component={isAuth() ?Administrator_edit: login}/>
+      </Suspense>
+
+      <Suspense
+        fallback={
+          <div className="loader-container">
+            <div className="loader-container-inner">
+              <div className="text-center">
+                <Loader type="line-scale" />
+              </div>
+              <h6 className="mt-3">
+                Please wait while we load all Administrators
+                {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
+              </h6>
+            </div>
+          </div>
+        }
+      >
+        <Route path="/administrators_edit/:id" component={isAuth() ?Administrator_edit: login}/>
       </Suspense>
 
       <Suspense
@@ -386,7 +404,25 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/countries_edit" component={isAuth() ?Countries_edit: login}/>
+        <Route path="/countries_edit/:id" component={isAuth() ?Countries_edit: login}/>
+      </Suspense>
+  
+      <Suspense
+        fallback={
+          <div className="loader-container">
+            <div className="loader-container-inner">
+              <div className="text-center">
+                <Loader type="line-scale" />
+              </div>
+              <h6 className="mt-3">
+                Please wait while we load all Countries
+                {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
+              </h6>
+            </div>
+          </div>
+        }
+      >
+        <Route path="/countries_add/:id" component={isAuth() ?Countries_edit: login}/>
       </Suspense>
 <Suspense
         fallback={
@@ -464,7 +500,7 @@ const AppMain = () => {
         <Route path="/agent_language/:id/:langId" component={isAuth() ?Agent_language: login}/>
       </Suspense>
 
-<Suspense
+{/* <Suspense
         fallback={
           <div className="loader-container">
             <div className="loader-container-inner">
@@ -474,13 +510,13 @@ const AppMain = () => {
               <h6 className="mt-3">
                 Please wait while we load all Glossaries
                 {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
-              </h6>
+              {/* </h6>
             </div>
           </div>
         }
       >
         <Route path="/glossaries_edit" component={isAuth() ?Glossaries_edit: login}/>
-      </Suspense>
+      </Suspense> */} 
 
 <Suspense
         fallback={
@@ -554,7 +590,7 @@ const AppMain = () => {
       >
         <Route path="/page_language/:id/:langId" component={isAuth() ?page_language: login}/>
       </Suspense>
-<Suspense
+{/* <Suspense
         fallback={
           <div className="loader-container">
             <div className="loader-container-inner">
@@ -564,13 +600,13 @@ const AppMain = () => {
               <h6 className="mt-3">
                 Please wait while we load all Glosaries
                 {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
-              </h6>
+              {/* </h6>
             </div>
           </div>
         }
       >
         <Route path="/glossaries_form" component={isAuth() ?Glossaries_form: login}/>
-      </Suspense>
+      </Suspense> */} 
 
 
 <Suspense
@@ -591,7 +627,7 @@ const AppMain = () => {
         <Route path="/tokens" component={isAuth() ?Tokens: login}/>
       </Suspense>
 
-      <Suspense
+      {/* <Suspense
         fallback={
           <div className="loader-container">
             <div className="loader-container-inner">
@@ -601,13 +637,13 @@ const AppMain = () => {
               <h6 className="mt-3">
                 Please wait while we load all Tokens
                 {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
-              </h6>
-            </div>
-          </div>
-        }
-      >
-        <Route path="/Token_edit" component={isAuth() ?Token_edit: login}/>
-      </Suspense>
+              {/* </h6> */}
+            {/* </div> */}
+          {/* </div> */}
+        {/* } */}
+      {/* > */}
+        {/* <Route path="/Token_edit" component={isAuth() ?Token_edit: login}/> */}
+      {/* </Suspense> */} 
           <Suspense
         fallback={
           <div className="loader-container">
@@ -642,7 +678,7 @@ const AppMain = () => {
       >
         <Route path="/pages" component={isAuth() ? Pages : login}/>
       </Suspense>
-      <Suspense
+      {/* <Suspense
         fallback={
           <div className="loader-container">
             <div className="loader-container-inner">
@@ -652,13 +688,13 @@ const AppMain = () => {
               <h6 className="mt-3">
                 Please wait while we load all Glosaries
                 {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
-              </h6>
+              {/* </h6>
             </div>
           </div>
         }
       >
         <Route path="/glossaries" component={isAuth() ?Glosaries: login}/>
-      </Suspense>
+      </Suspense> */} 
 
       
       {/* <Suspense
@@ -800,7 +836,7 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/content" component={isAuth() ?Content: login}/>
+        <Route path="/content" component={isAuth() ?Agents: login}/>
       </Suspense>
 
       <Suspense

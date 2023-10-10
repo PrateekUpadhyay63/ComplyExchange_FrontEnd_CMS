@@ -34,62 +34,104 @@ import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
-import { createCapacities, getCapacitiesById ,updateCapacities} from "../../../redux/Actions";
+import { getCountryById, CountryUpsert, CountriesUpsertArticle,getMaxNumber,GetIncomeTypes } from "../../../redux/Actions";
 
 export default function Countries_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
-  const formData = useSelector((state) => state.getCapacitiesById);
-  // createCapacities
-  // getCapacitiesByfId
-  const [data, setData] = useState(params.id ? {
-    id: 0,
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
-  }:{
-    name: "",
-    isProxyMandatory: false,
-    isCountryOfResidenceRequired: false,
-    isImportant: false,
-    isUSIndividual: false,
-    isNonUSIndividual: false,
-    isUSBusiness: false,
-    isNonUSBusiness: false,
-    isIntermediary: false,
-    isNonUSGovernment: false,
-  });
-//    useEffect(()=>{
-//     setData(formData?.capacityDataById)
-//    },[formData])
+  const formData = useSelector((state) => state?.getNumbersReducer?.numberData);
+  console.log("form",formData);
+  const namedata = useSelector((state)=>state.getIncomeReducer);
+  const countryData = useSelector(
+    (state) => state?.getCountryByIdReducer?.getCountryByIdData
+  );
+  const [data, setData] = useState({
+    countryId: 0,
+    // name:"",
+    number: "",
+    description: "",
+    treatyRates: "",
+    maxNoOfParagraph: 0,
+    includeSubParagraph: false,
+    showInDropDown: false,
+    selectedIncomeCodeIds: []
+  })
 
+
+  console.log(data,"daataaa")
+const [data1 , setData1] = useState({
+  name: "",
+  Id: 0,
+});
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectArray , setSelectArray] = useState([])
+
+  const handleSelectAll = () => {
+
+    namedata?.incTypeData?.filter((item)=>{
+      let arr = selectArray
+      
+      arr.push(item.id)
+    
+      setSelectArray(arr)
+
+    }) 
+
+    
+    setSelectAll(true);
+  };
+
+  const handleUnselectAll = () => {
+    setSelectArray([])
+    setSelectAll(false);
+  };
   useEffect(() => {
-    // dispatch(getCapacitiesById(params.id),(data)=>{ setData(data) });
+    dispatch(getMaxNumber());
   }, []);
 
+  useEffect(() => {
+    if (params?.id) {
+      dispatch(getCountryById(params.id), (item) => {
+        setData(item);
+      });
+    }
+  }, []);
+
+  useEffect(()=>{
+    dispatch(GetIncomeTypes());
+    // if(params.id){
+    //   dispatch(GetIncomeTypes(params.id,(data1)=>{ setData1(data1)}));
+    // }
+  },[])
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(params.id){
-      dispatch(updateCapacities(data));
+    let updateData = {
+    countryId: parseInt(params?.id),
+    number: data?.number,
+    description: data?.description,
+    treatyRates: data?.treatyRates,
+    maxNoOfParagraph: data?.maxNoOfParagraph,
+    includeSubParagraph: data?.includeSubParagraph,
+    showInDropDown: data?.showInDropDown,
+    selectedIncomeCodeIds:selectArray
+      }
+    dispatch(CountriesUpsertArticle(updateData));
     }
-    else{
-      dispatch(createCapacities(data));
-    }
-    history.push("/capacities");
-  };
+    history.push(`/countries_add/${params?.id}`);
+  }
 
- 
-//   const handleToogle = (e) => {
-//     setData({ ...data, [e.target.name]: e.target.checked });
-//   };
+  useEffect(() => {
+    setData(countryData);
+  }, [countryData]);
+
+
+  const handleToogle = (e,id) => {
+    console.log(id,"idd")
+    // setSelectArray([...selectArray, id])
+    setData({ ...data, [e.target.name]: e.target.checked });
+  };
   
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -103,7 +145,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{height:'1000px'}}>
+          <div className="app-main__outer" >
           <div className="app-main__inner">
           <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
@@ -111,21 +153,21 @@ export default function Countries_details() {
                    underline="hover"
                    color="#0c62a8"
                  onClick={()=>{
-                  history.push("/countries")
+                  history.push(`/countries/${params?.id}`)
                  }}
                   
                 >
             Countries
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                    
                  
                   
                 >
             Countries Add Article
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
           <div className="row m-1 border p-3 box_style">
@@ -147,7 +189,7 @@ export default function Countries_details() {
                    
                     className="table_content"
                   >
-                    Afganistan
+                  {data?.name}
                   </div>
 
                   
@@ -169,7 +211,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="number"
+                    value={data?.number}
                    
                     onChange={handleChange}
                     required
@@ -192,7 +235,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="description"
+                    value={data?.description}
                    
                     onChange={handleChange}
                     required
@@ -215,7 +259,8 @@ export default function Countries_details() {
                 <TextField
                   className="table_content"
                     size="small"
-                    name="name"
+                    name="treatyRates"
+                    value={data?.treatyRates}
                    
                     onChange={handleChange}
                     required
@@ -235,14 +280,14 @@ export default function Countries_details() {
                 </div>
                 <div className="col-10">
 
-                    <Select align="center"  defaultValue={1} className='selectBox text table_content' >
-                        <MenuItem value={1}> ---Select----</MenuItem>
-                        <MenuItem>1</MenuItem>
-                        <MenuItem>2</MenuItem>
-                        <MenuItem>3</MenuItem>
-                        <MenuItem>4</MenuItem>
-                        <MenuItem>5</MenuItem>
-                        <MenuItem>6</MenuItem>
+                   
+                    <Select align="center" defaultValue={0} className='selectBox text table_content' name="maxNoOfParagraph"  onChange={handleChange} >
+                    <MenuItem value={0}> ---Select----</MenuItem>
+                    {formData?.map((i,ind)=>{
+                     
+                       return(<MenuItem key={ind} value={i}>{i}</MenuItem>)
+                      
+                      })}
                     </Select>
                  {/* <Checkbox name="isImportant"
                         //   onClick={(e) => handleToogle(e)}
@@ -262,8 +307,10 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox 
+                <Checkbox onClick={(e) => handleToogle(e)}
                           className="p-0 checkBox"
+                          name="includeSubParagraph"
+                          checked={data?.includeSubParagraph}
                          />
                 </div>
               </div>
@@ -280,8 +327,9 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="col-10">
-                <Checkbox 
-                        defaultChecked
+                <Checkbox onClick={(e) => handleToogle(e)}
+                        name="showInDropDown"
+                        checked={data?.showInDropDown}
                           className="p-0 checkBox"
                           />
                 </div>
@@ -299,50 +347,26 @@ export default function Countries_details() {
                   </div>
                 </div>
                 <div className="mt-2 d-flex">
-                    <Button style={{fontSize:"10px"}}  size="small"  variant="contained">Select All</Button>
-                    <Button style={{fontSize:"10px"}} className="mx-2" size="small"  variant="contained">Unselect All</Button>
+                    <Button style={{fontSize:"10px"}}  size="small" onClick={handleSelectAll} variant="contained">Select All</Button>
+                    <Button style={{fontSize:"10px"}} className="mx-2"onClick={handleUnselectAll} size="small"  variant="contained">Unselect All</Button>
               
                 </div>
               </div>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">02-Interest paid on real property mortgages</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">03-Interest paid to controlling foreign corporations</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">04-Interest paid by foreign corporations</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
-              <br/>
-              <span>
-                <Checkbox/>
-                <sapn className="table_content mt-1 p-0">01-Interest paid by U.S. obligors - general</sapn>
-              </span>
+              <div className="row">
+              {namedata?.incTypeData?.map((i,ind)=>{ 
+               
+
+             return ( 
+              <div key={ind} className="col-12">
+                 <span>
+              <Checkbox onClick={(e) => handleToogle(e,i?.id)} checked={selectAll}  value={data?.selectedIncomeCodeIds}/>
+              <sapn className="table_content mt-1 p-0" >{i.name}</sapn>
+            </span>
+              </div>
+            )
+              })}
+              </div>
+             
               </div>
              
          
@@ -354,7 +378,9 @@ export default function Countries_details() {
                
                 variant="outlined"
                 sx={{ mr: 1}}
-                onClick={()=>{history.push("/capacities")}}
+                onClick={()=>{
+                  history.push(`/countries_add/${params?.id}`);
+                 }}
               >
                 cancel
               </Button>
@@ -362,7 +388,7 @@ export default function Countries_details() {
               <Button
                 size="small"
                 type="submit"
-               
+                onClick={handleSubmit}
                 sx={{ mr: 2 }}
                 variant="contained"
               >

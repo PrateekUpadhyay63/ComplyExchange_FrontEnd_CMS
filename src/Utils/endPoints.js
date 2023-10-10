@@ -2,11 +2,13 @@ const endPoint = {
    LOGIN: "Account/SignIn",
    SIGNUP: "Account/SignUp",
    USER:"Account/GetUser",
+   ALL_USER:"Account/GetAllUser",
+   
   // forgotPassword: "/forget-password",
   // resendOtp: "/resend-otp",
   // verifyOTP: "/verify-otp",
   // resetPassword: "/reset-password",
-  COUNTRIES: "Country/GetAllCountries",
+  COUNTRIES: "Countries/GetAllCountries",
   //Languages
   LANGUAGES: "Language/GetAllLanguage",
   CREATE_LANGUAGE: "Language/InsertLanguage",
@@ -24,6 +26,22 @@ const endPoint = {
   GET_SUBPAGE_NO: "Page/GetCountBySubPageId",
   ADD_SUB_PAGE: "Page/InsertSubPages",
   GET_PAGE_LANGUAGES:"/Page/GetAllLanguage",
+
+ //Countries
+ GET_ALL_COUNTRIES:"/Countries/GetAllCountries",
+ POST_UPSERT_COUNTRIES:"/Countries/UpdateCountries",
+ GET_COUNTRY_BY_ID:"/Countries/GetCountriesById",
+ POST_UPSERT_COUNTRY_ARTICLE:"/Countries/UpsertCountryArticle",
+ GET_YEARS:"/Countries/GetYears",
+ GET_MAXNUMBER:"/Countries/MaxNumber",
+ GET_IGA:"/Countries/GetIGA",
+ IMPORT_COUNTRIES:"Countries/Import",
+ EXPORT_COUNTRIES:"Countries/Export",
+
+ //Help
+ GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",
+ POST_HELP_VIDEOS:"/HelpVideo/InsertHelpVideo",
+
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",
   GET_CONTENT_BY_ID: "ContentManagement/GetContentById",
@@ -33,6 +51,7 @@ const endPoint = {
   GET_CONTENT_LANGUAGE:"ContentManagement/GetAllLanguage",
   GET_CONTENT_TRANSLATION:"ContentManagement/GetContentTranslation",
   POST_CONTENT_TRANSLATION:"ContentManagement/InsertContentTranslation",
+  GET_INCOME_CODE:"/Countries/GetAllIncomeCodes",
 
   // Agents API's
   GET_ALL_AGENTS: "Agent/GetAllAgents",
@@ -43,6 +62,7 @@ const endPoint = {
   GET_AGENT_LANGUAGE: "Agent/GetAllLanguage",
   UPSERT_AGENT_TRANSLATION:"Agent/UpsertAgentTranslation",
   GET_AGENT_TRANSLATION:"Agent/GetAgentTranslation",
+  COPY_AGENT:"Agent/UpsertCopyAgent",
 
 
   //Edit Agents API's
@@ -77,7 +97,8 @@ const endPoint = {
     GET_PAYMENT_TYPE:"AgentEditList/GetAgentPaymentType",
     GET_FATCA_GIIN_DISABLED:"AgentEditList/GetAgentFATCAEntityGIINChallengeDisabled",
     GET_AGENT_SPT_HIDDEN:"AgentEditList/GetAgentSPTQuestionHidden",
-
+    GET_E_FORM_SELECTION_WARNING:"AgentEditList/GetAgentEFormSelectionWarning",
+    POST_E_FORM_SELECTION_WARNING:"AgentEditList/UpsertAgentEFormSelectionWarning",
 
     //US sourced Income
     GET_SOURCED_INCOME_DATA:"AgentUSSourceIncome/GetUSSourcedIncomeTypeSelection",
@@ -102,6 +123,9 @@ const endPoint = {
   US_FORM_LANGUAGES:"FormTypes/GetAllUSLanguage",
   GET_SELF_CERTIFICATION:"AgentSelfCertification/GetAgentSelfCertificationHidden",
   POST_SELF_CERTIFICATION:"AgentSelfCertification/UpsertAgentSelfCertificationHidden",
+  POST_US_TRANSLATION:"FormTypes/InsertFormTypeUSCTranslation",
+  GET_US_TRANSLATION:"FormTypes/GetFormTypeUSCTranslation",
+
 
   //LOB
 
@@ -132,6 +156,11 @@ const endPoint = {
   INSERT_FORM_INSTRUCTIONS: "FormInstructions/InsertFormInstructions",
   UPDATE_FORM_INSTRUCTIONS: "FormInstructions/UpdateFormInstructions",
 
+  GET_CH3_DOC:"Documentation/GetChapter3EntityTypes",
+  GET_CH4_DOC:"Documentation/GetChapter4EntityTypes",
+  GET_CH3_DOC_BY_iD:"Documentation/GetDocumentationChapter3ById",
+  GET_CH4_DOC_BY_iD:"Documentation/GetDocumentationChapter4ById",
+
   //Rules Api's
 
   GET_ALL_RULES: "Rule/GetAllRules",
@@ -157,7 +186,7 @@ const endPoint = {
   GET_PAGE_TRANSLATION: "Page/GetPageTranslation",
   INSERT_PAGE_TRANSLATION: "Page/InsertTranslation",
   GET_EASY_TRANSLATION: "EasyHelp/GetEasyHelpTranslation",
-  INSERT_EASY_TRANSLATION: "EasyHelp/InsertEasyHelpTranslation",
+  INSERT_EASY_TRANSLATION: "EasyHelp/UpsertEasyHelpTranslation",
   GET_RULE_TRANSLATION: "Rule/GetRuleTranslation",
   INSERT_RULE_TRANSLATION: "Rule/InsertRuleTranslation",
 
@@ -171,6 +200,19 @@ const endPoint = {
   GET_QUESTION_LANGUAGE:"Setting/GetAllHintLanguage",
   UPSERT_QUESTION_TRANSLATION:"Setting/UpsertQuestionTranslation",
   GET_HINT_TRANSLATION:"Setting/GetQuestionHintTranslation",
+  UPDATE_QUESTION:"Setting/UpdateQuestion",
+
+  //Security keys
+  GET_SECURITY_KEY:"SecurityKey/GetSecurity",
+  UPSERT_SECURITY_KEY:"SecurityKey/UpsertSecurity",
+
+  //Administrator
+  GET_USER_BY_ID:"Account/GetUser",
+  CHANGE_PASSWORD:"Account/ChangePassword",
+  UPDATE_USER:"Account/UpdateUser",
+
+ 
+  
 };
 
 export default endPoint;

@@ -1,15 +1,16 @@
 .btn-cstm{
-    border: 1px solid black !important;
     color: white !important;
     opacity: 0.8 !important;
+}
+
+.mt-2 {
+    margin-top: 0.6rem !important;
 }
 table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
-    }
+  
     a:hover{
         cursor: pointer;
      }

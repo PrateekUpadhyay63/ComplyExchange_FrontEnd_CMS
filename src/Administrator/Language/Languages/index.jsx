@@ -54,7 +54,7 @@ import Language from "../../../reusables/language";
   const history = useHistory();
   const dispatch = useDispatch();
   const tableData = useSelector((state) => state.getLangListReducer);
-  const languageData = useSelector((state) => state.LanguagesReducer);
+  const languageData = useSelector((state) => state.getLangReducer);
 
   const [idData, setIdData] = useState(0);
   const [open, setOpen] = useState(false);
@@ -113,6 +113,10 @@ import Language from "../../../reusables/language";
     dispatch(getAllLanguages());
     // googleTranslateElementInit()
   }, []);
+
+  useEffect(() => {
+    dispatch(getLanguageList(page, size, search))
+  }, [page]);
   return (
     <Fragment>
       <ThemeOptions />
@@ -125,14 +129,14 @@ import Language from "../../../reusables/language";
             <div className=" row mx-4"></div>
             <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                   
                   
                 >
 Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
             <div className=" row m-1  card p-3 box_style">
@@ -196,7 +200,7 @@ Languages
                             <TableCell className="table_head">Status</TableCell>
 
                             <TableCell
-                              align="center"
+                              align="right"
                               colSpan={2}
                               className="table_head"
                             >
@@ -204,8 +208,10 @@ Languages
                             </TableCell>
                           </TableRow>
                         </TableHead>
+                        {console.log(languageData?.langData?.records,"edsgfasfd")}
+                        {languageData?.langData && languageData?.langData?.records?.length ? (
                         <TableBody>
-                          {tableData?.langData?.records?.map((row) => (
+                          {languageData?.langData?.records?.map((row) => (
                             <TableRow
                               key={row.name}
                               sx={{
@@ -225,31 +231,16 @@ Languages
                               <TableCell className="table_content">
                                 {row.isoCode}
                               </TableCell>
-                              <TableCell className="table_content">
-                                {languageData?.allLanguageData?.map(
-                                  (i, ind) => {
-                                    return (
-                                      <button
-                                        key={i.id}
-                                        style={{
-                                          backgroundColor:"inherit",
-                                          border: "none",
-                                        }}
-                                        className="addSubpage"
-                                      >
-                                        {i.name}{" "}
-                                      </button>
-                                    );
-                                  }
-                                )}
+                              <TableCell className="table_content" align="center">
+                               <Link>Bulk Translate</Link>
                               </TableCell>
                               <TableCell className="table_content">
                                 {row.status}
                               </TableCell>
 
-                              <TableCell className="table_content actionRow">
+                              <TableCell align="right" className="table_content actionRow">
                                 {row.action}
-                                <div style={{ display: "flex" }}>
+                                <div style={{ display: "flex" ,justifyContent:"flex-end"}}>
                                   <EditIcon
                                     style={{ color: "green", fontSize: "20px" }}
                                     onClick={() => {
@@ -275,11 +266,25 @@ Languages
                             </TableRow>
                           ))}
                         </TableBody>
+                        ) : <div className="notDataDiv">No Data Available</div>} 
                       </Table>
                     </TableContainer>
                   </Paper>
                 </table>
               </div>
+              {languageData?.langData?.totalPages > 1 ? (
+                <Stack className="px-3 col-12 mb-2" spacing={2}>
+                  <Pagination
+                    variant="outlined"
+                    shape="rounded"
+                    color="primary"
+                    count={languageData?.langData?.totalPages}
+                    onChange={(e, value) => setPage(value)}
+                  />
+                </Stack>
+              ) : (
+                ""
+              )}
               <div className='table_content'>
                 <span> Enable Asian Character Set:</span>
                 <Checkbox type="checkbox" />
@@ -287,6 +292,7 @@ Languages
                   (Note: this character set considerably increases the PDF size)
                 </span>
               </div>
+              
             </div>
             <div className="actionBtnclass">
            
@@ -296,8 +302,11 @@ Languages
                 style={{ float: "right" }}
                 onClick={() => {
                   setOpen1(true);
-                  // setIdData1(row.id);
-                  setData({});
+                
+                  setData({
+                    name: "",
+                    isoCode: "",
+                  });
                 }}
               >
                 Add Language
@@ -305,16 +314,8 @@ Languages
               {/* </Button> */}
             </div>
 
-            {tableData?.langData?.totalPages > 1 ? (
-              <Stack spacing={2}>
-                <Pagination
-                  count={tableData?.langData?.totalPages}
-                  onChange={(e, value) => setPage(value)}
-                />
-              </Stack>
-            ) : (
-              ""
-            )}
+       
+
           </div>
         </div>
       </div>

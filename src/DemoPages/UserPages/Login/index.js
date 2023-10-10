@@ -1,10 +1,11 @@
-import React, { Fragment, Component, useState } from "react";
+import React, { Fragment, Component, useState, useEffect } from "react";
 
 import Slider from "react-slick";
 // import {Button} from "@mui/material";
 import bg1 from "../../../assets/utils/images/originals/city.jpg";
 import bg2 from "../../../assets/utils/images/originals/citydark.jpg";
 import bg3 from "../../../assets/utils/images/originals/citynights.jpg";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import {
   Col,
@@ -23,7 +24,9 @@ import { loginAction } from "../../../redux/Actions";
 
 const Login = () => {
   const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const [isError, setError] = useState({ email: false, password: false });
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -40,22 +43,33 @@ const Login = () => {
     autoplay: true,
     adaptiveHeight: true,
   };
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
+    if(data.email.trim()!=="" && data.password.trim()!=="")
+   { dispatch(
       loginAction(data, () => {
-        history.push("pages");
+        history.push("/Agent");
         window.location.reload();
       })
-    );
+    );}
+    else{
+      if(data.email.trim()===""){
+        setError({ ...isError, email: true });
+      }else
+     { setError({ ...isError, password: true });}
+    }
   };
   return (
     <Fragment>
-      <div className="h-100">
-        <Row className="h-100 g-0">
+      <div className="h-99">
+        <Row className="h-100 g-0 row">
           <Col lg="4" className="d-none d-lg-block">
             <div className="slider-light">
               <Slider {...settings}>
@@ -122,15 +136,15 @@ const Login = () => {
                   Please sign in to your account
                 </span>
               </h4>
-              <h6 className="mt-3">
+              {/* <h6 className="mt-3">
                 No account?{" "}
                 <Link to="/register" className="text-primary">
                   Sign up now
                 </Link>
-              </h6>
+              </h6> */}
 
               <div>
-                <Form>
+                <form onSubmit={handleSubmit}>
                   <Row>
                     <Col md={6}>
                       <FormGroup>
@@ -148,8 +162,9 @@ const Login = () => {
                           onChange={handleChange}
                         />
                       </FormGroup>
+                      {isError.email ? (<small className="errorClass">Please Enter Email.</small>) : ''}
                     </Col>
-                    <Col md={6}>
+                    <Col md={6} className="column">
                       <FormGroup>
                         <Label className="textClassLabel" for="examplePassword">
                           Password
@@ -157,38 +172,51 @@ const Login = () => {
                         <Input
                           required
                           autoComplete="off"
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           name="password"
                           id="examplePassword"
                           placeholder="Password here..."
                           value={data.password}
                           onChange={handleChange}
                         />
+                        <div
+                          className="position-absolute d-flex end-0 mr-5 h-10"
+                          style={{ cursor: "pointer" }}
+                        >
+                          {showPassword ? (
+                            <AiOutlineEye
+                              onClick={() => setShowPassword(false)}
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <AiOutlineEyeInvisible
+                              onClick={() => setShowPassword(true)}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </div>
                       </FormGroup>
+                      {isError.password ? (<small className="errorClass">Please Enter Password.</small>) : ''}
                     </Col>
                   </Row>
 
                   <div className="d-flex align-items-center">
                     <div className="ms-auto">
-                      <Link
+                      {/* <Link
                         to="/forget"
                         className="btn-lg btn btn-link"
-                        onClick={() => {
-                          history.push("/forget");
-                        }}
+                        // onClick={() => {
+                        //   history.push("/forget");
+                        // }}
                       >
                         Forget Password
-                      </Link>{" "}
-                      <Button
-                        color="primary"
-                        size="small"
-                        onClick={handleSubmit}
-                      >
+                      </Link>{" "} */}
+                      <Button type="submit" color="primary" size="small">
                         Login
                       </Button>
                     </div>
                   </div>
-                </Form>
+                </form>
               </div>
             </Col>
           </Col>

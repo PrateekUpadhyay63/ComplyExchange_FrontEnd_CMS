@@ -41,16 +41,16 @@ export default function Edit() {
                 >
        Glossaries Forms
                 </Link>
-                <Link
+                <p
                    underline="hover"
                  
-                   color="#171616"
+                   color="#000000"
                    
                    
                   
                 >
        Glossaries Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className="row m-1 border p-3 box_style">
@@ -143,6 +143,9 @@ export default function Edit() {
                       size="small"
                       variant="outlined"
                       sx={{ mr: 1}}
+                      onClick={()=>{
+                        history.push("/glossaries")
+                      }}
                     >
                       cancel
                     </Button>

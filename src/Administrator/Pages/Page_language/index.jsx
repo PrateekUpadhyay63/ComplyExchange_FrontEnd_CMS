@@ -59,9 +59,39 @@ export default function Language_details() {
     if(params.id){
       dispatch(getPageTranslation(params.id,params.langId,(data)=>{ setData(data)}));
     }
+     if (params.id) {
+      dispatch(
+        getPageTranslation(params.id,params.langId, (data) => {
+          setData(data);
+          setEditorState1(() => {
+            const blocksFromHTML = convertFromHTML(data?.pageContent);
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            );
+
+            return EditorState.createWithContent(contentState);
+          });
+          setEditorState2(() => {
+            const blocksFromHTML = convertFromHTML(data?.summary);
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            );
+            return EditorState.createWithContent(contentState);
+          });
+        })
+      );
+    } else {
+      setEditorState1(() => EditorState.createEmpty());
+      setEditorState2(() => EditorState.createEmpty());
+    }
 }, [params.id]);
 
-
+useEffect(() => {
+  let html = draftToHtml(convertToRaw(editorState1.getCurrentContent()));
+  setData({ ...data, pageContent: html });
+}, [editorState1]);
 
   useEffect(()=>{
     let html = draftToHtml(convertToRaw(editorState2.getCurrentContent()));
@@ -236,11 +266,11 @@ export default function Language_details() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let updatedData={
-      name: data.name,
+    name: data.name,
     pageId: params?.id,
     languageId: params?.langId,
-    pageContent: data.pageContent ? data.pageContent : "<p></p>\n",
-    summary: data.summary ? data.summary : "<p></p>\n",
+    pageContent: data.pageContent,
+    summary: data.summary,
     }
     if(data.name !==""){
       dispatch(createPAGESTranslations(updatedData));
@@ -269,14 +299,14 @@ export default function Language_details() {
                 >
                   Pages
                 </Link>
-                <Link
+                <p
                   underline="hover"
-                  color="#171616"
+                  color="#000000"
 
                  
                 >
                    Page Languages
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=" row  card mx-2 my-2" style={{height:'900px'}}>

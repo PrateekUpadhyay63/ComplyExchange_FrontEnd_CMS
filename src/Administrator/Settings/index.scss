@@ -1,4 +1,4 @@
-.btn-cstm{
+                .btn-cstm{
     border: 1px solid #16639e !important;
     color: white !important;
     opacity: 0.8 !important;
@@ -8,9 +8,7 @@ table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
-    }
+
     a:hover{
         cursor: pointer;
      }
@@ -60,6 +58,12 @@ table{
 } 
 .table_head{
     font-size: 13px !important;
+    font-weight: bold !important;
+  align-items: center !important; 
+  font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+  }
+  .table_header{
+    font-size: 18px !important;
     font-weight: bold !important;
   align-items: center !important; 
   font-family: "Roboto","Helvetica","Arial",sans-serif !important;

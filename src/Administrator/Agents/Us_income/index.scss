@@ -1,5 +1,4 @@
 .btn-cstm{
-    border: 1px solid #16639e !important;
     color: white !important;
     opacity: 0.8 !important;
 }
@@ -25,8 +24,8 @@ table{
     a{
         text-align: center;
     }
-    .MuiSelect-select{
-        background: white;
+       .MuiSelect-select{
+        background: none;
     }
     a:hover{
         cursor: pointer;
@@ -67,9 +66,9 @@ table{
     font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 .tableField{
-    padding: 0.001rem 0.002rem !important;
+    // padding: 0.001rem 0.002rem !important;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
-    justify-content: center;
+   
     
 
 }

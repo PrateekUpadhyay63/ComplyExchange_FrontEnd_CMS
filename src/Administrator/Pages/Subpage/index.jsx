@@ -44,6 +44,13 @@ import {
 import "./index.scss";
 
 export default function Subpage_details() {
+  const [formErrors, setFormErrors] = useState({
+    name: false,
+    redirectPageLabelToURL: false,
+    menuBackgroundColor: false,
+    content:false,
+  });
+
   const dispatch = useDispatch();
   const history=useHistory();
 
@@ -51,6 +58,7 @@ export default function Subpage_details() {
   const idPageData= useSelector((state) => state.pageDataByIdReducer);
   const {pageDataById} = idPageData
   let params = useParams();
+  const [isError,setError]=useState({name:false,content:false});
   const [data, setData] = useState(
       {
           name: "",
@@ -226,9 +234,15 @@ export default function Subpage_details() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      dispatch(createSubPAGES(data));
-              history.push(Utils.Pathname.pages);
-
+    if(!convertToRaw(editorState1.getCurrentContent()).blocks.every(b => b.text.trim() === '') && data.name.trim()!==""){
+      dispatch(createSubPAGES(data,()=>{history.push(Utils.Pathname.pages);setError({name:false,content:false});}));
+    }
+    else{
+      if(data.name.trim()===""){
+        setError({ ...isError, name: true });
+      }else
+     { setError({ ...isError, content: true });}
+    }
   };
 
   return (
@@ -245,19 +259,15 @@ export default function Subpage_details() {
                    underline="hover"
                   color="#0e548c"
                   onClick={() => history.push("/pages")}
-                  
                 >
                   Pages
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
-                
-                 
-                  
+                  color="#000000"
                 >
                   Sub Page Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -293,11 +303,8 @@ export default function Subpage_details() {
               </div>
             </div>
             <div className="col-md-9 col-12 ">
-             
               <div   className="table_content">
-              
               </div>
-           
               <TextField
               className="textFieldClass"
                 fullWidth
@@ -306,8 +313,8 @@ export default function Subpage_details() {
                 value={data?.name}
                 onChange={handleChange}
               />
-            
             </div>
+            {isError.name ? (<small className="errorClass">This field is mandatory.</small>) : ''}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -318,11 +325,15 @@ export default function Subpage_details() {
             <div className="col-md-9 col-12 ">
               <Checkbox
                 name="displayOnTopMenu"
+                required
                 checked={data?.displayOnTopMenu}
-                
                 onClick={(e) => handleToogle(e)}
               />
             </div>
+            {formErrors.displayOnTopMenu && (
+              <p className="errorClass">displayOnTopMenu.</p>
+              )}
+            {/* {isError ? (<p className="errorClass">Please select</p>) : ""} */}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -339,6 +350,7 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="redirectPageLabelToURL"
                 // placeholder='Enter Name'
                 value={data?.redirectPageLabelToURL}
@@ -346,6 +358,10 @@ export default function Subpage_details() {
               />
               {/* )} */}
             </div>
+            {formErrors.redirectPageLabelToURL && (
+              <p className="errorClass">URL is required.</p>
+            )}
+            {/* {isError ? (<p className="errorClass">Please type2</p>) : ""} */}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -357,12 +373,17 @@ export default function Subpage_details() {
               <TextField
               className="textFieldClass"
                 fullWidth
+                required
                 name="menuBackgroundColor"
                 // placeholder='Enter Name'
                 value={data?.menuBackgroundColor}
                 onChange={handleChange}
               />
             </div>
+            {formErrors.menuBackgroundColor && (
+              <p className="errorClass">Menu background color is required.</p>
+              )}
+            {/* {isError ? (<p className="errorClass">Please type</p>) : ""} */}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -423,7 +444,6 @@ export default function Subpage_details() {
               <Checkbox
                 name="displayOnLeftMenu"
                 checked={data?.displayOnLeftMenu}
-                
                 onClick={(e) => handleToogle(e)}
 
               />
@@ -472,7 +492,12 @@ export default function Subpage_details() {
                             </button>
                           </div>
                         </div>
+                          {isError.content ? (<small className="errorClass">This field is mandatory.</small>) : ''}
             </div>
+            {formErrors.content && (
+              <p className="errorClass">content is required.</p>
+              )}
+            {/* {isError ? (<p className="errorClass">Please type</p>) : ""} */}
           </div>
           <div className="row mx-2">
             <div className="col-md-3 col-12 ">
@@ -534,9 +559,9 @@ export default function Subpage_details() {
           <Button
             size="small"
             type="submit"
-            
             sx={{ mr: 2 ,my:3 }}
             variant="contained"
+            onClick={handleSubmit}
           >
             Save
           </Button>
@@ -544,14 +569,13 @@ export default function Subpage_details() {
            : (
               <Button   size="small"
               type="submit"
-             
               sx={{ mr: 2 ,my:3 }}
-              variant="contained">
+              variant="contained"
+              >
                 Add
               </Button>
             )} 
         </div>
-
       </form>
       </div>
       

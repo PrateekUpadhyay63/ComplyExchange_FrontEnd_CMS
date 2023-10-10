@@ -572,15 +572,15 @@ export default function Language_details () {
                 >
                   Forms
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                  color="#171616"
+                  color="#000000"
                   
                  
                   
                 >
                  Self Form Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
               <div className=' row mx-2'>
@@ -629,6 +629,7 @@ export default function Language_details () {
                         ></div>
                         {console.log(data.displayName)}
                         <TextField
+                        required
                           style={{ width: '50%' }}
                           name='displayName'
                           value={data?.displayName}
@@ -652,7 +653,7 @@ export default function Language_details () {
                         ></div>
 
                         <TextField
-                        
+                        required
                           style={{ width: '50%' }}
                           name='revision'
                           value={data?.revision}
@@ -692,13 +693,13 @@ export default function Language_details () {
                           name='eSubmitPDFTemplateId'
                           value={data?.eSubmitPDFTemplateId}
                           onChange={handleChange}
-                          defaultValue={3}
                           style={{
                             minWidth: '190px',
                             height: '30px',
                             marginRight: '10px'
                           }}
                         >
+                           <option value='0'>--SELECT--</option>
                           <option value='1'>International Individual</option>
                           <option value='2'>International Entity</option>
                           <option value='3'>Custom</option>
@@ -722,13 +723,14 @@ export default function Language_details () {
                           name='printPDFTemplateId'
                           value={data?.printPDFTemplateId}
                           onChange={handleChange}
-                          defaultValue={3}
+                          required
                           style={{
                             minWidth: '190px',
                             height: '30px',
                             marginRight: '10px'
                           }}
                         >
+                           <option value='0'>--SELECT--</option>
                           <option value='1'>International Individual</option>
                           <option value='2'>International Entity</option>
                           <option value='3'>Custom</option>
@@ -748,7 +750,7 @@ export default function Language_details () {
                         </div>
                       </div>
                       <div className='col-9 input-file'>
-                        <Input type='file' style={{fontSize:'12px'}} onChange={(e) => handleImage(e)} />
+                        <Input className='fileInput' type='file' style={{fontSize:'12px'}} onChange={(e) => handleImage(e)} />
                       </div>
                     </div>
 
@@ -981,6 +983,9 @@ export default function Language_details () {
 
                   <div className='actionBtn'>
                     <Button
+                     onClick={()=>{
+                      history.push("/form_type")
+                    }}
                       type='reset'
                       size='small'
                       variant='outlined'

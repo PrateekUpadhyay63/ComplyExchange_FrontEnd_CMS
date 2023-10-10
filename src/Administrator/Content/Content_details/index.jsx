@@ -42,7 +42,7 @@ export default function Content_details() {
 
   const [data, setData] = useState({
     name: "",
-    content: "",
+    text: "",
   });
   
   useEffect(() => {
@@ -62,9 +62,32 @@ export default function Content_details() {
       : () => EditorState.createEmpty());
   }, []);
 
+  useEffect(() => {
+    if (params?.id) {
+      dispatch(
+        getContentById(params?.id, (data) => {
+          setData(data);
+          if(data?.text){
+          setEditorState1(() => {
+            const blocksFromHTML = convertFromHTML(data?.text);
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            );
+
+            return EditorState.createWithContent(contentState);
+          });
+        }
+        })
+      );
+    } else {
+      setEditorState1(() => EditorState.createEmpty());
+    }
+  }, [params.id]);
+
   useEffect(()=>{
     let html = draftToHtml(convertToRaw(editorState1.getCurrentContent()));
-    setData({...data,content:html})
+    setData({...data,text:html})
   },[editorState1])
 
   const [editorState1, setEditorState1] = useState(EditorState.createEmpty());
@@ -138,7 +161,7 @@ export default function Content_details() {
     let updateData={
       id: params.id,
       name: data.name,
-      content: contentData,
+      text: contentData,
     }
     dispatch(updateContent(updateData));
     history.push("/content")
@@ -168,15 +191,15 @@ export default function Content_details() {
                 >
       Content Block
                 </Link>
-                <Link
+                <p
                    underline="hover"
-                   color="#171616"
+                   color="#000000"
                  
                   
                   
                 >
       Content Management Details
-                </Link>
+                </p>
               </Breadcrumbs>
             </div>
           <div className="row m-1 border p-3 box_style"style={{height:"912px"}}>

@@ -836,7 +836,7 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/content" component={isAuth() ?Agents: login}/>
+        <Route path="/content" component={isAuth() ?Content: login}/>
       </Suspense>
 
       <Suspense

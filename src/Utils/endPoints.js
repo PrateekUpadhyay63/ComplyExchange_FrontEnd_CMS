@@ -62,6 +62,7 @@ const endPoint = {
   GET_AGENT_LANGUAGE: "Agent/GetAllLanguage",
   UPSERT_AGENT_TRANSLATION:"Agent/UpsertAgentTranslation",
   GET_AGENT_TRANSLATION:"Agent/GetAgentTranslation",
+  COPY_AGENT:"Agent/UpsertCopyAgent",
 
 
   //Edit Agents API's

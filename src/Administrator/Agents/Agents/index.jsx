@@ -13,10 +13,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import ThemeOptions from "../../../Layout/ThemeOptions/";
 import { Fragment } from "react";
-import {Delete,ContentCopy,Edit} from "@mui/icons-material";
+import { Delete, ContentCopy, Edit } from "@mui/icons-material";
 import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AppFooter from "../../../Layout/AppFooter/";
@@ -70,6 +70,14 @@ function AgentsTable() {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [search, setSearch] = useState("");
+  const [copyData, setCopyData] = useState({
+    name: "",
+    formfeedusername: "",
+    formFeedpassword: "",
+    clientId: "",
+    clientCode: "",
+    selectionCode: "",
+  });
 
   const [open1, setOpen1] = useState(false);
   const handleClickOpen1 = () => setOpen1(true);
@@ -119,14 +127,9 @@ function AgentsTable() {
         <AppSidebar />
         <div className="app-main__outer">
           <div className="app-main__inner">
-          <div role="presentation" className="bread_crumbs">
+            <div role="presentation" className="bread_crumbs">
               <Breadcrumbs aria-label="breadcrumb">
-                <p
-                   underline="hover"
-                  color="#000000"
-                 
-                  
-                >
+                <p underline="hover" color="#000000">
                   Agents
                 </p>
               </Breadcrumbs>
@@ -302,18 +305,29 @@ function AgentsTable() {
                               <TableCell align="right" colSpan={2}>
                                 <div
                                   className="actionRow"
-                                  style={{ display: "flex" ,justifyContent:'flex-end' }}
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                  }}
                                 >
-                                    <ContentCopy
+                                  <ContentCopy
                                     style={{
                                       color: "black",
                                       fontSize: "17px",
                                     }}
-                                        onClick={() => {
-                                          setOpen2(true);
-                                          setIdData2(row.id);
-                                        }}
-                                  /> 
+                                    onClick={() => {
+                                      setOpen2(true);
+                                      setIdData2(row.id);
+                                      setCopyData({
+                                        name: "",
+                                        formfeedusername: "",
+                                        formFeedpassword: "",
+                                        clientId: "",
+                                        clientCode: "",
+                                        selectionCode: "",
+                                      });
+                                    }}
+                                  />
                                   <Edit
                                     style={{
                                       color: "green",
@@ -393,12 +407,15 @@ function AgentsTable() {
         getAllApi={getAllAgents}
       />
       <AgentCopyDialog
-       open={open2}
-       rowId={rowId2}   
-       setOpen={setOpen2}
-       handleClickOpen={handleClickOpen2}
-       handleClose={handleClose2}
-       />
+        data={copyData}
+        setData={setCopyData}
+        open={open2}
+        rowId={rowId2}
+        idData={idData2}
+        setOpen={setOpen2}
+        handleClickOpen={handleClickOpen2}
+        handleClose={handleClose2}
+      />
     </Fragment>
   );
 }

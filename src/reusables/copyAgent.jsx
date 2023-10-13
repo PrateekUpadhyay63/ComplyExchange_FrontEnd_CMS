@@ -22,62 +22,28 @@ import {
   Button,
 } from "@mui/material";
 import "./reusables.scss";
-
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
-// import {
-//   createFormInstruction,
-//   getFormInstructionById,
-//   updateFormInstruction,
-//   getAllFormInstructions,
-// } from "../redux/Actions";
+import { copyAgents } from "../redux/Actions";
 
 const AgentCopyDialog = (props) => {
-  const { open, setOpen, idData, response, getList, closeCallback, setIdData } =
+  const { open, setOpen, idData, response, getList, handleClose, setIdData,rowId,data,setData } =
     props;
-  console.log(idData);
-
-  const handleClose = () => {
-    setOpen(false);
-    setData({});
-  };
 
   const dispatch = useDispatch();
   let params = useParams();
   const history = useHistory();
   const formData = useSelector((state) => state.ParentDropDownReducer);
-  const [data, setData] = useState({
+
+
+useEffect(()=>{
+  setData({
     name: "",
     formfeedusername: "",
     formFeedpassword:"",
     clientId:"",
     clientCode:"",
     selectionCode:""  
-});
-
-//   function setInitialData() {
-//     console.log(idData, "IDDATA");
-//     if (idData) {
-//       if (idData == 0) {
-//         setData({ description: "", url: "" });
-//       } else
-//         dispatch(
-//           getFormInstructionById(idData, (data) => {
-//             setData(data);
-//           })
-//         );
-//     } else {
-//       setData({ description: "", url: "" });
-//     }
-//   }
-//   useEffect(() => {
-//     setInitialData();
-//   }, [idData]);
-
-//   useEffect(() => {
-//     setInitialData();
-//   }, []);
-
+})
+},[])
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -85,6 +51,7 @@ const AgentCopyDialog = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let createData = {
+      agentId:idData,
         name: data.name,
         formfeedusername: data.formfeedusername,
         formFeedpassword: data.formFeedpassword,
@@ -92,26 +59,18 @@ const AgentCopyDialog = (props) => {
         clientCode: data.clientCode,
         selectionCode: data.selectionCode,
     };
-    // let updateData = {
-    //   description: data.description,
-    //   id: idData,
-    //   url: data.url,
-    // };
 
-    // if (idData) {
-    //   dispatch(updateFormInstruction(updateData));
-    //   setData({
-    //     description: "",
-    //     url: "",
-    //   });
-    // } else {
-    //   dispatch(createFormInstruction(createData, () => setIdData(-1)));
-    //   setData({ description: "", url: "" });
-    // }
-    setData({ description: "", url: "" });
-    closeCallback();
+      dispatch(copyAgents(createData),()=>{setData(
+        { name: "",
+        formfeedusername: "",
+        formFeedpassword:"",
+        clientId:"",
+        clientCode:"",
+        selectionCode:""  }
+      )});
     handleClose();
   };
+  console.log(idData,"rowId")
   return (
     <Fragment>
       <Dialog
@@ -159,7 +118,7 @@ const AgentCopyDialog = (props) => {
                   <TextField
                     className="table_text"
                     size="small"
-                    name="FormfeedUsername"
+                    name="formfeedusername"
                     value={data.formfeedusername}
                     onChange={handleChange}
                     required

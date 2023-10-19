@@ -1,10 +1,10 @@
 export const MainNav = [
 
-  // {
-  //   icon: "pe-7s-note",
-  //   label: "Content Block",
-  //   to: "#/content",
-  // },
+  {
+    icon: "pe-7s-note",
+    label: "Content Block",
+    to: "#/content",
+  },
   {
     icon: "pe-7s-users",
     label: "Agent",

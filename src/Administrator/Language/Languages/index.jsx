@@ -49,6 +49,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import DialogTransition from "../../../reusables/deleteDialog";
 import Language from "../../../reusables/language";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
  const PhraseTable =() => {
   const history = useHistory();
@@ -195,16 +197,23 @@ Languages
                             </TableCell>
 
                             <TableCell align="center" className="table_head">
-                              Translations
+                              Google Translation
                             </TableCell>
                             <TableCell className="table_head">Status</TableCell>
 
                             <TableCell
                               align="right"
-                              colSpan={2}
+                            
                               className="table_head"
                             >
                               Actions
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                             
+                              className="table_head"
+                            >
+                              Order
                             </TableCell>
                           </TableRow>
                         </TableHead>
@@ -253,6 +262,31 @@ Languages
                                   <DeleteIcon
                                     style={{
                                       color: "red",
+                                      fontSize: "20px",
+                                      marginLeft: "5px",
+                                    }}
+                                    onClick={() => {
+                                      setOpen(true);
+                                      setIdData(row.id);
+                                    }}
+                                  />
+                                </div>
+                              </TableCell>
+                              <TableCell align="right" className="table_content actionRow">
+                                {row.action}
+                                <div style={{ display: "flex" ,justifyContent:"flex-end"}}>
+                                  <KeyboardDoubleArrowDownIcon
+                                    style={{ fontSize: "20px" }}
+                                    onClick={() => {
+                                      setOpen1(true);
+                                      setIdData1(row.id);
+                                      setData(row);
+                                    }}
+                                  />
+
+                                  <KeyboardDoubleArrowUpRoundedIcon
+                                    style={{
+                                      
                                       fontSize: "20px",
                                       marginLeft: "5px",
                                     }}

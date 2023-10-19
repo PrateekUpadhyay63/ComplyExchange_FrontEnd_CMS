@@ -15,6 +15,7 @@ import AppHeader from "../../../Layout/AppHeader/";
 import AppSidebar from "../../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import DoneIcon from '@mui/icons-material/Done';
 // import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AppFooter from "../../../Layout/AppFooter/";
@@ -274,7 +275,7 @@ export default function ContentManagement() {
                               {row.date}
                             </TableCell>
                             <TableCell className="table_content" align="center">
-                              <Checkbox className="checkBox" />
+                              <DoneIcon style={{color:"green"}}/>
                             </TableCell>
                             {/* <TableCell className="table_content" align="center">
                               
@@ -284,7 +285,7 @@ export default function ContentManagement() {
                               align="center"
                             ></TableCell>
                             <TableCell align="center">
-                              <Checkbox className="checkBox" />
+                              <DoneIcon style={{color:"green"}} />
                             </TableCell>
                             <TableCell align="center" colSpan={2}>
                               <div
@@ -302,7 +303,8 @@ export default function ContentManagement() {
                                     style={{
                                       color: "red",
                                       fontSize: "20px",
-                                      marginLeft: "7px",
+                                      marginTop:"4px"
+                                      
                                     }}
                                   />
                                 </span>

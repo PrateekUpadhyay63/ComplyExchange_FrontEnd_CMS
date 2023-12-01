@@ -308,11 +308,11 @@ const Pages = ({ match }) => {
                               >
                                 <KeyboardDoubleArrowUpRoundedIcon
                                   style={{  fontSize: "20px" }}
-                                  onClick={() => {
-                                    history.push(
-                                      `${Utils.Pathname.pageInfoId}/${row.id}`
-                                    );
-                                  }}
+                                  // onClick={() => {
+                                  //   history.push(
+                                  //     `${Utils.Pathname.pageInfoId}/${row.id}`
+                                  //   );
+                                  // }}
                                 />
 
                                 <KeyboardDoubleArrowDownIcon
@@ -321,10 +321,10 @@ const Pages = ({ match }) => {
                                     fontSize: "20px",
                                     marginLeft: "5px",
                                   }}
-                                  onClick={() => {
-                                    setOpen(true);
-                                    setIdData(row.id);
-                                  }}
+                                  // onClick={() => {
+                                  //   setOpen(true);
+                                  //   setIdData(row.id);
+                                  // }}
                                 />
                               </div>
                             </TableCell>

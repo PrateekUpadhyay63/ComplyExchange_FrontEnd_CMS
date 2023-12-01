@@ -994,7 +994,7 @@ function UserManagement ({ match }) {
                       <div className='col-7 '>
                         <Select className='selectBox text'fullWidth name='parent'>
                           <MenuItem value='1'>Active</MenuItem>
-                          <MenuItem value='0'>inactive</MenuItem>
+                          <MenuItem value='0'>Inactive</MenuItem>
                         </Select>
                       </div>
                     </div>

@@ -1101,13 +1101,19 @@ function UserManagement ({ match }) {
                         </div>
                       </div>
                       <div className='col-7'>
-                        <TextField
+                        <Checkbox
+                        name='includeDefaultEnglish'
+                        value={data?.includeDefaultEnglish}
+                        onClick={e => handleToogle(e)}
+                        checked={data?.includeDefaultEnglish}
+                        />
+                        {/* <TextField
                            fullWidth
                          className='text textFieldClass'
                           name='includeDefaultEnglish'
                           value={data?.includeDefaultEnglish}
                           onChange={handleChange}
-                        />
+                        /> */}
                       </div>
                     </div>
                     <div className='row mx-2 my-1 py-0'>
@@ -1501,12 +1507,12 @@ function UserManagement ({ match }) {
                   </Collapse>
                 </div>
               
-                  <div className='col-8 mt-2'>
+                  <div className='row col-8 mt-2'>
                     <div className='col-12 editor-div headings'>
                       <lable>Terms and conditions:</lable>
                       <div
                         style={{
-                          // border: "1px solid grey",
+                         
                           backgroundColor: '#ffff'
                         }}
                       >
@@ -1520,7 +1526,7 @@ function UserManagement ({ match }) {
                       <div
                         style={{
                           display: 'flex',
-                          // justifyContent: "end",
+                          
                           marginTop: '5px'
                         }}
                       >
@@ -1690,7 +1696,7 @@ function UserManagement ({ match }) {
                
                 </div>
                 
-                  <div className='col-8 mt-2'>
+                  <div className='row col-8 mt-2'>
                     <div className='col-12 editor-div headings'>
                       <lable>"SaveAndExit" Email:</lable>
                       <div
@@ -1987,7 +1993,7 @@ function UserManagement ({ match }) {
                         />
                       </div>
                     </div>
-                    {/* <div className='row my-1 mx-2 py-0'>
+                    <div className='row my-1 mx-2 py-0'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
                           className='my-auto text'
@@ -2022,7 +2028,7 @@ function UserManagement ({ match }) {
                         </div>
                         <Checkbox defaultChecked={false} />
                       </div>
-                    </div> */}
+                    </div>
                     <div className='row my-1 mx-2 py-0'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
@@ -2510,7 +2516,7 @@ function UserManagement ({ match }) {
                       <div className='inner-scroll-div'>
                         <div className='d-flex '>
                           <Checkbox
-                            className='p-0 checkBox'
+                            className='p-0 '
                             name='forms'
                             onClick={e => handleToogle(e)}
                             checked={data?.forms}
@@ -3592,17 +3598,20 @@ function UserManagement ({ match }) {
                     </div>
                     <div className='col-9 headings my-2'>
                       <lable>Retroactive statement:</lable>
+                      <div className='retro'>
                       <TextField
-                        className='text textFieldClass' 
-                       
-                        
-                       
-                        name='retroactiveStatement'
-                        value={data?.retroactiveStatement}
-                        // onChange={handleChange}
-                        fullWidth
-                        onChange={handleChange}
-                      />
+                      
+                     
+                     
+                      multiline
+                     
+                      name='retroactiveStatement'
+                      value={data?.retroactiveStatement}
+                    
+                      fullWidth
+                      onChange={handleChange}
+                    />
+                      </div>
                       <div className=' headings my-2'>
                         <lable>Retroactive Effective Date:</lable>
                         <br></br>

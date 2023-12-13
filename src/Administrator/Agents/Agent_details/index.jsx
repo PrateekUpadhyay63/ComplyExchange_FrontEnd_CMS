@@ -156,7 +156,8 @@ function UserManagement ({ match }) {
           taxIdentificationNumber: false,
           specifiedUSPersonDetermination: false,
           eciIncomeReport: false,
-          treatyClaim: false,
+          treatyClaimBEN: false,
+          treatyClaimBENE: false,
           specialRatesAndConditions: false,
           supportingDocumentationW9: false,
           supportingDocumentationBEN: false,
@@ -280,7 +281,8 @@ function UserManagement ({ match }) {
           taxIdentificationNumber: false,
           specifiedUSPersonDetermination: false,
           eciIncomeReport: false,
-          treatyClaim: false,
+          treatyClaimBEN: false,
+          treatyClaimBENE: false,
           specialRatesAndConditions: false,
           supportingDocumentationW9: false,
           supportingDocumentationBEN: false,
@@ -2921,16 +2923,16 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
-                            name='treatyClaim'
+                            name='treatyClaimBENE'
                             onClick={e => handleToogle(e)}
-                            checked={data?.treatyClaim}
+                            checked={data?.treatyClaimBENE}
                           />
                           <div
                             className='my-auto text'
                             
                             
                           >
-                            Treaty Claim
+                            Treaty Claim Ben-E
                           </div>
                         </div>
                         <div className='d-flex '>
@@ -3286,16 +3288,16 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
-                            name='treatyClaim'
+                            name='treatyClaimBEN'
                             onClick={e => handleToogle(e)}
-                            checked={data?.treatyClaim}
+                            checked={data?.treatyClaimBEN}
                           />
                           <div
                             className='my-auto text'
                             
                             
                           >
-                            Treaty Claim
+                            Treaty Claim BEN
                           </div>
                         </div>
                         <div className='d-flex '>
@@ -3554,7 +3556,7 @@ function UserManagement ({ match }) {
                             Hide Account Holder Details Selector Buttons
                           </div>
                         </div>
-                        <div className='d-flex'>
+                        {/* <div className='d-flex'>
                           <Checkbox className='p-0' defaultChecked={false} />
                           <div
                             className='my-auto text'
@@ -3563,7 +3565,7 @@ function UserManagement ({ match }) {
                           >
                             Hide Account Holder Details Selector Buttons
                           </div>
-                        </div>
+                        </div> */}
                         <div className='d-flex'>
                           <Checkbox
                             className='p-0'

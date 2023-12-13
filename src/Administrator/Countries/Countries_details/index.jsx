@@ -70,16 +70,16 @@ export default function Countries_details() {
     crs: "",
     lob: false,
     lobDocumentLocation: "",
-    lobDocumentURL: "",
+    lobDocumentULR: "",
     
   });
   useEffect(() => {
     // igaModelId
     console.log("countryData", countryData);
     setData({ ...countryData, 
-      iga: countryData?.igaModelId,
+    iga: countryData?.igaModelId,
     crs: countryData?.crsExchangeIn,
-    lobDocumentURL: countryData?.lobDocumentURL
+    lobDocumentULR: countryData?.lobDocumentULR
     });
   }, [countryData]);
 
@@ -112,7 +112,7 @@ export default function Countries_details() {
         crs: data?.crs,
         lob: data?.lob,
         lobDocumentLocation: data?.lobDocumentLocation,
-        lobDocumentURL: data?.lobDocumentURL
+        lobDocumentULR: data?.lobDocumentULR
       };
       dispatch(CountryUpsert(updateData));
     }
@@ -358,9 +358,10 @@ export default function Countries_details() {
                         <TextField
                           className="table_content"
                           size="small"
-                          name="lobDocumentURL"
-                          value={data?.lobDocumentURL}
+                          name="lobDocumentULR"
+                          value={data?.lobDocumentULR}
                           onChange={handleChange}
+                         
                           
                         />
                       </div>

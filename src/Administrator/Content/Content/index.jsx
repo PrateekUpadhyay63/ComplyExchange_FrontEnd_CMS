@@ -182,6 +182,7 @@ export default function ContentManagement() {
                         <TableHead>
                           <TableRow className="tableRow1">
                             <TableCell
+                             align="left"
                               className='table_head tableRow1'
                             >
                               Name
@@ -189,7 +190,7 @@ export default function ContentManagement() {
                            
 
                             <TableCell 
-                              align="left"
+                             align="left"
                               className='table_head tableRow1'
                             >
                               Translations
@@ -209,6 +210,7 @@ export default function ContentManagement() {
                           {
                           tableData?.contentData?.records.map((row) => (
                             <TableRow
+                            align="left"
                             className="tableRow1"
                               key={row.name}
                               sx={{
@@ -227,7 +229,7 @@ export default function ContentManagement() {
 
                              
                               <TableCell
-                              align="left"
+                             align="left"
                               className="table_content tableRow1"
                               // onClick={() => getLangById(row.id)}
                             >

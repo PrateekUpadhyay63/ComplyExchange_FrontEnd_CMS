@@ -194,7 +194,7 @@ const [arr,setArr]=useState()
                   </div>
                 </div>
                 <div className="col-10 mt-1">
-                <Checkbox  className="checkBox" name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
+                <Checkbox  name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
                 </div>
               </div>
               {console.log( "xcvbnm,",arr)}
@@ -477,27 +477,27 @@ const [arr,setArr]=useState()
               <div className="table_content">
               Window features:
               </div>
-              <span> <Checkbox className="checkBox" name="scrollbars" checked={data?.scrollbars} onClick={(e) => handleToogle(e)}/>
+              <span> <Checkbox  name="scrollbars" checked={data?.scrollbars} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Scrollbars - allows to disable the scrollbars for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <Checkbox className="checkBox" name="resizable" checked={data?.resizable} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="resizable" checked={data?.resizable} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Resizable - allows to disable the resize for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <Checkbox className="checkBox" name="status" checked={data?.status} onClick={(e) => handleToogle(e)} />
+                <span> <Checkbox  name="status" checked={data?.status} onClick={(e) => handleToogle(e)} />
               <span  className="table_content">Status - shows or hides the status bar. Again, most browsers force it to show.</span>
                 </span>
                 <br/>
-                <span> <Checkbox className="checkBox" name="location" checked={data?.location} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="location" checked={data?.location} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Location - shows or hides the URL field in the new window. FF and IE don’t allow to hide it by default.</span>
                 </span>
                 <br/>
-                <span> <Checkbox className="checkBox" name="toolbar" checked={data?.toolbar} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="toolbar" checked={data?.toolbar} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Toolbar - shows or hides the browser navigation bar (back, forward, reload etc) on the new window.</span>
                 </span>
                 <br/>
-                <span> <Checkbox className="checkBox" name="menubar" checked={data?.menubar} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="menubar" checked={data?.menubar} onClick={(e) => handleToogle(e)}/>
               <span  className="table_content">Menubar - shows or hides the browser menu on the new window</span>
                 </span>
                 <div className="table_content mt-2">

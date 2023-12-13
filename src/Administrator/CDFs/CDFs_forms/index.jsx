@@ -41,7 +41,7 @@ import {
 } from "@mui/material";
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { CheckBox } from '@mui/icons-material';
+// import {  } from '@mui/icons-material';
 function createData(agent, name,mail,date,admin,) {
   return { agent, name,mail,date,admin, };
 }
@@ -175,12 +175,12 @@ export default function ContentManagement() {
                             </TableCell>
                           
                             <TableCell  align='center'className="table_content">
-                               <CheckBox
-                                    className="checkBox"/>
+                               <Checkbox
+                                    className="complyColor"/>
                             </TableCell>
                             <TableCell  align='center' className="table_content">
-                            <CheckBox  style={{marginLeft:"25px"}}
-                                    className="checkBox"/>
+                            <Checkbox  style={{marginLeft:"25px"}}
+                                    className="complyColor"/>
                             </TableCell >
                            
                            

@@ -131,7 +131,7 @@ export default function Edit() {
                          className="table_content"
                         ></div>
 
-<Checkbox name="IsDisabled" className="checkBox"/>
+<Checkbox name="IsDisabled"/>
                       </div>
                     </div>
                        

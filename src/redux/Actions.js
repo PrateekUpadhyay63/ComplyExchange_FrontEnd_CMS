@@ -1594,15 +1594,11 @@ export const copyAgents = (value,callback) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          if(responseData.status==500){
-            // Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
-          }else
-          {Utils.showAlert(1, "Agent Copied successfully.");
-          if(callback){
-            callback();
+          console.log(responseData,"res")
+          Utils.showAlert(1, responseData?.data?.message);
+          if(responseData?.data?.message !== ""){
+            // callback();
           }
-      }
-
         }
       },
       (error) => {
@@ -2208,7 +2204,7 @@ export const importCountries = (value) => {
 export const upsertSettings = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
-    Utils.api.putApiCall(
+    Utils.api.postApiCall(
       Utils.endPoints.UPSERT_SETTINGS,
       value,
       (responseData) => {
@@ -2218,6 +2214,7 @@ export const upsertSettings = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+         
           Utils.showAlert(1, responseData?.data);
         }
              },

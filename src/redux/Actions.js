@@ -339,6 +339,28 @@ export const getMaxNumber = () => {
   };
 };
 
+//GET_COUNTERY_CODE
+export const getCountryCodes = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTERY_CODE,
+      "",
+      (resData) => {
+        
+        dispatch({
+          type: Utils.ActionName.GET_COUNTERY_CODE,
+          payload: {
+            countryCodeData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
 export const upsertSecurityKeys = (value) => {
   return (dispatch) => {
     // const dataToSend = { message: value };
@@ -1534,7 +1556,7 @@ export const deleteDocumentation = (id) => {
 
 export const updateUser = (value) => {
   return (dispatch) => {
-    const dataToSend = { message: value };
+    // const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.UPDATE_USER,
       value,"",
@@ -1544,8 +1566,8 @@ export const updateUser = (value) => {
           type: Utils.ActionName.UPDATE_USER,
           payload: { data: data.data },
         });
-         if (responseData) {
-          Utils.showAlert(1, responseData?.data?.message);
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data);
         }
       },
       (error) => {

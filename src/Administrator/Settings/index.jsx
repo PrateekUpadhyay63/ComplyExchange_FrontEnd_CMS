@@ -457,7 +457,7 @@ const arr=[1,2,3,4,5]
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
+                <TextField onChange={handleChange} rows={3} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 h-20 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
                 </div>
               </div>
             </div>

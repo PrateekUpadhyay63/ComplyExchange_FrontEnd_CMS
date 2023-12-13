@@ -94,6 +94,7 @@ const {
   ALL_USER,
   GET_YEARS,
   GET_MAXNUMBER,
+  GET_COUNTERY_CODE,
   GET_IGA,
   GET_E_FORM_SELECTION_WARNING,
 } = Utils.ActionName;
@@ -175,6 +176,16 @@ export const getNumbersReducer = (state = initialState, action) => {
       return state;
   }
 };
+//GET_COUNTERY_CODE
+export const getCountryCodesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_COUNTERY_CODE:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 export const getSelfCertificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SELF_CERTIFICATION:

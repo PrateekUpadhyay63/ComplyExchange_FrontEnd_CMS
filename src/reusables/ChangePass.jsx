@@ -65,21 +65,33 @@ const DialogEdit = props => {
         const handleChange = (e) => {
           setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  const isPasswordValid = (password) => {
+    // Implement your password validation logic here
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{12,})/;
+    return passwordRegex.test(password);
+  };
+  
+  // ...
+  
   const handleSubmit = async (e) => {
-
     e.preventDefault();
-    
-    let updateData={
+  
+    if (!isPasswordValid(data.password)) {
+      // Password does not meet requirements, handle accordingly
+      alert("Password must have one capital, one number, a special character, and be at least 12 characters long");
+      return;
+    }
+  
+    let updateData = {
       id: idData?.id,
       oldPassword: data.oldPassword,
-      password: data.password
-    }
- 
+      password: data.password,
+    };
+  
     if (idData) {
       dispatch(changePassword(updateData));
-    } 
-    handleClose()
+    }
+    handleClose();
   };
   console.log(idData,"paprams")
   return (
@@ -146,7 +158,7 @@ const DialogEdit = props => {
                   />
                 </div>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-3 table_text">
                   <div
                    
@@ -168,7 +180,7 @@ const DialogEdit = props => {
                    
                   />
                 </div>
-              </div>
+              </div> */}
            
            
 

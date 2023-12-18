@@ -14,6 +14,7 @@ import {
   getSecurityKeysReducer,
   getNumbersReducer,
   getCountryCodesReducer,
+  getCountryArticleReducer,
   getAgentTranslationReducer,
   CountriesReducer,
   LanguagesReducer,
@@ -93,7 +94,7 @@ import {
   getSelfCertificationReducer,
   getAllUsersReducer,
   getUserByIdReducer,
-  
+  getCountryArticleByIdReducer,
   getIgaDropDownReducer,
   getEformSelectionWarningReducer,
 
@@ -118,6 +119,7 @@ export default function configureStore() {
       pageDataByIdReducer,
       getAgentByIdReducer,
       getdocCH3Reducer,
+      getCountryArticleByIdReducer,
       getContentByIdReducer,
       updateContentReducer,
       getAllAgentReducer,
@@ -143,6 +145,7 @@ export default function configureStore() {
       getdocTypeReducer,
       getIncomeReducer,
       getCountryCodesReducer,
+      getCountryArticleReducer,
       getdocByIdReducer,
       getAgentsImpCountiesReducer,
       getAllRulesReducer,

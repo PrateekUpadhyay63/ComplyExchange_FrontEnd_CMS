@@ -125,6 +125,7 @@ export default function Countries_details() {
 
     if (params.id) {
       let updateData = {
+       
         id: params?.id,
         email: data?.email,
         countryCode: data?.countryCode,
@@ -133,6 +134,7 @@ export default function Countries_details() {
         mobileNumber: data?.mobileNumber,
       };
       dispatch(updateUser(updateData));
+      console.log(updateData,"lll")
     } else {
       dispatch(signupAction(data));
     }
@@ -309,7 +311,7 @@ export default function Countries_details() {
                         <div className="table_content">Country Code:</div>
                       </div>
                       <div className="col-10">
-                        <Select
+                        <select
                           align="center"
                           onChange={handleChange}
                           value={data?.countryCode}
@@ -318,16 +320,16 @@ export default function Countries_details() {
                      
                           className="selectBox text table_content"
                         >
-                          <MenuItem  value={0}> ---Select----</MenuItem>
+                          <option value={0}>---Select----</option>
                           {CountryCodeDataValue && Object.values(CountryCodeDataValue).map((item, ind) => {
 
   return (
-    <MenuItem key={ind} value={item.id}>
+    <option key={ind} value={item.id}>
       {item.name}
-    </MenuItem>
+    </option>
   );
 })}
-                        </Select>
+                        </select>
                       </div>
                     </div>
                     <div className="row">

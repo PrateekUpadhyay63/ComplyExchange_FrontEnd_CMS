@@ -53,10 +53,16 @@
   .selectBox{
     height: 2.2rem !important ;
     min-height: 0.05 !important;
-    width: 15% !important;
+    width: 16.23% !important;
+    justify-content: center;
+    padding-inline: 9px !important
    
 }
+.selectBox input{
   
+  padding-inline: 9px
+ 
+}
   .inner-scroll-div{
     border: 1px solid #80808099 ;
     max-height: 250px;

@@ -17,7 +17,7 @@ import AppSidebar from "../../Layout/AppSidebar/";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 // import DialogTransition from "../../../reusables/deleteDialog";
-import { getAllCountriesData, getAllCountries,importCountries,exportCountries,getIgaDropDown} from "../../redux/Actions";
+import { getAllCountriesData, getAllCountries,importCountries,exportCountries,getIgaDropDown,getYears} from "../../redux/Actions";
 
 import DialogModal from "../../reusables/Countries";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -74,8 +74,10 @@ export default function ContentManagement() {
 const igaDropDownData = useSelector(
   (state) => state?.getIgaDropDownReducer?.igaDropDownData
 );
+const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   useEffect(() => {
     dispatch(getIgaDropDown())
+    dispatch(getYears());
     dispatch(getAllCountriesData(page, size));
   }, []);
 
@@ -298,7 +300,7 @@ const igaDropDownData = useSelector(
                             <TableCell className="table_content" align="center">{igaDropDownData.find(item => item.id === row?.igaModelId)?.name}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
                             <TableCell className="table_content" align="center">{row.treatyEffectiveYear}</TableCell>
-                            <TableCell className="table_content" align="center">{row.crs}</TableCell>
+                            <TableCell className="table_content" align="center">{row.crsExchangeIn}</TableCell>
                             <TableCell className="table_content" align="center">{row.url}</TableCell>
                             <TableCell className="table_content" align="center">{row.lob}</TableCell>
 

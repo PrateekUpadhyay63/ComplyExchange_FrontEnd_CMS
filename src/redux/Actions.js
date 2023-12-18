@@ -45,7 +45,7 @@ export const signupAction = (value) => {
     );
   };
 };
-
+//GET_COUNTRY_ARTICLE_ById
 export const getUserById = (value,callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
@@ -60,6 +60,33 @@ export const getUserById = (value,callback) => {
             type: Utils.ActionName.GET_USER_BY_ID,
             payload: {
               getUserByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const getCountryArticleById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_ARTICLE_ById,
+      `/${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_COUNTRY_ARTICLE_ById,
+            payload: {
+              getCountryArticleByIdData: resData.data,
             },
           });
         } 
@@ -340,6 +367,7 @@ export const getMaxNumber = () => {
 };
 
 //GET_COUNTERY_CODE
+//GET_COUNTRY_ARTICLE
 export const getCountryCodes = () => {
   return (dispatch) => {
     Utils.api.getApiCall(
@@ -361,6 +389,29 @@ export const getCountryCodes = () => {
     );
   };
 };
+
+export const getCountryArticles = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_ARTICLE,
+      "",
+      (resData) => {
+        console.log(resData,"111111112233")
+        dispatch({
+          type: Utils.ActionName.GET_COUNTRY_ARTICLE,
+          payload: {
+            countryArticleData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
 export const upsertSecurityKeys = (value) => {
   return (dispatch) => {
     // const dataToSend = { message: value };

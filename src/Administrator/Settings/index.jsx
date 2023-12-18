@@ -95,10 +95,10 @@ const arr=[1,2,3,4,5]
   const [data, setData] = useState({
     id: 0,
     DefaultCoverPagePdf:"",
-    defaultCoverPagePdf_FileName: "",
+    // defaultCoverPagePdf_FileName: "",
     lengthOfConfirmationCode: "",
     defaultLogoType: "",
-    defaultLogo_FileName: "",
+    // defaultLogo_FileName: "",
     googleTranslateAPIKey: "",
     purgeRedundantSubmissionData: "",
     runExchangeInIframe: false,
@@ -176,10 +176,10 @@ const arr=[1,2,3,4,5]
         TaxformsAgent:data?.TaxformsAgent,
     DualformsAgent:data?.DualformsAgent,
     CRSformsAgent:data?.CRSformsAgent,
-      defaultCoverPagePdf_FileName: data?.defaultCoverPagePdf_FileName,
+      // defaultCoverPagePdf_FileName: data?.defaultCoverPagePdf_FileName,
         lengthOfConfirmationCode: data?.lengthOfConfirmationCode,
         defaultLogoType: imageFile,
-        defaultLogo_FileName: data?.defaultLogo_FileName,
+        // defaultLogo_FileName: data?.defaultLogo_FileName,
         googleTranslateAPIKey: data?.googleTranslateAPIKey,
         APIURL:data?.APIURL,
         purgeRedundantSubmissionData: data?.purgeRedundantSubmissionData,
@@ -235,7 +235,7 @@ const arr=[1,2,3,4,5]
                 </div>
               </div>
             </div> */}
-            <div className="col-12 d-flex">
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -246,8 +246,8 @@ const arr=[1,2,3,4,5]
                 <TextField className="w-50 textFieldClass" onChange={handleChange}fullWidth value={data?.defaultCoverPagePdf_FileName} name="defaultCoverPagePdf_FileName"/>
                 </div>
               </div>
-            </div>
-            <div className="col-12 d-flex">
+            </div> */}
+            {/* <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
@@ -258,7 +258,7 @@ const arr=[1,2,3,4,5]
                 <TextField className="w-50 textFieldClass" onChange={handleChange} fullWidth value={data?.defaultLogo_FileName} name="defaultLogo_FileName"/>
                 </div>
               </div>
-            </div>
+            </div> */}
  <div className="col-12 d-flex">
               <div className="row my-1 w-100">
                 <div className="col-5 d-flex">

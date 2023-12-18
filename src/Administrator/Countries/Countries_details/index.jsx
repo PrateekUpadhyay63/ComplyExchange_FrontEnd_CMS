@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   TextField,
   CardHeader,
@@ -16,6 +21,7 @@ import {
   Checkbox,
   Button,
   Input,
+  Typography,
 } from "@mui/material";
 
 import ThemeOptions from "../../../Layout/ThemeOptions/";
@@ -38,9 +44,11 @@ import {
   getCountryById,
   CountryUpsert,
   CountriesUpsertArticle,
+  getCountryArticleById,
   getYears,
   getAllCountries,
   getIgaDropDown,
+  getCountryArticles
 } from "../../../redux/Actions";
 
 export default function Countries_details() {
@@ -54,6 +62,11 @@ export default function Countries_details() {
   const countryData = useSelector(
     (state) => state?.getCountryByIdReducer?.getCountryByIdData
   );
+
+  const articleData = useSelector(
+    (state) => state?.getCountryArticleReducer
+  );
+  console.log("1111111",articleData)
   const formData = useSelector((state) => state?.getYearsReducer?.yearData);
   let params = useParams();
   let history = useHistory();
@@ -71,10 +84,14 @@ export default function Countries_details() {
     lob: false,
     lobDocumentLocation: "",
     lobDocumentULR: "",
+    article:""
     
   });
   useEffect(() => {
-    // igaModelId
+    console.log("Article Data:", articleData?.countryArticleData);
+  }, [articleData]);
+  useEffect(() => {
+
     console.log("countryData", countryData);
     setData({ ...countryData, 
     iga: countryData?.igaModelId,
@@ -87,6 +104,8 @@ export default function Countries_details() {
     dispatch(getAllCountries());
     dispatch(getYears());
     dispatch(getIgaDropDown());
+    dispatch(getCountryArticles());
+    // dispatch(getCountryArticleById())
   }, []);
 
   useEffect(() => {
@@ -111,6 +130,7 @@ export default function Countries_details() {
         iga: data?.iga,
         crs: data?.crs,
         lob: data?.lob,
+        article:data?.article,
         lobDocumentLocation: data?.lobDocumentLocation,
         lobDocumentULR: data?.lobDocumentULR
       };
@@ -385,7 +405,109 @@ export default function Countries_details() {
                           Add Article
                         </Button>
                       </span>
-                      <div className="placeholderClass">
+                     
+                    <div>
+                    <div className="col-12 mt-2 d-flex">
+                    {articleData?.countryArticleData && articleData?.countryArticleData?.records?.length ? ( 
+                    <table class="table table-hover table-striped">
+                   
+                      <TableHead>
+                        <TableRow>
+                          <TableCell
+                           className='table_head'
+                          >
+                           Number
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+                          Description
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+                           Max Number of Paragraphs
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+                          Subparagraphs
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+              Show in drop-downs
+                          </TableCell>
+
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+                   Treaty Rates Available
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                           className='table_head'
+                          >
+                 Associated Income Codes
+                          </TableCell>
+                    
+                          <TableCell
+                            align="right"
+                           className='table_head'
+                          >
+                            Actions
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      
+                      <TableBody>
+                        {console.log("dataa", articleData)}
+                     {articleData?.records?.map((row, ind) => 
+                     
+                     { console.log("roww1",row);
+                   return  ( 
+                     
+                          <TableRow
+                           key={row.number}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell className="table_content">
+                     {row.number}
+                            </TableCell>
+
+                            <TableCell className="table_content" align="center">scd</TableCell>
+                            <TableCell className="table_content" align="center">xsx</TableCell>
+                            <TableCell className="table_content" align="center"> df </TableCell>
+                            <TableCell className="table_content" align="center">fcdv</TableCell>
+                            <TableCell className="table_content" align="center">getAllCountriesDataReducer</TableCell>
+                            <TableCell className="table_content" align="center">6</TableCell>
+
+                            <TableCell className="table_content" align="right">
+                              <div className="actionRow">
+                              
+                                  <EditIcon style={{ color: "green",fontSize:"20px" }}
+                                  // onClick={() => {
+                                  //  history.push(`/countries_edit/${row.id}`)
+                                  // }}
+                                   />
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                         )
+                         })} 
+                      </TableBody>
+                        
+                    </table>
+                    ) 
+                         
+                    : <div className="placeholderClass">
                         <TextField
                           value="There is no article to display"
                           disabled
@@ -395,7 +517,11 @@ export default function Countries_details() {
                           onChange={handleChange}
                           required
                         />
+                      </div> 
+                    } 
+                  </div>  
                       </div>
+
                     </div>
                   </div>
 

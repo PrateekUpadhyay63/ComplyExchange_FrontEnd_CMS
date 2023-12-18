@@ -211,6 +211,8 @@ const endPoint = {
   CHANGE_PASSWORD:"Account/ChangePassword",
   UPDATE_USER:"Account/UpdateUser",
   GET_COUNTERY_CODE:"/Country/GetCountriesCode",
+  GET_COUNTRY_ARTICLE:"/Countries/GetCountryArticle",
+  GET_COUNTRY_ARTICLE_ById:"/Countries/GetCountryArticleByID",
 
  
   

@@ -92,9 +92,11 @@ const {
   GET_SECURITY_KEY,
   GET_USER_BY_ID,
   ALL_USER,
+  GET_COUNTRY_ARTICLE_ById,
   GET_YEARS,
   GET_MAXNUMBER,
   GET_COUNTERY_CODE,
+  GET_COUNTRY_ARTICLE,
   GET_IGA,
   GET_E_FORM_SELECTION_WARNING,
 } = Utils.ActionName;
@@ -109,7 +111,15 @@ export const getUserByIdReducer = (state = initialState, action) => {
       return state;
   }
 };
-
+//GET_COUNTRY_ARTICLE_ById
+export const getCountryArticleByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_COUNTRY_ARTICLE_ById:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getAllUsersReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_USER:
@@ -185,7 +195,18 @@ export const getCountryCodesReducer = (state = initialState, action) => {
       return state;
   }
 };
+//GET_COUNTRY_ARTICLE
 
+
+
+export const getCountryArticleReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_COUNTRY_ARTICLE:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getSelfCertificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SELF_CERTIFICATION:

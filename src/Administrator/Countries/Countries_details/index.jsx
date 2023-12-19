@@ -167,7 +167,7 @@ export default function Countries_details() {
 
         <div className="app-main">
           <AppSidebar />
-          <div className="app-main__outer" style={{ height: "900px" }}>
+          <div className="app-main__outer" >
             <div className="app-main__inner">
               <div role="presentation" className="bread_crumbs">
                 <Breadcrumbs aria-label="breadcrumb">
@@ -397,7 +397,7 @@ export default function Countries_details() {
                           size="small"
                           type="submit"
                           onClick={() => {
-                            history.push(`/article/${params?.id}`);
+                            history.push("/article");
                           }}
                           sx={{ mx: 2 }}
                           variant="contained"
@@ -406,10 +406,12 @@ export default function Countries_details() {
                         </Button>
                       </span>
                      
-                    <div>
-                    <div className="col-12 mt-2 d-flex">
-                    {articleData?.countryArticleData && articleData?.countryArticleData?.records?.length ? ( 
-                    <table class="table table-hover table-striped">
+                    <div >
+                    <div className="col-12 mt-2 d-flex ">
+                    {console.log("gggg",articleData)} 
+                    {articleData?.countryArticleData && articleData?.countryArticleData?.length ? (
+                     
+                    <table class="table table-hover table-striped" style={{overflow:"auto"}}>
                    
                       <TableHead>
                         <TableRow>
@@ -440,20 +442,20 @@ export default function Countries_details() {
                             align="center"
                            className='table_head'
                           >
-              Show in drop-downs
+                           Show in drop-downs
                           </TableCell>
 
                           <TableCell
                             align="center"
                            className='table_head'
                           >
-                   Treaty Rates Available
+                         Treaty Rates Available
                           </TableCell>
                           <TableCell
                             align="center"
                            className='table_head'
                           >
-                 Associated Income Codes
+                         Associated Income Codes
                           </TableCell>
                     
                           <TableCell
@@ -467,9 +469,9 @@ export default function Countries_details() {
                       
                       <TableBody>
                         {console.log("dataa", articleData)}
-                     {articleData?.records?.map((row, ind) => 
+                     {articleData?.countryArticleData?.map((row, ind) => 
                      
-                     { console.log("roww1",row);
+                     { console.log("roww1",row)
                    return  ( 
                      
                           <TableRow
@@ -482,20 +484,22 @@ export default function Countries_details() {
                      {row.number}
                             </TableCell>
 
-                            <TableCell className="table_content" align="center">scd</TableCell>
-                            <TableCell className="table_content" align="center">xsx</TableCell>
-                            <TableCell className="table_content" align="center"> df </TableCell>
-                            <TableCell className="table_content" align="center">fcdv</TableCell>
-                            <TableCell className="table_content" align="center">getAllCountriesDataReducer</TableCell>
-                            <TableCell className="table_content" align="center">6</TableCell>
+                            <TableCell className="table_content" align="center">{row.description}</TableCell>
+                            <TableCell className="table_content" align="center">{row.maxNoOfParagraph}</TableCell>
+                            <TableCell className="table_content" align="center"> <Checkbox checked={row.includeSubParagraph}/> </TableCell>
+                            <TableCell className="table_content" align="center"> <Checkbox checked={row.showInDropDown}/></TableCell>
+                            <TableCell className="table_content" align="center">{row.treatyRates}</TableCell>
+                            <TableCell className="table_content" align="center">{row.selectedIncomeCodeIds}</TableCell>
 
                             <TableCell className="table_content" align="right">
                               <div className="actionRow">
                               
                                   <EditIcon style={{ color: "green",fontSize:"20px" }}
-                                  // onClick={() => {
-                                  //  history.push(`/countries_edit/${row.id}`)
-                                  // }}
+                                  onClick={() => {
+                                    history.push(`/article_edit/${params?.id}`);
+                                  }}
+                                 
+                                
                                    />
                               </div>
                             </TableCell>

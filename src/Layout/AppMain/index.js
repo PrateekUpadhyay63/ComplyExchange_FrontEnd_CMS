@@ -94,6 +94,7 @@ const Tokens = lazy(()=> import("../../Administrator/TokenSent/Token_form"))
 // const Glossaries_form = lazy(()=> import ("../../Administrator/Glossaries/glossaries_form"))
 const Countries_form = lazy(()=> import ("../../Administrator/Countries/index"))
 const Countries_edit = lazy(()=> import ("../../Administrator/Countries/Countries_details/index"))
+const Edit_Article = lazy(()=> import("../../Administrator/Countries/AddArticle"))
 const Add_Article = lazy(()=> import("../../Administrator/Countries/AddArticle"))
 // const Glossaries_edit = lazy(()=> import("../../Administrator/Glossaries/Glossaries_edit"))
 const Administrator = lazy(()=>import("../../Administrator/Administrators/index"))
@@ -173,8 +174,27 @@ const AppMain = () => {
           </div>
         }
       >
-        <Route path="/article/:id" component={isAuth() ?Add_Article: login}/>
+        <Route path="/article_edit/:id" component={isAuth() ?Add_Article: login}/>
       </Suspense>
+
+      <Suspense
+        fallback={
+          <div className="loader-container">
+            <div className="loader-container-inner">
+              <div className="text-center">
+                <Loader type="line-scale" />
+              </div>
+              <h6 className="mt-3">
+                Please wait while we load all Agents
+                {/* <small>Because this is a demonstration we load at once all the Elements examples. This wouldn't happen in a real live app!</small> */}
+              </h6>
+            </div>
+          </div>
+        }
+      >
+        <Route path="/article" component={isAuth() ?Add_Article: login}/>
+      </Suspense>
+
 <Suspense
         fallback={
           <div className="loader-container">

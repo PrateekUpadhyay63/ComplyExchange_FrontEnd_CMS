@@ -298,7 +298,7 @@ export default function Language_details() {
                         {" "}
                         <Checkbox
                           name="bulkTranslation"
-                          className="checkBox"
+                         
                           defaultChecked={
                             idPageData?.contentTranslationData?.bulkTranslation
                           }

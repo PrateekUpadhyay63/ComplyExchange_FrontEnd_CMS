@@ -45,7 +45,7 @@ export const signupAction = (value) => {
     );
   };
 };
-
+//GET_COUNTRY_ARTICLE_ById
 export const getUserById = (value,callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
@@ -60,6 +60,33 @@ export const getUserById = (value,callback) => {
             type: Utils.ActionName.GET_USER_BY_ID,
             payload: {
               getUserByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+export const getCountryArticleById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_ARTICLE_ById,
+      `/${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.GET_COUNTRY_ARTICLE_ById,
+            payload: {
+              getCountryArticleByIdData: resData.data,
             },
           });
         } 
@@ -328,6 +355,52 @@ export const getMaxNumber = () => {
           type: Utils.ActionName.GET_MAXNUMBER,
           payload: {
             numberData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+//GET_COUNTERY_CODE
+//GET_COUNTRY_ARTICLE
+export const getCountryCodes = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTERY_CODE,
+      "",
+      (resData) => {
+        
+        dispatch({
+          type: Utils.ActionName.GET_COUNTERY_CODE,
+          payload: {
+            countryCodeData: resData.data,
+          },
+        });
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getCountryArticles = () => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_COUNTRY_ARTICLE,
+      "",
+      (resData) => {
+        console.log(resData,"111111112233")
+        dispatch({
+          type: Utils.ActionName.GET_COUNTRY_ARTICLE,
+          payload: {
+            countryArticleData: resData.data,
           },
         });
       },
@@ -1534,7 +1607,7 @@ export const deleteDocumentation = (id) => {
 
 export const updateUser = (value) => {
   return (dispatch) => {
-    const dataToSend = { message: value };
+    // const dataToSend = { message: value };
     Utils.api.postApiCall(
       Utils.endPoints.UPDATE_USER,
       value,"",
@@ -1544,8 +1617,8 @@ export const updateUser = (value) => {
           type: Utils.ActionName.UPDATE_USER,
           payload: { data: data.data },
         });
-         if (responseData) {
-          Utils.showAlert(1, responseData?.data?.message);
+        if (responseData) {
+          Utils.showAlert(1, responseData?.data);
         }
       },
       (error) => {
@@ -1594,15 +1667,11 @@ export const copyAgents = (value,callback) => {
           payload: { data: data.data },
         });
          if (responseData) {
-          if(responseData.status==500){
-            // Utils.showAlert(2, "Subpage name already exist.Please choose another name."); 
-          }else
-          {Utils.showAlert(1, "Agent Copied successfully.");
-          if(callback){
-            callback();
+          console.log(responseData,"res")
+          Utils.showAlert(1, responseData?.data?.message);
+          if(responseData?.data?.message !== ""){
+            // callback();
           }
-      }
-
         }
       },
       (error) => {
@@ -2208,7 +2277,7 @@ export const importCountries = (value) => {
 export const upsertSettings = (value) => {
   return (dispatch) => {
     const dataToSend = { message: value };
-    Utils.api.putApiCall(
+    Utils.api.postApiCall(
       Utils.endPoints.UPSERT_SETTINGS,
       value,
       (responseData) => {
@@ -2218,6 +2287,7 @@ export const upsertSettings = (value) => {
           payload: { data: data.data },
         });
          if (responseData) {
+         
           Utils.showAlert(1, responseData?.data);
         }
              },

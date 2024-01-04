@@ -10,13 +10,10 @@ import {
   CardActions,
   Card,
   FormHelperText,
-  Divider,
-  div,
   Select,
   MenuItem,
   Checkbox,
   Button,
-  Input,
 } from "@mui/material";
 
 import ThemeOptions from "../../../Layout/ThemeOptions/";
@@ -24,11 +21,10 @@ import { Fragment } from "react";
 import AppSidebar from "../../../Layout/AppSidebar/";
 import "./index.scss";
 import {
-  createCapacities,
   getUserById,
   signupAction,
-  updateCapacities,
   updateUser,
+  getCountryCodes
 } from "../../../redux/Actions";
 
 export default function Countries_details() {
@@ -39,33 +35,36 @@ export default function Countries_details() {
   const [emailError, setEmailError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const formData = useSelector((state) => state.getUserByIdReducer);
+
+  const CountryCodeDataValue = useSelector((state) => state?.getCountryCodesReducer?.countryCodeData);
+  console.log("123",CountryCodeDataValue)
   const [data, setData] = useState({
-    
     email: "",
     enableMFA: false,
     enableMFA_SMS: false,
     id: 0,
     mobileNumber: "",
-    countryCode:"",
+    countryCode: "",
     password: "",
+    confirmPassword: "",
     roleId: 1,
     roleName: "",
   });
- 
+
   useEffect(() => {
     setData(formData?.getUserByIdData);
-   
   }, [formData]);
-
-
+  
   useEffect(() => {
+    dispatch(getCountryCodes());
+  }, []);
+  useEffect(() => {
+   
     if (params?.id) {
       dispatch(getUserById(params?.id), (data) => {
         setData(data);
       });
-    
-    }
-    else{
+    } else {
       setData({
         email: "",
         enableMFA: false,
@@ -73,107 +72,111 @@ export default function Countries_details() {
         id: 0,
         mobileNumber: "",
         password: "",
-        countryCode:"",
+        confirmPassword: "",
+        countryCode: "",
         roleId: 1,
         roleName: "",
-
-      })
+      });
     }
   }, []);
-  useEffect(()=>{
-    
-  })
+
+  const validatePassword = (password) => {
+    const hasCapitalLetter = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
+    const hasMinLength = password.length >= 12;
+
+    return hasCapitalLetter && hasNumber && hasSpecialCharacter && hasMinLength;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!data.email) {
       setEmailError("This field is required");
-      return; 
+      return;
     }
+
     if (!data.password) {
       setPasswordError("This field is required");
-      return; 
+      return;
     }
-   
+
     if (!data.confirmPassword) {
       setConfirmPasswordError("This field is required");
-      return; 
+      return;
     }
 
     if (data.password !== data.confirmPassword) {
-      setConfirmPasswordError("Passwords doesn't match");
-      return; 
+      setConfirmPasswordError("Passwords don't match");
+      return;
     } else {
       setConfirmPasswordError("");
     }
-   
 
-   
+    if (!validatePassword(data.password)) {
+      setPasswordError("Password must have one capital, one number, one special character, and be at least 12 characters long");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
     setEmailError("");
-    
-    setPasswordError("");
-    setConfirmPasswordError("");
-    
+
     if (params.id) {
       let updateData = {
+       
         id: params?.id,
         email: data?.email,
         countryCode: data?.countryCode,
-        enableMFA: data?.enableMFA,
-        enableMFA_SMS: data?.enableMFA_SMS,
+        // enableMFA: data?.enableMFA,
+        // enableMFA_SMS: data?.enableMFA_SMS,
         mobileNumber: data?.mobileNumber,
       };
-      dispatch(updateUser(updateData)
-   
-      );
+      dispatch(updateUser(updateData));
+      console.log(updateData,"lll")
     } else {
       dispatch(signupAction(data));
     }
-    
+
     history.push("/administrators");
   };
-  
 
-  const handleToogle = (e) => {
+  const handleToggle = (e) => {
     setData({ ...data, [e.target.name]: e.target.checked });
   };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
 
-   
     if (e.target.name === "email" && e.target.value === "") {
       setEmailError("This field is required");
     } else {
-      setEmailError(""); 
+      setEmailError("");
     }
+
     if (e.target.name === "password" && e.target.value === "") {
       setPasswordError("This field is required");
     } else {
-      setPasswordError(""); 
+      setPasswordError("");
     }
-    
+
     if (e.target.name === "confirmPassword" && e.target.value === "") {
       setConfirmPasswordError("This field is required");
     } else {
-      setConfirmPasswordError(""); 
+      setConfirmPasswordError("");
     }
-
-    
-   
   };
 
   return (
     <Card>
       <Fragment>
         <ThemeOptions />
-        {/* <AppHeader /> */}
-
         <div className="app-main">
           <AppSidebar />
           <div className="app-main__outer" style={{ height: "1000px" }}>
             <div className="app-main__inner">
-              <div className=" row mx-2">
+              <div className="row mx-2">
                 <div role="presentation" className="bread_crumbs">
                   <Breadcrumbs aria-label="breadcrumb">
                     <Link
@@ -192,20 +195,17 @@ export default function Countries_details() {
                 </div>
                 <form>
                   <div>
-                    {
-                      <div className="row headingLabel complyColor">
-                        {params.id
-                          ? " Edit Administrator"
-                          : "Add Administrator"}
-                      </div>
-                    }
-                  <div className="row">
+                    <div className="row headingLabel complyColor">
+                      {params.id ? " Edit Administrator" : "Add Administrator"}
+                    </div>
+                    <div className="row">
                       <div className="col-2">
-                        <div className="table_content">Email:<span style={{color:"red"}}>*</span></div>
+                        <div className="table_content">
+                          Email:<span style={{ color: "red" }}>*</span>
+                        </div>
                       </div>
                       <div className="col-10">
                         <div className="table_content"></div>
-
                         <TextField
                           className="table_content"
                           size="small"
@@ -213,59 +213,68 @@ export default function Countries_details() {
                           value={data?.email}
                           onChange={handleChange}
                           required
-                          error={!!emailError} 
-                          />
-                          <FormHelperText error={!!emailError}>{emailError}</FormHelperText>
+                          error={!!emailError}
+                        />
+                        <FormHelperText error={!!emailError}>
+                          {emailError}
+                        </FormHelperText>
                       </div>
                     </div>
-                    {!params.id ? ( <div className="row">
-                      <div className="col-2">
-                        <div className="table_content">Password:<span style={{color:"red"}}>*</span></div>
+                    {!params.id ? (
+                      <div className="row">
+                        <div className="col-2">
+                          <div className="table_content">
+                            Password:<span style={{ color: "red" }}>*</span>
+                          </div>
+                        </div>
+                        <div className="col-10">
+                          <div className="table_content"></div>
+                          <TextField
+                            type="password"
+                            className="table_content"
+                            size="small"
+                            name="password"
+                            value={data?.password}
+                            onChange={handleChange}
+                            required
+                            error={!!passwordError}
+                          />
+                          <FormHelperText error={!!passwordError}>
+                            {passwordError}
+                          </FormHelperText>
+                        </div>
                       </div>
-                      <div className="col-10">
-                        <div className="table_content"></div>
-
-                        <TextField
-                        type="password"
-                          className="table_content"
-                          size="small"
-                          name="password"
-                          value={data?.password}
-                          onChange={handleChange}
-                          required
-                          error={!!passwordError}
-                        />
-                         <FormHelperText error={!!passwordError}>
-          {passwordError}
-        </FormHelperText>
-                      </div>
-                    </div>):
-                    ""
-                    }
-                     {!params.id ? ( <div className="row">
-                      <div className="col-2">
-                        <div className="table_content">Confirm Password:<span style={{color:"red"}}>*</span></div>
-                      </div>
-                      <div className="col-10">
-                        <div className="table_content"></div>
-
-                        <TextField
-                         type="password"
-                          className="table_content"
-                          size="small"
-                          name="confirmPassword"
-                          value={data?.confirmPassword}
-                          onChange={handleChange}
-                          required
-                          error={!!confirmPasswordError} // Set error prop to display the error message
+                    ) : (
+                      ""
+                    )}
+                    {!params.id ? (
+                      <div className="row">
+                        <div className="col-2">
+                          <div className="table_content">
+                            Confirm Password:
+                            <span style={{ color: "red" }}>*</span>
+                          </div>
+                        </div>
+                        <div className="col-10">
+                          <div className="table_content"></div>
+                          <TextField
+                            type="password"
+                            className="table_content"
+                            size="small"
+                            name="confirmPassword"
+                            value={data?.confirmPassword}
+                            onChange={handleChange}
+                            required
+                            error={!!confirmPasswordError}
                           />
                           <FormHelperText error={!!confirmPasswordError}>
                             {confirmPasswordError}
                           </FormHelperText>
+                        </div>
                       </div>
-                    </div>):
-                    ""
-                    }
+                    ) : (
+                      ""
+                    )}
                     {/* <div className="row">
                       <div className="col-2">
                         <div className="table_content">
@@ -302,19 +311,25 @@ export default function Countries_details() {
                         <div className="table_content">Country Code:</div>
                       </div>
                       <div className="col-10">
-                        <Select
+                        <select
                           align="center"
                           onChange={handleChange}
                           value={data?.countryCode}
-                         
+                         defaultValue={0}
                           name="countryCode"
                      
                           className="selectBox text table_content"
                         >
-                          <MenuItem> ---Select----</MenuItem>
-                          <MenuItem value={"+91"}>+91</MenuItem>
-                          <MenuItem value={"+1"}>+1</MenuItem>
-                        </Select>
+                          <option value={0}>---Select----</option>
+                          {CountryCodeDataValue && Object.values(CountryCodeDataValue).map((item, ind) => {
+
+  return (
+    <option key={ind} value={item.id}>
+      {item.name}
+    </option>
+  );
+})}
+                        </select>
                       </div>
                     </div>
                     <div className="row">

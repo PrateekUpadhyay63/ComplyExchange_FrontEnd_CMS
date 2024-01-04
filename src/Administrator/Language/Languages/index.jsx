@@ -277,11 +277,11 @@ Languages
                                 <div style={{ display: "flex" ,justifyContent:"flex-end"}}>
                                   <KeyboardDoubleArrowDownIcon
                                     style={{ fontSize: "20px" }}
-                                    onClick={() => {
-                                      setOpen1(true);
-                                      setIdData1(row.id);
-                                      setData(row);
-                                    }}
+                                    // onClick={() => {
+                                    //   setOpen1(true);
+                                    //   setIdData1(row.id);
+                                    //   setData(row);
+                                    // }}
                                   />
 
                                   <KeyboardDoubleArrowUpRoundedIcon
@@ -290,10 +290,10 @@ Languages
                                       fontSize: "20px",
                                       marginLeft: "5px",
                                     }}
-                                    onClick={() => {
-                                      setOpen(true);
-                                      setIdData(row.id);
-                                    }}
+                                    // onClick={() => {
+                                    //   setOpen(true);
+                                    //   setIdData(row.id);
+                                    // }}
                                   />
                                 </div>
                               </TableCell>

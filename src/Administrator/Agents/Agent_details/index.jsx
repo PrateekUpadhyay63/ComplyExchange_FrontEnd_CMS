@@ -101,8 +101,12 @@ function UserManagement ({ match }) {
           tinCheckPassword: '',
           supportsTINValidation: false,
           continueAfterTINValidationFailure: false,
+          Description:'',
           termsAndConditions: '',
           tokenEmail: '',
+          SMSFormat :'',
+          sendSignatureProcess:'',
+          saveAndExit:'',
           onboardingAPIActive: false,
           skipAHDPage: false,
           skipTCPage: false,
@@ -156,7 +160,8 @@ function UserManagement ({ match }) {
           taxIdentificationNumber: false,
           specifiedUSPersonDetermination: false,
           eciIncomeReport: false,
-          treatyClaim: false,
+          treatyClaimBEN: false,
+          treatyClaimBENE: false,
           specialRatesAndConditions: false,
           supportingDocumentationW9: false,
           supportingDocumentationBEN: false,
@@ -225,8 +230,13 @@ function UserManagement ({ match }) {
           tinCheckPassword: '',
           supportsTINValidation: false,
           continueAfterTINValidationFailure: false,
+          Description:'',
           termsAndConditions: '',
           tokenEmail: '',
+          SMSFormat :'',
+          sendSignatureProcess:'',
+          saveAndExit:'',
+          byUsingEmailAndPassword:'',
           onboardingAPIActive: false,
           skipAHDPage: false,
           skipTCPage: false,
@@ -280,7 +290,8 @@ function UserManagement ({ match }) {
           taxIdentificationNumber: false,
           specifiedUSPersonDetermination: false,
           eciIncomeReport: false,
-          treatyClaim: false,
+          treatyClaimBEN: false,
+          treatyClaimBENE: false,
           specialRatesAndConditions: false,
           supportingDocumentationW9: false,
           supportingDocumentationBEN: false,
@@ -341,7 +352,7 @@ function UserManagement ({ match }) {
   const [editorState4, setEditorState4] = useState(EditorState.createEmpty())
   const [editorState5, setEditorState5] = useState(EditorState.createEmpty())
   const [editorState6, setEditorState6] = useState(EditorState.createEmpty())
-
+  const [editorState7, setEditorState7] = useState(EditorState.createEmpty())
   useEffect(() => {
     if (params.id) {
       dispatch(
@@ -389,6 +400,88 @@ function UserManagement ({ match }) {
           }
         : () => EditorState.createEmpty()
     )
+
+    setEditorState3(
+      idAgentData?.agentDataById?.sendSignatureProcess
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idAgentData?.agentDataById?.sendSignatureProcess
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+
+    setEditorState4(
+      idAgentData?.agentDataById?.byUsingEmailAndPassword
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idAgentData?.agentDataById?.byUsingEmailAndPassword
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+    setEditorState5(
+      idAgentData?.agentDataById?.saveAndExit
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idAgentData?.agentDataById?.saveAndExit
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+    setEditorState6(
+      idAgentData?.agentDataById?.Description 
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idAgentData?.agentDataById?.Description 
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
+    setEditorState7(
+      idAgentData?.agentDataById?.SMSFormat 
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idAgentData?.agentDataById?.SMSFormat 
+            )
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            )
+            console.log(blocksFromHTML, 'blocksFromHTML')
+
+            return EditorState.createWithContent(contentState)
+          }
+        : () => EditorState.createEmpty()
+    )
   }, [idAgentData])
 
   const handleEditorStateChange1 = editorState => {
@@ -408,9 +501,12 @@ function UserManagement ({ match }) {
   const handleEditorStateChange5 = editorState => {
     setEditorState5(editorState)
   }
-
   const handleEditorStateChange6 = editorState => {
     setEditorState6(editorState)
+  }
+
+  const handleEditorStateChange7 = editorState => {
+    setEditorState7(editorState)
   }
   const convertToHtml1 = () => {
     const contentState = editorState1.getCurrentContent()
@@ -464,6 +560,61 @@ function UserManagement ({ match }) {
     )
     setEditorState1(plainTextEditorState)
   }
+
+  const convertToHtml7 = () => {
+    const contentState = editorState7.getCurrentContent()
+    const html = draftToHtml(convertToRaw(contentState))
+    console.log(html, 'html')
+    const convertedContentState = convertFromRaw({
+      entityMap: {},
+      blocks: [
+        {
+          key: 'converted',
+          text: html,
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {}
+        }
+      ]
+    })
+    const convertedEditorState = EditorState.push(
+      editorState7,
+      convertedContentState,
+      'insert-characters'
+    )
+    setEditorState7(convertedEditorState)
+  }
+  const convertToPlainText7 = () => {
+    const contentState = editorState7.getCurrentContent()
+    const plainText = convertToRaw(contentState)
+      .blocks.map(block => block.text)
+      .join('\n')
+    const plainTextWithoutTags = plainText.replace(/<[^>]+>/g, '')
+    const plainTextContentState =
+      ContentState.createFromText(plainTextWithoutTags)
+    const plainTextEditorState = EditorState.createWithContent(
+      plainTextContentState
+    )
+    setEditorState7(plainTextEditorState)
+  }
+
+  const convertToPreview7 = () => {
+    const contentState = editorState7.getCurrentContent()
+    const plainText = convertToRaw(contentState)
+      .blocks.map(block => block.text)
+      .join('\n')
+    const plainTextWithoutTags = plainText.replace(/<[^>]+>/g, '')
+    const plainTextContentState =
+      ContentState.createFromText(plainTextWithoutTags)
+    const plainTextEditorState = EditorState.createWithContent(
+      plainTextContentState
+    )
+    setEditorState7(plainTextEditorState)
+  }
+
+
   const convertToHtml2 = () => {
     const contentState = editorState2.getCurrentContent()
     const html = draftToHtml(convertToRaw(contentState))
@@ -696,7 +847,7 @@ function UserManagement ({ match }) {
       convertedContentState,
       'insert-characters'
     )
-    setEditorState1(convertedEditorState)
+    setEditorState6(convertedEditorState)
   }
   const convertToPlainText6 = () => {
     const contentState = editorState6.getCurrentContent()
@@ -774,9 +925,12 @@ function UserManagement ({ match }) {
     //   summary: data.summary,
     // }
 
-
-    if (params?.id) {
+    console.log(data,"1111")
+    if (params?.id)
+     {
+    
       let updateData= data;
+
       updateData['id']=params.id
       dispatch(updateAgents(updateData));
     } else {
@@ -994,7 +1148,7 @@ function UserManagement ({ match }) {
                       <div className='col-7 '>
                         <Select className='selectBox text'fullWidth name='parent'>
                           <MenuItem value='1'>Active</MenuItem>
-                          <MenuItem value='0'>inactive</MenuItem>
+                          <MenuItem value='0'>Inactive</MenuItem>
                         </Select>
                       </div>
                     </div>
@@ -1101,13 +1255,19 @@ function UserManagement ({ match }) {
                         </div>
                       </div>
                       <div className='col-7'>
-                        <TextField
+                        <Checkbox
+                        name='includeDefaultEnglish'
+                        value={data?.includeDefaultEnglish}
+                        onClick={e => handleToogle(e)}
+                        checked={data?.includeDefaultEnglish}
+                        />
+                        {/* <TextField
                            fullWidth
                          className='text textFieldClass'
                           name='includeDefaultEnglish'
                           value={data?.includeDefaultEnglish}
                           onChange={handleChange}
-                        />
+                        /> */}
                       </div>
                     </div>
                     <div className='row mx-2 my-1 py-0'>
@@ -1500,13 +1660,59 @@ function UserManagement ({ match }) {
                     </div>
                   </Collapse>
                 </div>
+
+                <div className='row col-8 mt-2'>
+                    <div className='col-12 editor-div headings'>
+                      <lable>Description:</lable>
+                      <div
+                        style={{
+                         
+                          backgroundColor: '#ffff'
+                        }}
+                      >
+                        <Editor
+                          wrapperClassName='wrapper-class'
+                          editorClassName='editor-class'
+                          toolbarClassName='toolbar-class'
+                          editorState={editorState6}
+                          onEditorStateChange={handleEditorStateChange6}
+                        />
+                      <div
+                        style={{
+                          display: 'flex',
+                          
+                          marginTop: '5px'
+                        }}
+                      >
+                        <div>
+                          {' '}
+                          <button type='button' onClick={convertToHtml6}>
+                            HTML
+                          </button>
+                        </div>
+                        <div style={{ marginLeft: '5px' }}>
+                          {' '}
+                          <button type='button' onClick={convertToPlainText6}>
+                            Text
+                          </button>
+                        </div>
+                        <div style={{ marginLeft: '5px' }}>
+                          <button type='button' onClick={convertToPreview6}>
+                            Preview
+                          </button>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+               
               
-                  <div className='col-8 mt-2'>
+                  <div className='row col-8 mt-2'>
                     <div className='col-12 editor-div headings'>
                       <lable>Terms and conditions:</lable>
                       <div
                         style={{
-                          // border: "1px solid grey",
+                         
                           backgroundColor: '#ffff'
                         }}
                       >
@@ -1520,7 +1726,7 @@ function UserManagement ({ match }) {
                       <div
                         style={{
                           display: 'flex',
-                          // justifyContent: "end",
+                          
                           marginTop: '5px'
                         }}
                       >
@@ -1594,7 +1800,53 @@ function UserManagement ({ match }) {
                 The TOKEN email must contain the placeholder ##TOKEN##. This will be replaced with the actual TOKEN when the confirmation email is sent</lable> 
                     </div>
                   </div>
-               
+                  <div className='row col-8 mt-2'>
+                    <div className='col-12 editor-div headings'>
+                      <lable>"TOKEN" SMS:</lable>
+                      <div
+                        style={{
+                          backgroundColor: '#ffff'
+                        }}
+                      >
+                        <Editor
+                          wrapperClassName='wrapper-class'
+                          editorClassName='editor-class'
+                          toolbarClassName='toolbar-class'
+                          editorState={editorState7}
+                          onEditorStateChange={handleEditorStateChange7}
+                        />
+                        {/* <lable>
+                The TOKEN email must contain the placeholder ##TOKEN##. This will be replaced with the actual TOKEN when the confirmation email is sent</lable> */}
+                      </div>
+                      <div
+                        style={{
+                          display: 'flex',
+                          // justifyContent: "end",
+                          marginTop: '5px'
+                        }}
+                      >
+                        <div>
+                          {' '}
+                          <button type='button' onClick={convertToHtml7}>
+                            HTML
+                          </button>
+                        </div>
+                        <div style={{ marginLeft: '5px' }}>
+                          {' '}
+                          <button type='button' onClick={convertToPlainText7}>
+                            Text
+                          </button>
+                        </div>
+                        <div style={{ marginLeft: '5px' }}>
+                          <button type='button' onClick={convertToPreview7}>
+                            Preview
+                          </button>
+                        </div>
+                      </div>
+                             <lable className="label"> 
+                The TOKEN sms must contain the placeholder ##TOKEN##. This will be replaced with the actual TOKEN when the confirmation email is sent</lable> 
+                    </div>
+                  </div>
             
                   <div className='col-8 row mt-2'>
                     <div className='col-12 editor-div headings'>
@@ -1690,7 +1942,7 @@ function UserManagement ({ match }) {
                
                 </div>
                 
-                  <div className='col-8 mt-2'>
+                  <div className='row col-8 mt-2'>
                     <div className='col-12 editor-div headings'>
                       <lable>"SaveAndExit" Email:</lable>
                       <div
@@ -1810,6 +2062,7 @@ function UserManagement ({ match }) {
                           <Checkbox
                             name='skipTCPage'
                             onClick={e => handleToogle(e)}
+                            value={data?.skipTCPage}
                             checked={data?.skipTCPage}
                           />
                         </div>
@@ -1825,8 +2078,10 @@ function UserManagement ({ match }) {
                           Store CDF on the fly:
                         </div>
                         <Checkbox
+                          id="storeCDFOnTheFly"
                           name='storeCDFOnTheFly'
                           onClick={e => handleToogle(e)}
+                          // value={data?.storeCDFOnTheFly}
                           checked={data?.storeCDFOnTheFly}
                         />
                       </div>
@@ -1841,6 +2096,7 @@ function UserManagement ({ match }) {
                           Store CDF and Form on after form Submission:
                         </div>
                         <Checkbox
+                        id="storeCDFAndFormOnAfterFormSubmission"
                           name='storeCDFAndFormOnAfterFormSubmission'
                           onClick={e => handleToogle(e)}
                           checked={data?.storeCDFAndFormOnAfterFormSubmission}
@@ -1866,6 +2122,7 @@ function UserManagement ({ match }) {
                           </div>
                         </div>
                         <Checkbox
+                        id='showUIDEntryFieldInTheEntityDetailsScreen'
                           name='showUIDEntryFieldInTheEntityDetailsScreen'
                           onClick={e => handleToogle(e)}
                           checked={
@@ -1913,6 +2170,7 @@ function UserManagement ({ match }) {
                           Update CDF Record on the fly:
                         </div>
                         <Checkbox
+                         id='updateCDFRecordOnTheFly'
                           name='updateCDFRecordOnTheFly'
                           onClick={e => handleToogle(e)}
                           checked={data?.updateCDFRecordOnTheFly}
@@ -1929,6 +2187,7 @@ function UserManagement ({ match }) {
                           Allow second signature submission:
                         </div>
                         <Checkbox
+                        id='allowSecondSignatureSubmission'
                           name='allowSecondSignatureSubmission'
                           onClick={e => handleToogle(e)}
                           checked={data?.allowSecondSignatureSubmission}
@@ -1944,6 +2203,7 @@ function UserManagement ({ match }) {
                             Use same agent:
                           </div>
                           <Checkbox
+                          id='allowSecondSignatureSubmissionUseSameAgent'
                             name='allowSecondSignatureSubmissionUseSameAgent'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -1960,6 +2220,7 @@ function UserManagement ({ match }) {
                             Second submission mandatory:
                           </div>
                           <Checkbox
+                          id='allowSecondSignatureSubmissionSecondSubmissionMandatory'
                             name='allowSecondSignatureSubmissionSecondSubmissionMandatory'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -1979,6 +2240,7 @@ function UserManagement ({ match }) {
                           Include Additional Information on E-Submit PDF:
                         </div>
                         <Checkbox
+                        id='includeAdditionalInformationOnESubmitPDF'
                           name='includeAdditionalInformationOnESubmitPDF'
                           onClick={e => handleToogle(e)}
                           checked={
@@ -1987,7 +2249,7 @@ function UserManagement ({ match }) {
                         />
                       </div>
                     </div>
-                    {/* <div className='row my-1 mx-2 py-0'>
+                    <div className='row my-1 mx-2 py-0'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
                           className='my-auto text'
@@ -2022,7 +2284,7 @@ function UserManagement ({ match }) {
                         </div>
                         <Checkbox defaultChecked={false} />
                       </div>
-                    </div> */}
+                    </div>
                     <div className='row my-1 mx-2 py-0'>
                       <div className='col-5 d-flex justify-content-between'>
                         <div
@@ -2033,6 +2295,7 @@ function UserManagement ({ match }) {
                           Show U.S. sourced income declaration:
                         </div>
                         <Checkbox
+                        id='showUSourcedIncomeDeclaration'
                           name='showUSourcedIncomeDeclaration'
                           onClick={e => handleToogle(e)}
                           checked={data?.showUSourcedIncomeDeclaration}
@@ -2049,6 +2312,7 @@ function UserManagement ({ match }) {
                             DRE page:
                           </div>
                           <Checkbox
+                          id='showUSourcedIncomeDeclarationAndWhenNoUSSourcedIncomeHideChapter4AndDREPage'
                             name='showUSourcedIncomeDeclarationAndWhenNoUSSourcedIncomeHideChapter4AndDREPage'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -2069,6 +2333,7 @@ function UserManagement ({ match }) {
                           Forms):
                         </div>
                         <Checkbox
+                        id='showRetroactiveStatementOnlyShowApplyForW8Forms'
                           name='showRetroactiveStatementOnlyShowApplyForW8Forms'
                           onClick={e => handleToogle(e)}
                           checked={
@@ -2086,6 +2351,7 @@ function UserManagement ({ match }) {
                             Render full screen
                           </div>
                           <Checkbox
+                           id='showRetroactiveStatementOnlyShowApplyForW8FormsRenderFullScreen'
                             name='showRetroactiveStatementOnlyShowApplyForW8FormsRenderFullScreen'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -2102,6 +2368,7 @@ function UserManagement ({ match }) {
                             Make mandatory
                           </div>
                           <Checkbox
+                          id='showRetroactiveStatementOnlyShowApplyForW8FormsMakeMandatory'
                             name='showRetroactiveStatementOnlyShowApplyForW8FormsMakeMandatory'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -2121,6 +2388,7 @@ function UserManagement ({ match }) {
                           Enable Save & Exit Process:
                         </div>
                         <Checkbox
+                        id="enableSaveExitProcess"
                           name='enableSaveExitProcess'
                           onClick={e => handleToogle(e)}
                           checked={data?.enableSaveExitProcess}
@@ -2159,6 +2427,7 @@ function UserManagement ({ match }) {
                           Enable allocation statement creation:
                         </div>
                         <Checkbox
+                        id='enableAllocationStatementCreation'
                           name='enableAllocationStatementCreation'
                           onClick={e => handleToogle(e)}
                           checked={data?.enableAllocationStatementCreation}
@@ -2175,6 +2444,7 @@ function UserManagement ({ match }) {
                           Enable Electronic Recipient Statement consent:
                         </div>
                         <Checkbox
+                        id='consentToSendAnElectronic1042SOr1099'
                           name='consentToSendAnElectronic1042SOr1099'
                           onClick={e => handleToogle(e)}
                           checked={data?.consentToSendAnElectronic1042SOr1099}
@@ -2200,6 +2470,7 @@ function UserManagement ({ match }) {
                           Enable Exempt from Backup Withholding Page Pop-Up:
                         </div>
                         <Checkbox
+                        id='enableExemptFromBackupWithholdingPagePopUp'
                           name='enableExemptFromBackupWithholdingPagePopUp'
                           onClick={e => handleToogle(e)}
                           checked={
@@ -2219,6 +2490,7 @@ function UserManagement ({ match }) {
                           statement :
                         </div>
                         <Checkbox
+                        id='hideDownloadTemplateToCompleteWithholdingStatement'
                           name='hideDownloadTemplateToCompleteWithholdingStatement'
                           onClick={e => handleToogle(e)}
                           checked={
@@ -2261,6 +2533,7 @@ function UserManagement ({ match }) {
                           Request Bank/Account information :
                         </div>
                         <Checkbox
+                        id='requestBankAccountInformation'
                           name='requestBankAccountInformation'
                           onClick={e => handleToogle(e)}
                           checked={data?.requestBankAccountInformation}
@@ -2276,6 +2549,7 @@ function UserManagement ({ match }) {
                             and when 'Yes' make mandatory :
                           </div>
                           <Checkbox
+                           id='requestBankAccountInformationAndWhenYesMakeMandatory'
                             name='requestBankAccountInformationAndWhenYesMakeMandatory'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -2345,6 +2619,7 @@ function UserManagement ({ match }) {
                           Hide W-8BEN-E Treaty 14c :
                         </div>
                         <Checkbox
+                         id='hideW8BENETreaty14C'
                           name='hideW8BENETreaty14C'
                           onClick={e => handleToogle(e)}
                           checked={data?.hideW8BENETreaty14C}
@@ -2372,7 +2647,7 @@ function UserManagement ({ match }) {
                         >
                           Hide W-8ECI Line 12:
                         </div>
-                        <Checkbox defaultChecked={false} />
+                        <Checkbox name='' />
                       </div>
                     </div>
                     <div className='row my-1 mx-2 d-flex'>
@@ -2384,7 +2659,7 @@ function UserManagement ({ match }) {
                         >
                           Show Download PDF option on Thank You page :
                         </div>
-                        <Checkbox defaultChecked={false} />
+                        <Checkbox  />
                       </div>
                     </div>
                     <div className='row my-1 mx-2 d-flex'>
@@ -2510,7 +2785,8 @@ function UserManagement ({ match }) {
                       <div className='inner-scroll-div'>
                         <div className='d-flex '>
                           <Checkbox
-                            className='p-0 checkBox'
+                            className='p-0 '
+                            id='forms'
                             name='forms'
                             onClick={e => handleToogle(e)}
                             checked={data?.forms}
@@ -2526,6 +2802,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='federalTax'
                             name='federalTax'
                             onClick={e => handleToogle(e)}
                             checked={data?.federalTax}
@@ -2541,6 +2818,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='singleUSOwnerDetails'
                             name='singleUSOwnerDetails'
                             onClick={e => handleToogle(e)}
                             checked={data?.singleUSOwnerDetails}
@@ -2571,6 +2849,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='taxpayerInformation_NonUSIndividualOnly'
                             name='taxpayerInformation_NonUSIndividualOnly'
                             onClick={e => handleToogle(e)}
                             checked={
@@ -2588,6 +2867,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='taxpayerInformation_EntityOnly'
                             name='taxpayerInformation_EntityOnly'
                             onClick={e => handleToogle(e)}
                             checked={data?.taxpayerInformation_EntityOnly}
@@ -2603,6 +2883,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='taxpayerInformation_NonUSEntityOnly'
                             name='taxpayerInformation_NonUSEntityOnly'
                             onClick={e => handleToogle(e)}
                             checked={data?.taxpayerInformation_NonUSEntityOnly}
@@ -2618,6 +2899,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='taxpayerInformation_GIIN'
                             name='taxpayerInformation_GIIN'
                             onClick={e => handleToogle(e)}
                             checked={data?.taxpayerInformation_GIIN}
@@ -2633,6 +2915,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='formSelection'
                             name='formSelection'
                             onClick={e => handleToogle(e)}
                             checked={data?.formSelection}
@@ -2663,6 +2946,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='w8BENJuly2017PartIIWhenTreatyClaimNo'
                             name='w8BENJuly2017PartIIWhenTreatyClaimNo'
                             onClick={e => handleToogle(e)}
                             checked={data?.w8BENJuly2017PartIIWhenTreatyClaimNo}
@@ -2678,6 +2962,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='w8BENEPartIIIWhenTreatyClaimNo'
                             name='w8BENEPartIIIWhenTreatyClaimNo'
                             onClick={e => handleToogle(e)}
                             checked={data?.w8BENEPartIIIWhenTreatyClaimNo}
@@ -2840,6 +3125,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='exemptionFromBackupWithholding'
                             name='exemptionFromBackupWithholding'
                             onClick={e => handleToogle(e)}
                             checked={data?.exemptionFromBackupWithholding}
@@ -2855,6 +3141,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='exemptionFromFATCAReporting'
                             name='exemptionFromFATCAReporting'
                             onClick={e => handleToogle(e)}
                             checked={data?.exemptionFromFATCAReporting}
@@ -2870,6 +3157,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='taxIdentificationNumber'
                             name='taxIdentificationNumber'
                             onClick={e => handleToogle(e)}
                             checked={data?.taxIdentificationNumber}
@@ -2885,6 +3173,7 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
+                            id='specifiedUSPersonDetermination'
                             name='specifiedUSPersonDetermination'
                             onClick={e => handleToogle(e)}
                             checked={data?.specifiedUSPersonDetermination}
@@ -2915,16 +3204,16 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
-                            name='treatyClaim'
+                            name='treatyClaimBENE'
                             onClick={e => handleToogle(e)}
-                            checked={data?.treatyClaim}
+                            checked={data?.treatyClaimBENE}
                           />
                           <div
                             className='my-auto text'
                             
                             
                           >
-                            Treaty Claim
+                            Treaty Claim Ben-E
                           </div>
                         </div>
                         <div className='d-flex '>
@@ -3280,16 +3569,16 @@ function UserManagement ({ match }) {
                         <div className='d-flex '>
                           <Checkbox
                             className='p-0'
-                            name='treatyClaim'
+                            name='treatyClaimBEN'
                             onClick={e => handleToogle(e)}
-                            checked={data?.treatyClaim}
+                            checked={data?.treatyClaimBEN}
                           />
                           <div
                             className='my-auto text'
                             
                             
                           >
-                            Treaty Claim
+                            Treaty Claim BEN
                           </div>
                         </div>
                         <div className='d-flex '>
@@ -3548,7 +3837,7 @@ function UserManagement ({ match }) {
                             Hide Account Holder Details Selector Buttons
                           </div>
                         </div>
-                        <div className='d-flex'>
+                        {/* <div className='d-flex'>
                           <Checkbox className='p-0' defaultChecked={false} />
                           <div
                             className='my-auto text'
@@ -3557,7 +3846,7 @@ function UserManagement ({ match }) {
                           >
                             Hide Account Holder Details Selector Buttons
                           </div>
-                        </div>
+                        </div> */}
                         <div className='d-flex'>
                           <Checkbox
                             className='p-0'
@@ -3592,17 +3881,20 @@ function UserManagement ({ match }) {
                     </div>
                     <div className='col-9 headings my-2'>
                       <lable>Retroactive statement:</lable>
+                      <div className='retro'>
                       <TextField
-                        className='text textFieldClass' 
-                       
-                        
-                       
-                        name='retroactiveStatement'
-                        value={data?.retroactiveStatement}
-                        // onChange={handleChange}
-                        fullWidth
-                        onChange={handleChange}
-                      />
+                      
+                     
+                     
+                      multiline
+                     
+                      name='retroactiveStatement'
+                      value={data?.retroactiveStatement}
+                    
+                      fullWidth
+                      onChange={handleChange}
+                    />
+                      </div>
                       <div className=' headings my-2'>
                         <lable>Retroactive Effective Date:</lable>
                         <br></br>

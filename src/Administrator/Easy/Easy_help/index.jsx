@@ -293,7 +293,7 @@ export default function PhraseTable() {
                   setOpen2(true)
                }}
               >
-                Import
+                Import<span className="mx-1" style={{textTransform:"lowercase"}}>as </span> HTML
               </Button>
              
               <Button
@@ -302,7 +302,7 @@ export default function PhraseTable() {
                 style={{ float: "right" }}
                 onClick={()=>{dispatch(exportEasy())}}
               >
-                Export
+                Export <span className="mx-1" style={{textTransform:"lowercase"}}>as </span> HTML
               </Button>
             </div>
            

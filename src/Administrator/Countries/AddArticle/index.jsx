@@ -173,7 +173,8 @@ const [data1 , setData1] = useState({
           <div className="row m-1 border p-3 box_style">
           <form >
             <div  >
-            { <div className="row headingLabel complyColor">Country Article Details</div>}
+            { <div  className="row headingLabel complyColor">
+                        {params.id ? " Edit Country Article" : "Add Country Article"}</div>}
               <div className="row">
                 <div className="col-2" >
                   <div

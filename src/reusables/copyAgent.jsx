@@ -39,7 +39,7 @@ useEffect(()=>{
     name: "",
     formfeedusername: "",
     formFeedpassword:"",
-    clientId:"",
+    clientId:0,
     clientCode:"",
     selectionCode:""  
 })
@@ -64,7 +64,7 @@ useEffect(()=>{
         { name: "",
         formfeedusername: "",
         formFeedpassword:"",
-        clientId:"",
+        clientId:0,
         clientCode:"",
         selectionCode:""  }
       )});
@@ -152,6 +152,7 @@ useEffect(()=>{
                 </div>
                 <div className="col-9">
                   <TextField
+                  type="number"
                     className="table_text"
                     size="small"
                     name="clientId"

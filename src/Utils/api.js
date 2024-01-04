@@ -257,7 +257,7 @@ const getApiCall = (endPoint, params = '', successCallback, errorCallback) => {
       successCallback(response)
     })
     .catch(error => {
-      console.log(error,"errorr")
+      // console.log(error,"errorr")
       if (error?.response?.status == 401) {
         localStorage.setItem("accessToken","")
         localStorage.setItem("userDetails","")

@@ -53,6 +53,7 @@ export default function Language_details() {
   const [editorState6, setEditorState6] = useState(EditorState.createEmpty());
   const [editorState7, setEditorState7] = useState(EditorState.createEmpty());
   const [editorState8, setEditorState8] = useState(EditorState.createEmpty());
+  const [editorState9, setEditorState9] = useState(EditorState.createEmpty());
   const [data, setData] = useState({
     id: 0,
     agentId: 0,
@@ -60,6 +61,7 @@ export default function Language_details() {
     description: "",
     termsCondition: "",
     tokenEmail: "",
+    SMSFormat:"",
     sendForSignatoryEmail: "",
     sendForSignatoryEmailContinuationLink: "",
     saveAndExitEmail: "",
@@ -183,6 +185,20 @@ export default function Language_details() {
           }
         : () => EditorState.createEmpty()
     );
+    setEditorState9(
+      idPageData?.agentTranslationData?.SMSFormat
+        ? () => {
+            const blocksFromHTML = convertFromHTML(
+              idPageData?.agentTranslationData?.SMSFormat
+            );
+            const contentState = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            );
+            return EditorState.createWithContent(contentState);
+          }
+        : () => EditorState.createEmpty()
+    );
   }, []);
 
   const handleToogle = (e) => {
@@ -229,6 +245,11 @@ export default function Language_details() {
     setData({ ...data, welcomePopup: html });
   }, [editorState8]);
 
+
+  useEffect(() => {
+    let html = draftToHtml(convertToRaw(editorState9.getCurrentContent()));
+    setData({ ...data, SMSFormat: html });
+  }, [editorState9]);
   useEffect(() => {
     if (params.id) {
       dispatch(
@@ -274,6 +295,9 @@ export default function Language_details() {
 
   const handleEditorStateChange8 = (editorState) => {
     setEditorState8(editorState);
+  };
+  const handleEditorStateChange9 = (editorState) => {
+    setEditorState9(editorState);
   };
 
   const convertToHtml1 = () => {
@@ -696,7 +720,57 @@ export default function Language_details() {
     );
     setEditorState8(plainTextEditorState);
   };
+  const convertToHtml9 = () => {
+    const contentState = editorState9.getCurrentContent();
+    const html = draftToHtml(convertToRaw(contentState));
+    const convertedContentState = convertFromRaw({
+      entityMap: {},
+      blocks: [
+        {
+          key: "converted",
+          text: html,
+          type: "unstyled",
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+    });
+    const convertedEditorState = EditorState.push(
+      editorState9,
+      convertedContentState,
+      "insert-characters"
+    );
+    setEditorState9(convertedEditorState);
+  };
+  const convertToPlainText9 = () => {
+    const contentState = editorState9.getCurrentContent();
+    const plainText = convertToRaw(contentState)
+      .blocks.map((block) => block.text)
+      .join("\n");
+    const plainTextWithoutTags = plainText.replace(/<[^>]+>/g, "");
+    const plainTextContentState =
+      ContentState.createFromText(plainTextWithoutTags);
+    const plainTextEditorState = EditorState.createWithContent(
+      plainTextContentState
+    );
+    setEditorState9(plainTextEditorState);
+  };
 
+  const convertToPreview9 = () => {
+    const contentState = editorState9.getCurrentContent();
+    const plainText = convertToRaw(contentState)
+      .blocks.map((block) => block.text)
+      .join("\n");
+    const plainTextWithoutTags = plainText.replace(/<[^>]+>/g, "");
+    const plainTextContentState =
+      ContentState.createFromText(plainTextWithoutTags);
+    const plainTextEditorState = EditorState.createWithContent(
+      plainTextContentState
+    );
+    setEditorState9(plainTextEditorState);
+  };
   const handleChange = (e) => {
     console.log(e.target.value, "value");
     setData({ ...data, [e.target.name]: e.target.value });
@@ -722,6 +796,7 @@ export default function Language_details() {
       description: data.description,
       termsCondition: data.termsCondition,
       tokenEmail: data.tokenEmail,
+      SMSFormat:data.SMSFormat,
       sendForSignatoryEmail: data.sendForSignatoryEmail,
       sendForSignatoryEmailContinuationLink: data.sendForSignatoryEmailContinuationLink,
       saveAndExitEmail: data.saveAndExitEmail,
@@ -907,6 +982,56 @@ export default function Language_details() {
                           </div>
                           <div style={{ marginLeft: "5px" }}>
                             <button type="button" onClick={convertToPreview3}>
+                              Preview
+                            </button>
+                          </div>
+                        </div>
+                        <lable className="label col-10">
+                          The TOKEN email must contain the placeholder
+                          ##TOKEN##. This will be replaced with the actual TOKEN
+                          when the confirmation email is sent
+                        </lable>
+                      </div>
+                    </div>
+
+
+                    <div className="row">
+                      <div className="col-2">
+                        <div variant="body2" className="table_content">
+                          "TOKEN" SMS:
+                        </div>
+                      </div>
+                      <div className="col-10 editor-div">
+                        <div>
+                          <Editor
+                            wrapperClassName="wrapper-class"
+                            editorClassName="editor-class"
+                            toolbarClassName="toolbar-class"
+                            editorState={editorState9}
+                            onEditorStateChange={(value) => {
+                              handleEditorStateChange9(value);
+                            }}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            // justifyContent: "end",
+                            marginTop: "3px",
+                          }}
+                        >
+                          <div>
+                            <button type="button" onClick={convertToHtml9}>
+                              HTML
+                            </button>
+                          </div>
+                          <div style={{ marginLeft: "5px" }}>
+                            <button type="button" onClick={convertToPlainText9}>
+                              Text
+                            </button>
+                          </div>
+                          <div style={{ marginLeft: "5px" }}>
+                            <button type="button" onClick={convertToPreview9}>
                               Preview
                             </button>
                           </div>

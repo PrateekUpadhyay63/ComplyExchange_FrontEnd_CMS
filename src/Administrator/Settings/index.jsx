@@ -94,30 +94,31 @@ const arr=[1,2,3,4,5]
   };
   const [data, setData] = useState({
     id: 0,
-    DefaultCoverPagePdf:"",
+    DefaultCoverPagePdf:settingsData?.settingsData?.defaultCoverPagePdf_FileName ? settingsData?.settingsData?.defaultCoverPagePdf_FileName : "",
     // defaultCoverPagePdf_FileName: "",
-    lengthOfConfirmationCode: "",
-    defaultLogoType: "",
+    lengthOfConfirmationCode:settingsData?.settingsData?.lengthOfConfirmationCode ? settingsData?.settingsData?.lengthOfConfirmationCode : "",
+    defaultLogoType: settingsData?.settingsData?.defaultLogo_FileName ? settingsData?.settingsData?.defaultLogo_FileName : "",
     // defaultLogo_FileName: "",
-    googleTranslateAPIKey: "",
-    purgeRedundantSubmissionData: "",
-    runExchangeInIframe: false,
-    TaxformsAgent:"",
-    DualformsAgent:"",
-    CRSformsAgent:"",
-    defaultRetroactiveStatement: "",
-    underMaintenance: false,
-    reSendTokenEmailFeature: false,
-    activateNonEmailPINprocess: false,
-    blockForeignCharacterInput: false,
-    twilioAuthToken: null,
-    APIURL:"",
-    MaxNumPinAttempt:"",
-    PinValidityMin:"",
-    PinLockouttimeMin:"",
-
-    twilioAccountSid: null,
-    twilioSMSFromMobileNumber: null,
+    googleTranslateAPIKey: settingsData?.settingsData?.googleTranslateAPIKey ? settingsData?.settingsData?.googleTranslateAPIKey : "",
+    purgeRedundantSubmissionData: settingsData?.settingsData?.purgeRedundantSubmissionData ? settingsData?.settingsData?.purgeRedundantSubmissionData : "",
+    runExchangeInIframe: settingsData?.settingsData?.runExchangeInIframe ? settingsData?.settingsData?.runExchangeInIframe :false,
+    TaxformsAgent:settingsData?.settingsData?.TaxformsAgent ? settingsData?.settingsData?.TaxformsAgent : "",
+    DualformsAgent:settingsData?.settingsData?.DualformsAgent ? settingsData?.settingsData?.DualformsAgent : "",
+    CRSformsAgent:settingsData?.settingsData?.CRSformsAgent ? settingsData?.settingsData?.CRSformsAgent : "",
+    defaultRetroactiveStatement: settingsData?.settingsData?.defaultRetroactiveStatement ? settingsData?.settingsData?.defaultRetroactiveStatement : "",
+    underMaintenance: settingsData?.settingsData?.underMaintenance ? settingsData?.settingsData?.underMaintenance :false,
+    reSendTokenEmailFeature: settingsData?.settingsData?.reSendTokenEmailFeature ? settingsData?.settingsData?.reSendTokenEmailFeature :false,
+    activateNonEmailPINprocess:settingsData?.settingsData?.activateNonEmailPINprocess ? settingsData?.settingsData?.activateNonEmailPINprocess : false,
+    blockForeignCharacterInput: settingsData?.settingsData?.blockForeignCharacterInput ? settingsData?.settingsData?.blockForeignCharacterInput : false,
+    twilioAuthToken: settingsData?.settingsData?.twilioAuthToken ? settingsData?.settingsData?.twilioAuthToken : "",
+    APIURL: settingsData?.settingsData?.apiurl ? settingsData?.settingsData?.apiurl : "",
+    MaxNumPinAttempt:settingsData?.settingsData?.maxNumPinAttempt ? settingsData?.settingsData?.maxNumPinAttempt : "",
+    PinValidityMin:settingsData?.settingsData?.PinValidityMin ? settingsData?.settingsData?.PinValidityMin : "",
+    PinLockouttimeMin:settingsData?.settingsData?.PinLockouttimeMin ? settingsData?.settingsData?.PinLockouttimeMin : "",
+    requestHeaderValue:settingsData?.settingsData?.requestHeaderValue ? settingsData?.settingsData?.requestHeaderValue : "",
+    requestHeaderKey:settingsData?.settingsData?.requestHeaderKey ? settingsData?.settingsData?.requestHeaderKey : "",
+    twilioAccountSid: settingsData?.settingsData?.twilioAccountSid ? settingsData?.settingsData?.twilioAccountSid : "",
+    twilioSMSFromMobileNumber: settingsData?.settingsData?.twilioSMSFromMobileNumber ? settingsData?.settingsData?.twilioSMSFromMobileNumber : "",
     
   });
   const [open, setOpen] = useState(false);
@@ -127,7 +128,7 @@ const arr=[1,2,3,4,5]
     setOpen(false);
     setRowId({});
   };
-
+  const [selectedFileName, setSelectedFileName] = useState('');
   const [open2, setOpen2] = useState(false);
   const handleClickOpen2 = () => setOpen2(true);
   const handleClose2 = () => {
@@ -135,10 +136,26 @@ const arr=[1,2,3,4,5]
     setRowId1({});
   };
   useEffect(() => {
+    
     dispatch(getAllSettingsQuestion());
     dispatch(getAllSettings());
   }, []);
 
+
+  // useEffect(() => {
+  //   console.log("Received settingsData:", settingsData);
+
+    // if (settingsData) {
+    //   setData((prevData) => ({
+    //     ...prevData,
+    //     DefaultCoverPagePdf: settingsData.DefaultCoverPagePdf || "",
+    //     lengthOfConfirmationCode: settingsData.lengthOfConfirmationCode || "",
+    //     // ... (other properties)
+    //   }));
+    // } else {
+    //   console.error("Settings data is undefined");
+    // }
+  // }, [settingsData]);
   const handleFile = (event) => {
     console.log(event,"image")
     const selectedSubmit = event.target.value;
@@ -147,21 +164,39 @@ const arr=[1,2,3,4,5]
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value })
+    setData((prevData) => ({
+      ...prevData,
+    
+    }));
   }
+
+
+  
   const handleImage = e => {
-    var binaryData = []
-    binaryData.push(e.target.files[0])
-    // let image_as_base64 = URL.createObjectURL(
-    //   new Blob(binaryData, { type: 'application/zip' })
-    // )
-    let imageFile = e.target.files[0]
-    console.log(e.target.files[0], 'test')
-    if (!imageFile.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-      alert('Please select a valid image.')
+    const file = e.target.files[0];
+    console.log(file, 'test');
+
+    if (!file.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      alert('Please select a valid image.');
     } else {
-      setImageFile(imageFile)
+      setImageFile(file);
+      setSelectedFileName(file.name);
     }
-  }
+  };
+  // const handleImage = e => {
+  //   var binaryData = []
+  //   binaryData.push(e.target.files[0])
+  //   // let image_as_base64 = URL.createObjectURL(
+  //   //   new Blob(binaryData, { type: 'application/zip' })
+  //   // )
+  //   let imageFile = e.target.files[0]
+  //   console.log(e.target.files[0], 'test')
+  //   if (!imageFile.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+  //     alert('Please select a valid image.')
+  //   } else {
+  //     setImageFile(imageFile)
+  //   }
+  // }
   const handleToogle = e => {
     setData({ ...data, [e.target.name]: e.target.checked })
   }
@@ -195,6 +230,8 @@ const arr=[1,2,3,4,5]
         PinLockouttimeMin:data?.PinLockouttimeMin,
         twilioAccountSid: data?.twilioAccountSid,
         twilioSMSFromMobileNumber: data?.twilioSMSFromMobileNumber,
+        requestHeaderKey:data?.requestHeaderKey,
+        requestHeaderValue:data?.requestHeaderValue,
       };
       dispatch(upsertSettings(updateData));
     }
@@ -268,7 +305,8 @@ const arr=[1,2,3,4,5]
                 </div>
                 <div className="col-7 input-file text">
                  
-                  <Input name="DefaultCoverPagePdf" onChange={(e) => handleImage(e)} value={data?.DefaultCoverPagePdf} type="file" className="text" />
+                  <Input name="DefaultCoverPagePdf" onChange={(e) => handleImage(e)} type="file" className="text" />
+                  
                 </div>
               </div>
             </div>
@@ -281,7 +319,7 @@ const arr=[1,2,3,4,5]
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField className="w-50 textFieldClass" fullWidth name="lengthOfConfirmationCode" value={data?.lengthOfConfirmationCode} onChange={handleChange}/>
+                <TextField className="w-50 textFieldClass" type="number" fullWidth name="lengthOfConfirmationCode" value={data?.lengthOfConfirmationCode} onChange={handleChange}/>
                 </div>
               </div>
             </div>
@@ -299,7 +337,7 @@ const arr=[1,2,3,4,5]
                     <option value="REMOVE">Remove</option>
                     
                   </select>
-                  {submit === "UPLOAD" && <Input name="defaultLogoType" onChange={(e) => handleImage(e)} value={data?.defaultLogoType} type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
+                  {submit === "UPLOAD" && <Input name="defaultLogoType" onChange={(e) => handleImage(e)}  type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
                 </div>
               </div>
             </div>
@@ -664,7 +702,7 @@ const arr=[1,2,3,4,5]
             </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="MaxNumPinAttempt" value={data?.MaxNumPinAttempt}/>
+                <TextField onChange={handleChange} type="number" className="w-50 textFieldClass" fullWidth name="MaxNumPinAttempt" value={data?.MaxNumPinAttempt}/>
                 </div>
               </div>
             </div>
@@ -676,7 +714,7 @@ const arr=[1,2,3,4,5]
             </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth name="PinValidityMin" value={data?.PinValidityMin} />
+                <TextField onChange={handleChange} type="number" className="w-50 textFieldClass" fullWidth name="PinValidityMin" value={data?.PinValidityMin} />
                 </div>
               </div>
             </div>
@@ -688,7 +726,7 @@ const arr=[1,2,3,4,5]
             </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} className="w-50 textFieldClass" fullWidth  name="PinLockouttimeMin" value={data?.PinLockouttimeMin} />
+                <TextField onChange={handleChange} type="number"className="w-50 textFieldClass" fullWidth  name="PinLockouttimeMin" value={data?.PinLockouttimeMin} />
                 </div>
               </div>
             </div>
@@ -842,10 +880,9 @@ const arr=[1,2,3,4,5]
                                   
                                   <TextField className="textFieldClassInput"
                                   fullWidth
-                                    
-                                 
-                                    name="key"
-                                   
+                                    value={data?.requestHeaderValue}
+                                    onChange={handleChange}
+                                    name="requestHeaderValue"
                                   />
                                    
                                 </TableCell>
@@ -891,10 +928,10 @@ const arr=[1,2,3,4,5]
                                   
                                   <TextField className="textFieldClassInput"
                                   fullWidth
-                                    
+                                  value={data?.requestHeaderKey}
+                                  onChange={handleChange}
+                                  name="requestHeaderKey"
                                 
-                                    name="key"
-                                   
                                   />
                                     
                            
@@ -921,6 +958,7 @@ const arr=[1,2,3,4,5]
                 </div>
                 <div className="col-7 input-file text">
                   <select name="TaxformsAgent" value={data?.TaxformsAgent}onChange={handleChange} style={{height:"30px",width:'30%'}}>
+                  <option value="00000000-0000-0000-0000-000000000000">--- Select ---</option>
                   <option value="1">2022 Payout Foreign Tax v2 Test</option>
 		<option value="2">Antony Testing</option>
 		<option value="3">Anurag Testing</option>

@@ -218,7 +218,7 @@ export default function PhraseTable() {
                               align="center"
                               className="table_head tableWidth"
                             >
-                              Disable Continue
+                              Disable Rule
                             </TableCell>
                             <TableCell
                               
@@ -228,7 +228,6 @@ export default function PhraseTable() {
                               Translations
                             </TableCell>
                             <TableCell
-                              
                               align="right"
                               className="table_head tableWidth"
                             >
@@ -272,79 +271,65 @@ export default function PhraseTable() {
                               </TableCell>
 
                               <TableCell  align="center">
-                               {row?.disableRule ?(<DoneIcon style={{fontSize:"40px"}}
+                               {row?.optOutDisabled ?(<DoneIcon style={{fontSize:"40px"}}
                                   
                                   className="checkBox tableWidth"
-                                />): <Checkbox/>}
+                                />): ("")}
                               </TableCell>
+
                               <TableCell
                                style={{width:'130px'}}
                                 className="table_content tableWidth"
                                 align="center"
                               >
-                                <span
-                                  className="addSubpage"
-                                  onClick={() => {
-                                    setOpen1(true);
-                                    setDropDownData(row?.id);
-                                    dispatch(
-                                      getRulesLanguageById(row?.id, (item) =>
-                                        setRowId(item)
-                                      )
-                                    );
-                                  }}
-                                >
-                                  Select Languages
-                                </span>
-                              </TableCell>
-                              <TableCell
-                               style={{width:'130px'}}
-                                className="table_content tableWidth"
-                                align="center"
-                              >
-                                <span
-                                  className="addSubpage"
-                                 
-                                >
-                                  Select Languages
-                                </span>
-                              </TableCell>
-                              <TableCell
-                               style={{width:'130px'}}
-                                className="table_content tableWidth"
-                                align="center"
-                              >
-                                <span
-                                  className="addSubpage"
-                                 
-                                >
-                                  Select Languages
-                                </span>
-                              </TableCell>
-                              <TableCell
-                               style={{width:'130px'}}
-                                className="table_content tableWidth"
-                                align="center"
-                              >
-                                <span
-                                  className="addSubpage"
-                                 
-                                >
-                                  Select Languages
-                                </span>
-                              </TableCell>
-                              <TableCell
-                               style={{width:'130px'}}
-                                className="table_content tableWidth"
-                                align="center"
-                              >
-                                <span
-                                  className="addSubpage"
+                              {row?.disableContinue ?(<DoneIcon style={{fontSize:"40px"}}
                                   
-                                >
-                                  Select Languages
-                                </span>
+                                  className="checkBox tableWidth"
+                                />): ("")}
                               </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                              {row?.suppressRuleTreatyCountry ?(<DoneIcon style={{fontSize:"40px"}}
+                                  
+                              className="checkBox tableWidth"
+                            />): ("")}
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                              {row?.suppressRuleNonTreatyCountry ?(<DoneIcon style={{fontSize:"40px"}}
+                                  
+                                  className="checkBox tableWidth"
+                                />): ("")}
+                              </TableCell>
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                              {row?.suppressRuleIGAinPlace ?(<DoneIcon style={{fontSize:"40px"}}
+                                  
+                                  className="checkBox tableWidth"
+                                />): ("")}
+                              </TableCell>
+
+                              <TableCell
+                               style={{width:'130px'}}
+                                className="table_content tableWidth"
+                                align="center"
+                              >
+                              {row?.disableRule ?(<DoneIcon style={{fontSize:"40px"}}
+                                  
+                                  className="checkBox tableWidth"
+                                />): ("")}
+                              </TableCell>
+
+                              
                               <TableCell
                                style={{width:'130px'}}
                                 className="table_content tableWidth"

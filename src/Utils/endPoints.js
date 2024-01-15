@@ -213,6 +213,7 @@ const endPoint = {
   GET_COUNTERY_CODE:"/Country/GetCountriesCode",
   GET_COUNTRY_ARTICLE:"/Countries/GetCountryArticle",
   GET_COUNTRY_ARTICLE_ById:"/Countries/GetCountryArticleByID",
+  GET_ALL_AGENT_DETAILS:"Agent/GetAllAgentsDetails"
 
  
   

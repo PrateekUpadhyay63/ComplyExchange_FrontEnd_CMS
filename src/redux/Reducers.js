@@ -84,6 +84,7 @@ const {
   GET_HINT_TRANSLATION,
   GET_QUESTION_LANGUAGE,
   LANG_BY_SEARCH,
+  GET_ALL_AGENT_DETAILS,
   GET_CONTENT_LANGUAGE,
   GET_CONTENT_TRANSLATION,
   POST_CONTENT_TRANSLATION,
@@ -557,6 +558,16 @@ export const getAllCountriesDataReducer = (state = initialState, action) => {
 export const getdocCH3Reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CH3_DOC:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+
+export const getAllAgentDetails = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_AGENT_DETAILS:
       return { ...state, ...action.payload };
     default:
       return state;

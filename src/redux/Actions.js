@@ -478,6 +478,34 @@ export const GetDocumentationTypes = () => {
   };
 };
 
+export const getAllAgentDetails = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_AGENT_DETAILS,
+      "",
+      (resData) => {
+        if (resData.status === 200) {
+          if (callback) {
+            callback(resData.data)
+          }
+        dispatch({
+          type: Utils.ActionName.GET_ALL_AGENT_DETAILS,
+          payload: {
+            agentdetailsData: resData.data,
+          },
+        });
+      }
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+
+
 export const GetDocumentationCH3 = (callback) => {
   return (dispatch) => {
     Utils.api.getApiCall(
@@ -634,6 +662,10 @@ export const getAllAgents = (page,size,search) => {
     );
   };
 };
+
+
+
+
 
 export const upsertUSIncomeSource = (value) => {
   return (dispatch) => {

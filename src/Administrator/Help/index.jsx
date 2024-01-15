@@ -44,7 +44,7 @@ export default function Language_details() {
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
   console.log("form",formData)
-const [arr,setArr]=useState()
+  const [arr,setArr]=useState()
   const [data, setData] = useState( {
   // enableVideoTab: false,
   // loginPageId: 0,
@@ -88,7 +88,7 @@ const [arr,setArr]=useState()
 
 
   useEffect(() => {
-    dispatch(GetAllHelpVideos((data)=>{ setArr(data) }));
+    dispatch(GetAllHelpVideos((data)=>{ setArr(data) ;console.log(data,"qazswsxcfrtgh")}));
   }, []);
 
   const handleSubmit = async (e, id) => {

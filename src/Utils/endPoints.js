@@ -16,6 +16,8 @@ const endPoint = {
   UPDATE_LANGUAGE: "Language/UpdateLanguage",
   DELETE_LANGUAGE: "Language/LangugaeDelete",
   LANG_BY_SEARCH:"Language/LanguageSearch",
+  LANG_BY_ID:"Agent/BulkTranslateLanguage",
+
   //PAGES API
   GET_ALL_PAGES: "Page/GetAllPages",
   DELETE_PAGE: "Page/Delete",
@@ -41,6 +43,7 @@ const endPoint = {
  //Help
  GET_ALL_HELP_VIDEOS:"/HelpVideo/GetAllHelpVideos",
  POST_HELP_VIDEOS:"/HelpVideo/InsertHelpVideo",
+ GET_ALL_HELP_VIDEOS_DETAILS:"/HelpVideo/GetAllHelpVideoDetails",
 
   //Content API
   GET_ALL_CONTENT: "ContentManagement/GetAllContent",

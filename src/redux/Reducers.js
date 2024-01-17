@@ -7,6 +7,7 @@ const {
   LANGUAGES,
   CREATE_PAGE,
   GET_ALL_HELP_VIDEOS,
+  GET_ALL_HELP_VIDEOS_DETAILS,
   ADD_SUB_PAGE,
   PARENT_DROPDOWN,
   GET_ALL_CONTENT,
@@ -27,6 +28,7 @@ const {
   GET_LANGUAGE_BY_ID,
   GET_ALL_LOB,
   GET_LOB,
+  LANG_BY_ID,
   GET_INCOME_CODE,
   UPDATE_LOB,
   GET_ALL_FORM_INSTRUCTIONS,
@@ -725,6 +727,16 @@ export const agentDataByIdReducer = (state = initialState, action) => {
   }
 }
 
+export const getLanguageDataByIdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LANG_BY_ID:
+      return { ...state, ...action.payload }
+    default:
+      return state
+  }
+}
+
+
 
 export const getAllUSFormTypesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -900,6 +912,15 @@ export const getAllHelpVideoReducer = (state = initialState, action) => {
   }
 };
 
+
+export const getAllHelpVideoDetailsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_HELP_VIDEOS_DETAILS:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
 export const getAllAgentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_AGENTS:

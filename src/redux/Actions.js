@@ -19,6 +19,7 @@ import {
 } from "./actionName";
 
 import Utils from "../Utils";
+import { ca } from "date-fns/locale";
 
 
 
@@ -72,6 +73,32 @@ export const getUserById = (value,callback) => {
   };
 };
 
+
+export const getLanguageDataById = (value,callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.LANG_BY_ID,
+      `/${value}`,
+      (resData) => {
+        if (resData.status === 200) {
+          if(callback){
+            callback(resData.data)
+          }
+          dispatch({
+            type: Utils.ActionName.LANG_BY_ID,
+            payload: {
+              getUserByIdData: resData.data,
+            },
+          });
+        } 
+      },
+      (error) => {
+        let { data } = error;
+        Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
 
 export const getCountryArticleById = (value,callback) => {
   return (dispatch) => {
@@ -756,7 +783,7 @@ export const getAllUSFormTypes = () => {
       },
       (error) => {
         let { data } = error;
-        Utils.showAlert(2, data.message);
+        // Utils.showAlert(2, data.message);
       }
     );
   };
@@ -1013,6 +1040,40 @@ export const GetAllHelpVideos = (callback) => {
       (error) => {
         let { data } = error;
         Utils.showAlert(2, data.message);
+      }
+    );
+  };
+};
+
+export const getAllHelpVideosDetails = (callback) => {
+  return (dispatch) => {
+    Utils.api.getApiCall(
+      Utils.endPoints.GET_ALL_HELP_VIDEOS_DETAILS,
+      ``,
+      (resData) => {
+        const { data } = resData;
+      
+        if (resData.status == 200) {
+          console.log(resData.data,"xcvbnmasdfgh")
+         if(callback
+
+         ) {callback(resData?.data)
+        }
+          console.log(resData)
+          dispatch({
+            type: Utils.ActionName.GET_ALL_HELP_VIDEOS_DETAILS,
+            payload: {
+              helpDetailsData: resData.data,
+            },
+          });
+         
+        } else {
+          Utils.showAlert(2, resData.message);
+        }
+      },
+      (error) => {
+        let { data } = error;
+        // Utils.showAlert(2, data.message);
       }
     );
   };

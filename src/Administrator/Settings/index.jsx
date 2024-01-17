@@ -56,8 +56,7 @@ import {
 } from "../../redux/Actions";
 import "./index.scss";
 import { useHistory,useParams } from "react-router-dom";
-// import { valueContainerCSS } from "react-select/dist/declarations/src/components/containers";
-// import { valueContainerCSS } from "react-select/dist/declarations/src/components/containers";
+
 
 
 export default function Settings() {
@@ -104,11 +103,12 @@ const arr=[1,2,3,4,5]
 
   const [data, setData] = useState({
     id: 0,
-    DefaultCoverPagePdf:settingsData?.settingsData?.defaultCoverPagePdf_FileName ? settingsData?.settingsData?.defaultCoverPagePdf_FileName : "",
-    // defaultCoverPagePdf_FileName: "",
+    DefaultCoverPagePdf:settingsData?.settingsData?.defaultCoverPagePdf ? settingsData?.settingsData?.defaultCoverPagePdf : "",
+    defaultCoverPagePdf_FileName: settingsData?.settingsData?.defaultCoverPagePdf_FileName ? settingsData?.settingsData?.defaultCoverPagePdf_FileName : "",
     lengthOfConfirmationCode:settingsData?.settingsData?.lengthOfConfirmationCode ? settingsData?.settingsData?.lengthOfConfirmationCode : "",
-    defaultLogoType: settingsData?.settingsData?.defaultLogo_FileName ? settingsData?.settingsData?.defaultLogo_FileName : "",
+    DefaultLogo: settingsData?.settingsData?.defaultLogo_FileName ? settingsData?.settingsData?.defaultLogo_FileName : "",
     // defaultLogo_FileName: "",
+    defaultLogoType:settingsData?.settingsData?.defaultLogoType ? settingsData?.settingsData?.defaultLogoType : "",
     cryptokey:settingsData?.settingsData?.cryptokey ? settingsData?.settingsData?.cryptokey : "",
     logIncomingRequests:settingsData?.settingsData?.logIncomingRequests ? settingsData?.settingsData?.logIncomingRequests : false,
     invalidPasswordLockusingCookieTimeinMinutes:settingsData?.settingsData?.invalidPasswordLockusingCookieTimeinMinutes ? settingsData?.settingsData?.invalidPasswordLockusingCookieTimeinMinutes : 0,
@@ -145,13 +145,16 @@ const arr=[1,2,3,4,5]
     
   });
   const [open, setOpen] = useState(false);
-  const [imageFile, setImageFile] = useState(null)
+  const [imageFile, setImageFile] = useState()
+  const [imageFileLogo, setImageFileLogo] = useState(null)
+
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     setRowId({});
   };
   const [selectedFileName, setSelectedFileName] = useState('');
+  const [selectedFileNameLogo, setSelectedFileNameLogo] = useState('');
   const [open2, setOpen2] = useState(false);
   const handleClickOpen2 = () => setOpen2(true);
   const handleClose2 = () => {
@@ -165,10 +168,12 @@ const arr=[1,2,3,4,5]
     if (settingsData) {
       setData((prevData) => ({
         // ...prevData,
-        DefaultCoverPagePdf: settingsData?.defaultCoverPagePdf || "",
+        DefaultCoverPagePdf: settingsData?.settingsData?.DefaultCoverPagePdf ? settingsData?.settingsData?.DefaultCoverPagePdf : "",
         lengthOfConfirmationCode:settingsData?.settingsData?.lengthOfConfirmationCode ? settingsData?.settingsData?.lengthOfConfirmationCode : "",
-        defaultLogoType: settingsData?.settingsData?.defaultLogo_FileName ? settingsData?.settingsData?.defaultLogo_FileName : "",
+        defaultCoverPagePdf_FileName: settingsData?.settingsData?.defaultCoverPagePdf_FileName ? settingsData?.settingsData?.defaultCoverPagePdf_FileName : "",
+        DefaultLogo: settingsData?.settingsData?.defaultLogo_FileName ? settingsData?.settingsData?.defaultLogo_FileName : "",
       // defaultLogo_FileName: "",
+      defaultLogoType:settingsData?.settingsData?.defaultLogoType ? settingsData?.settingsData?.defaultLogoType : "",
       cryptokey:settingsData?.settingsData?.cryptokey ? settingsData?.settingsData?.cryptokey : "",
       enableWarningBlock:settingsData?.settingsData?.enableWarningBlock ? settingsData?.settingsData?.enableWarningBlock : false,
       logIncomingRequests:settingsData?.settingsData?.logIncomingRequests ? settingsData?.settingsData?.logIncomingRequests : false,
@@ -212,10 +217,12 @@ const arr=[1,2,3,4,5]
         console.log(apiData,"apiDataapiDataapiData")
         setData((prevData) => ({
           // ...prevData,
-          DefaultCoverPagePdf: settingsData?.defaultCoverPagePdf || "",
+          defaultCoverPagePdf_FileName: apiData?.defaultCoverPagePdf_FileName ||"",
+          DefaultCoverPagePdf: apiData?.defaultCoverPagePdf || "",
           lengthOfConfirmationCode:apiData?.lengthOfConfirmationCode ? apiData?.lengthOfConfirmationCode : "",
-          defaultLogoType: apiData?.defaultLogo_FileName ? apiData?.defaultLogo_FileName : "",
+          DefaultLogo: apiData?.defaultLogo_FileName ? apiData?.defaultLogo_FileName : "",
         // defaultLogo_FileName: "",
+        defaultLogoType:apiData?.defaultLogoType ? apiData?.defaultLogoType : "",
         cryptokey:apiData?.cryptokey ? apiData?.cryptokey : "",
         enableWarningBlock:apiData?.enableWarningBlock ? apiData?.enableWarningBlock : false,
         logIncomingRequests:apiData?.logIncomingRequests ? apiData?.logIncomingRequests : false,
@@ -260,6 +267,7 @@ const arr=[1,2,3,4,5]
   }
 
   const handleChange = e => {
+    
     setData({ ...data, [e.target.name]: e.target.value })
     setData((prevData) => ({
       ...prevData,
@@ -267,17 +275,43 @@ const arr=[1,2,3,4,5]
     }));
   }
 
-
+  const openImageView = () => {
+    if (imageFile) {
+      // setImageFile(URL.createObjectURL(imageFile))
+      const newWindow = window.open('', 'popup', 'width=600,height=400');
+      newWindow.document.write(`<img src="${imageFile}" alt="${selectedFileName}" />`);
+    } else {
+      alert('No image selected.');
+    }
+  };
   
   const handleImage = e => {
     const file = e.target.files[0];
-    console.log(file, 'test');
-
+    console.log('Selected File:', file);
+  
     if (!file.name.match(/\.(jpg|jpeg|png|gif)$/)) {
       alert('Please select a valid image.');
+      console.log('Invalid file format.');
     } else {
       setImageFile(file);
+      // setImageFile(URL.createObjectURL(e.target.files[0]));
       setSelectedFileName(file.name);
+      console.log('Image file and name set successfully.');
+    }
+  };
+
+
+  const handleImageLogo = e => {
+    const file = e.target.files[0];
+    console.log('Selected File:', file);
+  
+    if (!file.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+      alert('Please select a valid image pdff.');
+      console.log('Invalid file format pdff.');
+    } else {
+      setImageFileLogo(file);
+      setSelectedFileNameLogo(file.name);
+      console.log('Image file and name set successfully pdfff.');
     }
   };
   // const handleImage = e => {
@@ -307,13 +341,14 @@ const arr=[1,2,3,4,5]
         DefaultCoverPagePdf:imageFile,
         taxformsAgent:data?.taxformsAgent,
         dualformsAgent:data?.dualformsAgent,
-    crSformsAgent:data?.crSformsAgent,
-      // defaultCoverPagePdf_FileName: data?.defaultCoverPagePdf_FileName,
+         crSformsAgent:data?.crSformsAgent,
+         defaultCoverPagePdf_FileName: selectedFileName,
+         DefaultLogo_FileName:selectedFileNameLogo,
         lengthOfConfirmationCode: data?.lengthOfConfirmationCode,
-        defaultLogoType: imageFile,
+        defaultLogoType:data?.defaultLogoType,
+        DefaultLogo: imageFileLogo,
         cryptoKey:data?.cryptokey,
         logIncomingRequests:data?.logIncomingRequests,
-
         invalidPasswordLockusingCookieTimeinMinutes:data?.invalidPasswordLockusingCookieTimeinMinutes,
         enableWarningBlock:data?.enableWarningBlock,
         invalidPasswordLockusingCookieAttempts:data?.invalidPasswordLockusingCookieAttempts,
@@ -414,8 +449,18 @@ const arr=[1,2,3,4,5]
                 </div>
                 <div className="col-7 input-file text">
                  
-                  <Input name="DefaultCoverPagePdf" onChange={(e) => handleImage(e)} type="file" className="text" />
-                  
+                 {settingsData?.settingsData?.defaultCoverPagePdf_FileName?(<><Input name="defaultCoverPagePdf" id="defaultCoverPagePdf" onChange={(e) => handleImage(e)}  type="file" className="text hidden" />
+                  <label className="hide" for="files">{settingsData?.settingsData?.defaultCoverPagePdf_FileName ?settingsData?.settingsData?.defaultCoverPagePdf_FileName:""}</label>
+                 </>
+                 ):
+                 <Input name="defaultCoverPagePdf" id="defaultCoverPagePdf" onChange={(e) => handleImage(e)}  type="file" className="text" />
+                 }
+                 
+               
+       
+    
+       <Link style={{cursor:"pointer"}}   onClick={openImageView}>View..</Link>
+
                 </div>
               </div>
             </div>
@@ -440,13 +485,13 @@ const arr=[1,2,3,4,5]
                   </div>
                 </div>
                 <div className="col-7 input-file text">
-                  <select onChange={handleFile} style={{height:"30px",width:'30%'}}className="file-upload-option" >
-                    <option value="KEEP">Keep Existing</option>
-                    <option value="UPLOAD">Upload</option>
-                    <option value="REMOVE">Remove</option>
+                  <select name="defaultLogoType" value={data?.defaultLogoType} onChange={handleChange} style={{height:"30px",width:'30%'}}className="file-upload-option" >
+                    <option value="1">Keep Existing</option>
+                    <option value="2">Upload</option>
+                    <option value="3">Remove</option>
                     
                   </select>
-                  {submit === "UPLOAD" && <Input name="defaultLogoType" onChange={(e) => handleImage(e)}  type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
+                  {data?.defaultLogoType == "2" && <Input name="DefaultLogo"  onChange={(e) => handleImageLogo(e)}  type="file" className="mx-2 text" />}<span className="my-auto text mx-2"><a href="#">View..</a></span>
                 </div>
               </div>
             </div>
@@ -601,10 +646,11 @@ const arr=[1,2,3,4,5]
                 <div className="col-5 d-flex">
                   <div className="my-auto text w-100" variant="body2">
                   Default retroactive statement:
+                  <span style={{color:"red"}}>*</span>
                   </div>
                 </div>
                 <div className="col-7">
-                <TextField onChange={handleChange} rows={3} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 h-20 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
+                <TextField onChange={handleChange} required rows={3} placeholder="MultiLine with rows: 2 and rowsMax: 4"className="w-50 h-20 textFieldClass"  fullWidth name="defaultRetroactiveStatement" value={data?.defaultRetroactiveStatement}/>
                 </div>
               </div>
             </div>

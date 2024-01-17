@@ -244,7 +244,7 @@ Languages
                                <Link>Bulk Translate</Link>
                               </TableCell>
                               <TableCell className="table_content">
-                                {row.status}
+                                {row.bulkTranslatedOn}
                               </TableCell>
 
                               <TableCell align="right" className="table_content actionRow">
@@ -277,11 +277,7 @@ Languages
                                 <div style={{ display: "flex" ,justifyContent:"flex-end"}}>
                                   <KeyboardDoubleArrowDownIcon
                                     style={{ fontSize: "20px" }}
-                                    // onClick={() => {
-                                    //   setOpen1(true);
-                                    //   setIdData1(row.id);
-                                    //   setData(row);
-                                    // }}
+                                   
                                   />
 
                                   <KeyboardDoubleArrowUpRoundedIcon

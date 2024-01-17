@@ -11,8 +11,8 @@ const api_error_code = {
 
 const environment = "dev";
 const $axios = axios.create({
-  baseURL: 'http://122.160.50.200:8088/api',
-  // timeout: 30000,
+  baseURL: 'http://122.176.139.248:8088/api',
+  
   headers: {
     "Content-Type": "*/*",
     "Access-Control-Allow-Origin": "*",

@@ -23,78 +23,74 @@ import ThemeOptions from "../../Layout/ThemeOptions";
 import AppHeader from "../../Layout/AppHeader";
 import { Fragment } from "react";
 import AppSidebar from "../../Layout/AppSidebar";
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw,
-  ContentState,
-  convertFromHTML,
-} from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
+
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import "./index.scss";
 import { CheckBox } from "@mui/icons-material";
-import {GetAllHelpVideos,postHelpVideo } from "../../redux/Actions";
+import {GetAllHelpVideos,postHelpVideo,getAllHelpVideosDetails } from "../../redux/Actions";
 
 export default function Language_details() {
   const dispatch = useDispatch();
   let params = useParams();
   let history= useHistory();
   const formData = useSelector((state) => state?.getAllHelpVideoReducer?.helpData);
-  console.log("form",formData)
+  const GethelpData = useSelector((state) => state?.getAllHelpVideoDetailsReducer?.helpDetailsData);
+
+  console.log("form",GethelpData)
   const [arr,setArr]=useState()
   const [data, setData] = useState( {
-  // enableVideoTab: false,
-  // loginPageId: 0,
-  // loginPage: "",
-  // formSelectionPageId: 0,
-  // formSelectionPage: "",
-  // onboardingPageId: 0,
-  // onboardingPage: "",
-  // w8BENEId: 0,
-  // w8BENE: "",
-  // w8BEN: "",
-  // w8BENId: 0,
-  // w8BCIId: 0,
-  // w8BCI: "",
-  // w8EXPId: 0,
-  // w8EXP: "",
-  // w8IMYId: 0,
-  // w8IMY: "",
-  // w9Id: 0,
-  // w9: "",
-  // help8233Id: 0,
-  // help8233: "",
-  // selfCertId: 0,
-  // selfCert: "",
-  // scrollbars: false,
-  // resizable: false,
-  // status: false,
-  // location: false,
-  // toolbar: false,
-  // menubar: false,
-  // width: "",
-  // height: "",
-  // left: "",
-  // top: "",
-  }
+
+   
+ }
   
    
   );
 
 
-
-
   useEffect(() => {
-    dispatch(GetAllHelpVideos((data)=>{ setArr(data) ;console.log(data,"qazswsxcfrtgh")}));
+    console.log("Received settingsData:", GethelpData);
+
+    if (GethelpData) {
+      setData((prevData) => ({
+        ...prevData,
+        enableVideoTab: GethelpData?.[0]?.enableVideoTab,
+        // Add other checkboxes here
+        scrollbars: GethelpData?.[0]?.scrollbars,
+        resizable: GethelpData?.[0]?.resizable,
+        status: GethelpData?.[0]?.status,
+        location: GethelpData?.[0]?.location,
+        toolbar: GethelpData?.[0]?.toolbar,
+        menubar: GethelpData?.[0]?.menubar,
+        // Add other fields here
+        width: GethelpData?.[0]?.width,
+        height: GethelpData?.[0]?.height,
+        left: GethelpData?.[0]?.left,
+        top: GethelpData?.[0]?.top,
+      }));
+    } else {
+      console.error("Settings data is undefined");
+    }
+  }, [GethelpData]);
+  useEffect(() => {
+
+
+    dispatch(getAllHelpVideosDetails())
+    dispatch(GetAllHelpVideos((apiData) => {
+      setArr(apiData);
+      setData(apiData.reduce((acc, curr) => {
+        acc[curr.fieldName] = curr.fieldValue;
+        return acc;
+      }, {}));
+      console.log(apiData, "qazswsxcfrtgh");
+    }));
   }, []);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
   console.log(data,"djfthcg")
     let updateData = {
+  
       enableVideoTab: data?.enableVideoTab,
       loginPageId: data?.loginPageId,
       loginPage: data?.loginPage,
@@ -137,13 +133,34 @@ export default function Language_details() {
     history.push("/help");
   };
 
+// ...
+const [youtubeUrls, setYoutubeUrls] = useState({});
+const [hoveredPreview, setHoveredPreview] = useState("");
+
+
+// Add an event handler to update the YouTube video URL when hovering over the TextField
+const handleMouseEnter = (url, fieldName) => {
+  setHoveredPreview(fieldName);
+  setYoutubeUrls((prevUrls) => ({ ...prevUrls, [fieldName]: url }));
+};
+
+
  
-  const handleToogle = (e) => {
-    setData({ ...data, [e.target.name]: e.target.checked });
-  };
+const handleToggle = (e) => {
+  const { name } = e.target;
+  setData((prevData) => ({
+    ...prevData,
+    [name]: e.target.checked,
+  }));
+};
   
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  const handleChange = (e,fieldName) => {
+    setData((prevState) => {
+      return({
+        ...prevState,
+        [e.target.name]: e.target.value
+      });
+    });
   };
 
   const arrHandleChange = (e) => {
@@ -155,11 +172,8 @@ export default function Language_details() {
     });
     console.log(e.target.name,e.target.value,"eeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 
-    // setData({...data,  [e.target.name]: e.target.value})
-
   };
   
-
   return (
     <Card>
       <Fragment>
@@ -184,24 +198,31 @@ export default function Language_details() {
           <div className=" row m-1 border p-3 box_style">
           <form onSubmit={handleSubmit}>
             <div  >
-            {/* { <div className="row headingLabel complyColor">Help Video</div>} */}
-            <div className="row d-flex">
-                <div className="col-2">
-                  <div
-                    className="table_content mt-3"
-                  >
-                  Enable Video Tab:
-                  </div>
-                </div>
-                <div className="col-10 mt-1">
-                <Checkbox  name="enableVideoTab" checked={data?.enableVideoTab} onClick={(e) => handleToogle(e)}/>
-                </div>
-              </div>
-              {console.log( "xcvbnm,",arr)}
-              {arr?.map((row, ind) =>{
-                // console.log("roww1",row);
-          return  (    
+           
+            {GethelpData?.map((row, ind) => (
+  <div className="row d-flex" key={ind}>
+    <div className="col-2">
+      <div className="table_content mt-3">
+        Enable Video Tab:
+      </div>
+    </div>
+    <div className="col-10 mt-1">
+    <Checkbox
+  name="enableVideoTab"
+  id="enableVideoTab"
+  checked={row?.enableVideoTab || false}
+  onChange={(e) => handleToggle(e)}
+/>
+    </div>
+  </div>
+))}
+              {/* {console.log( "xcvbnm,",arr)} */}
+              {arr?.map((row, ind) => (
+               
+               
+           
           <div className="row">
+            { console.log(row,"12333")}
                 <div className="col-2" >
                   <div
                     className="table_content"
@@ -214,254 +235,45 @@ export default function Language_details() {
                     className="table_content"
                   ></div>
 
-                  <TextField
-                  className=" table_content "
-                    size="small"
-                    name={row.pageName}
-                    value={data[row?.pageName]}
-                    onChange={(e) => arrHandleChange(e, row.id)}
-                    required
-                  />
-                  <span className="table_content mx-4">{row.name}:{row.pageCount}</span>
-                </div>
-              </div>
-  )})}
+<TextField
+        className="table_content"
+        size="small"
+        name={row.fieldName}
+        value={data[row.fieldName] || ''}
+        onChange={(e) => arrHandleChange(e, row.fieldName)}
+        required
+        onMouseEnter={() => handleMouseEnter(data[row?.fieldName], row.fieldName)}
+      />
+       <span>
+       {data[row?.fieldName] && hoveredPreview === row.fieldName && (
+                <Button style={{ fontSize: "0.675em", padding: "none" }} 
+                 href={youtubeUrls[row.fieldName]}
+                         target="popup"
+                        rel="noopener noreferrer"
 
-              {/* <div className="row">
-                <div className="col-2">
-                  <div
-                   
-                    
-                    className="table_content"
-                  >
-                  Onboarding Page:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                   <span className="table_content mx-4">Default English:3, US English:6, 日本人:1 Total:10</span>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                  Form Selection Page:
+                        onClick={() =>
+                          window.open(
+                            youtubeUrls[row.fieldName],
+                            "name",
+                            `width=${data.width},height=${data.height},left=${data?.left},top=${data.top}`
+                          )
+                        }>
+                  Preview
+                </Button>
+              )}
+            </span>
+      <span className="table_content mx-4">
+        {row.name}:{row.pageCount}
+      </span>
+    </div>
+  </div>
+))}
 
 
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                   <span className="table_content mx-4">Default English:2, US English:3 Total:5</span>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                  W-8BEN-E:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                   <span className="table_content mx-4">Chinese:1, Default English:2, US English:4 Total:7</span>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                  W-8BEN:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                   <span className="table_content mx-4">Default English:2, US English:4 Total:6</span>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                 W-8BCI:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                  W-8EXP:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                 W-8IMY:
-
-
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    className="table_content"
-                  >
-                  W-9:
-
-            
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                    <span className="table_content mx-4">US English:2 Total:2</span>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                 
-
-                  8233:
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div
-                    variant="body2"
-                    
-                    className="table_content"
-                  >
-                 
-                 Self Cert:
-                  </div>
-                </div>
-                <div className="col-10">
-                <TextField
-                  className="table_content"
-                    size="small"
-                    name="name"
-                    
-                    onChange={handleChange}
-                    required
-                  />
-                    <span className="table_content mx-4">日本人:1 Total:1</span>
-                </div>
-              </div> */}
-              <div className="row">
+{GethelpData?.map((row, ind) => (
+              
+              <div className="row" key={ind}>
+                {console.log(row,"yyy")}
                 <div className="col-2">
                   <div
                   
@@ -477,27 +289,31 @@ export default function Language_details() {
               <div className="table_content">
               Window features:
               </div>
-              <span> <Checkbox  name="scrollbars" checked={data?.scrollbars} onClick={(e) => handleToogle(e)}/>
+              <span>  <Checkbox
+                  name="scrollbars"
+                  checked={row.scrollbars || false}
+                  onClick={(e) => handleToggle(e)}
+                />
               <span  className="table_content">Scrollbars - allows to disable the scrollbars for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <Checkbox  name="resizable" checked={data?.resizable} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="resizable" checked={row?.resizable} onClick={(e) => handleToggle (e)}/>
               <span  className="table_content">Resizable - allows to disable the resize for the new window. Not recommended.</span>
                 </span>
                 <br/>
-                <span> <Checkbox  name="status" checked={data?.status} onClick={(e) => handleToogle(e)} />
+                <span> <Checkbox  name="status" checked={row?.status} onClick={(e) => handleToggle (e)} />
               <span  className="table_content">Status - shows or hides the status bar. Again, most browsers force it to show.</span>
                 </span>
                 <br/>
-                <span> <Checkbox  name="location" checked={data?.location} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="location" checked={row?.location} onClick={(e) => handleToggle (e)}/>
               <span  className="table_content">Location - shows or hides the URL field in the new window. FF and IE don’t allow to hide it by default.</span>
                 </span>
                 <br/>
-                <span> <Checkbox  name="toolbar" checked={data?.toolbar} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="toolbar" checked={row?.toolbar} onClick={(e) => handleToggle (e)}/>
               <span  className="table_content">Toolbar - shows or hides the browser navigation bar (back, forward, reload etc) on the new window.</span>
                 </span>
                 <br/>
-                <span> <Checkbox  name="menubar" checked={data?.menubar} onClick={(e) => handleToogle(e)}/>
+                <span> <Checkbox  name="menubar" checked={row?.menubar} onClick={(e) => handleToggle (e)}/>
               <span  className="table_content">Menubar - shows or hides the browser menu on the new window</span>
                 </span>
                 <div className="table_content mt-2">
@@ -517,14 +333,14 @@ export default function Language_details() {
                 </div>
                 <div className="col-7">
                 <TextField
-                  className="table_content"
-                    size="small"
-                    name="width"
-                    type="number"
-                    value={data?.width}
-                    onChange={handleChange}
-                    required
-                  />
+  className="table_content"
+  size="small"
+  name="width"
+  type="number"
+  value={row.width}
+  onChange={handleChange}
+  required
+/>
                 </div>
               </div>
               <div className="row">
@@ -541,11 +357,12 @@ export default function Language_details() {
                 </div>
                 <div className="col-7">
                 <TextField
+                
                   className="table_content"
                     size="small"
                     type="number"
                     name="height"
-                    value={data?.height}
+                    value={row?.height}
                     onChange={handleChange}
                     required
                   />
@@ -569,7 +386,7 @@ export default function Language_details() {
                     size="small"
                     type="number"
                     name="left"
-                    value={data?.left}
+                    value={row?.left}
                     onChange={handleChange}
                     required
                   />
@@ -593,7 +410,7 @@ export default function Language_details() {
                     size="small"
                     type="number"
                     name="top"
-                    value={data?.top}
+                    value={row?.top}
                     onChange={handleChange}
                     required
                   />
@@ -602,6 +419,7 @@ export default function Language_details() {
 
                 </div>
               </div>
+))}
             </div>
 
             

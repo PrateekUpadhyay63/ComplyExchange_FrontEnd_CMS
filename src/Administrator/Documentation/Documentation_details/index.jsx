@@ -56,20 +56,18 @@ export default function Language_details() {
   // const DocCh3data = params?.id ? useSelector((state)=>state.getdocch3ReducerById) : ((state)=>state.getdocCH3Reducer)  
   // const DocCh4data = params?.id ? useSelector((state)=>state.getdocCH4Reducer): ((state)=>state.getdocCH4Reducer)
 
-  const [selectArray , setSelectArray] = useState([])
-  const [selectArray1 , setSelectArray1] = useState([])
+  const [selectArray , setSelectArray] = useState([0])
+  const [selectArray1 , setSelectArray1] = useState([0])
   const nameData = useSelector((state) => state.getdocTypeReducer);
   const [data, setData] = useState({
     name: "",
     documentationId: 0,
-    documentationTypeId: "",
-    chapter3TypeId: [],
-    chapter4TypeId: [],
+    // documentationTypeId: "",
+    chapter3TypeId: [0],
+    chapter4TypeId: [0],
   });
   const [DocCh3data,setDocCh3data]=useState([]);
   const [DocCh4data,setDocCh4data]=useState([]);
-
-
   const [error, setError] = useState({
     name: false,
     documentationId: false,
@@ -108,7 +106,8 @@ export default function Language_details() {
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      setSelectArray(prevArray => [...prevArray, itemId]);
+      setSelectArray([...selectArray,
+         itemId]);
     } else {
       setSelectArray(prevArray => prevArray.filter(id => id !== itemId));
     }
@@ -120,7 +119,7 @@ export default function Language_details() {
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      setSelectArray1(prevArray => [...prevArray, itemId]);
+      setSelectArray1([...selectArray1, itemId]);
     } else {
       setSelectArray1(prevArray => prevArray.filter(id => id !== itemId));
     }
@@ -145,17 +144,14 @@ export default function Language_details() {
         name: false,
         documentationId: false,
       });
-      console.log("Selected Chapter 3 IDs:", selectArray);
-      console.log("Selected Chapter 4 IDs:", selectArray1);
       if (params?.id) {
         let updateData = {
           name: data?.name,
           documentationId: data?.documentationId,
-          documentationTypeId: data?.documentationTypeId,
+          // documentationTypeId: data?.documentationTypeId,
           chapter3TypeId: selectArray,
           chapter4TypeId: selectArray1
         }
-        console.log("Update Data:", updateData);
         dispatch(updateDocType(updateData));
       } 
       else {
@@ -164,9 +160,6 @@ export default function Language_details() {
       history.push("/documentation");
     }
   };
-console.log(DocCh3data,DocCh4data,"asdfghjkl")
-
-
   return (
     <Fragment>
       <ThemeOptions />
